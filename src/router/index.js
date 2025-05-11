@@ -10,12 +10,12 @@ const routes = [
   {
     path: '/results/:id',
     name: 'results',
-    // 懒加载结果页面组件
     component: () => import('../views/ResultsPage.vue')
   }
 ]
 
 const router = createRouter({
+  // 确保base路径与vue.config.js中的publicPath匹配
   history: createWebHistory(process.env.BASE_URL),
   routes
 })

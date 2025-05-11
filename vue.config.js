@@ -4,7 +4,7 @@ module.exports = defineConfig({
   // 设置publicPath为仓库名，这在GitHub Pages中很重要
   // 将'meiban-app'替换为您的GitHub仓库名称
   publicPath: process.env.NODE_ENV === 'production'
-    ? '/meiban-app/'
+    ? '/meiban/'
     : '/',
   // 优化性能
   configureWebpack: {
