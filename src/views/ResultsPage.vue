@@ -10,6 +10,34 @@
         <p>{{ formatBirthDate }} {{ formatBirthTime }} / {{ userData.birthplace }}</p>
       </div>
 
+      <!-- 新增：星座位置信息 -->
+      <section class="result-section astrology-positions">
+        <h2 class="section-title">星座位置</h2>
+        <div class="positions-grid">
+          <div class="position-item ascendant">
+            <div class="position-label">上升</div>
+            <div class="position-value">
+              <span class="sign">{{ calculationResults.astrologyPositions.ascendant.sign }}</span>
+              <span class="degree">{{ calculationResults.astrologyPositions.ascendant.degree }}°{{ calculationResults.astrologyPositions.ascendant.minute }}'</span>
+            </div>
+          </div>
+          <div class="position-item sun">
+            <div class="position-label">太陽</div>
+            <div class="position-value">
+              <span class="sign">{{ calculationResults.astrologyPositions.sun.sign }}</span>
+              <span class="degree">{{ calculationResults.astrologyPositions.sun.degree }}°{{ calculationResults.astrologyPositions.sun.minute }}'</span>
+            </div>
+          </div>
+          <div class="position-item moon">
+            <div class="position-label">月亮</div>
+            <div class="position-value">
+              <span class="sign">{{ calculationResults.astrologyPositions.moon.sign }}</span>
+              <span class="degree">{{ calculationResults.astrologyPositions.moon.degree }}°{{ calculationResults.astrologyPositions.moon.minute }}'</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section class="result-section eight-characters">
         <h2 class="section-title">生辰八字</h2>
         <div class="eight-char-grid">
@@ -361,6 +389,83 @@ export default {
   color: #95a5a6;
 }
 
+.footer {
+  margin-top: 30px;
+  text-align: center;
+  font-size: 0.8rem;
+  color: #95a5a6;
+}
+
+/* 星座位置样式 */
+.astrology-positions {
+  margin-bottom: 30px;
+}
+
+.positions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+  margin-top: 15px;
+}
+
+.position-item {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 20px;
+  border-radius: 15px;
+  text-align: center;
+  color: white;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.position-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+}
+
+.position-item.ascendant {
+  background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+  box-shadow: 0 4px 15px rgba(255, 154, 158, 0.3);
+}
+
+.position-item.sun {
+  background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+  color: #333;
+  box-shadow: 0 4px 15px rgba(252, 182, 159, 0.3);
+}
+
+.position-item.moon {
+  background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+  color: #333;
+  box-shadow: 0 4px 15px rgba(168, 237, 234, 0.3);
+}
+
+.position-label {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  opacity: 0.9;
+}
+
+.position-value {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.position-value .sign {
+  font-size: 1.4rem;
+  font-weight: 700;
+  font-family: 'Shippori Mincho', serif;
+}
+
+.position-value .degree {
+  font-size: 1.1rem;
+  font-weight: 500;
+  opacity: 0.9;
+}
+
 @media (max-width: 480px) {
   .results-container {
     padding: 15px;
@@ -372,6 +477,23 @@ export default {
   
   .title {
     font-size: 1.8rem;
+  }
+  
+  .positions-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  
+  .position-item {
+    padding: 15px;
+  }
+  
+  .position-value .sign {
+    font-size: 1.2rem;
+  }
+  
+  .position-value .degree {
+    font-size: 1rem;
   }
   
   .char-value {

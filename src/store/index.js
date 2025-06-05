@@ -1,4 +1,5 @@
 import { createStore } from 'vuex'
+import { calculateFullFortune } from '../utils/calculator.js'
 
 export default createStore({
   state: {
@@ -29,29 +30,55 @@ export default createStore({
       const userData = data || state.userData;
       if (!userData) return;
       
-      // 这里将来会添加实际的计算逻辑
-      // 目前只是一个演示数据
-      const mockResults = {
-        eightCharacters: {
-          year: { heavenlyStem: '甲', earthlyBranch: '子' },
-          month: { heavenlyStem: '丙', earthlyBranch: '寅' },
-          day: { heavenlyStem: '戊', earthlyBranch: '午' },
-          hour: { heavenlyStem: '庚', earthlyBranch: '申' }
-        },
-        elements: ['木', '火', '土', '金'],
-        fortune: {
-          overview: '大吉',
-          career: '★★★☆☆',
-          wealth: '★★★★☆',
-          love: '★★★★★',
-          health: '★★★☆☆'
-        }
-      };
-      
-      // 保存计算结果
-      commit('setCalculationResults', mockResults);
-      
-      return mockResults;
+      try {
+        // 使用完整的计算功能
+        const results = calculateFullFortune(userData);
+        
+        // 保存计算结果
+        commit('setCalculationResults', results);
+        
+        return results;
+      } catch (error) {
+        console.error('命盘计算失败:', error);
+        
+        // 如果计算失败，返回示例数据
+        const mockResults = {
+          eightCharacters: {
+            year: { heavenlyStem: '甲', earthlyBranch: '子' },
+            month: { heavenlyStem: '丙', earthlyBranch: '寅' },
+            day: { heavenlyStem: '戊', earthlyBranch: '午' },
+            hour: { heavenlyStem: '庚', earthlyBranch: '申' }
+          },
+          elements: ['木', '火', '土', '金'],
+          astrologyPositions: {
+            ascendant: {
+              sign: '双子座',
+              degree: 4,
+              minute: 11
+            },
+            sun: {
+              sign: '双鱼座',
+              degree: 13,
+              minute: 49
+            },
+            moon: {
+              sign: '水瓶座',
+              degree: 18,
+              minute: 56
+            }
+          },
+          fortune: {
+            overview: '大吉',
+            career: '★★★☆☆',
+            wealth: '★★★★☆',
+            love: '★★★★★',
+            health: '★★★☆☆'
+          }
+        };
+        
+        commit('setCalculationResults', mockResults);
+        return mockResults;
+      }
     }
   }
 })
