@@ -85,16 +85,24 @@ function calculateSunPosition(jd) {
  * 爱星盘独特的上升星座算法（完全破解版）
  */
 function loveAstrolabeAscendant(lst) {
-  // 基于恒星时范围的分段处理
-  if (lst < 120) {
-    // 第一象限：0-120度，修正值 -9.615度
-    return (lst - 9.615 + 360) % 360;
-  } else if (lst >= 120 && lst < 240) {
-    // 第二象限：120-240度，修正值 -27.729度
-    return (lst - 27.729 + 360) % 360;
+  if (lst < 240) {
+      // 第一大段：0-240度，渐变修正值
+      if (lst < 120) {
+          // 0-120度：修正值从9.615°渐变到约20°
+          const correction = 9.615 + (lst / 120) * 10.385;
+          return (lst - correction + 360) % 360;
+      } else {
+          // 120-240度：修正值从20°渐变到29°
+          const progress = (lst - 120) / 120;
+          const correction = 20 + progress * 9;
+          return (lst - correction + 360) % 360;
+      }
+  } else if (lst < 290) {
+      // 第二段：240-290度，固定大修正值
+      return (lst - 191.549 + 360) % 360;
   } else {
-    // 第三/四象限：240-360度，修正值 -191.549度
-    return (lst - 191.549 + 360) % 360;
+      // 第三段：290-360度，固定小修正值
+      return (lst - 45.060 + 360) % 360;
   }
 }
 
