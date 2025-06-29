@@ -10,6 +10,14 @@
         <p>{{ formatBirthDate }} {{ formatBirthTime }} / {{ userData.birthplace }}</p>
       </div>
 
+      <!-- 新增：星盘图区域 -->
+      <section class="result-section star-chart-section">
+        <h2 class="section-title">星盤圖</h2>
+        <div class="chart-container">
+          <StarChart :calculation-results="calculationResults" :size="chartSize" />
+        </div>
+      </section>
+
       <!-- 星座位置信息 -->
       <section class="result-section astrology-positions">
         <h2 class="section-title">星座位置</h2>
@@ -38,7 +46,7 @@
         </div>
       </section>
 
-      <!-- 八字信息 -->
+      <!-- 生辰八字 -->
       <section class="result-section eight-characters">
         <h2 class="section-title">生辰八字</h2>
         <div class="eight-char-grid">
@@ -80,92 +88,9 @@
         </div>
       </section>
 
-      <!-- 詳細運勢分析 -->
-      <section class="result-section detailed-fortune" v-if="calculationResults.detailedFortune">
-        <h2 class="section-title">詳細運勢分析</h2>
-        
-        <!-- 恋愛運 -->
-        <div class="fortune-category">
-          <h3 class="category-title">
-            <span class="category-icon">💕</span>
-            恋愛運
-            <span class="category-stars">{{ calculationResults.detailedFortune.love.stars }}</span>
-          </h3>
-          <div class="fortune-content">
-            <p class="fortune-advice">{{ calculationResults.detailedFortune.love.advice }}</p>
-            <p class="fortune-tips">{{ calculationResults.detailedFortune.love.tips }}</p>
-          </div>
-        </div>
-
-        <!-- 出会い運 -->
-        <div class="fortune-category">
-          <h3 class="category-title">
-            <span class="category-icon">🌟</span>
-            出会い運
-            <span class="category-stars">{{ calculationResults.detailedFortune.encounter.stars }}</span>
-          </h3>
-          <div class="fortune-content">
-            <p class="fortune-advice">{{ calculationResults.detailedFortune.encounter.advice }}</p>
-            <p class="fortune-tips">{{ calculationResults.detailedFortune.encounter.tips }}</p>
-          </div>
-        </div>
-
-        <!-- 結婚運 -->
-        <div class="fortune-category">
-          <h3 class="category-title">
-            <span class="category-icon">💒</span>
-            結婚運
-            <span class="category-stars">{{ calculationResults.detailedFortune.marriage.stars }}</span>
-          </h3>
-          <div class="fortune-content">
-            <p class="fortune-advice">{{ calculationResults.detailedFortune.marriage.advice }}</p>
-            <p class="fortune-tips">{{ calculationResults.detailedFortune.marriage.tips }}</p>
-          </div>
-        </div>
-
-        <!-- 総合運 -->
-        <div class="fortune-category">
-          <h3 class="category-title">
-            <span class="category-icon">🎯</span>
-            総合運
-            <span class="category-stars">{{ calculationResults.detailedFortune.overall.stars }}</span>
-          </h3>
-          <div class="fortune-content">
-            <p class="fortune-advice">{{ calculationResults.detailedFortune.overall.advice }}</p>
-            <p class="fortune-tips">{{ calculationResults.detailedFortune.overall.tips }}</p>
-          </div>
-        </div>
-
-        <!-- 人生運 -->
-        <div class="fortune-category">
-          <h3 class="category-title">
-            <span class="category-icon">🌱</span>
-            人生運
-            <span class="category-stars">{{ calculationResults.detailedFortune.life.stars }}</span>
-          </h3>
-          <div class="fortune-content">
-            <p class="fortune-advice">{{ calculationResults.detailedFortune.life.advice }}</p>
-            <p class="fortune-tips">{{ calculationResults.detailedFortune.life.tips }}</p>
-          </div>
-        </div>
-
-        <!-- 仕事運 -->
-        <div class="fortune-category">
-          <h3 class="category-title">
-            <span class="category-icon">💼</span>
-            仕事運
-            <span class="category-stars">{{ calculationResults.detailedFortune.work.stars }}</span>
-          </h3>
-          <div class="fortune-content">
-            <p class="fortune-advice">{{ calculationResults.detailedFortune.work.advice }}</p>
-            <p class="fortune-tips">{{ calculationResults.detailedFortune.work.tips }}</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- 简要运势概览（保持原有的） -->
+      <!-- 運勢分析 -->
       <section class="result-section fortune">
-        <h2 class="section-title">運勢概覧</h2>
+        <h2 class="section-title">運勢分析</h2>
         <div class="fortune-overview">
           <div class="fortune-badge">{{ calculationResults.fortune.overview }}</div>
         </div>
@@ -191,6 +116,7 @@
 
       <div class="actions">
         <button @click="goBack" class="back-btn">トップに戻る</button>
+        <button @click="shareChart" class="share-btn">星盤を共有</button>
       </div>
     </div>
 
@@ -206,9 +132,43 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import { ref, onMounted, onBeforeUnmount } from 'vue';
+import StarChart from '../components/StarChart/StarChart.vue';
 
 export default {
   name: 'ResultsPage',
+  components: {
+    StarChart
+  },
+  setup() {
+    const chartSize = ref(500);
+
+    // 响应式图表大小
+    const updateChartSize = () => {
+      const width = window.innerWidth;
+      if (width < 480) {
+        chartSize.value = 350;
+      } else if (width < 768) {
+        chartSize.value = 400;
+      } else {
+        chartSize.value = 500;
+      }
+    };
+
+    // 生命周期
+    onMounted(() => {
+      updateChartSize();
+      window.addEventListener('resize', updateChartSize);
+    });
+
+    onBeforeUnmount(() => {
+      window.removeEventListener('resize', updateChartSize);
+    });
+
+    return {
+      chartSize
+    };
+  },
   computed: {
     ...mapGetters({
       userData: 'getUserData',
@@ -237,19 +197,49 @@ export default {
     },
     goBack() {
       this.$router.push({ name: 'home' });
+    },
+    shareChart() {
+      // 分享功能 - 可以截图或生成链接
+      if (navigator.share) {
+        navigator.share({
+          title: '我的星盘命盘',
+          text: `${this.userData.name}の星盤命盤結果`,
+          url: window.location.href
+        }).catch(err => {
+          console.log('分享失败:', err);
+          this.fallbackShare();
+        });
+      } else {
+        this.fallbackShare();
+      }
+    },
+    fallbackShare() {
+      // 降级方案：复制链接
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(window.location.href)
+          .then(() => {
+            alert('链接已复制到剪贴板');
+          })
+          .catch(() => {
+            alert('请手动复制当前页面链接进行分享');
+          });
+      } else {
+        alert('请手动复制当前页面链接进行分享');
+      }
     }
   },
   created() {
+    // 如果没有计算结果，可能是用户直接访问此页面，返回首页
     if (!this.userData || !this.calculationResults) {
       this.$router.push({ name: 'home' });
     }
   }
-}
+};
 </script>
 
 <style scoped>
 .results-container {
-  max-width: 700px;
+  max-width: 800px;
   margin: 0 auto;
   padding: 20px;
   font-family: 'Noto Sans JP', sans-serif;
@@ -306,7 +296,22 @@ export default {
   margin-bottom: 30px;
 }
 
+/* 星盘图区域样式 */
+.star-chart-section {
+  margin-bottom: 40px;
+}
+
+.chart-container {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
 /* 星座位置样式 */
+.astrology-positions {
+  margin-bottom: 30px;
+}
+
 .positions-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -321,31 +326,36 @@ export default {
   text-align: center;
   color: white;
   box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .position-item:hover {
   transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
 }
 
 .position-item.ascendant {
   background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+  box-shadow: 0 4px 15px rgba(255, 154, 158, 0.3);
 }
 
 .position-item.sun {
   background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
   color: #333;
+  box-shadow: 0 4px 15px rgba(252, 182, 159, 0.3);
 }
 
 .position-item.moon {
   background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
   color: #333;
+  box-shadow: 0 4px 15px rgba(168, 237, 234, 0.3);
 }
 
 .position-label {
   font-size: 1rem;
   font-weight: 600;
   margin-bottom: 10px;
+  opacity: 0.9;
 }
 
 .position-value {
@@ -364,6 +374,7 @@ export default {
 .position-value .degree {
   font-size: 1.1rem;
   font-weight: 500;
+  opacity: 0.9;
 }
 
 /* 八字样式 */
@@ -429,78 +440,32 @@ export default {
   font-family: 'Shippori Mincho', serif;
 }
 
-.element-wood { background-color: #55efc4; color: #006266; }
-.element-fire { background-color: #ff7675; color: #6c0000; }
-.element-earth { background-color: #fdcb6e; color: #6b4226; }
-.element-metal { background-color: #dfe6e9; color: #636e72; }
-.element-water { background-color: #74b9ff; color: #0039a6; }
-
-/* 详细运势样式 */
-.detailed-fortune {
-  margin-top: 40px;
+.element-wood {
+  background-color: #55efc4;
+  color: #006266;
 }
 
-.fortune-category {
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-  border-radius: 15px;
-  padding: 25px;
-  margin-bottom: 25px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+.element-fire {
+  background-color: #ff7675;
+  color: #6c0000;
 }
 
-.fortune-category:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+.element-earth {
+  background-color: #fdcb6e;
+  color: #6b4226;
 }
 
-.category-title {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 1.3rem;
-  font-weight: 600;
-  color: #2c3e50;
-  margin-bottom: 15px;
-  padding-bottom: 10px;
-  border-bottom: 2px solid #e74c3c;
-  font-family: 'Shippori Mincho', serif;
+.element-metal {
+  background-color: #dfe6e9;
+  color: #636e72;
 }
 
-.category-icon {
-  font-size: 1.5rem;
-  margin-right: 10px;
+.element-water {
+  background-color: #74b9ff;
+  color: #0039a6;
 }
 
-.category-stars {
-  color: #f39c12;
-  font-size: 1.1rem;
-  font-family: monospace;
-}
-
-.fortune-content {
-  color: #34495e;
-  line-height: 1.7;
-}
-
-.fortune-advice {
-  font-size: 1.1rem;
-  font-weight: 500;
-  margin-bottom: 12px;
-  color: #2c3e50;
-}
-
-.fortune-tips {
-  font-size: 0.95rem;
-  color: #7f8c8d;
-  font-style: italic;
-  padding: 10px;
-  background-color: rgba(255, 255, 255, 0.7);
-  border-radius: 8px;
-  border-left: 4px solid #3498db;
-}
-
-/* 简要运势概览样式 */
+/* 运势样式 */
 .fortune-overview {
   display: flex;
   justify-content: center;
@@ -546,22 +511,35 @@ export default {
 .actions {
   display: flex;
   justify-content: center;
+  gap: 15px;
   margin-top: 30px;
 }
 
-.back-btn {
-  background-color: #7f8c8d;
-  color: white;
+.back-btn, .share-btn {
   border: none;
   padding: 12px 25px;
   border-radius: 8px;
   font-size: 1rem;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+.back-btn {
+  background-color: #7f8c8d;
+  color: white;
 }
 
 .back-btn:hover {
   background-color: #95a5a6;
+}
+
+.share-btn {
+  background-color: #3498db;
+  color: white;
+}
+
+.share-btn:hover {
+  background-color: #2980b9;
 }
 
 .loading {
@@ -589,9 +567,25 @@ export default {
     padding: 20px;
   }
   
+  .title {
+    font-size: 1.8rem;
+  }
+  
   .positions-grid {
     grid-template-columns: 1fr;
     gap: 15px;
+  }
+  
+  .position-item {
+    padding: 15px;
+  }
+  
+  .position-value .sign {
+    font-size: 1.2rem;
+  }
+  
+  .position-value .degree {
+    font-size: 1rem;
   }
   
   .char-value {
@@ -609,15 +603,39 @@ export default {
   .fortune-details {
     grid-template-columns: 1fr;
   }
-  
-  .category-title {
+
+  .actions {
     flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
+    align-items: center;
+  }
+
+  .back-btn, .share-btn {
+    width: 100%;
+    max-width: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .chart-container {
+    margin: 15px 0;
   }
   
-  .fortune-category {
-    padding: 20px;
+  .eight-char-grid {
+    justify-content: space-around;
+  }
+  
+  .char-column {
+    width: 20%;
+  }
+  
+  .elements-grid {
+    gap: 15px;
+  }
+  
+  .element-item {
+    width: 45px;
+    height: 45px;
+    font-size: 1.4rem;
   }
 }
 </style>

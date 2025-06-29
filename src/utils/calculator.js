@@ -699,3 +699,23 @@ export function calculateFullFortune(userData) {
 export { getCityList };
 
 export default { calculateEightCharacters, analyzeFortune, calculateFullFortune, getCityList };
+
+// 导入星盘数据生成功能
+import { generateChartData } from './chartCalculator.js';
+
+// 更新现有的 calculateFullFortune 函数
+export function calculateFullFortuneWithChart(userData) {
+  try {
+    const fortuneResult = calculateFullFortune(userData);
+    const chartData = generateChartData(fortuneResult);
+    
+    return {
+      ...fortuneResult,
+      chartData
+    };
+  } catch (error) {
+    console.error('星盘数据生成失败:', error);
+    // 如果星盘数据生成失败，返回不含星盘数据的结果
+    return calculateFullFortune(userData);
+  }
+}
