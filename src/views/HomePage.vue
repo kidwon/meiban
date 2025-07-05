@@ -2,11 +2,11 @@
   <div class="meiban-container">
     <header class="header">
       <h1 class="title">命盤</h1>
-      <p class="subtitle">生辰八字・命盤占い・行運分析</p>
+      <p class="subtitle">生辰八字・命盤占い・占星分析</p>
     </header>
     
     <div class="form-container">
-      <form @submit.prevent="submitForm" class="birth-form">
+      <form class="birth-form">
         <div class="form-group">
           <label for="name">お名前</label>
           <input 
@@ -77,82 +77,58 @@
           </div>
         </div>
         
-        <button type="submit" class="submit-btn">鑑定する</button>
+        <!-- 分析类型选择 -->
+        <div class="section">
+          <h3 class="section-title">分析種類を選択</h3>
+          <div class="analysis-buttons">
+            <button 
+              type="button"
+              @click="submitWithAnalysisType('bazi')"
+              class="analysis-btn analysis-btn--bazi"
+            >
+              <div class="btn-icon">🏮</div>
+              <div class="btn-content">
+                <h4>生辰八字</h4>
+                <p>四柱推命による詳細な運勢分析</p>
+              </div>
+            </button>
+            
+            <button 
+              type="button"
+              @click="submitWithAnalysisType('astrology')"
+              class="analysis-btn analysis-btn--astrology"
+            >
+              <div class="btn-icon">⭐</div>
+              <div class="btn-content">
+                <h4>占星分析</h4>
+                <p>西洋占星術による星盤分析</p>
+              </div>
+            </button>
+          </div>
+        </div>
       </form>
-      
-      <!-- 快速功能入口 -->
-      <div class="quick-actions" v-if="hasStoredData">
-        <h3 class="quick-title">クイックアクション</h3>
-        <p class="quick-subtitle">保存されたデータを使用して素早く分析</p>
-        <div class="action-buttons">
-          <button @click="goToTransitAnalysis" class="action-btn transit-btn">
-            <div class="btn-icon">🌟</div>
-            <div class="btn-content">
-              <h4>行運盤分析</h4>
-              <p>現在の運勢を詳しく分析</p>
-            </div>
-          </button>
-          <button @click="viewLastResults" class="action-btn results-btn">
-            <div class="btn-icon">📊</div>
-            <div class="btn-content">
-              <h4>前回の結果</h4>
-              <p>基本命盤を再表示</p>
-            </div>
-          </button>
-        </div>
-        
-        <!-- 调试信息 -->
-        <div class="debug-info" v-if="showDebug">
-          <h4>🔍 Debug Info:</h4>
-          <div class="debug-item">
-            <strong>hasStoredData:</strong> {{ hasStoredData }}
-          </div>
-          <div class="debug-item">
-            <strong>userData exists:</strong> {{ !!userData }}
-          </div>
-          <div class="debug-item" v-if="userData">
-            <strong>userData.name:</strong> "{{ userData.name }}"
-          </div>
-          <div class="debug-item" v-if="userData">
-            <strong>userData.birthdate:</strong> "{{ userData.birthdate }}"
-          </div>
-          <div class="debug-item" v-if="userData">
-            <strong>userData.birthHour:</strong> {{ userData.birthHour }} ({{ typeof userData.birthHour }})
-          </div>
-          <div class="debug-item" v-if="userData">
-            <strong>userData.birthMinute:</strong> {{ userData.birthMinute }} ({{ typeof userData.birthMinute }})
-          </div>
-          <div class="debug-item" v-if="userData">
-            <strong>userData.birthplace:</strong> "{{ userData.birthplace }}"
-          </div>
-          <div class="debug-item" v-if="userData">
-            <strong>userData.gender:</strong> "{{ userData.gender }}"
-          </div>
-          <button @click="testTransitNavigation" class="debug-btn">🧪 测试路由跳转</button>
-        </div>
-      </div>
     </div>
     
     <!-- 功能介绍区域 -->
     <div class="features-section">
       <h3 class="features-title">機能紹介</h3>
       <div class="features-grid">
-        <div class="feature-card">
-          <div class="feature-icon">🎯</div>
-          <h4>基本命盤</h4>
-          <p>生辰八字と星座位置の基本分析</p>
+        <div class="feature-card feature-card--primary">
+          <div class="feature-icon">🏮</div>
+          <h4>生辰八字</h4>
+          <p>四柱推命による伝統的な運勢分析</p>
         </div>
-        <div class="feature-card">
+        <div class="feature-card feature-card--secondary">
           <div class="feature-icon">⭐</div>
-          <h4>星盤圖</h4>
-          <p>インタラクティブな星盤の可視化</p>
+          <h4>占星分析</h4>
+          <p>西洋占星術による詳細な星盤分析</p>
         </div>
-        <div class="feature-card">
+        <div class="feature-card feature-card--success">
           <div class="feature-icon">🌟</div>
-          <h4>行運盤分析</h4>
+          <h4>行運分析</h4>
           <p>現在の運勢の詳細な分析レポート</p>
         </div>
-        <div class="feature-card">
+        <div class="feature-card feature-card--primary">
           <div class="feature-icon">📈</div>
           <h4>運勢予測</h4>
           <p>未来の傾向と重要な時期の予測</p>
@@ -161,7 +137,7 @@
     </div>
     
     <footer class="footer">
-      <p>© 2025 命盤 - 生辰八字・四柱推命・命盤占い・行運分析</p>
+      <p>© 2025 命盤 - 生辰八字・四柱推命・命盤占い・占星分析</p>
     </footer>
   </div>
 </template>
@@ -169,7 +145,6 @@
 <script>
 import { getCityList } from '../utils/calculator.js';
 import { mapGetters } from 'vuex';
-import './HomePage.css'; // 导入分离的CSS文件
 
 export default {
   name: 'HomePage',
@@ -193,40 +168,19 @@ export default {
       genderOptions: [
         { value: 'male', label: '男性' },
         { value: 'female', label: '女性' }
-      ],
-      showDebug: process.env.NODE_ENV === 'development'
+      ]
     }
   },
   computed: {
     ...mapGetters({
       userData: 'getUserData',
       calculationResults: 'getCalculationResults'
-    }),
-    
-    hasStoredData() {
-      const result = this.userData && 
-             this.userData.name && 
-             this.userData.name.trim() !== '' &&
-             this.userData.birthdate &&
-             this.userData.birthHour !== null &&
-             this.userData.birthHour !== undefined &&
-             this.userData.birthHour !== '' &&
-             this.userData.birthMinute !== null &&
-             this.userData.birthMinute !== undefined &&
-             this.userData.birthMinute !== '' &&
-             this.userData.birthplace &&
-             this.userData.birthplace.trim() !== '' &&
-             this.userData.gender;
-      
-      console.log('hasStoredData 计算结果:', result);
-      return result;
-    }
+    })
   },
   
   watch: {
     userData: {
       handler(newVal) {
-        console.log('userData 变化:', newVal);
         if (newVal) {
           this.fillFormWithStoredData();
         }
@@ -237,7 +191,6 @@ export default {
   
   created() {
     this.cityGroups = getCityList();
-    console.log('HomePage created, userData:', this.userData);
   },
   
   mounted() {
@@ -255,8 +208,6 @@ export default {
     
     fillFormWithStoredData() {
       if (this.userData) {
-        console.log('填充表单数据:', this.userData);
-        
         this.formData = {
           name: this.userData.name || '',
           birthdate: this.userData.birthdate || '',
@@ -269,12 +220,17 @@ export default {
         if (this.userData.birthplace) {
           this.selectedCity = this.userData.birthplace;
         }
-        
-        console.log('填充后的表单数据:', this.formData);
       }
     },
     
-    submitForm() {
+    submitWithAnalysisType(type) {
+      // 验证表单数据
+      if (!this.validateForm()) {
+        return;
+      }
+      
+      this.analysisType = type;
+      
       const formattedData = {
         ...this.formData,
         birthHour: parseInt(this.formData.birthHour),
@@ -282,72 +238,413 @@ export default {
         fullBirthDateTime: `${this.formData.birthdate}T${String(this.formData.birthHour).padStart(2, '0')}:${String(this.formData.birthMinute).padStart(2, '0')}:00`
       };
       
-      console.log('提交表单数据:', formattedData);
-      
       this.$store.dispatch('saveUserData', formattedData);
+      this.$store.dispatch('setAnalysisType', type);
       this.$store.dispatch('calculateFortune', formattedData);
-      this.$router.push({ name: 'results', params: { id: Date.now() } });
-    },
-    
-    // 增强的行运分析跳转方法
-    async goToTransitAnalysis() {
-      console.log('🌟 点击行运分析');
-      console.log('hasStoredData:', this.hasStoredData);
-      console.log('当前 userData:', this.userData);
       
-      if (!this.hasStoredData) {
-        let missingFields = [];
-        if (!this.userData) {
-          missingFields.push('用户数据');
-        } else {
-          if (!this.userData.name || this.userData.name.trim() === '') missingFields.push('姓名');
-          if (!this.userData.birthdate) missingFields.push('生年月日');
-          if (this.userData.birthHour === null || this.userData.birthHour === undefined || this.userData.birthHour === '') missingFields.push('时间');
-          if (!this.userData.birthplace || this.userData.birthplace.trim() === '') missingFields.push('出生地');
-          if (!this.userData.gender) missingFields.push('性别');
-        }
-        
-        alert(`先に以下の情報を入力してください: ${missingFields.join(', ')}`);
-        return;
-      }
-      
-      try {
-        console.log('📍 准备跳转到行运分析页面...');
-        await this.$router.push({ name: 'transit-analysis' });
-        console.log('✅ 路由跳转成功');
-      } catch (error) {
-        console.error('❌ 路由跳转失败:', error);
-        alert('页面跳转失败，请稍后重试');
+      // 根据选择的分析类型跳转到不同页面
+      if (type === 'bazi') {
+        this.$router.push({ name: 'bazi-results', params: { id: Date.now() } });
+      } else {
+        this.$router.push({ name: 'astrology-results', params: { id: Date.now() } });
       }
     },
     
-    viewLastResults() {
-      if (!this.hasStoredData || !this.calculationResults) {
-        alert('まず鑑定を実行してください');
-        return;
+    validateForm() {
+      // 检查必填字段
+      if (!this.formData.name.trim()) {
+        alert('お名前を入力してください');
+        return false;
       }
-      this.$router.push({ name: 'results', params: { id: 'last' } });
-    },
-    
-    // 调试用的测试方法
-    testTransitNavigation() {
-      console.log('🧪 测试路由跳转');
-      console.log('当前路由:', this.$route);
-      console.log('路由器实例:', this.$router);
       
-      // 直接测试路由跳转
-      this.$router.push({ name: 'transit-analysis' })
-        .then(() => {
-          console.log('✅ 测试跳转成功');
-        })
-        .catch(error => {
-          console.error('❌ 测试跳转失败:', error);
-        });
+      if (!this.formData.birthdate) {
+        alert('生年月日を選択してください');
+        return false;
+      }
+      
+      if (this.formData.birthHour === '') {
+        alert('時間を選択してください');
+        return false;
+      }
+      
+      if (this.formData.birthMinute === '') {
+        alert('分を選択してください');
+        return false;
+      }
+      
+      if (!this.formData.birthplace.trim()) {
+        alert('出生地を入力してください');
+        return false;
+      }
+      
+      if (!this.formData.gender) {
+        alert('性別を選択してください');
+        return false;
+      }
+      
+      return true;
     }
   }
 }
 </script>
 
-<style>
-/* 样式现在从 HomePage.css 文件导入 */
+<style scoped>
+/* =============================================================================
+   HomePage 基础样式
+   ============================================================================= */
+
+.meiban-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Noto Sans JP', sans-serif;
+  color: #333;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 页头样式 */
+.header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: #d35400;
+  font-family: 'Shippori Mincho', serif;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: #7f8c8d;
+}
+
+/* 表单容器样式 */
+.form-container {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  margin-bottom: 30px;
+}
+
+/* 表单样式 */
+.birth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-row {
+  display: flex;
+  gap: 15px;
+}
+
+.time-group {
+  flex: 1;
+}
+
+/* 表单元素样式 */
+label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #34495e;
+}
+
+input, select {
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border 0.3s ease;
+}
+
+input:focus, select:focus {
+  border-color: #d35400;
+  outline: none;
+}
+
+/* 地点输入样式 */
+.location-input-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.city-select {
+  background-color: #f8f9fa;
+  color: #666;
+}
+
+.city-select:focus {
+  background-color: #fff;
+  border-color: #d35400;
+}
+
+.location-hint {
+  font-size: 0.8rem;
+  color: #7f8c8d;
+  margin: 0;
+  font-style: italic;
+}
+
+/* 性别选择样式 */
+.radio-group {
+  display: flex;
+  gap: 20px;
+}
+
+.radio-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+/* 分析类型选择样式 */
+.section {
+  margin-bottom: 20px;
+}
+
+.section-title {
+  font-size: 1.3rem;
+  color: #34495e;
+  border-bottom: 2px solid #f0f0f0;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+  font-family: 'Shippori Mincho', serif;
+}
+
+.analysis-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.analysis-btn {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 25px;
+  border: 2px solid #e9ecef;
+  border-radius: 12px;
+  background: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: left;
+  width: 100%;
+  font-family: inherit;
+}
+
+.analysis-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.analysis-btn--bazi {
+  border-color: #d35400;
+}
+
+.analysis-btn--bazi:hover {
+  background: #fff8f0;
+  box-shadow: 0 8px 25px rgba(211, 84, 0, 0.2);
+}
+
+.analysis-btn--astrology {
+  border-color: #667eea;
+}
+
+.analysis-btn--astrology:hover {
+  background: #eaf2ff;
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.2);
+}
+
+.analysis-btn .btn-icon {
+  font-size: 3rem;
+  min-width: 60px;
+  text-align: center;
+}
+
+.analysis-btn .btn-content {
+  flex: 1;
+}
+
+.analysis-btn .btn-content h4 {
+  margin: 0 0 8px 0;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.analysis-btn .btn-content p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #7f8c8d;
+  line-height: 1.4;
+}
+
+/* 功能介绍区域样式 */
+.features-section {
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 25px;
+  margin-bottom: 30px;
+}
+
+.features-title {
+  text-align: center;
+  font-size: 1.5rem;
+  color: #2c3e50;
+  margin-bottom: 25px;
+  font-family: 'Shippori Mincho', serif;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.feature-card {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  border: 2px solid #e9ecef;
+  cursor: pointer;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.feature-card--primary:hover {
+  border-color: #d35400;
+  box-shadow: 0 8px 25px rgba(211, 84, 0, 0.2);
+}
+
+.feature-card--secondary:hover {
+  border-color: #667eea;
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.2);
+}
+
+.feature-card--success:hover {
+  border-color: #27ae60;
+  box-shadow: 0 8px 25px rgba(39, 174, 96, 0.2);
+}
+
+.feature-icon {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+}
+
+.feature-card h4 {
+  color: #2c3e50;
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+}
+
+.feature-card p {
+  color: #7f8c8d;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* 页脚样式 */
+.footer {
+  margin-top: 30px;
+  text-align: center;
+  font-size: 0.8rem;
+  color: #95a5a6;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+  .meiban-container {
+    padding: 15px;
+  }
+  
+  .form-container {
+    padding: 20px;
+  }
+  
+  .title {
+    font-size: 2rem;
+  }
+  
+  .analysis-buttons {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  
+  .analysis-btn {
+    padding: 20px;
+    gap: 15px;
+  }
+  
+  .analysis-btn .btn-icon {
+    font-size: 2.5rem;
+    min-width: 50px;
+  }
+  
+  .analysis-btn .btn-content h4 {
+    font-size: 1.1rem;
+  }
+  
+  .features-grid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+  }
+  
+  .feature-card {
+    padding: 15px;
+  }
+  
+  .feature-icon {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .birth-form {
+    gap: 15px;
+  }
+  
+  .analysis-btn {
+    padding: 15px;
+    gap: 12px;
+  }
+  
+  .analysis-btn .btn-icon {
+    font-size: 2rem;
+    min-width: 40px;
+  }
+  
+  .analysis-btn .btn-content h4 {
+    font-size: 1rem;
+  }
+  
+  .analysis-btn .btn-content p {
+    font-size: 0.8rem;
+  }
+  
+  .feature-icon {
+    font-size: 1.8rem;
+  }
+}
 </style>
