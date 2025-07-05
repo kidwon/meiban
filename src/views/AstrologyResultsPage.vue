@@ -10,55 +10,80 @@
         <p>{{ formatBirthDate }} {{ formatBirthTime }} / {{ userData.birthplace }}</p>
       </div>
 
-      <!-- 星座位置信息 -->
-      <section class="result-section astrology-positions">
-        <h2 class="section-title">星座位置</h2>
-        <div class="positions-grid">
-          <div class="position-item ascendant">
-            <div class="position-label">上升</div>
-            <div class="position-value">
-              <span class="sign">{{ calculationResults.astrologyPositions.ascendant.sign }}</span>
-              <span class="degree">{{ calculationResults.astrologyPositions.ascendant.degree }}°{{ calculationResults.astrologyPositions.ascendant.minute }}'</span>
-            </div>
-            <div class="position-description">
-              {{ getAscendantDescription() }}
+      <!-- 个人星座档案卡片 -->
+      <section class="personal-profile-card">
+        <h2 class="profile-title">個人星座檔案</h2>
+        <div class="core-elements">
+          <div class="element-item sun-element" @click="focusPlanet('sun')">
+            <div class="element-icon">☉</div>
+            <div class="element-content">
+              <div class="element-label">太陽</div>
+              <div class="element-sign">{{ calculationResults.astrologyPositions.sun.sign }}</div>
             </div>
           </div>
-          <div class="position-item sun">
-            <div class="position-label">太陽</div>
-            <div class="position-value">
-              <span class="sign">{{ calculationResults.astrologyPositions.sun.sign }}</span>
-              <span class="degree">{{ calculationResults.astrologyPositions.sun.degree }}°{{ calculationResults.astrologyPositions.sun.minute }}'</span>
-            </div>
-            <div class="position-description">
-              {{ getSunDescription() }}
+          <div class="element-item moon-element" @click="focusPlanet('moon')">
+            <div class="element-icon">☽</div>
+            <div class="element-content">
+              <div class="element-label">月亮</div>
+              <div class="element-sign">{{ calculationResults.astrologyPositions.moon.sign }}</div>
             </div>
           </div>
-          <div class="position-item moon">
-            <div class="position-label">月亮</div>
-            <div class="position-value">
-              <span class="sign">{{ calculationResults.astrologyPositions.moon.sign }}</span>
-              <span class="degree">{{ calculationResults.astrologyPositions.moon.degree }}°{{ calculationResults.astrologyPositions.moon.minute }}'</span>
-            </div>
-            <div class="position-description">
-              {{ getMoonDescription() }}
+          <div class="element-item ascendant-element" @click="focusPlanet('ascendant')">
+            <div class="element-icon">↗</div>
+            <div class="element-content">
+              <div class="element-label">上升</div>
+              <div class="element-sign">{{ calculationResults.astrologyPositions.ascendant.sign }}</div>
             </div>
           </div>
         </div>
+        <p class="profile-hint">點擊星盤中的行星查看詳細位置信息</p>
       </section>
 
-      <!-- 星盘图组件 -->
+      <!-- 交互式星盘图 -->
       <section class="result-section star-chart">
-        <h2 class="section-title">星盤圖</h2>
+        <h2 class="section-title">互動星盤圖</h2>
         <div class="chart-container">
           <StarChart 
             :calculationResults="calculationResults"
             :size="chartSize"
+            @planetClick="handlePlanetClick"
+            @planetHover="handlePlanetHover"
           />
+        </div>
+        
+        <!-- 行星详情侧边栏 -->
+        <div class="planet-details-sidebar" :class="{ 'open': selectedPlanet }">
+          <div class="sidebar-header">
+            <h3>{{ getPlanetDisplayName(selectedPlanet) }}</h3>
+            <button @click="closePlanetDetails" class="close-btn">×</button>
+          </div>
+          <div class="sidebar-content" v-if="selectedPlanet">
+            <div class="planet-position">
+              <div class="position-info">
+                <span class="sign-name">{{ getPlanetSign(selectedPlanet) }}</span>
+                <span class="degree-info">{{ getPlanetDegree(selectedPlanet) }}</span>
+              </div>
+            </div>
+            <div class="planet-description">
+              <p>{{ getPlanetDescription(selectedPlanet) }}</p>
+            </div>
+            <div class="planet-keywords">
+              <h4>關鍵詞</h4>
+              <div class="keywords-list">
+                <span 
+                  v-for="keyword in getPlanetKeywords(selectedPlanet)" 
+                  :key="keyword"
+                  class="keyword-tag"
+                >
+                  {{ keyword }}
+                </span>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      <!-- 占星分析 -->
+      <!-- 占星分析标签页 -->
       <section class="result-section astrology-analysis">
         <h2 class="section-title">詳細占星分析</h2>
         <div class="analysis-tabs">
@@ -74,69 +99,73 @@
         </div>
         
         <div class="tab-content">
-          <div v-if="activeTab === 'personality'" class="analysis-content">
+          <div v-show="activeTab === 'personality'" class="analysis-content">
             <h3>性格特質分析</h3>
-            <div class="personality-grid">
-              <div class="trait-card">
-                <h4>太陽星座特質</h4>
-                <p>{{ getSunTraits() }}</p>
+            <div class="personality-analysis">
+              <div class="trait-section">
+                <h4>核心性格 (太陽星座)</h4>
+                <p>{{ getSunDescription() }}</p>
               </div>
-              <div class="trait-card">
-                <h4>月亮星座情感</h4>
-                <p>{{ getMoonTraits() }}</p>
+              <div class="trait-section">
+                <h4>情感需求 (月亮星座)</h4>
+                <p>{{ getMoonDescription() }}</p>
               </div>
-              <div class="trait-card">
-                <h4>上升星座印象</h4>
-                <p>{{ getAscendantTraits() }}</p>
+              <div class="trait-section">
+                <h4>外在印象 (上升星座)</h4>
+                <p>{{ getAscendantDescription() }}</p>
               </div>
             </div>
           </div>
-          
-          <div v-if="activeTab === 'career'" class="analysis-content">
-            <h3>事業發展分析</h3>
+
+          <div v-show="activeTab === 'career'" class="analysis-content">
+            <h3>事業發展傾向</h3>
             <div class="career-analysis">
               <div class="career-section">
-                <h4>適合的職業領域</h4>
-                <div class="career-tags">
-                  <span v-for="career in getSuitableCareers()" :key="career" class="career-tag">
+                <h4>事業優勢</h4>
+                <p>{{ getCareerStrengths() }}</p>
+              </div>
+              <div class="career-section">
+                <h4>適合職業方向</h4>
+                <div class="career-suggestions">
+                  <span 
+                    v-for="career in getSuggestedCareers()" 
+                    :key="career"
+                    class="career-tag"
+                  >
                     {{ career }}
                   </span>
                 </div>
               </div>
-              <div class="career-section">
-                <h4>工作風格</h4>
-                <p>{{ getWorkStyle() }}</p>
-              </div>
-              <div class="career-section">
-                <h4>領導能力</h4>
-                <p>{{ getLeadershipStyle() }}</p>
-              </div>
             </div>
           </div>
-          
-          <div v-if="activeTab === 'relationships'" class="analysis-content">
+
+          <div v-show="activeTab === 'relationships'" class="analysis-content">
             <h3>人際關係分析</h3>
-            <div class="relationship-analysis">
+            <div class="relationships-analysis">
               <div class="relationship-section">
-                <h4>愛情模式</h4>
-                <p>{{ getLovePattern() }}</p>
+                <h4>愛情表現</h4>
+                <p>{{ getLoveDescription() }}</p>
               </div>
               <div class="relationship-section">
                 <h4>友誼特質</h4>
-                <p>{{ getFriendshipStyle() }}</p>
+                <p>{{ getFriendshipDescription() }}</p>
               </div>
               <div class="relationship-section">
                 <h4>相容星座</h4>
-                <div class="compatibility-tags">
-                  <span v-for="sign in getCompatibleSigns()" :key="sign" class="compatibility-tag">
+                <div class="compatible-signs">
+                  <span 
+                    v-for="sign in getCompatibleSigns()" 
+                    :key="sign"
+                    class="sign-tag"
+                  >
                     {{ sign }}
                   </span>
                 </div>
               </div>
             </div>
           </div>
-          
-          <div v-if="activeTab === 'fortune'" class="analysis-content">
+
+          <div v-show="activeTab === 'fortune'" class="analysis-content">
             <h3>運勢傾向分析</h3>
             <div class="fortune-analysis">
               <div class="fortune-section">
@@ -180,20 +209,6 @@
                 <span>• 外行星影響分析</span>
                 <span>• 重要相位解讀</span>
                 <span>• 未來運勢預測</span>
-              </div>
-            </div>
-            <div class="feature-arrow">→</div>
-          </div>
-          
-          <div class="feature-card chart" @click="focusOnChart">
-            <div class="feature-icon">⭐</div>
-            <div class="feature-content">
-              <h3>互動星盤</h3>
-              <p>詳細探索您的星盤配置</p>
-              <div class="feature-details">
-                <span>• 宮位詳細解讀</span>
-                <span>• 相位連線分析</span>
-                <span>• 星座分布統計</span>
               </div>
             </div>
             <div class="feature-arrow">→</div>
@@ -245,6 +260,7 @@ export default {
     return {
       activeTab: 'personality',
       chartSize: 500,
+      selectedPlanet: null,
       
       analysisTabs: [
         { id: 'personality', name: '性格分析' },
@@ -255,7 +271,6 @@ export default {
       
       // 星座描述数据
       signDescriptions: {
-        // 太阳星座描述
         sun: {
           '白羊座': '您具有開拓精神和領導能力，喜歡迎接挑戰，行動力強。',
           '金牛座': '您穩重實際，重視安全感，具有持久的毅力和藝術品味。',
@@ -270,7 +285,6 @@ export default {
           '水瓶座': '您獨立創新，思維前衛，關心人道主義。',
           '双鱼座': '您富有想像力，敏感直覺，具有藝術天賦。'
         },
-        // 月亮星座描述
         moon: {
           '白羊座': '情感直接衝動，需要即時的情感回應，喜歡刺激的情感體驗。',
           '金牛座': '情感穩定持久，需要安全感，喜歡溫暖舒適的環境。',
@@ -285,159 +299,193 @@ export default {
           '水瓶座': '情感獨立理性，需要友誼支持，關心集體利益。',
           '双鱼座': '情感敏感夢幻，需要精神共鳴，具有同理心。'
         },
-        // 上升星座描述
         ascendant: {
           '白羊座': '給人積極主動的第一印象，展現出領導者的氣質。',
           '金牛座': '給人穩重可靠的印象，展現出優雅的品味。',
           '双子座': '給人聰明機智的印象，展現出良好的溝通能力。',
           '巨蟹座': '給人溫暖親切的印象，展現出關懷他人的特質。',
           '狮子座': '給人自信大方的印象，展現出王者風範。',
-          '处女座': '給人謹慎細心的印象，展現出專業能力。',
-          '天秤座': '給人優雅和諧的印象，展現出外交手腕。',
-          '天蝎座': '給人神秘深刻的印象，展現出強大的氣場。',
-          '射手座': '給人樂觀開朗的印象，展現出冒險精神。',
+          '处女座': '給人細心周到的印象，展現出專業能力。',
+          '天秤座': '給人優雅和諧的印象，展現出良好的社交技巧。',
+          '天蝎座': '給人神秘深邃的印象，展現出強烈的個人魅力。',
+          '射手座': '給人樂觀自由的印象，展現出冒險精神。',
           '摩羯座': '給人成熟穩重的印象，展現出責任感。',
           '水瓶座': '給人獨特創新的印象，展現出前衛思維。',
           '双鱼座': '給人溫柔夢幻的印象，展現出藝術氣質。'
         }
+      },
+
+      planetKeywords: {
+        sun: ['自我', '意志', '創造力', '領導力', '自信'],
+        moon: ['情感', '直覺', '需求', '習慣', '記憶'],
+        ascendant: ['外表', '第一印象', '面具', '起點', '生命主題']
       }
     };
   },
+  
   computed: {
-    ...mapGetters({
-      userData: 'getUserData',
-      calculationResults: 'getCalculationResults'
-    }),
-    formatBirthDate() {
-      if (!this.userData || !this.userData.birthdate) return '';
-      const dateParts = this.userData.birthdate.split('-');
-      return `${dateParts[0]}年${dateParts[1]}月${dateParts[2]}日`;
-    },
-    formatBirthTime() {
-      if (!this.userData) return '';
-      return `${this.userData.birthHour}時${this.userData.birthMinute}分`;
-    }
-  },
-  methods: {
-    getAscendantDescription() {
-      if (!this.calculationResults) return '';
-      const sign = this.calculationResults.astrologyPositions.ascendant.sign;
-      return this.signDescriptions.ascendant[sign] || '上升星座影響您給他人的第一印象。';
+    ...mapGetters(['getUserData', 'getCalculationResults']),
+    
+    userData() {
+      return this.getUserData;
     },
     
+    calculationResults() {
+      return this.getCalculationResults;
+    },
+    
+    formatBirthDate() {
+      if (!this.userData || !this.userData.birthDate) return '';
+      const date = new Date(this.userData.birthDate);
+      return `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日`;
+    },
+    
+    formatBirthTime() {
+      if (!this.userData || !this.userData.birthTime) return '';
+      return `${this.userData.birthTime}`;
+    }
+  },
+  
+  methods: {
+    // 行星交互处理
+    handlePlanetClick(planetType) {
+      this.selectedPlanet = planetType;
+    },
+    
+    handlePlanetHover() {
+      // 可以添加悬停效果
+    },
+    
+    focusPlanet(planetType) {
+      this.selectedPlanet = planetType;
+      // 滚动到星盘图位置
+      const chartElement = document.querySelector('.star-chart');
+      if (chartElement) {
+        chartElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    },
+    
+    closePlanetDetails() {
+      this.selectedPlanet = null;
+    },
+    
+    getPlanetDisplayName(planetType) {
+      const nameMap = {
+        sun: '太陽',
+        moon: '月亮',
+        ascendant: '上升星座'
+      };
+      return nameMap[planetType] || '';
+    },
+    
+    getPlanetSign(planetType) {
+      if (!this.calculationResults || !planetType) return '';
+      return this.calculationResults.astrologyPositions[planetType]?.sign || '';
+    },
+    
+    getPlanetDegree(planetType) {
+      if (!this.calculationResults || !planetType) return '';
+      const position = this.calculationResults.astrologyPositions[planetType];
+      if (!position) return '';
+      return `${position.degree}°${position.minute}'`;
+    },
+    
+    getPlanetDescription(planetType) {
+      if (!planetType) return '';
+      const sign = this.getPlanetSign(planetType);
+      return this.signDescriptions[planetType]?.[sign] || '';
+    },
+    
+    getPlanetKeywords(planetType) {
+      return this.planetKeywords[planetType] || [];
+    },
+    
+    // 原有方法保持不变
     getSunDescription() {
       if (!this.calculationResults) return '';
-      const sign = this.calculationResults.astrologyPositions.sun.sign;
-      return this.signDescriptions.sun[sign] || '太陽星座代表您的核心性格特質。';
+      const sunSign = this.calculationResults.astrologyPositions.sun.sign;
+      return this.signDescriptions.sun[sunSign] || '';
     },
     
     getMoonDescription() {
       if (!this.calculationResults) return '';
-      const sign = this.calculationResults.astrologyPositions.moon.sign;
-      return this.signDescriptions.moon[sign] || '月亮星座反映您的情感需求和內在世界。';
+      const moonSign = this.calculationResults.astrologyPositions.moon.sign;
+      return this.signDescriptions.moon[moonSign] || '';
     },
     
-    getSunTraits() {
-      return this.getSunDescription();
+    getAscendantDescription() {
+      if (!this.calculationResults) return '';
+      const ascSign = this.calculationResults.astrologyPositions.ascendant.sign;
+      return this.signDescriptions.ascendant[ascSign] || '';
     },
     
-    getMoonTraits() {
-      return this.getMoonDescription();
+    getCareerStrengths() {
+      if (!this.calculationResults) return '';
+      const sunSign = this.calculationResults.astrologyPositions.sun.sign;
+      
+      const careerMap = {
+        '白羊座': '您具有天生的領導才能和開拓精神，適合在需要創新和決策的環境中發揮。',
+        '金牛座': '您擅長務實的工作，在需要穩定性和持續努力的領域表現優秀。',
+        '双子座': '您具有優秀的溝通能力和學習適應性，適合多元化的工作環境。',
+        '巨蟹座': '您具有強烈的責任心和照顧他人的能力，在服務性行業表現突出。',
+        '狮子座': '您具有天生的表演天賦和領袖魅力，適合需要展現個人魅力的工作。',
+        '处女座': '您注重細節和品質，在需要精確性和專業技能的領域表現優異。',
+        '天秤座': '您具有優秀的協調能力和美感，適合需要平衡和美學的工作。',
+        '天蝎座': '您具有深度洞察力和研究能力，適合需要深入分析的專業領域。',
+        '射手座': '您具有國際視野和哲學思維，適合教育、出版或國際事務。',
+        '摩羯座': '您具有強烈的目標導向和管理能力，適合企業管理和長期規劃。',
+        '水瓶座': '您具有創新思維和人道主義精神，適合科技和社會改革領域。',
+        '双鱼座': '您具有豐富的想像力和同理心，適合藝術創作和心理輔導。'
+      };
+      
+      return careerMap[sunSign] || '您具有獨特的職業優勢。';
     },
     
-    getAscendantTraits() {
-      return this.getAscendantDescription();
-    },
-    
-    getSuitableCareers() {
+    getSuggestedCareers() {
       if (!this.calculationResults) return [];
       const sunSign = this.calculationResults.astrologyPositions.sun.sign;
       
       const careerMap = {
-        '白羊座': ['企業管理', '軍事', '運動', '創業', '銷售'],
-        '金牛座': ['金融', '藝術', '美食', '建築', '園藝'],
-        '双子座': ['媒體', '教育', '翻譯', '寫作', '科技'],
-        '巨蟹座': ['醫療', '教育', '房地產', '餐飲', '心理諮商'],
-        '狮子座': ['娛樂', '表演', '政治', '管理', '創意產業'],
-        '处女座': ['醫療', '會計', '編輯', '研究', '服務業'],
-        '天秤座': ['法律', '外交', '設計', '諮商', '公關'],
-        '天蝎座': ['心理學', '偵探', '醫學', '金融', '研究'],
-        '射手座': ['教育', '出版', '旅遊', '哲學', '國際貿易'],
-        '摩羯座': ['政府', '管理', '建築', '金融', '傳統產業'],
-        '水瓶座': ['科技', '發明', '社會工作', '航空', '未來產業'],
-        '双鱼座': ['藝術', '音樂', '攝影', '慈善', '精神服務']
+        '白羊座': ['創業家', '銷售經理', '運動教練', '軍事指揮官'],
+        '金牛座': ['銀行家', '建築師', '廚師', '園藝師'],
+        '双子座': ['記者', '教師', '翻譯', '市場營銷'],
+        '巨蟹座': ['護士', '心理諮詢師', '房地產', '餐飲業'],
+        '狮子座': ['演員', '政治家', '時尚設計師', '娛樂業'],
+        '处女座': ['會計師', '醫生', '編輯', '質量管理'],
+        '天秤座': ['律師', '外交官', '設計師', '人力資源'],
+        '天蝎座': ['研究員', '偵探', '心理學家', '外科醫生'],
+        '射手座': ['教授', '旅遊業', '出版社', '國際貿易'],
+        '摩羯座': ['CEO', '政府官員', '工程師', '項目經理'],
+        '水瓶座': ['科學家', 'IT工程師', '社會工作者', '發明家'],
+        '双鱼座': ['藝術家', '音樂家', '治療師', '慈善工作']
       };
       
-      return careerMap[sunSign] || ['多元發展'];
+      return careerMap[sunSign] || ['待發掘'];
     },
     
-    getWorkStyle() {
-      if (!this.calculationResults) return '';
-      const sunSign = this.calculationResults.astrologyPositions.sun.sign;
-      
-      const styleMap = {
-        '白羊座': '您喜歡快節奏的工作環境，擅長開創新項目，但需要學習耐心完成細節工作。',
-        '金牛座': '您偏好穩定的工作環境，注重品質而非速度，在需要耐心和毅力的工作中表現出色。',
-        '双子座': '您適合多變的工作內容，擅長同時處理多項任務，需要智力刺激和社交互動。',
-        '巨蟹座': '您重視工作氛圍和團隊關係，在關懷型的工作中表現最佳，需要情感支持。',
-        '狮子座': '您喜歡在工作中展現領導能力，需要認可和讚賞，適合需要創意和表現的工作。',
-        '处女座': '您注重工作的精確性和效率，擅長分析和改善流程，是完美主義者。',
-        '天秤座': '您擅長團隊合作，善於協調不同意見，在和諧的工作環境中表現最佳。',
-        '天蝎座': '您適合深度專業的工作，具有強烈的專注力，能夠處理複雜和挑戰性的任務。',
-        '射手座': '您需要自由和彈性的工作環境，適合涉及學習、旅行或哲學思考的工作。',
-        '摩羯座': '您有強烈的事業心和責任感，適合長期規劃的工作，能夠承受壓力達成目標。',
-        '水瓶座': '您喜歡創新和前瞻性的工作，適合團隊協作，但也需要獨立思考的空間。',
-        '双鱼座': '您適合富有創意和想像力的工作，需要彈性的工作環境，重視工作的意義和價值。'
-      };
-      
-      return styleMap[sunSign] || '您擁有獨特的工作風格。';
-    },
-    
-    getLeadershipStyle() {
-      if (!this.calculationResults) return '';
-      const sunSign = this.calculationResults.astrologyPositions.sun.sign;
-      
-      const leadershipMap = {
-        '白羊座': '天生的領導者，能夠激勵團隊迎接挑戰，但需要學習聆聽他人意見。',
-        '金牛座': '穩重的領導風格，能夠建立穩固的團隊基礎，重視實際成果。',
-        '双子座': '善於溝通的領導者，能夠協調不同觀點，適合知識型團隊的領導。',
-        '巨蟹座': '關懷型領導者，重視團隊成員的感受，能夠創造溫暖的工作氛圍。',
-        '狮子座': '魅力型領導者，能夠激發團隊的熱情和創意，天生具有領袖魅力。',
-        '处女座': '細節導向的領導者，注重效率和品質，善於組織和規劃。',
-        '天秤座': '協調型領導者，擅長平衡不同利益，創造和諧的團隊環境。',
-        '天蝎座': '深度領導者，具有洞察力，能夠處理複雜的團隊動態。',
-        '射手座': '願景型領導者，能夠激發團隊的理想和目標，重視成長和學習。',
-        '摩羯座': '權威型領導者，注重紀律和結構，能夠帶領團隊達成長期目標。',
-        '水瓶座': '創新型領導者，重視團隊的獨立性和創意，適合領導創新項目。',
-        '双鱼座': '直覺型領導者，能夠感知團隊的需求，重視團隊的精神層面。'
-      };
-      
-      return leadershipMap[sunSign] || '您有獨特的領導特質。';
-    },
-    
-    getLovePattern() {
+    getLoveDescription() {
       if (!this.calculationResults) return '';
       const moonSign = this.calculationResults.astrologyPositions.moon.sign;
       
       const loveMap = {
-        '白羊座': '在愛情中直接熱情，喜歡追求和被追求的刺激，需要保持新鮮感。',
-        '金牛座': '重視穩定和安全的愛情關係，表達愛意的方式溫暖實際。',
-        '双子座': '在愛情中需要智力交流，喜歡有趣幽默的伴侶，重視溝通。',
-        '巨蟹座': '深情專一，重視家庭和親密關係，需要情感安全感。',
-        '狮子座': '在愛情中大方浪漫，希望被欣賞和崇拜，喜歡戲劇性的浪漫。',
-        '处女座': '在愛情中謹慎細心，重視實際的關懷，需要時間建立信任。',
-        '天秤座': '追求平衡和諧的愛情關係，重視伴侶的外在和內在美。',
-        '天蝎座': '愛情深刻強烈，具有強烈的占有欲，需要完全的信任和忠誠。',
-        '射手座': '在愛情中保持自由，喜歡有冒險精神的伴侶，重視精神契合。',
-        '摩羯座': '在愛情中務實穩重，重視長期承諾，傾向於傳統的愛情模式。',
-        '水瓶座': '在愛情中保持獨立，重視友誼基礎，需要精神層面的連結。',
-        '双鱼座': '愛情夢幻浪漫，具有強烈的同理心，容易為愛犧牲自己。'
+        '白羊座': '在愛情中您熱情主動，喜歡直接表達感情，需要伴侶能跟上您的節奏。',
+        '金牛座': '在愛情中您忠誠穩定，重視身體接觸和物質安全感，喜歡長久的關係。',
+        '双子座': '在愛情中您需要智力刺激，喜歡與伴侶分享想法，重視溝通交流。',
+        '巨蟹座': '在愛情中您深情溫柔，重視情感安全感，喜歡照顧和被照顧。',
+        '狮子座': '在愛情中您慷慨熱烈，需要被欣賞和讚美，喜歡浪漫的表達方式。',
+        '处女座': '在愛情中您細心體貼，重視實際的關愛表現，喜歡為伴侶服務。',
+        '天秤座': '在愛情中您追求和諧平衡，重視美感和浪漫，善於妥協和配合。',
+        '天蝎座': '在愛情中您深刻專一，需要深度的情感連結，占有欲較強。',
+        '射手座': '在愛情中您需要自由空間，喜歡與伴侶一起探索世界，重視精神契合。',
+        '摩羯座': '在愛情中您認真負責，重視長期承諾，喜歡穩定發展的關係。',
+        '水瓶座': '在愛情中您獨立理性，重視友誼基礎，需要理解和尊重。',
+        '双鱼座': '在愛情中您浪漫夢幻，具有強烈的同情心，容易犧牲自己。'
       };
       
       return loveMap[moonSign] || '您在愛情中有獨特的表達方式。';
     },
     
-    getFriendshipStyle() {
+    getFriendshipDescription() {
       if (!this.calculationResults) return '';
       const ascSign = this.calculationResults.astrologyPositions.ascendant.sign;
       
@@ -509,17 +557,6 @@ export default {
       }
     },
     
-    focusOnChart() {
-      // 滚动到星盘图位置
-      const chartElement = document.querySelector('.star-chart');
-      if (chartElement) {
-        chartElement.scrollIntoView({ 
-          behavior: 'smooth',
-          block: 'center'
-        });
-      }
-    },
-    
     openCompatibilityTool() {
       alert('合盤分析功能即將推出，敬請期待！');
     },
@@ -559,6 +596,7 @@ export default {
     goBack() {
       this.$router.push({ name: 'home' });
     },
+    
     updateChartSize() {
       const container = this.$el?.querySelector('.chart-container');
       if (container) {
@@ -575,7 +613,6 @@ export default {
   },
   
   mounted() {
-    // 根据屏幕大小调整星盘图尺寸
     this.updateChartSize();
     window.addEventListener('resize', this.updateChartSize);
   },
@@ -588,7 +625,7 @@ export default {
 
 <style scoped>
 .astrology-results-container {
-  max-width: 1000px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
   font-family: 'Noto Sans JP', sans-serif;
@@ -632,6 +669,78 @@ export default {
   flex-grow: 1;
 }
 
+/* 个人星座档案卡片 */
+.personal-profile-card {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 16px;
+  padding: 30px;
+  margin-bottom: 30px;
+  color: white;
+  text-align: center;
+}
+
+.profile-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 25px;
+  font-family: 'Shippori Mincho', serif;
+}
+
+.core-elements {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.element-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  padding: 15px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  min-width: 120px;
+}
+
+.element-item:hover {
+  transform: translateY(-5px);
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.element-icon {
+  font-size: 2rem;
+  margin-bottom: 5px;
+}
+
+.element-label {
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.element-sign {
+  font-size: 1.1rem;
+  font-weight: 600;
+  font-family: 'Shippori Mincho', serif;
+}
+
+.profile-hint {
+  font-size: 0.9rem;
+  opacity: 0.8;
+  margin: 0;
+}
+
+/* 星盘图区域 */
+.result-section {
+  margin-bottom: 30px;
+  position: relative;
+}
+
 .section-title {
   font-size: 1.3rem;
   color: #34495e;
@@ -641,90 +750,124 @@ export default {
   font-family: 'Shippori Mincho', serif;
 }
 
-.result-section {
-  margin-bottom: 30px;
-}
-
-/* 星座位置样式 */
-.positions-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
-  margin-top: 15px;
-}
-
-.position-item {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  padding: 25px;
-  border-radius: 15px;
-  text-align: center;
-  color: white;
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.position-item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
-}
-
-.position-item.ascendant {
-  background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
-  box-shadow: 0 4px 15px rgba(255, 154, 158, 0.3);
-}
-
-.position-item.sun {
-  background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
-  color: #333;
-  box-shadow: 0 4px 15px rgba(252, 182, 159, 0.3);
-}
-
-.position-item.moon {
-  background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
-  color: #333;
-  box-shadow: 0 4px 15px rgba(168, 237, 234, 0.3);
-}
-
-.position-label {
-  font-size: 1rem;
-  font-weight: 600;
-  margin-bottom: 10px;
-  opacity: 0.9;
-}
-
-.position-value {
-  margin-bottom: 15px;
-}
-
-.position-value .sign {
-  display: block;
-  font-size: 1.4rem;
-  font-weight: 700;
-  margin-bottom: 5px;
-  font-family: 'Shippori Mincho', serif;
-}
-
-.position-value .degree {
-  font-size: 1.1rem;
-  font-weight: 500;
-  opacity: 0.9;
-}
-
-.position-description {
-  font-size: 0.9rem;
-  line-height: 1.4;
-  opacity: 0.9;
-}
-
-/* 星盘图样式 */
 .chart-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 400px;
+  min-height: 500px;
   background: #f8f9fa;
   border-radius: 12px;
   padding: 20px;
+  position: relative;
+}
+
+/* 行星详情侧边栏 */
+.planet-details-sidebar {
+  position: fixed;
+  top: 0;
+  right: -400px;
+  width: 380px;
+  height: 100vh;
+  background: white;
+  box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
+  transition: right 0.3s ease;
+  z-index: 1000;
+  overflow-y: auto;
+}
+
+.planet-details-sidebar.open {
+  right: 0;
+}
+
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid #e9ecef;
+  background: #667eea;
+  color: white;
+}
+
+.sidebar-header h3 {
+  margin: 0;
+  font-size: 1.3rem;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.close-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.sidebar-content {
+  padding: 20px;
+}
+
+.planet-position {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.position-info .sign-name {
+  display: block;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #667eea;
+  margin-bottom: 8px;
+  font-family: 'Shippori Mincho', serif;
+}
+
+.position-info .degree-info {
+  font-size: 1.1rem;
+  color: #6c757d;
+  font-weight: 500;
+}
+
+.planet-description {
+  margin-bottom: 20px;
+}
+
+.planet-description p {
+  line-height: 1.6;
+  color: #495057;
+}
+
+.planet-keywords h4 {
+  color: #495057;
+  margin-bottom: 15px;
+  font-size: 1rem;
+}
+
+.keywords-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.keyword-tag {
+  background: #667eea;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
 }
 
 /* 分析标签页样式 */
@@ -772,150 +915,78 @@ export default {
   margin-bottom: 20px;
 }
 
-/* 性格分析样式 */
-.personality-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
-}
-
-.trait-card {
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-}
-
-.trait-card h4 {
-  color: #34495e;
-  margin-bottom: 10px;
-}
-
-.trait-card p {
-  color: #7f8c8d;
-  line-height: 1.6;
-  margin: 0;
-}
-
-/* 事业分析样式 */
-.career-analysis {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.career-section {
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-}
-
-.career-section h4 {
-  color: #34495e;
+.analysis-content h4 {
+  color: #495057;
   margin-bottom: 15px;
+  margin-top: 25px;
 }
 
-.career-tags {
+.analysis-content h4:first-child {
+  margin-top: 0;
+}
+
+/* 性格分析、事业分析等样式 */
+.trait-section, .career-section, .relationship-section, .fortune-section {
+  margin-bottom: 25px;
+}
+
+.career-suggestions, .compatible-signs {
   display: flex;
-  gap: 10px;
   flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
 }
 
-.career-tag {
+.career-tag, .sign-tag {
+  background: #28a745;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.sign-tag {
   background: #667eea;
-  color: white;
-  padding: 5px 12px;
-  border-radius: 15px;
-  font-size: 0.9rem;
-}
-
-/* 人际关系样式 */
-.relationship-analysis {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.relationship-section {
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-}
-
-.relationship-section h4 {
-  color: #34495e;
-  margin-bottom: 15px;
-}
-
-.compatibility-tags {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.compatibility-tag {
-  background: #ff6b9d;
-  color: white;
-  padding: 5px 12px;
-  border-radius: 15px;
-  font-size: 0.9rem;
 }
 
 /* 运势分析样式 */
-.fortune-analysis {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.fortune-section {
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  text-align: center;
-}
-
-.fortune-section h4 {
-  color: #34495e;
-  margin-bottom: 15px;
-}
-
 .fortune-rating {
-  background: #d35400;
-  color: white;
-  padding: 10px 20px;
-  border-radius: 20px;
   display: inline-block;
-  font-size: 1.2rem;
+  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
   font-weight: 600;
   margin-bottom: 15px;
 }
 
 .fortune-details-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 15px;
   margin-top: 20px;
 }
 
 .fortune-detail {
-  background: #f8f9fa;
+  background: white;
   padding: 15px;
   border-radius: 8px;
   text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .fortune-detail h5 {
-  color: #34495e;
-  margin-bottom: 8px;
+  margin: 0 0 10px 0;
+  color: #495057;
 }
 
 .fortune-detail .stars {
-  color: #f39c12;
-  font-size: 1.1rem;
+  color: #ffc107;
+  font-weight: 600;
 }
 
-/* 高级功能样式 */
+/* 高级功能区域 */
 .features-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -923,174 +994,147 @@ export default {
 }
 
 .feature-card {
-  background: white;
-  border: 2px solid #e9ecef;
-  border-radius: 15px;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: 12px;
   padding: 25px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   display: flex;
   align-items: center;
   gap: 20px;
 }
 
 .feature-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
 .feature-card.transit {
-  border-color: #667eea;
-}
-
-.feature-card.transit:hover {
-  border-color: #5a67d8;
-  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.2);
-}
-
-.feature-card.chart {
-  border-color: #48bb78;
-}
-
-.feature-card.chart:hover {
-  border-color: #38a169;
-  box-shadow: 0 8px 25px rgba(72, 187, 120, 0.2);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
 }
 
 .feature-card.compatibility {
-  border-color: #ed64a6;
-}
-
-.feature-card.compatibility:hover {
-  border-color: #d53f8c;
-  box-shadow: 0 8px 25px rgba(237, 100, 166, 0.2);
+  background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+  color: white;
 }
 
 .feature-icon {
-  font-size: 2.5rem;
-  min-width: 60px;
-  text-align: center;
+  font-size: 2rem;
+  flex-shrink: 0;
 }
 
 .feature-content {
-  flex: 1;
+  flex-grow: 1;
 }
 
 .feature-content h3 {
-  color: #2c3e50;
-  margin-bottom: 8px;
+  margin: 0 0 10px 0;
   font-size: 1.2rem;
 }
 
 .feature-content p {
-  color: #7f8c8d;
-  margin-bottom: 10px;
+  margin: 0 0 15px 0;
   font-size: 0.9rem;
+  opacity: 0.9;
 }
 
 .feature-details {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 5px;
 }
 
 .feature-details span {
-  color: #34495e;
   font-size: 0.8rem;
+  opacity: 0.8;
 }
 
 .feature-arrow {
   font-size: 1.5rem;
-  color: #bdc3c7;
-  transition: transform 0.3s ease;
+  font-weight: bold;
 }
 
-.feature-card:hover .feature-arrow {
-  transform: translateX(5px);
-  color: #34495e;
-}
-
+/* 操作按钮 */
 .actions {
   display: flex;
-  justify-content: center;
   gap: 15px;
-  margin-top: 30px;
+  justify-content: center;
+  margin: 30px 0;
+  flex-wrap: wrap;
 }
 
-.share-btn,
-.save-btn {
-  background-color: #667eea;
-  color: white;
+.actions button {
+  padding: 12px 24px;
   border: none;
-  padding: 12px 25px;
-  border-radius: 8px;
-  font-size: 1rem;
+  border-radius: 25px;
+  font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
+  min-width: 120px;
 }
 
-.share-btn:hover,
-.save-btn:hover {
-  background-color: #5a67d8;
+.share-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.save-btn {
+  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+  color: white;
 }
 
 .back-btn {
-  background-color: #7f8c8d;
+  background: #6c757d;
   color: white;
-  border: none;
-  padding: 12px 25px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
 }
 
-.back-btn:hover {
-  background-color: #95a5a6;
-}
-
-.loading {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-grow: 1;
-  font-size: 1.2rem;
-  color: #7f8c8d;
+.actions button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .footer {
-  margin-top: 30px;
   text-align: center;
-  font-size: 0.8rem;
-  color: #95a5a6;
+  margin-top: 30px;
+  padding: 20px;
+  color: #7f8c8d;
+  font-size: 0.9rem;
 }
 
+.loading {
+  text-align: center;
+  padding: 50px;
+  color: #7f8c8d;
+}
+
+/* 响应式设计 */
 @media (max-width: 768px) {
   .astrology-results-container {
     padding: 15px;
   }
   
-  .results-content {
-    padding: 20px;
-  }
-  
   .title {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
   }
   
-  .positions-grid {
-    grid-template-columns: 1fr;
+  .core-elements {
+    gap: 15px;
   }
   
-  .position-item {
-    padding: 20px;
+  .element-item {
+    min-width: 100px;
+    padding: 12px;
   }
   
-  .personality-grid {
-    grid-template-columns: 1fr;
+  .planet-details-sidebar {
+    width: 100%;
+    right: -100%;
   }
   
-  .fortune-details-grid {
-    grid-template-columns: 1fr;
+  .chart-container {
+    min-height: 400px;
+    padding: 15px;
   }
   
   .features-grid {
@@ -1098,18 +1142,41 @@ export default {
   }
   
   .feature-card {
-    flex-direction: column;
-    text-align: center;
-    gap: 15px;
+    padding: 20px;
   }
   
-  .feature-arrow {
-    transform: rotate(90deg);
+  .analysis-content {
+    padding: 20px;
+  }
+  
+  .fortune-details-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .core-elements {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .element-item {
+    width: 100%;
+    max-width: 200px;
+  }
+  
+  .fortune-details-grid {
+    grid-template-columns: 1fr;
   }
   
   .actions {
     flex-direction: column;
     align-items: center;
+  }
+  
+  .actions button {
+    width: 100%;
+    max-width: 250px;
   }
 }
 </style>
