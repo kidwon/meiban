@@ -428,46 +428,50 @@ input:focus, select:focus {
 .analysis-buttons {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 20px;
+  gap: 15px;
   margin-bottom: 20px;
 }
 
 .analysis-btn {
   display: flex;
   align-items: center;
-  gap: 20px;
-  padding: 25px;
-  border: 2px solid #e9ecef;
+  gap: 15px;
+  padding: 20px;
+  border: none;
   border-radius: 12px;
-  background: #fff;
   cursor: pointer;
   transition: all 0.3s ease;
   text-align: left;
   width: 100%;
   font-family: inherit;
+  position: relative;
+  overflow: hidden;
 }
 
 .analysis-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
 }
 
 .analysis-btn--bazi {
-  border-color: #d35400;
+  background: linear-gradient(135deg, #e8f2ff 0%, #f0f4ff 50%, #fff0f8 100%);
+  border: 1px solid rgba(102, 126, 234, 0.2);
 }
 
 .analysis-btn--bazi:hover {
-  background: #fff8f0;
-  box-shadow: 0 8px 25px rgba(211, 84, 0, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.15);
+  background: linear-gradient(135deg, #dae8ff 0%, #e6ebff 50%, #ffe8f3 100%);
 }
 
 .analysis-btn--astrology {
-  border-color: #667eea;
+  background: linear-gradient(135deg, #fff0f8 0%, #fef7ff 50%, #f0f9ff 100%);
+  border: 1px solid rgba(240, 147, 251, 0.2);
 }
 
 .analysis-btn--astrology:hover {
-  background: #eaf2ff;
-  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(240, 147, 251, 0.15);
+  background: linear-gradient(135deg, #ffe8f3 0%, #fdf2ff 50%, #e6f7ff 100%);
 }
 
 .analysis-btn .btn-icon {
