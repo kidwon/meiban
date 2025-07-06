@@ -1,19 +1,26 @@
 <template>
   <div class="app-container app-container--lg">
+    <!-- 浮动语言切换器 -->
+    <LanguageSwitcher 
+      :compact="isMobile"
+      :show-names="!isMobile"
+      @language-changed="onLanguageChanged"
+    />
+    
     <header class="page-header">
-      <h1 class="page-title">占星分析結果</h1>
-      <p class="user-name">{{ userData ? userData.name : 'ゲスト' }}様の星盤</p>
+      <h1 class="page-title">{{ $t('astrology.resultsTitle') }}</h1>
+      <p class="user-name">{{ userData ? userData.name : 'ゲスト' }}{{ $t('astrology.chartSuffix') }}</p>
     </header>
 
     <div class="content-wrapper" v-if="calculationResults">
       <!-- 出生信息摘要 -->
       <div class="birth-data-summary">
-        <p>{{ formattedBirthInfo }}</p>
+        <p>{{ formattedBirthInfo.full }}</p>
       </div>
 
       <!-- 交互式星盘图 -->
       <section class="section">
-        <h2 class="section-title">互動星盤圖</h2>
+        <h2 class="section-title">{{ $t('astrology.interactiveChart') }}</h2>
         <div class="chart-container">
           <StarChart 
             :calculationResults="calculationResults"
@@ -40,7 +47,7 @@
               <p>{{ getPlanetDescription(selectedPlanet) }}</p>
             </div>
             <div class="planet-keywords">
-              <h4>關鍵詞</h4>
+              <h4>{{ $t('astrology.keywords') }}</h4>
               <div class="tag-cloud">
                 <span 
                   v-for="keyword in getPlanetKeywords(selectedPlanet)" 
@@ -57,7 +64,7 @@
 
       <!-- 占星分析标签页 -->
       <section class="section">
-        <h2 class="section-title">詳細占星分析</h2>
+        <h2 class="section-title">{{ $t('astrology.detailedAnalysis') }}</h2>
         <div class="tabs">
           <div class="tab-list">
             <button 
@@ -67,38 +74,38 @@
               :class="{ active: activeTab === tab.id }"
               class="tab-button"
             >
-              {{ tab.name }}
+              {{ $t('astrology.' + tab.nameKey) }}
             </button>
           </div>
           
           <div class="tab-content">
             <div v-show="activeTab === 'personality'" class="tab-panel">
-              <h3>性格特質分析</h3>
+              <h3>{{ $t('astrology.personalityAnalysis') }}</h3>
               <div class="personality-analysis">
                 <div class="trait-section">
-                  <h4>核心性格 (太陽星座)</h4>
+                  <h4>{{ $t('astrology.corePersonality') }}</h4>
                   <p>{{ getSunDescription() }}</p>
                 </div>
                 <div class="trait-section">
-                  <h4>情感需求 (月亮星座)</h4>
+                  <h4>{{ $t('astrology.emotionalNeeds') }}</h4>
                   <p>{{ getMoonDescription() }}</p>
                 </div>
                 <div class="trait-section">
-                  <h4>外在印象 (上升星座)</h4>
+                  <h4>{{ $t('astrology.externalImpression') }}</h4>
                   <p>{{ getAscendantDescription() }}</p>
                 </div>
               </div>
             </div>
 
             <div v-show="activeTab === 'career'" class="tab-panel">
-              <h3>事業發展傾向</h3>
+              <h3>{{ $t('astrology.careerAnalysis') }}</h3>
               <div class="career-analysis">
                 <div class="career-section">
-                  <h4>事業優勢</h4>
+                  <h4>{{ $t('astrology.careerStrengths') }}</h4>
                   <p>{{ getCareerStrengths() }}</p>
                 </div>
                 <div class="career-section">
-                  <h4>適合職業方向</h4>
+                  <h4>{{ $t('astrology.suitableCareers') }}</h4>
                   <div class="tag-cloud">
                     <span 
                       v-for="career in getSuggestedCareers()" 
@@ -113,18 +120,18 @@
             </div>
 
             <div v-show="activeTab === 'relationships'" class="tab-panel">
-              <h3>人際關係分析</h3>
+              <h3>{{ $t('astrology.relationshipAnalysis') }}</h3>
               <div class="relationships-analysis">
                 <div class="relationship-section">
-                  <h4>愛情表現</h4>
+                  <h4>{{ $t('astrology.loveExpression') }}</h4>
                   <p>{{ getLoveDescription() }}</p>
                 </div>
                 <div class="relationship-section">
-                  <h4>友誼特質</h4>
+                  <h4>{{ $t('astrology.friendshipTraits') }}</h4>
                   <p>{{ getFriendshipDescription() }}</p>
                 </div>
                 <div class="relationship-section">
-                  <h4>相容星座</h4>
+                  <h4>{{ $t('astrology.compatibleSigns') }}</h4>
                   <div class="tag-cloud">
                     <span 
                       v-for="sign in getCompatibleSigns()" 
@@ -139,7 +146,7 @@
             </div>
 
             <div v-show="activeTab === 'fortune'" class="tab-panel">
-              <h3>運勢傾向分析</h3>
+              <h3>{{ $t('astrology.fortuneAnalysis') }}</h3>
               <div class="fortune-analysis">
                 <div class="fortune-overview">
                   <div class="fortune-badge">{{ calculationResults.fortune.overview }}</div>
@@ -151,11 +158,11 @@
                     <div class="fortune-stars">{{ calculationResults.fortune.career }}</div>
                   </div>
                   <div class="fortune-item">
-                    <div class="fortune-label">財運</div>
+                    <div class="fortune-label">金運</div>
                     <div class="fortune-stars">{{ calculationResults.fortune.wealth }}</div>
                   </div>
                   <div class="fortune-item">
-                    <div class="fortune-label">愛情運</div>
+                    <div class="fortune-label">戀愛運</div>
                     <div class="fortune-stars">{{ calculationResults.fortune.love }}</div>
                   </div>
                   <div class="fortune-item">
@@ -169,50 +176,43 @@
         </div>
       </section>
 
-      <!-- 高级功能入口 -->
+      <!-- 高级功能区域 -->
       <section class="section">
-        <h2 class="section-title">詳細分析</h2>
+        <h2 class="section-title">高級分析機能</h2>
         <div class="advanced-features-grid">
-          <button 
-            type="button"
-            @click="goToTransitAnalysis"
-            class="advanced-feature-btn advanced-feature-btn--transit"
-          >
+          <button class="advanced-feature-btn advanced-feature-btn--transit" @click="goToTransitAnalysis">
             <div class="btn-icon">🌟</div>
             <div class="btn-content">
-              <h3>行運盤分析</h3>
-              <p>分析當前行星位置對您的影響</p>
+              <h3>{{ $t('astrology.actions.transitAnalysis') }}</h3>
+              <p>時期別の運勢変化と重要な天体移動の影響を詳細分析</p>
               <div class="feature-details">
-                <span>• 外行星影響分析</span>
-                <span>• 重要相位解讀</span>
-                <span>• 未來運勢預測</span>
+                <span>• 未来3年間の運勢傾向</span>
+                <span>• 重要な天体トランジット</span>
+                <span>• 最適なタイミング診断</span>
               </div>
             </div>
           </button>
           
-          <button 
-            type="button"
-            @click="openCompatibilityTool"
-            class="advanced-feature-btn advanced-feature-btn--compatibility"
-          >
+          <button class="advanced-feature-btn advanced-feature-btn--compatibility" @click="goToCompatibilityAnalysis">
             <div class="btn-icon">💕</div>
             <div class="btn-content">
-              <h3>合盤分析</h3>
-              <p>分析與他人的星盤相容性</p>
+              <h3>{{ $t('astrology.actions.compatibility') }}</h3>
+              <p>パートナーとの相性や関係性の深層分析</p>
               <div class="feature-details">
-                <span>• 愛情合盤</span>
-                <span>• 友誼相性</span>
-                <span>• 事業夥伴</span>
+                <span>• 恋愛・結婚相性度</span>
+                <span>• コミュニケーション傾向</span>
+                <span>• 関係改善のアドバイス</span>
               </div>
             </div>
           </button>
         </div>
       </section>
 
+      <!-- 操作按钮 -->
       <div class="actions">
-        <button @click="shareResults" class="btn btn--primary">結果をシェア</button>
-        <button @click="saveResults" class="btn btn--success">結果を保存</button>
-        <button @click="goBack" class="btn btn--ghost">トップに戻る</button>
+        <button @click="goBack" class="btn btn--outline">{{ $t('astrology.actions.back') }}</button>
+        <button @click="downloadReport" class="btn btn--primary">{{ $t('astrology.actions.download') }}</button>
+        <button @click="shareReport" class="btn btn--secondary">{{ $t('astrology.actions.share') }}</button>
       </div>
     </div>
 
@@ -221,14 +221,16 @@
     </div>
 
     <footer class="footer">
-      <p>© 2025 命盤 - 占星分析・星盤圖</p>
+      <p>{{ $t('footer.copyright') }}</p>
     </footer>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-import StarChart from '../components/StarChart/StarChart.vue';
+import { mapGetters } from 'vuex'
+import LanguageSwitcher from '../components/LanguageSwitcher.vue'
+import i18nMixin from '../mixins/i18n.js'
+import StarChart from '../components/StarChart/StarChart.vue'
 import {
   getSignDescription,
   getCareerStrengths,
@@ -238,44 +240,59 @@ import {
   getCompatibleSigns,
   getFortuneDescription,
   getPlanetKeywords,
-  formatBirthInfo,
-  analysisTabs
-} from '../services/astrologyDataService.js';
+  formatBirthInfo
+} from '../services/astrologyDataService.js'
 
 export default {
   name: 'AstrologyResultsPage',
+  mixins: [i18nMixin],
   components: {
+    LanguageSwitcher,
     StarChart
   },
+  
   data() {
     return {
       activeTab: 'personality',
-      chartSize: 500,
+      chartSize: 450, // 从500px压缩到450px
       selectedPlanet: null,
-      analysisTabs
-    };
+      analysisTabs: [
+        { id: 'personality', nameKey: 'personalityAnalysis' },
+        { id: 'career', nameKey: 'careerAnalysis' },
+        { id: 'relationships', nameKey: 'relationshipAnalysis' },
+        { id: 'fortune', nameKey: 'fortuneAnalysis' }
+      ]
+    }
   },
   
   computed: {
     ...mapGetters(['getUserData', 'getCalculationResults']),
     
     userData() {
-      return this.getUserData;
+      return this.getUserData
     },
     
     calculationResults() {
-      return this.getCalculationResults;
+      return this.getCalculationResults
     },
     
     formattedBirthInfo() {
-      return formatBirthInfo(this.userData);
+      return formatBirthInfo(this.userData)
+    },
+    
+    isMobile() {
+      return window.innerWidth <= 768
     }
   },
   
   methods: {
+    onLanguageChanged(language) {
+      console.log('Language changed to:', language)
+    },
+    
     // 行星交互处理
     handlePlanetClick(planetType) {
-      this.selectedPlanet = planetType;
+      this.selectedPlanet = planetType
     },
     
     handlePlanetHover() {
@@ -283,7 +300,7 @@ export default {
     },
     
     closePlanetDetails() {
-      this.selectedPlanet = null;
+      this.selectedPlanet = null
     },
     
     getPlanetDisplayName(planetType) {
@@ -291,188 +308,237 @@ export default {
         sun: '太陽',
         moon: '月亮',
         ascendant: '上升星座'
-      };
-      return nameMap[planetType] || '';
+      }
+      return nameMap[planetType] || ''
     },
     
     getPlanetSign(planetType) {
-      if (!this.calculationResults || !planetType) return '';
-      return this.calculationResults.astrologyPositions[planetType]?.sign || '';
+      if (!this.calculationResults || !planetType) return ''
+      return this.calculationResults.astrologyPositions[planetType]?.sign || ''
     },
     
     getPlanetDegree(planetType) {
-      if (!this.calculationResults || !planetType) return '';
-      const position = this.calculationResults.astrologyPositions[planetType];
-      if (!position) return '';
-      return `${position.degree}°${position.minute}'`;
+      if (!this.calculationResults || !planetType) return ''
+      const position = this.calculationResults.astrologyPositions[planetType]
+      if (!position) return ''
+      return `${position.degree}°${position.minute}'`
     },
     
     getPlanetDescription(planetType) {
-      if (!planetType) return '';
-      const sign = this.getPlanetSign(planetType);
-      return getSignDescription(planetType, sign);
+      if (!planetType) return ''
+      const sign = this.getPlanetSign(planetType)
+      return getSignDescription(planetType, sign)
     },
     
     getPlanetKeywords(planetType) {
-      return getPlanetKeywords(planetType);
+      return getPlanetKeywords(planetType)
     },
     
     // 使用数据服务的方法
     getSunDescription() {
-      if (!this.calculationResults) return '';
-      const sunSign = this.calculationResults.astrologyPositions.sun.sign;
-      return getSignDescription('sun', sunSign);
+      if (!this.calculationResults) return ''
+      const sunSign = this.calculationResults.astrologyPositions.sun.sign
+      return getSignDescription('sun', sunSign)
     },
     
     getMoonDescription() {
-      if (!this.calculationResults) return '';
-      const moonSign = this.calculationResults.astrologyPositions.moon.sign;
-      return getSignDescription('moon', moonSign);
+      if (!this.calculationResults) return ''
+      const moonSign = this.calculationResults.astrologyPositions.moon.sign
+      return getSignDescription('moon', moonSign)
     },
     
     getAscendantDescription() {
-      if (!this.calculationResults) return '';
-      const ascSign = this.calculationResults.astrologyPositions.ascendant.sign;
-      return getSignDescription('ascendant', ascSign);
+      if (!this.calculationResults) return ''
+      const ascendantSign = this.calculationResults.astrologyPositions.ascendant.sign
+      return getSignDescription('ascendant', ascendantSign)
     },
     
     getCareerStrengths() {
-      if (!this.calculationResults) return '';
-      const sunSign = this.calculationResults.astrologyPositions.sun.sign;
-      return getCareerStrengths(sunSign);
+      if (!this.calculationResults) return ''
+      return getCareerStrengths(this.calculationResults.astrologyPositions)
     },
     
     getSuggestedCareers() {
-      if (!this.calculationResults) return [];
-      const sunSign = this.calculationResults.astrologyPositions.sun.sign;
-      return getSuggestedCareers(sunSign);
+      if (!this.calculationResults) return []
+      return getSuggestedCareers(this.calculationResults.astrologyPositions)
     },
     
     getLoveDescription() {
-      if (!this.calculationResults) return '';
-      const moonSign = this.calculationResults.astrologyPositions.moon.sign;
-      return getLoveDescription(moonSign);
+      if (!this.calculationResults) return ''
+      return getLoveDescription(this.calculationResults.astrologyPositions)
     },
     
     getFriendshipDescription() {
-      if (!this.calculationResults) return '';
-      const ascSign = this.calculationResults.astrologyPositions.ascendant.sign;
-      return getFriendshipDescription(ascSign);
+      if (!this.calculationResults) return ''
+      return getFriendshipDescription(this.calculationResults.astrologyPositions)
     },
     
     getCompatibleSigns() {
-      if (!this.calculationResults) return [];
-      const sunSign = this.calculationResults.astrologyPositions.sun.sign;
-      return getCompatibleSigns(sunSign);
+      if (!this.calculationResults) return []
+      return getCompatibleSigns(this.calculationResults.astrologyPositions.sun.sign)
     },
     
     getOverallFortuneDescription() {
-      if (!this.calculationResults) return '';
-      const overview = this.calculationResults.fortune.overview;
-      return getFortuneDescription(overview);
+      if (!this.calculationResults) return ''
+      return getFortuneDescription(this.calculationResults.fortune)
     },
     
-    async goToTransitAnalysis() {
-      if (!this.calculationResults) {
-        alert('請先完成占星分析');
-        return;
+    // 导航方法
+    goToTransitAnalysis() {
+      this.$router.push({ name: 'transit-analysis' })
+    },
+    
+    goToCompatibilityAnalysis() {
+      // 暂时显示提示，实际需要实现合盘分析页面
+      alert('合盤分析機能は開発中です')
+    },
+    
+    downloadReport() {
+      const reportData = {
+        userData: this.userData,
+        calculationResults: this.calculationResults,
+        generatedAt: new Date().toISOString()
       }
       
-      try {
-        await this.$router.push({ name: 'transit-analysis' });
-      } catch (error) {
-        console.error('頁面跳轉失敗:', error);
-        alert('頁面跳轉失敗，請稍後重試');
-      }
+      const blob = new Blob([JSON.stringify(reportData, null, 2)], { type: 'application/json' })
+      const url = URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = url
+      a.download = `astrology-results-${this.userData.name}-${new Date().toISOString().split('T')[0]}.json`
+      document.body.appendChild(a)
+      a.click()
+      document.body.removeChild(a)
+      URL.revokeObjectURL(url)
     },
     
-    openCompatibilityTool() {
-      alert('合盤分析功能即將推出，敬請期待！');
-    },
-    
-    shareResults() {
+    shareReport() {
       if (navigator.share) {
         navigator.share({
-          title: '占星分析結果',
-          text: `${this.userData.name}的占星分析結果`,
+          title: '我的占星分析報告',
+          text: `${this.userData.name}的個人星盤分析`,
           url: window.location.href
-        }).catch(console.error);
+        }).catch(console.error)
       } else {
+        // 降级方案
         navigator.clipboard.writeText(window.location.href)
-          .then(() => alert('URLをクリップボードにコピーしました'))
-          .catch(() => alert('手動でURLをコピーしてください'));
+          .then(() => alert('鏈接已複製到剪貼板'))
+          .catch(() => alert('請手動複製當前頁面鏈接進行分享'))
       }
-    },
-    
-    saveResults() {
-      const data = {
-        userData: this.userData,
-        results: this.calculationResults,
-        timestamp: new Date().toISOString()
-      };
-      
-      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `astrology-results-${this.userData.name}-${new Date().toISOString().split('T')[0]}.json`;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
     },
     
     goBack() {
-      this.$router.push({ name: 'home' });
+      this.$router.push({ name: 'home' })
     },
     
     updateChartSize() {
-      const container = this.$el?.querySelector('.chart-container');
+      const container = this.$el?.querySelector('.chart-container')
       if (container) {
-        const containerWidth = container.clientWidth;
-        this.chartSize = Math.min(containerWidth - 40, 600);
+        const containerWidth = container.clientWidth
+        this.chartSize = Math.min(containerWidth - 30, 450) // 压缩最大尺寸
       }
     }
   },
   
   created() {
     if (!this.userData || !this.calculationResults) {
-      this.$router.push({ name: 'home' });
+      this.$router.push({ name: 'home' })
     }
   },
   
   mounted() {
-    this.updateChartSize();
-    window.addEventListener('resize', this.updateChartSize);
+    this.updateChartSize()
+    window.addEventListener('resize', this.updateChartSize)
+    
+    // 监听窗口大小变化，用于响应式设计
+    this.handleResize = () => {
+      this.$forceUpdate() // 触发isMobile计算属性更新
+    }
+    window.addEventListener('resize', this.handleResize)
   },
   
   beforeUnmount() {
-    window.removeEventListener('resize', this.updateChartSize);
+    window.removeEventListener('resize', this.updateChartSize)
+    window.removeEventListener('resize', this.handleResize)
   }
-};
+}
 </script>
 
 <style scoped>
 /* 导入通用样式，大部分样式使用common.css中的类 */
 @import '@/assets/styles/common.css';
 
-/* 只添加此页面特有的样式 */
-.birth-data-summary {
-  text-align: center;
-  margin-bottom: var(--spacing-8);
-  color: var(--color-text-secondary);
-  font-size: var(--font-size-sm);
+/* =============================================================================
+   占星结果页面优化样式
+   ============================================================================= */
+
+.app-container {
+  padding: 15px; /* 从20px压缩到15px */
 }
 
-/* 星盘图容器 */
+/* 页头优化 */
+.page-header {
+  text-align: center;
+  margin-bottom: 20px; /* 从30px压缩到20px */
+}
+
+.page-title {
+  font-size: 2.2rem; /* 从2.5rem压缩 */
+  font-weight: 700;
+  margin-bottom: 0.3rem; /* 压缩间距 */
+  color: #d35400;
+  font-family: 'Shippori Mincho', serif;
+}
+
+.user-name {
+  font-size: 1rem; /* 从1.1rem压缩 */
+  color: #7f8c8d;
+  margin: 0;
+}
+
+/* 内容容器优化 */
+.content-wrapper {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 20px; /* 从25px压缩到20px */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  flex-grow: 1;
+}
+
+.section {
+  margin-bottom: 25px; /* 从30px压缩到25px */
+}
+
+.section:last-child {
+  margin-bottom: 0;
+}
+
+.section-title {
+  font-size: 1.8rem; /* 从2rem压缩 */
+  font-weight: 600;
+  font-family: 'Shippori Mincho', serif;
+  color: #34495e;
+  border-bottom: 2px solid #f0f0f0;
+  padding-bottom: 8px; /* 从10px压缩 */
+  margin-bottom: 20px; /* 从25px压缩 */
+}
+
+/* 出生信息摘要 */
+.birth-data-summary {
+  text-align: center;
+  margin-bottom: 20px; /* 从25px压缩 */
+  color: #7f8c8d;
+  font-size: 0.9rem;
+}
+
+/* 星盘图容器优化 */
 .chart-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 500px;
-  background: var(--color-bg-secondary);
-  border-radius: var(--radius-lg);
-  padding: var(--spacing-5);
+  min-height: 420px; /* 从500px压缩到420px */
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 15px; /* 从20px压缩 */
   position: relative;
 }
 
@@ -483,10 +549,10 @@ export default {
   right: -400px;
   width: 380px;
   height: 100vh;
-  background: var(--color-bg-primary);
-  box-shadow: var(--shadow-2xl);
+  background: #fff;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
   transition: right 0.3s ease;
-  z-index: var(--z-index-modal);
+  z-index: 9998;
   overflow-y: auto;
 }
 
@@ -498,24 +564,24 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: var(--spacing-5);
-  border-bottom: 1px solid var(--color-border-light);
-  background: var(--color-primary);
-  color: var(--color-text-inverse);
+  padding: 20px;
+  border-bottom: 1px solid #e9ecef;
+  background: #d35400;
+  color: white;
 }
 
 .sidebar-header h3 {
   margin: 0;
-  font-size: var(--font-size-xl);
+  font-size: 1.3rem;
 }
 
 .close-btn {
   background: none !important;
   border: none !important;
-  color: var(--color-text-inverse) !important;
-  font-size: var(--font-size-2xl);
+  color: white !important;
+  font-size: 1.5rem;
   cursor: pointer;
-  padding: var(--spacing-1) !important;
+  padding: 5px !important;
   border-radius: 50% !important;
   width: 30px;
   height: 30px;
@@ -529,58 +595,105 @@ export default {
 }
 
 .sidebar-content {
-  padding: var(--spacing-5);
+  padding: 20px;
 }
 
 .planet-position {
   text-align: center;
-  margin-bottom: var(--spacing-5);
+  margin-bottom: 20px;
 }
 
 .position-info .position-sign {
   display: block;
-  font-size: var(--font-size-xl);
-  font-weight: var(--font-weight-bold);
-  color: var(--color-primary);
-  margin-bottom: var(--spacing-2);
-  font-family: var(--font-family-serif);
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #d35400;
+  margin-bottom: 8px;
+  font-family: 'Shippori Mincho', serif;
 }
 
 .position-info .position-degree {
-  font-size: var(--font-size-lg);
-  color: var(--color-text-secondary);
-  font-weight: var(--font-weight-medium);
+  font-size: 1.1rem;
+  color: #7f8c8d;
+  font-weight: 500;
 }
 
 .planet-description {
-  margin-bottom: var(--spacing-5);
+  margin-bottom: 20px;
 }
 
 .planet-description p {
-  line-height: var(--line-height-relaxed);
-  color: var(--color-text-secondary);
+  line-height: 1.6;
+  color: #495057;
 }
 
 .planet-keywords h4 {
-  color: var(--color-text-primary);
-  margin-bottom: var(--spacing-4);
-  font-size: var(--font-size-base);
+  color: #34495e;
+  margin-bottom: 15px;
+  font-size: 1rem;
+}
+
+/* 标签页优化 */
+.tabs {
+  margin-top: 10px;
+}
+
+.tab-list {
+  display: flex;
+  border-bottom: 2px solid #e9ecef;
+  margin-bottom: 20px; /* 从25px压缩 */
+  gap: 0;
+}
+
+.tab-button {
+  flex: 1;
+  padding: 12px 16px; /* 从15px 20px压缩 */
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 0.9rem; /* 从1rem压缩 */
+  font-weight: 500;
+  color: #6c757d;
+  border-bottom: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.tab-button:hover {
+  color: #d35400;
+  background: rgba(211, 84, 0, 0.05);
+}
+
+.tab-button.active {
+  color: #d35400;
+  border-bottom-color: #d35400;
+  background: rgba(211, 84, 0, 0.05);
+}
+
+.tab-panel {
+  padding: 15px 0; /* 从20px压缩 */
+}
+
+.tab-panel h3 {
+  color: #34495e;
+  margin-bottom: 20px;
+  font-size: 1.3rem; /* 从1.5rem压缩 */
+  font-family: 'Shippori Mincho', serif;
 }
 
 /* 分析内容样式 */
 .trait-section,
 .career-section,
 .relationship-section {
-  margin-bottom: var(--spacing-6);
+  margin-bottom: 20px; /* 从25px压缩 */
 }
 
 .trait-section h4,
 .career-section h4,
 .relationship-section h4 {
-  color: var(--color-text-primary);
-  margin-bottom: var(--spacing-3);
-  margin-top: var(--spacing-6);
-  font-size: var(--font-size-lg);
+  color: #495057;
+  margin-bottom: 10px; /* 从15px压缩 */
+  margin-top: 20px; /* 从25px压缩 */
+  font-size: 1.1rem; /* 从1.2rem压缩 */
 }
 
 .trait-section h4:first-child,
@@ -589,21 +702,94 @@ export default {
   margin-top: 0;
 }
 
-/* 高级功能按钮样式 */
+/* 标签云样式 */
+.tag-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.tag {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.tag--primary {
+  background: rgba(211, 84, 0, 0.1);
+  color: #d35400;
+}
+
+.tag--success {
+  background: rgba(40, 167, 69, 0.1);
+  color: #28a745;
+}
+
+.tag--secondary {
+  background: rgba(108, 117, 125, 0.1);
+  color: #6c757d;
+}
+
+/* 运势网格 */
+.fortune-overview {
+  text-align: center;
+  margin-bottom: 15px; /* 从20px压缩 */
+}
+
+.fortune-badge {
+  display: inline-block;
+  padding: 8px 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 25px;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.fortune-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px; /* 从20px压缩 */
+  margin-top: 15px; /* 从20px压缩 */
+}
+
+.fortune-item {
+  text-align: center;
+  padding: 15px; /* 从20px压缩 */
+  background: #f8f9fa;
+  border-radius: 10px;
+  border: 1px solid #e9ecef;
+}
+
+.fortune-label {
+  font-size: 0.9rem;
+  color: #6c757d;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.fortune-stars {
+  font-size: 1.2rem;
+  color: #ffc107;
+}
+
+/* 高级功能按钮优化 */
 .advanced-features-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: var(--spacing-5);
-  margin-bottom: var(--spacing-5);
+  gap: 20px; /* 从25px压缩 */
+  margin-bottom: 20px; /* 从25px压缩 */
 }
 
 .advanced-feature-btn {
   display: flex;
   align-items: center;
-  gap: var(--spacing-5);
-  padding: var(--spacing-7);
+  gap: 15px; /* 从20px压缩 */
+  padding: 20px; /* 从25px压缩 */
   border: none;
-  border-radius: var(--radius-lg);
+  border-radius: 12px;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   text-align: left;
@@ -611,7 +797,7 @@ export default {
   font-family: inherit;
   position: relative;
   overflow: hidden;
-  background: var(--color-bg-primary);
+  background: #fff;
 }
 
 .advanced-feature-btn:hover {
@@ -641,8 +827,8 @@ export default {
 }
 
 .advanced-feature-btn .btn-icon {
-  font-size: 3.5rem;
-  min-width: 70px;
+  font-size: 3rem; /* 从3.5rem压缩 */
+  min-width: 60px; /* 从70px压缩 */
   text-align: center;
   flex-shrink: 0;
 }
@@ -652,128 +838,216 @@ export default {
 }
 
 .advanced-feature-btn .btn-content h3 {
-  margin: 0 0 var(--spacing-2) 0;
-  font-size: var(--font-size-xl);
-  font-weight: var(--font-weight-semibold);
-  color: var(--color-text-primary);
-  font-family: var(--font-family-serif);
+  margin: 0 0 8px 0; /* 从10px压缩 */
+  font-size: 1.3rem; /* 从1.5rem压缩 */
+  font-weight: 600;
+  color: #34495e;
+  font-family: 'Shippori Mincho', serif;
 }
 
 .advanced-feature-btn .btn-content p {
-  margin: 0 0 var(--spacing-3) 0;
-  font-size: var(--font-size-sm);
-  color: var(--color-text-secondary);
-  line-height: var(--line-height-relaxed);
+  margin: 0 0 10px 0; /* 从12px压缩 */
+  font-size: 0.85rem; /* 从0.9rem压缩 */
+  color: #6c757d;
+  line-height: 1.5;
 }
 
 .advanced-feature-btn .feature-details {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-1);
+  gap: 4px; /* 从6px压缩 */
 }
 
 .advanced-feature-btn .feature-details span {
-  font-size: var(--font-size-xs);
-  color: var(--color-text-muted);
+  font-size: 0.75rem; /* 从0.8rem压缩 */
+  color: #95a5a6;
   opacity: 0.8;
 }
 
 /* 操作按钮区域 */
 .actions {
   display: flex;
-  gap: var(--spacing-4);
+  gap: 15px; /* 从20px压缩 */
   justify-content: center;
-  margin: var(--spacing-8) 0;
+  margin: 25px 0; /* 从30px压缩 */
   flex-wrap: wrap;
 }
 
-.actions .btn {
-  min-width: 120px;
+.btn {
+  padding: 10px 20px; /* 从12px 25px压缩 */
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem; /* 从1rem压缩 */
+  font-weight: 500;
+  transition: all 0.3s ease;
+  min-width: 100px; /* 从120px压缩 */
 }
 
+.btn--primary {
+  background: #d35400;
+  color: white;
+}
+
+.btn--primary:hover {
+  background: #e67e22;
+  transform: translateY(-1px);
+}
+
+.btn--secondary {
+  background: #6c757d;
+  color: white;
+}
+
+.btn--secondary:hover {
+  background: #5a6268;
+  transform: translateY(-1px);
+}
+
+.btn--outline {
+  background: none;
+  color: #6c757d;
+  border: 1px solid #6c757d;
+}
+
+.btn--outline:hover {
+  background: #6c757d;
+  color: white;
+}
+
+/* 页脚优化 */
 .footer {
   text-align: center;
-  margin-top: var(--spacing-8);
-  padding: var(--spacing-5);
-  color: var(--color-text-muted);
-  font-size: var(--font-size-sm);
+  margin-top: 20px; /* 从25px压缩 */
+  padding: 15px; /* 从20px压缩 */
+  color: #95a5a6;
+  font-size: 0.8rem;
 }
 
 .loading {
   text-align: center;
-  padding: var(--spacing-12);
-  color: var(--color-text-secondary);
+  padding: 60px; /* 从80px压缩 */
+  color: #6c757d;
 }
 
-/* 响应式设计 */
+/* 响应式设计优化 */
 @media (max-width: 768px) {
+  .app-container {
+    padding: 12px; /* 进一步压缩 */
+  }
+  
+  .page-header {
+    margin-bottom: 15px;
+  }
+  
+  .page-title {
+    font-size: 1.9rem;
+    margin-bottom: 0.2rem;
+  }
+  
+  .user-name {
+    font-size: 0.9rem;
+  }
+  
+  .content-wrapper {
+    padding: 15px;
+  }
+  
+  .chart-container {
+    min-height: 350px; /* 移动端进一步压缩 */
+    padding: 10px;
+  }
+  
   .planet-details-sidebar {
     width: 100%;
     right: -100%;
   }
   
-  .chart-container {
-    min-height: 400px;
-    padding: var(--spacing-4);
-  }
-  
   .advanced-features-grid {
     grid-template-columns: 1fr;
-    gap: var(--spacing-4);
+    gap: 15px;
   }
   
   .advanced-feature-btn {
-    padding: var(--spacing-5);
-    gap: var(--spacing-4);
+    padding: 15px;
+    gap: 12px;
   }
   
   .advanced-feature-btn .btn-icon {
-    font-size: 3rem;
-    min-width: 60px;
+    font-size: 2.5rem;
+    min-width: 50px;
   }
   
   .advanced-feature-btn .btn-content h3 {
-    font-size: var(--font-size-lg);
+    font-size: 1.1rem;
   }
   
   .advanced-feature-btn .btn-content p {
-    font-size: var(--font-size-xs);
+    font-size: 0.8rem;
   }
   
   .advanced-feature-btn .feature-details span {
-    font-size: 10px;
+    font-size: 0.7rem;
   }
   
   .actions {
     flex-direction: column;
     align-items: center;
+    gap: 10px;
   }
   
   .actions .btn {
     width: 100%;
     max-width: 250px;
   }
+  
+  .fortune-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  
+  .tab-button {
+    padding: 10px 12px;
+    font-size: 0.8rem;
+  }
 }
 
 @media (max-width: 480px) {
+  .page-title {
+    font-size: 1.7rem;
+  }
+  
+  .section-title {
+    font-size: 1.5rem;
+  }
+  
+  .chart-container {
+    min-height: 300px;
+  }
+  
   .advanced-feature-btn {
     flex-direction: column;
     text-align: center;
-    padding: var(--spacing-4);
-    gap: var(--spacing-3);
+    padding: 12px;
+    gap: 10px;
   }
   
   .advanced-feature-btn .btn-icon {
-    font-size: 2.5rem;
+    font-size: 2rem;
     min-width: auto;
   }
   
   .advanced-feature-btn .btn-content h3 {
-    font-size: var(--font-size-base);
+    font-size: 1rem;
   }
   
   .advanced-feature-btn .feature-details {
     align-items: center;
+  }
+  
+  .tab-button {
+    padding: 8px 6px;
+    font-size: 0.75rem;
   }
 }
 </style>

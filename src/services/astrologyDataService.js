@@ -241,23 +241,26 @@ export function getPlanetKeywords(planetType) {
   return planetKeywords[planetType] || [];
 }
 
+import { getCoordinatesFromLocation } from '../utils/cityCoordinates.js';
+
 /**
  * 格式化出生信息
  * @param {Object} userData - 用户数据
  * @returns {Object} 格式化的出生信息对象
  */
 export function formatBirthInfo(userData) {
-  if (!userData) return { basic: '', detailed: '', coordinates: '' };
+  if (!userData) return { basic: '', location: '', lunar: '', full: '' };
   
   const formatDate = (dateStr) => {
     if (!dateStr) return '';
     const date = new Date(dateStr);
+    if (isNaN(date.getTime())) return '';
     return `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日`;
   };
   
   const formatTime = (hour, minute) => {
-    const h = hour || '00';
-    const m = minute || '00';
+    const h = String(hour || '00').padStart(2, '0');
+    const m = String(minute || '00').padStart(2, '0');
     return `${h}:${m}`;
   };
   
@@ -271,12 +274,11 @@ export function formatBirthInfo(userData) {
   };
   
   const getLunarInfo = (dateStr) => {
-    // 简化的农历信息，实际项目中应该使用专业的农历转换库
     if (!dateStr) return '';
     const date = new Date(dateStr);
+    if (isNaN(date.getTime())) return '';
     const year = date.getFullYear();
     
-    // 天干地支简化计算（实际应使用专业算法）
     const heavenlyStems = ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸'];
     const earthlyBranches = ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥'];
     
@@ -285,17 +287,37 @@ export function formatBirthInfo(userData) {
     
     return `${heavenlyStems[stemIndex]}${earthlyBranches[branchIndex]}年`;
   };
-  
-  const birthDate = formatDate(userData.birthDate);
+
+  // 🔧 修复：统一使用 birthdate 字段（不是 birthDate）
+  const birthDateStr = userData.birthdate || userData.fullBirthDateTime;
+  const birthDate = formatDate(birthDateStr);
   const birthTime = formatTime(userData.birthHour, userData.birthMinute);
   const birthPlace = userData.birthplace || '';
-  const coordinates = formatCoordinates(userData.latitude, userData.longitude);
-  const lunarYear = getLunarInfo(userData.birthDate);
+  
+  // 🔧 修复：如果没有坐标信息，则根据出生地获取
+  let coordinates = '';
+  if (userData.latitude && userData.longitude) {
+    coordinates = formatCoordinates(userData.latitude, userData.longitude);
+  } else if (birthPlace) {
+    // 根据出生地获取坐标
+    const coordInfo = getCoordinatesFromLocation(birthPlace);
+    if (coordInfo) {
+      coordinates = formatCoordinates(coordInfo.lat, coordInfo.lng);
+    }
+  }
+  
+  const lunarYear = getLunarInfo(birthDateStr);
+  
+  // 🔧 修复：清理多余空格并确保格式正确
+  const basic = `${birthDate} ${birthTime}`.trim();
+  const location = `${birthPlace} ${coordinates}`.trim();
+  const lunar = lunarYear ? `生於 ${lunarYear}` : '';
+  const full = `${birthDate} ${birthTime} / ${birthPlace} ${coordinates}`.replace(/\s+/g, ' ').trim();
   
   return {
-    basic: `${birthDate} ${birthTime}`,
-    location: `${birthPlace} ${coordinates}`,
-    lunar: lunarYear ? `生於 ${lunarYear}` : '',
-    full: `${birthDate} ${birthTime} / ${birthPlace} ${coordinates}`
+    basic,
+    location,
+    lunar,
+    full
   };
 }
