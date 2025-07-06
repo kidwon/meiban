@@ -1,25 +1,39 @@
 <template>
   <div class="meiban-container">
+    <!-- 浮动语言切换器 -->
+    <LanguageSwitcher 
+      :compact="isMobile"
+      :show-names="!isMobile"
+      @language-changed="onLanguageChanged"
+    />
+    
     <header class="header">
-      <h1 class="title">命盤</h1>
-      <p class="subtitle">生辰八字・命盤占い・占星分析</p>
+      <h1 class="title">{{ $t('app.title') }}</h1>
+      <p class="subtitle">{{ $t('app.subtitle') }}</p>
     </header>
     
     <div class="form-container">
       <form class="birth-form">
+        <!-- 姓名 - 选填 -->
         <div class="form-group">
-          <label for="name">お名前</label>
+          <label for="name">
+            {{ $t('form.name') }}
+            <span class="optional-badge">{{ $t('form.optional') }}</span>
+          </label>
           <input 
             type="text" 
             id="name" 
             v-model="formData.name" 
-            placeholder="お名前を入力してください" 
-            required
+            :placeholder="$t('form.namePlaceholder')" 
           />
         </div>
         
+        <!-- 生年月日 - 必填 -->
         <div class="form-group">
-          <label for="birthdate">生年月日</label>
+          <label for="birthdate">
+            {{ $t('form.birthdate') }}
+            <span class="required-badge">{{ $t('form.required') }}</span>
+          </label>
           <input 
             type="date" 
             id="birthdate" 
@@ -28,126 +42,151 @@
           />
         </div>
         
-        <div class="form-row">
-          <div class="form-group time-group">
-            <label for="birthHour">時間</label>
-            <select id="birthHour" v-model="formData.birthHour" required>
-              <option value="" disabled>時</option>
-              <option v-for="hour in 24" :key="hour" :value="String(hour - 1)">{{ hour - 1 }}</option>
+        <!-- 出生时间 - 必填，合并为一行 -->
+        <div class="form-group">
+          <label for="birthTime">
+            {{ $t('form.birthTime') }}
+            <span class="required-badge">{{ $t('form.required') }}</span>
+          </label>
+          <div class="time-input-wrapper">
+            <select id="birthHour" v-model="formData.birthHour" required class="time-select">
+              <option value="" disabled>{{ $t('form.hour') }}</option>
+              <option v-for="hour in 24" :key="hour" :value="String(hour - 1)">
+                {{ String(hour - 1).padStart(2, '0') }}
+              </option>
             </select>
-          </div>
-          
-          <div class="form-group time-group">
-            <label for="birthMinute">分</label>
-            <select id="birthMinute" v-model="formData.birthMinute" required>
-              <option value="" disabled>分</option>
-              <option v-for="minute in 60" :key="minute" :value="String(minute - 1)">{{ minute - 1 }}</option>
+            <span class="time-separator">:</span>
+            <select id="birthMinute" v-model="formData.birthMinute" required class="time-select">
+              <option value="" disabled>{{ $t('form.minute') }}</option>
+              <option v-for="minute in 12" :key="minute" :value="String((minute - 1) * 5)">
+                {{ String((minute - 1) * 5).padStart(2, '0') }}
+              </option>
             </select>
           </div>
         </div>
         
+        <!-- 出生地 - 必填，合并组件 -->
         <div class="form-group">
-          <label for="birthplace">出生地</label>
-          <div class="location-input-wrapper">
-            <select v-model="selectedCity" @change="onCitySelect" class="city-select">
-              <option value="">都市を選択してください</option>
-              <optgroup v-for="(cities, region) in cityGroups" :key="region" :label="regionLabels[region]">
-                <option v-for="city in cities" :key="city.value" :value="city.value">{{ city.label }}</option>
-              </optgroup>
-            </select>
+          <label for="birthplace">
+            {{ $t('form.birthplace') }}
+            <span class="required-badge">{{ $t('form.required') }}</span>
+          </label>
+          <div class="location-combo-wrapper">
             <input 
               type="text" 
               id="birthplace" 
               v-model="formData.birthplace" 
-              placeholder="または直接入力してください" 
+              :placeholder="$t('form.birthplacePlaceholder')"
               required
-              class="city-input"
+              @focus="onLocationFocus"
+              @input="filterCities"
+              @blur="hideDropdown"
+              @keydown.esc="showDropdown = false"
+              class="location-input"
             />
+            <div class="city-dropdown" v-show="showDropdown && Object.keys(filteredCities).length > 0">
+              <div class="city-group" v-for="(cities, region) in filteredCities" :key="region">
+                <div class="region-header">{{ $t('regions.' + region) }}</div>
+                <div 
+                  class="city-option" 
+                  v-for="city in cities" 
+                  :key="city.value"
+                  @mousedown.prevent="selectCity(city.value)"
+                >
+                  {{ city.label }}
+                </div>
+              </div>
+            </div>
           </div>
-          <p class="location-hint">リストから選択するか、直接入力してください</p>
         </div>
         
+        <!-- 性别 - 必填 -->
         <div class="form-group gender-group">
-          <label>性別</label>
+          <label>
+            {{ $t('form.gender') }}
+            <span class="required-badge">{{ $t('form.required') }}</span>
+          </label>
           <div class="radio-group">
             <label class="radio-label" v-for="option in genderOptions" :key="option.value">
               <input type="radio" v-model="formData.gender" :value="option.value" required />
-              <span>{{ option.label }}</span>
+              <span>{{ $t('form.genders.' + option.value) }}</span>
             </label>
           </div>
         </div>
-        
-        <!-- 分析类型选择 -->
-        <div class="section">
-          <h3 class="section-title">分析種類を選択</h3>
-          <div class="analysis-buttons">
-            <button 
-              type="button"
-              @click="submitWithAnalysisType('bazi')"
-              class="analysis-btn analysis-btn--bazi"
-            >
-              <div class="btn-icon">🏮</div>
-              <div class="btn-content">
-                <h4>生辰八字</h4>
-                <p>四柱推命による詳細な運勢分析</p>
-              </div>
-            </button>
-            
-            <button 
-              type="button"
-              @click="submitWithAnalysisType('astrology')"
-              class="analysis-btn analysis-btn--astrology"
-            >
-              <div class="btn-icon">⭐</div>
-              <div class="btn-content">
-                <h4>占星分析</h4>
-                <p>西洋占星術による星盤分析</p>
-              </div>
-            </button>
-          </div>
-        </div>
       </form>
+      
+      <!-- 分析类型选择 -->
+      <div class="section">
+        <h3 class="section-title">{{ $t('analysis.selectType') }}</h3>
+        <div class="analysis-buttons">
+          <button 
+            type="button"
+            @click="submitWithAnalysisType('bazi')"
+            class="analysis-btn analysis-btn--bazi"
+          >
+            <div class="btn-icon">🔮</div>
+            <div class="btn-content">
+              <h4>{{ $t('analysis.bazi.title') }}</h4>
+              <p class="btn-description">{{ $t('analysis.bazi.description') }}</p>
+            </div>
+          </button>
+          
+          <button 
+            type="button"
+            @click="submitWithAnalysisType('astrology')"
+            class="analysis-btn analysis-btn--astrology"
+          >
+            <div class="btn-icon">⭐</div>
+            <div class="btn-content">
+              <h4>{{ $t('analysis.astrology.title') }}</h4>
+              <p class="btn-description">{{ $t('analysis.astrology.description') }}</p>
+            </div>
+          </button>
+        </div>
+      </div>
     </div>
     
     <!-- 功能介绍区域 -->
     <div class="features-section">
-      <h3 class="features-title">機能紹介</h3>
+      <h3 class="features-title">{{ $t('features.title') }}</h3>
       <div class="features-grid">
         <div class="feature-card feature-card--primary">
-          <div class="feature-icon">🏮</div>
-          <h4>生辰八字</h4>
-          <p>四柱推命による伝統的な運勢分析</p>
+          <div class="feature-icon">📊</div>
+          <h4>{{ $t('features.detailed.title') }}</h4>
+          <p>{{ $t('features.detailed.description') }}</p>
         </div>
         <div class="feature-card feature-card--secondary">
-          <div class="feature-icon">⭐</div>
-          <h4>占星分析</h4>
-          <p>西洋占星術による詳細な星盤分析</p>
+          <div class="feature-icon">🎯</div>
+          <h4>{{ $t('features.personalized.title') }}</h4>
+          <p>{{ $t('features.personalized.description') }}</p>
         </div>
         <div class="feature-card feature-card--success">
-          <div class="feature-icon">🌟</div>
-          <h4>行運分析</h4>
-          <p>現在の運勢の詳細な分析レポート</p>
-        </div>
-        <div class="feature-card feature-card--primary">
-          <div class="feature-icon">📈</div>
-          <h4>運勢予測</h4>
-          <p>未来の傾向と重要な時期の予測</p>
+          <div class="feature-icon">🔄</div>
+          <h4>{{ $t('features.transit.title') }}</h4>
+          <p>{{ $t('features.transit.description') }}</p>
         </div>
       </div>
     </div>
     
     <footer class="footer">
-      <p>© 2025 命盤 - 生辰八字・四柱推命・命盤占い・占星分析</p>
+      <p>{{ $t('footer.copyright') }}</p>
     </footer>
   </div>
 </template>
 
 <script>
-import { getCityList } from '../utils/calculator.js';
-import { mapGetters } from 'vuex';
+import { getCityList } from '../utils/calculator.js'
+import { mapGetters } from 'vuex'
+import LanguageSwitcher from '../components/LanguageSwitcher.vue'
+import i18nMixin from '../mixins/i18n.js'
 
 export default {
   name: 'HomePage',
+  mixins: [i18nMixin],
+  components: {
+    LanguageSwitcher
+  },
+  
   data() {
     return {
       formData: {
@@ -158,31 +197,32 @@ export default {
         birthplace: '',
         gender: ''
       },
-      selectedCity: '',
+      showDropdown: false,
+      filteredCities: {},
       cityGroups: {},
-      regionLabels: {
-        japanese: '日本',
-        chinese: '中国', 
-        hkTaiwan: '港澳台'
-      },
       genderOptions: [
-        { value: 'male', label: '男性' },
-        { value: 'female', label: '女性' }
+        { value: 'male' },
+        { value: 'female' }
       ]
     }
   },
+  
   computed: {
     ...mapGetters({
       userData: 'getUserData',
       calculationResults: 'getCalculationResults'
-    })
+    }),
+    
+    isMobile() {
+      return window.innerWidth <= 768
+    }
   },
   
   watch: {
     userData: {
       handler(newVal) {
         if (newVal) {
-          this.fillFormWithStoredData();
+          this.fillFormWithStoredData()
         }
       },
       immediate: true
@@ -190,20 +230,72 @@ export default {
   },
   
   created() {
-    this.cityGroups = getCityList();
+    this.cityGroups = getCityList()
+    this.filteredCities = this.cityGroups
   },
   
   mounted() {
     if (this.userData) {
-      this.fillFormWithStoredData();
+      this.fillFormWithStoredData()
     }
+    
+    // 监听窗口大小变化，用于响应式设计
+    this.handleResize = () => {
+      this.$forceUpdate() // 触发isMobile计算属性更新
+    }
+    window.addEventListener('resize', this.handleResize)
+  },
+  
+  beforeUnmount() {
+    window.removeEventListener('resize', this.handleResize)
   },
   
   methods: {
-    onCitySelect() {
-      if (this.selectedCity) {
-        this.formData.birthplace = this.selectedCity;
+    onLanguageChanged(language) {
+      console.log('Language changed to:', language)
+      // 可以在这里执行语言切换后的其他逻辑
+    },
+    
+    onLocationFocus() {
+      this.showDropdown = true
+      // 如果有输入内容，重新过滤
+      if (this.formData.birthplace.trim()) {
+        this.filterCities()
       }
+    },
+    
+    selectCity(cityValue) {
+      this.formData.birthplace = cityValue
+      this.showDropdown = false
+      // 重置过滤结果
+      this.filteredCities = this.cityGroups
+    },
+    
+    filterCities() {
+      const query = this.formData.birthplace.toLowerCase().trim()
+      if (!query) {
+        this.filteredCities = this.cityGroups
+        return
+      }
+      
+      const filtered = {}
+      Object.keys(this.cityGroups).forEach(region => {
+        const matchingCities = this.cityGroups[region].filter(city => 
+          city.label.toLowerCase().includes(query) || 
+          city.value.toLowerCase().includes(query)
+        )
+        if (matchingCities.length > 0) {
+          filtered[region] = matchingCities
+        }
+      })
+      this.filteredCities = filtered
+    },
+    
+    hideDropdown() {
+      // 使用setTimeout让点击事件先执行
+      setTimeout(() => {
+        this.showDropdown = false
+      }, 150)
     },
     
     fillFormWithStoredData() {
@@ -215,10 +307,6 @@ export default {
           birthMinute: String(this.userData.birthMinute !== undefined ? this.userData.birthMinute : ''),
           birthplace: this.userData.birthplace || '',
           gender: this.userData.gender || ''
-        };
-        
-        if (this.userData.birthplace) {
-          this.selectedCity = this.userData.birthplace;
         }
       }
     },
@@ -226,63 +314,59 @@ export default {
     submitWithAnalysisType(type) {
       // 验证表单数据
       if (!this.validateForm()) {
-        return;
+        return
       }
       
-      this.analysisType = type;
+      this.analysisType = type
       
       const formattedData = {
         ...this.formData,
         birthHour: parseInt(this.formData.birthHour),
         birthMinute: parseInt(this.formData.birthMinute),
         fullBirthDateTime: `${this.formData.birthdate}T${String(this.formData.birthHour).padStart(2, '0')}:${String(this.formData.birthMinute).padStart(2, '0')}:00`
-      };
+      }
       
-      this.$store.dispatch('saveUserData', formattedData);
-      this.$store.dispatch('setAnalysisType', type);
-      this.$store.dispatch('calculateFortune', formattedData);
+      this.$store.dispatch('saveUserData', formattedData)
+      this.$store.dispatch('setAnalysisType', type)
+      this.$store.dispatch('calculateFortune', formattedData)
       
       // 根据选择的分析类型跳转到不同页面
       if (type === 'bazi') {
-        this.$router.push({ name: 'bazi-results', params: { id: Date.now() } });
+        this.$router.push({ name: 'bazi-results', params: { id: Date.now() } })
       } else {
-        this.$router.push({ name: 'astrology-results', params: { id: Date.now() } });
+        this.$router.push({ name: 'astrology-results', params: { id: Date.now() } })
       }
     },
     
     validateForm() {
-      // 检查必填字段
-      if (!this.formData.name.trim()) {
-        alert('お名前を入力してください');
-        return false;
-      }
+      // 姓名现在是可选的，不需要验证
       
       if (!this.formData.birthdate) {
-        alert('生年月日を選択してください');
-        return false;
+        alert(this.$t('alerts.birthdateRequired'))
+        return false
       }
       
       if (this.formData.birthHour === '') {
-        alert('時間を選択してください');
-        return false;
+        alert(this.$t('alerts.birthTimeRequired'))
+        return false
       }
       
       if (this.formData.birthMinute === '') {
-        alert('分を選択してください');
-        return false;
+        alert(this.$t('alerts.birthMinuteRequired'))
+        return false
       }
       
       if (!this.formData.birthplace.trim()) {
-        alert('出生地を入力してください');
-        return false;
+        alert(this.$t('alerts.birthplaceRequired'))
+        return false
       }
       
       if (!this.formData.gender) {
-        alert('性別を選択してください');
-        return false;
+        alert(this.$t('alerts.genderRequired'))
+        return false
       }
       
-      return true;
+      return true
     }
   }
 }
@@ -307,60 +391,74 @@ export default {
 /* 页头样式 */
 .header {
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 15px;
 }
 
 .title {
-  font-size: 2.5rem;
+  font-size: 2.2rem;
   font-weight: 700;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.3rem;
   color: #d35400;
   font-family: 'Shippori Mincho', serif;
 }
 
 .subtitle {
-  font-size: 1rem;
+  font-size: 0.9rem;
   color: #7f8c8d;
+  margin: 0;
 }
 
 /* 表单容器样式 */
 .form-container {
   background-color: #fff;
   border-radius: 12px;
-  padding: 25px;
+  padding: 20px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
 /* 表单样式 */
 .birth-form {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 12px;
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 }
 
-.form-row {
-  display: flex;
-  gap: 15px;
-}
-
-.time-group {
-  flex: 1;
-}
-
-/* 表单元素样式 */
+/* 标签样式 */
 label {
   font-size: 0.9rem;
   font-weight: 500;
   color: #34495e;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
+.required-badge {
+  background: #e74c3c;
+  color: white;
+  font-size: 0.65rem;
+  padding: 2px 6px;
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+.optional-badge {
+  background: #95a5a6;
+  color: white;
+  font-size: 0.7rem;
+  padding: 2px 6px;
+  border-radius: 10px;
+  font-weight: normal;
+}
+
+/* 表单元素样式 */
 input, select {
   padding: 12px 15px;
   border: 1px solid #ddd;
@@ -374,28 +472,70 @@ input:focus, select:focus {
   outline: none;
 }
 
-/* 地点输入样式 */
-.location-input-wrapper {
+/* 时间输入组合样式 */
+.time-input-wrapper {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  align-items: center;
+  gap: 8px;
 }
 
-.city-select {
-  background-color: #f8f9fa;
-  color: #666;
+.time-select {
+  flex: 1;
+  min-width: 70px;
 }
 
-.city-select:focus {
-  background-color: #fff;
-  border-color: #d35400;
-}
-
-.location-hint {
-  font-size: 0.8rem;
+.time-separator {
+  font-size: 1.2rem;
+  font-weight: bold;
   color: #7f8c8d;
-  margin: 0;
-  font-style: italic;
+}
+
+/* 地点输入组合样式 */
+.location-combo-wrapper {
+  position: relative;
+}
+
+.location-input {
+  width: 100%;
+}
+
+.city-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #ddd;
+  border-top: none;
+  border-radius: 0 0 8px 8px;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 1000;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.city-group .region-header {
+  background: #f8f9fa;
+  padding: 8px 15px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: #6c757d;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.city-option {
+  padding: 10px 15px;
+  cursor: pointer;
+  border-bottom: 1px solid #f1f1f1;
+  transition: background 0.2s ease;
+}
+
+.city-option:hover {
+  background: #f8f9fa;
+}
+
+.city-option:last-child {
+  border-bottom: none;
 }
 
 /* 性别选择样式 */
@@ -413,30 +553,30 @@ input:focus, select:focus {
 
 /* 分析类型选择样式 */
 .section {
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
 .section-title {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   color: #34495e;
   border-bottom: 2px solid #f0f0f0;
-  padding-bottom: 10px;
-  margin-bottom: 20px;
+  padding-bottom: 8px;
+  margin-bottom: 12px;
   font-family: 'Shippori Mincho', serif;
 }
 
 .analysis-buttons {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 15px;
-  margin-bottom: 20px;
+  gap: 10px;
+  margin-bottom: 12px;
 }
 
 .analysis-btn {
   display: flex;
   align-items: center;
-  gap: 15px;
-  padding: 20px;
+  gap: 10px;
+  padding: 14px;
   border: none;
   border-radius: 12px;
   cursor: pointer;
@@ -475,8 +615,8 @@ input:focus, select:focus {
 }
 
 .analysis-btn .btn-icon {
-  font-size: 3rem;
-  min-width: 60px;
+  font-size: 2.5rem;
+  min-width: 50px;
   text-align: center;
 }
 
@@ -485,44 +625,44 @@ input:focus, select:focus {
 }
 
 .analysis-btn .btn-content h4 {
-  margin: 0 0 8px 0;
-  font-size: 1.3rem;
+  margin: 0 0 4px 0;
+  font-size: 1.1rem;
   font-weight: 600;
   color: #2c3e50;
 }
 
-.analysis-btn .btn-content p {
+.analysis-btn .btn-content .btn-description {
   margin: 0;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   color: #7f8c8d;
-  line-height: 1.4;
+  line-height: 1.2;
 }
 
 /* 功能介绍区域样式 */
 .features-section {
   background: #f8f9fa;
   border-radius: 12px;
-  padding: 25px;
-  margin-bottom: 30px;
+  padding: 15px;
+  margin-bottom: 20px;
 }
 
 .features-title {
   text-align: center;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   color: #2c3e50;
-  margin-bottom: 25px;
+  margin-bottom: 15px;
   font-family: 'Shippori Mincho', serif;
 }
 
 .features-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
 }
 
 .feature-card {
   background: white;
-  padding: 20px;
+  padding: 12px;
   border-radius: 10px;
   text-align: center;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
@@ -532,7 +672,7 @@ input:focus, select:focus {
 }
 
 .feature-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-3px);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
@@ -552,28 +692,28 @@ input:focus, select:focus {
 }
 
 .feature-icon {
-  font-size: 2.5rem;
-  margin-bottom: 15px;
+  font-size: 1.8rem;
+  margin-bottom: 6px;
 }
 
 .feature-card h4 {
   color: #2c3e50;
-  margin-bottom: 10px;
-  font-size: 1.1rem;
+  margin-bottom: 4px;
+  font-size: 0.95rem;
 }
 
 .feature-card p {
   color: #7f8c8d;
-  font-size: 0.9rem;
-  line-height: 1.4;
+  font-size: 0.8rem;
+  line-height: 1.3;
   margin: 0;
 }
 
 /* 页脚样式 */
 .footer {
-  margin-top: 30px;
+  margin-top: 15px;
   text-align: center;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   color: #95a5a6;
 }
 
@@ -583,55 +723,26 @@ input:focus, select:focus {
     padding: 15px;
   }
   
+  .header {
+    margin-bottom: 12px;
+  }
+  
   .form-container {
-    padding: 20px;
+    padding: 18px;
   }
   
   .title {
-    font-size: 2rem;
+    font-size: 1.9rem;
+    margin-bottom: 0.2rem;
   }
   
-  .analysis-buttons {
-    grid-template-columns: 1fr;
-    gap: 15px;
-  }
-  
-  .analysis-btn {
-    padding: 20px;
-    gap: 15px;
-  }
-  
-  .analysis-btn .btn-icon {
-    font-size: 2.5rem;
-    min-width: 50px;
-  }
-  
-  .analysis-btn .btn-content h4 {
-    font-size: 1.1rem;
-  }
-  
-  .features-grid {
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 15px;
-  }
-  
-  .feature-card {
-    padding: 15px;
-  }
-  
-  .feature-icon {
-    font-size: 2rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .birth-form {
-    gap: 15px;
+  .subtitle {
+    font-size: 0.85rem;
   }
   
   .analysis-btn {
-    padding: 15px;
-    gap: 12px;
+    padding: 12px;
+    gap: 8px;
   }
   
   .analysis-btn .btn-icon {
@@ -643,12 +754,93 @@ input:focus, select:focus {
     font-size: 1rem;
   }
   
-  .analysis-btn .btn-content p {
-    font-size: 0.8rem;
+  .analysis-btn .btn-content .btn-description {
+    font-size: 0.75rem;
+  }
+  
+  .features-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  
+  .feature-card {
+    padding: 10px;
   }
   
   .feature-icon {
+    font-size: 1.6rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    margin-bottom: 10px;
+  }
+  
+  .title {
+    font-size: 1.7rem;
+    margin-bottom: 0.1rem;
+  }
+  
+  .subtitle {
+    font-size: 0.8rem;
+  }
+  
+  .birth-form {
+    gap: 10px;
+  }
+  
+  .form-group {
+    gap: 5px;
+  }
+  
+  .time-input-wrapper {
+    gap: 6px;
+  }
+  
+  .analysis-btn {
+    padding: 10px;
+    gap: 6px;
+  }
+  
+  .analysis-btn .btn-icon {
     font-size: 1.8rem;
+    min-width: 36px;
+  }
+  
+  .analysis-btn .btn-content h4 {
+    font-size: 0.95rem;
+  }
+  
+  .analysis-btn .btn-content .btn-description {
+    font-size: 0.7rem;
+  }
+  
+  .features-section {
+    padding: 12px;
+  }
+  
+  .features-title {
+    font-size: 1.1rem;
+    margin-bottom: 12px;
+  }
+  
+  .feature-card {
+    padding: 8px;
+  }
+  
+  .feature-icon {
+    font-size: 1.4rem;
+    margin-bottom: 4px;
+  }
+  
+  .feature-card h4 {
+    font-size: 0.9rem;
+    margin-bottom: 3px;
+  }
+  
+  .feature-card p {
+    font-size: 0.75rem;
   }
 }
 </style>
