@@ -568,17 +568,20 @@ export default {
     
     selectBirthday() {
       if (!this.userData) return
-      const birth = new Date(this.userData.fullBirthDateTime)
       const currentYear = new Date().getFullYear()
-      const birthday = new Date(currentYear, birth.getMonth(), birth.getDate())
-      
+      const birthDateStr = this.userData.birthdate // 直接使用原始日期字符串
+      const [, birthMonth, birthDay] = birthDateStr.split('-').map(Number)
+      const birthday = new Date(currentYear, birthMonth - 1, birthDay)
       // 如果今年生日已过，选择明年生日
       if (birthday < new Date()) {
         birthday.setFullYear(currentYear + 1)
       }
-      
-      this.selectedDate = birthday.toISOString().split('T')[0]
-      this.selectedTime = birth.toTimeString().substring(0, 5)
+
+      // 使用本地时间方法构造日期字符串
+      const year = birthday.getFullYear()
+      const month = String(birthday.getMonth() + 1).padStart(2, '0')
+      const day = String(birthday.getDate()).padStart(2, '0')
+      this.selectedDate = `${year}-${month}-${day}`
     },
     
     selectNewYear() {
