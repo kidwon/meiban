@@ -99,8 +99,6 @@ router.beforeEach((to, from, next) => {
     
     // 验证用户数据完整性
     const hasValidUserData = userData && 
-                             userData.name && 
-                             userData.name.trim() !== '' &&
                              userData.birthdate &&
                              userData.birthHour !== null &&
                              userData.birthHour !== undefined &&

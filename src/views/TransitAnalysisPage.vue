@@ -514,16 +514,20 @@ export default {
     calculatedAge() {
       if (!this.selectedDate || !this.userData) return 0
       const birthDate = new Date(this.userData.fullBirthDateTime)
-      const selectedDateTime = new Date(this.selectedDate)
+      const selectedDateTime = new Date(this.selectedDate + 'T12:00:00') // 避免时区问题
       const ageInMs = selectedDateTime - birthDate
       return Math.floor(ageInMs / (1000 * 60 * 60 * 24 * 365.25))
     },
     
     daysToBirthday() {
       if (!this.selectedDate || !this.userData) return 0
-      const birth = new Date(this.userData.fullBirthDateTime)
-      const selected = new Date(this.selectedDate)
-      const thisYearBirthday = new Date(selected.getFullYear(), birth.getMonth(), birth.getDate())
+      
+      // 直接从birthdate字符串获取月日，避免时区问题
+      const birthDateStr = this.userData.birthdate // 格式: "2024-01-17"
+      const [, birthMonth, birthDay] = birthDateStr.split('-').map(Number)
+      
+      const selected = new Date(this.selectedDate + 'T12:00:00')
+      const thisYearBirthday = new Date(selected.getFullYear(), birthMonth - 1, birthDay) // 月份需要减1
       
       if (thisYearBirthday < selected) {
         thisYearBirthday.setFullYear(selected.getFullYear() + 1)
@@ -539,9 +543,13 @@ export default {
     
     isBirthday() {
       if (!this.userData || !this.selectedDate) return false
-      const birth = new Date(this.userData.fullBirthDateTime)
-      const selected = new Date(this.selectedDate)
-      return selected.getMonth() === birth.getMonth() && selected.getDate() === birth.getDate()
+      
+      // 直接从birthdate字符串获取月日，避免时区问题
+      const birthDateStr = this.userData.birthdate // 格式: "2024-01-17"
+      const [, birthMonth, birthDay] = birthDateStr.split('-').map(Number)
+      
+      const selected = new Date(this.selectedDate + 'T12:00:00')
+      return selected.getMonth() + 1 === birthMonth && selected.getDate() === birthDay
     },
     
     isNewYear() {
@@ -558,7 +566,38 @@ export default {
   methods: {
     onLanguageChanged(language) {
       console.log('Language changed to:', language)
+      
+      // 如果当前有分析报告，需要重新生成以更新语言
+      if (this.transitReport && this.userData) {
+        this.regenerateReportWithLanguage(language)
+      }
+      
       this.$forceUpdate()
+    },
+
+    async regenerateReportWithLanguage(language) {
+      try {
+        console.log('重新生成报告以适应新语言:', language)
+        
+        // 使用原有的分析数据重新生成报告
+        if (this.lastTransitData) {
+          const detailedReport = generateDetailedTransitReport(this.lastTransitData, this.userData, language)
+          this.transitReport = detailedReport
+        } else {
+          // 如果没有原始数据，重新进行完整分析
+          const analysisDateTime = `${this.selectedDate}T${this.selectedTime}:00`
+          const transitData = calculateTransitChart(this.userData, analysisDateTime)
+          const detailedReport = generateDetailedTransitReport(transitData, this.userData, language)
+          this.transitReport = detailedReport
+          this.lastTransitData = transitData // 保存原始数据供后续语言切换使用
+        }
+        
+        console.log('报告语言更新完成')
+      } catch (error) {
+        console.error('重新生成报告失败:', error)
+        // 如果重新生成失败，显示错误提示
+        alert(this.$t('transitAnalysis.analysisError'))
+      }
     },
 
     selectToday() {
@@ -568,20 +607,30 @@ export default {
     
     selectBirthday() {
       if (!this.userData) return
+      
+      // 直接从birthdate字段获取日期，避免时区转换问题
+      const birthDateStr = this.userData.birthdate // 格式: "2024-01-17"
+      const birth = new Date(this.userData.fullBirthDateTime)
       const currentYear = new Date().getFullYear()
-      const birthDateStr = this.userData.birthdate // 直接使用原始日期字符串
+      
+      // 从birthdate字符串中提取月和日
       const [, birthMonth, birthDay] = birthDateStr.split('-').map(Number)
-      const birthday = new Date(currentYear, birthMonth - 1, birthDay)
+      
+      // 使用当前年份构建生日日期
+      const birthday = new Date(currentYear, birthMonth - 1, birthDay) // 月份需要减1
+      
       // 如果今年生日已过，选择明年生日
       if (birthday < new Date()) {
         birthday.setFullYear(currentYear + 1)
       }
-
-      // 使用本地时间方法构造日期字符串
+      
+      // 使用本地时间方法避免时区问题
       const year = birthday.getFullYear()
       const month = String(birthday.getMonth() + 1).padStart(2, '0')
       const day = String(birthday.getDate()).padStart(2, '0')
+      
       this.selectedDate = `${year}-${month}-${day}`
+      this.selectedTime = birth.toTimeString().substring(0, 5)
     },
     
     selectNewYear() {
@@ -613,9 +662,11 @@ export default {
         this.loadingStep = 3
         await this.delay(1000)
         
-        // 生成详细报告
-        const detailedReport = generateDetailedTransitReport(transitData, this.userData)
+        // 生成详细报告 (传递当前语言)
+        const detailedReport = generateDetailedTransitReport(transitData, this.userData, this.currentLanguage)
         
+        // 保存原始数据和报告
+        this.lastTransitData = transitData // 保存原始数据供语言切换使用
         this.transitReport = detailedReport
         
       } catch (error) {
@@ -644,6 +695,7 @@ export default {
 
     generateNewAnalysis() {
       this.transitReport = null
+      this.lastTransitData = null // 清空原始数据
     },
 
     shareReport() {
