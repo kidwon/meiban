@@ -146,28 +146,6 @@
       </div>
     </div>
     
-    <!-- 功能介绍区域 -->
-    <div class="features-section">
-      <h3 class="features-title">{{ $t('features.title') }}</h3>
-      <div class="features-grid">
-        <div class="feature-card feature-card--primary">
-          <div class="feature-icon">📊</div>
-          <h4>{{ $t('features.detailed.title') }}</h4>
-          <p>{{ $t('features.detailed.description') }}</p>
-        </div>
-        <div class="feature-card feature-card--secondary">
-          <div class="feature-icon">🎯</div>
-          <h4>{{ $t('features.personalized.title') }}</h4>
-          <p>{{ $t('features.personalized.description') }}</p>
-        </div>
-        <div class="feature-card feature-card--success">
-          <div class="feature-icon">🔄</div>
-          <h4>{{ $t('features.transit.title') }}</h4>
-          <p>{{ $t('features.transit.description') }}</p>
-        </div>
-      </div>
-    </div>
-    
     <footer class="footer">
       <p>{{ $t('footer.copyright') }}</p>
     </footer>
@@ -638,76 +616,6 @@ input:focus, select:focus {
   line-height: 1.2;
 }
 
-/* 功能介绍区域样式 */
-.features-section {
-  background: #f8f9fa;
-  border-radius: 12px;
-  padding: 15px;
-  margin-bottom: 20px;
-}
-
-.features-title {
-  text-align: center;
-  font-size: 1.2rem;
-  color: #2c3e50;
-  margin-bottom: 15px;
-  font-family: 'Shippori Mincho', serif;
-}
-
-.features-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-}
-
-.feature-card {
-  background: white;
-  padding: 12px;
-  border-radius: 10px;
-  text-align: center;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-  transition: all 0.3s ease;
-  border: 2px solid #e9ecef;
-  cursor: pointer;
-}
-
-.feature-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-}
-
-.feature-card--primary:hover {
-  border-color: #d35400;
-  box-shadow: 0 8px 25px rgba(211, 84, 0, 0.2);
-}
-
-.feature-card--secondary:hover {
-  border-color: #667eea;
-  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.2);
-}
-
-.feature-card--success:hover {
-  border-color: #27ae60;
-  box-shadow: 0 8px 25px rgba(39, 174, 96, 0.2);
-}
-
-.feature-icon {
-  font-size: 1.8rem;
-  margin-bottom: 6px;
-}
-
-.feature-card h4 {
-  color: #2c3e50;
-  margin-bottom: 4px;
-  font-size: 0.95rem;
-}
-
-.feature-card p {
-  color: #7f8c8d;
-  font-size: 0.8rem;
-  line-height: 1.3;
-  margin: 0;
-}
 
 /* 页脚样式 */
 .footer {
@@ -758,18 +666,6 @@ input:focus, select:focus {
     font-size: 0.75rem;
   }
   
-  .features-grid {
-    grid-template-columns: 1fr;
-    gap: 10px;
-  }
-  
-  .feature-card {
-    padding: 10px;
-  }
-  
-  .feature-icon {
-    font-size: 1.6rem;
-  }
 }
 
 @media (max-width: 480px) {
@@ -816,31 +712,5 @@ input:focus, select:focus {
     font-size: 0.7rem;
   }
   
-  .features-section {
-    padding: 12px;
-  }
-  
-  .features-title {
-    font-size: 1.1rem;
-    margin-bottom: 12px;
-  }
-  
-  .feature-card {
-    padding: 8px;
-  }
-  
-  .feature-icon {
-    font-size: 1.4rem;
-    margin-bottom: 4px;
-  }
-  
-  .feature-card h4 {
-    font-size: 0.9rem;
-    margin-bottom: 3px;
-  }
-  
-  .feature-card p {
-    font-size: 0.75rem;
-  }
 }
 </style>
