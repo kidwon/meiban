@@ -48,13 +48,14 @@
       dominant-baseline="middle"
       class="zodiac-name"
     >
-      {{ zodiac.name }}
+      {{ localizedZodiacName }}
     </text>
   </g>
 </template>
 
 <script>
-import { ref, computed } from 'vue';
+import { ref, computed, onUnmounted } from 'vue';
+import { getTranslation, getCurrentLanguage } from '../../i18n/index.js';
 
 export default {
   name: 'ZodiacSector',
@@ -78,6 +79,57 @@ export default {
   },
   setup(props) {
     const isHovered = ref(false);
+    const currentLanguage = ref(getCurrentLanguage());
+
+    // 星座名称映射（英文到翻译key）
+    const zodiacKeyMap = {
+      'Aries': 'aries',
+      'Taurus': 'taurus', 
+      'Gemini': 'gemini',
+      'Cancer': 'cancer',
+      'Leo': 'leo',
+      'Virgo': 'virgo',
+      'Libra': 'libra',
+      'Scorpio': 'scorpio',
+      'Sagittarius': 'sagittarius',
+      'Capricorn': 'capricorn',
+      'Aquarius': 'aquarius',
+      'Pisces': 'pisces',
+      // 中文名称映射
+      '白羊座': 'aries',
+      '金牛座': 'taurus',
+      '双子座': 'gemini',
+      '巨蟹座': 'cancer',
+      '狮子座': 'leo',
+      '处女座': 'virgo',
+      '天秤座': 'libra',
+      '天蝎座': 'scorpio',
+      '射手座': 'sagittarius',
+      '摩羯座': 'capricorn',
+      '水瓶座': 'aquarius',
+      '双鱼座': 'pisces'
+    };
+
+    // 本地化的星座名称
+    const localizedZodiacName = computed(() => {
+      const zodiacKey = zodiacKeyMap[props.zodiac.name];
+      if (zodiacKey) {
+        const translationKey = `starChart.zodiac.${zodiacKey}`;
+        const translated = getTranslation(translationKey, currentLanguage.value);
+        return translated !== translationKey ? translated : props.zodiac.name;
+      }
+      return props.zodiac.name;
+    });
+
+    // 监听语言变化
+    const handleLanguageChange = (event) => {
+      currentLanguage.value = event.detail.language;
+    };
+
+    // 添加事件监听
+    if (typeof window !== 'undefined') {
+      window.addEventListener('languageChanged', handleLanguageChange);
+    }
 
     // 计算扇形路径
     const sectorPath = computed(() => {
@@ -161,6 +213,13 @@ export default {
       isHovered.value = false;
     };
 
+    // 清理事件监听
+    onUnmounted(() => {
+      if (typeof window !== 'undefined') {
+        window.removeEventListener('languageChanged', handleLanguageChange);
+      }
+    });
+
     return {
       isHovered,
       sectorPath,
@@ -169,6 +228,7 @@ export default {
       symbolPosition,
       namePosition,
       symbolSize,
+      localizedZodiacName,
       onHover,
       onLeave
     };

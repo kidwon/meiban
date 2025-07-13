@@ -69,6 +69,28 @@ export default {
       share: 'Share',
       transitAnalysis: 'Transit Analysis',
       compatibility: 'Compatibility Analysis'
+    },
+    advancedFeatures: {
+      title: 'Advanced Analysis Features',
+      transitDescription: 'Detailed analysis of timing changes and important planetary transits',
+      transitFeatures: {
+        futureTrends: '• Future 3-year trends',
+        transitPlanets: '• Important planetary transits',
+        timingDiagnosis: '• Optimal timing diagnosis'
+      },
+      compatibilityDescription: 'Deep analysis of partner compatibility and relationship dynamics',
+      compatibilityFeatures: {
+        loveCompatibility: '• Love & marriage compatibility',
+        communicationTrends: '• Communication patterns',
+        relationshipAdvice: '• Relationship improvement advice'
+      }
+    },
+    alerts: {
+      compatibilityInDevelopment: 'Compatibility analysis feature in development',
+      reportTitle: 'My Astrology Analysis Report',
+      reportDescription: '\'s Personal Birth Chart Analysis',
+      linkCopied: 'Link copied to clipboard',
+      copyManually: 'Please manually copy the current page link to share'
     }
   },
   
@@ -210,6 +232,78 @@ export default {
   
   common: {
     back: 'Back'
+  },
+
+  starChart: {
+    title: 'Star Chart',
+    controls: {
+      showAspects: 'Show Aspects',
+      hideAspects: 'Hide Aspects',
+      showHouses: 'Show Houses',
+      hideHouses: 'Hide Houses'
+    },
+    legends: {
+      planets: 'Planets',
+      majorAspects: 'Major Aspects'
+    },
+    tooltip: {
+      degree: '°',
+      minute: "'"
+    },
+    aspects: {
+      conjunction: 'Conjunction',
+      sextile: 'Sextile',
+      square: 'Square',
+      trine: 'Trine',
+      opposition: 'Opposition'
+    },
+    houses: {
+      descriptions: {
+        1: 'Self & Personality',
+        2: 'Wealth & Values',
+        3: 'Communication & Learning',
+        4: 'Home & Roots',
+        5: 'Creativity & Love',
+        6: 'Work & Health',
+        7: 'Relationships & Partnership',
+        8: 'Transformation & Sharing',
+        9: 'Philosophy & Travel',
+        10: 'Career & Reputation',
+        11: 'Friendship & Hope',
+        12: 'Subconscious & Sacrifice'
+      }
+    },
+    zodiac: {
+      aries: 'Aries',
+      taurus: 'Taurus',
+      gemini: 'Gemini',
+      cancer: 'Cancer',
+      leo: 'Leo',
+      virgo: 'Virgo',
+      libra: 'Libra',
+      scorpio: 'Scorpio',
+      sagittarius: 'Sagittarius',
+      capricorn: 'Capricorn',
+      aquarius: 'Aquarius',
+      pisces: 'Pisces'
+    },
+    planets: {
+      sun: 'Sun',
+      moon: 'Moon',
+      mercury: 'Mercury',
+      venus: 'Venus',
+      mars: 'Mars',
+      jupiter: 'Jupiter',
+      saturn: 'Saturn',
+      uranus: 'Uranus',
+      neptune: 'Neptune',
+      pluto: 'Pluto',
+      north_node: 'North Node',
+      south_node: 'South Node',
+      ascendant: 'Ascendant',
+      midheaven: 'Midheaven',
+      chiron: 'Chiron'
+    }
   },
 
   transitReport: {

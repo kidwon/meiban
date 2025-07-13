@@ -69,6 +69,28 @@ export default {
       share: '分享',
       transitAnalysis: '流年分析',
       compatibility: '合盘分析'
+    },
+    advancedFeatures: {
+      title: '高级分析功能',
+      transitDescription: '时期别的运势变化与重要天体移动的影响详细分析',
+      transitFeatures: {
+        futureTrends: '• 未来3年间的运势倾向',
+        transitPlanets: '• 重要的天体行运',
+        timingDiagnosis: '• 最佳时机诊断'
+      },
+      compatibilityDescription: '伴侣间的相性和关系性的深层分析',
+      compatibilityFeatures: {
+        loveCompatibility: '• 恋爱・结婚相性度',
+        communicationTrends: '• 沟通倾向',
+        relationshipAdvice: '• 关系改善的建议'
+      }
+    },
+    alerts: {
+      compatibilityInDevelopment: '合盘分析功能开发中',
+      reportTitle: '我的占星分析报告',
+      reportDescription: '的个人星盘分析',
+      linkCopied: '链接已复制到剪贴板',
+      copyManually: '请手动复制当前页面链接进行分享'
     }
   },
   
@@ -210,6 +232,78 @@ export default {
   
   common: {
     back: '返回'
+  },
+
+  starChart: {
+    title: '星盘图',
+    controls: {
+      showAspects: '显示相位',
+      hideAspects: '隐藏相位',
+      showHouses: '显示宫位',
+      hideHouses: '隐藏宫位'
+    },
+    legends: {
+      planets: '行星',
+      majorAspects: '主要相位'
+    },
+    tooltip: {
+      degree: '度',
+      minute: '分'
+    },
+    aspects: {
+      conjunction: '合相',
+      sextile: '六分相',
+      square: '四分相',
+      trine: '三分相',
+      opposition: '对分相'
+    },
+    houses: {
+      descriptions: {
+        1: '自我・个性',
+        2: '财富・价值',
+        3: '沟通・学习',
+        4: '家庭・根源',
+        5: '创造・恋爱',
+        6: '工作・健康',
+        7: '关系・合作',
+        8: '转化・共享',
+        9: '哲学・远行',
+        10: '事业・声誉',
+        11: '友谊・希望',
+        12: '潜意识・牺牲'
+      }
+    },
+    zodiac: {
+      aries: '白羊座',
+      taurus: '金牛座',
+      gemini: '双子座',
+      cancer: '巨蟹座',
+      leo: '狮子座',
+      virgo: '处女座',
+      libra: '天秤座',
+      scorpio: '天蝎座',
+      sagittarius: '射手座',
+      capricorn: '摩羯座',
+      aquarius: '水瓶座',
+      pisces: '双鱼座'
+    },
+    planets: {
+      sun: '太阳',
+      moon: '月亮',
+      mercury: '水星',
+      venus: '金星',
+      mars: '火星',
+      jupiter: '木星',
+      saturn: '土星',
+      uranus: '天王星',
+      neptune: '海王星',
+      pluto: '冥王星',
+      north_node: '北交点',
+      south_node: '南交点',
+      ascendant: '上升点',
+      midheaven: '天顶',
+      chiron: '凯龙星'
+    }
   },
 
   transitReport: {
