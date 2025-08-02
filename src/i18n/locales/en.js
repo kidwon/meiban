@@ -93,7 +93,7 @@ export default {
         content: 'On this page, you can view your detailed astrology analysis results. Let us guide you through using these features effectively.'
       },
       navigation: {
-        title: 'Function Navigation',
+        title: 'Feature Navigation',
         content: 'Use this navigation bar to easily switch between basic analysis, transit analysis, and compatibility analysis.'
       },
       chartInteraction: {
