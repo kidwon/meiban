@@ -64,6 +64,29 @@ export default {
     compatibleSigns: '相性星座',
     overallFortune: '総合運勢',
     guest: 'ゲスト',
+    // 功能导航
+    functionNav: {
+      basicAnalysis: '基礎分析',
+      transitAnalysis: '行運分析',
+      compatibilityAnalysis: '合盤分析'
+    },
+    recommendationsTitle: 'あなたにおすすめの機能',
+    recommendations: {
+      transitDescription: '未来の運勢を詳しく確認',
+      compatibilityDescription: '相性診断で関係性を深める',
+      recommended: 'おすすめ',
+      popular: '人気'
+    },
+    exploreMoreTitle: 'さらに詳しく占いたい方へ',
+    exploreMoreSubtitle: 'より深い洞察とパーソナライズされた分析をご体験ください',
+    exploreNow: '今すぐ体験',
+    whyChooseAdvanced: 'なぜ高級分析を選ぶのか？',
+    comparison: {
+      basicAnalysis: '基礎分析',
+      basicDescription: '現在の星盤と基本的な特性',
+      advancedAnalysis: '高級分析',
+      advancedDescription: '未来予測と深いパーソナライズ'
+    },
     calculating: '星盤を計算中...',
     fortuneLabels: {
       career: '事業運',

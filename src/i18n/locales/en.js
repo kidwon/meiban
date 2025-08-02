@@ -64,6 +64,29 @@ export default {
     compatibleSigns: 'Compatible Signs',
     overallFortune: 'Overall Fortune',
     guest: 'Guest',
+    // Function Navigation
+    functionNav: {
+      basicAnalysis: 'Basic Analysis',
+      transitAnalysis: 'Transit Analysis',
+      compatibilityAnalysis: 'Compatibility Analysis'
+    },
+    recommendationsTitle: 'Recommended Features for You',
+    recommendations: {
+      transitDescription: 'Explore your future fortune in detail',
+      compatibilityDescription: 'Deepen relationships through compatibility analysis',
+      recommended: 'Recommended',
+      popular: 'Popular'
+    },
+    exploreMoreTitle: 'Want Deeper Insights?',
+    exploreMoreSubtitle: 'Experience more profound insights and personalized analysis',
+    exploreNow: 'Explore Now',
+    whyChooseAdvanced: 'Why Choose Advanced Analysis?',
+    comparison: {
+      basicAnalysis: 'Basic Analysis',
+      basicDescription: 'Current birth chart and basic traits',
+      advancedAnalysis: 'Advanced Analysis',
+      advancedDescription: 'Future predictions and deep personalization'
+    },
     calculating: 'Calculating birth chart...',
     fortuneLabels: {
       career: 'Career Luck',

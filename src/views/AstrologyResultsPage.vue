@@ -18,8 +18,32 @@
         <p>{{ formattedBirthInfo.full }}</p>
       </div>
 
+      <!-- 功能导航栏 -->
+      <nav class="function-nav">
+        <div class="nav-container">
+          <button 
+            v-for="(nav) in functionNavs" 
+            :key="nav.id"
+            @click="activeFunctionTab = nav.id"
+            :class="{ 
+              'nav-button': true,
+              'nav-button--active': activeFunctionTab === nav.id,
+              'nav-button--completed': nav.completed
+            }"
+            class="nav-button"
+          >
+            <div class="nav-icon">{{ nav.icon }}</div>
+            <div class="nav-content">
+              <span class="nav-title">{{ $t('astrology.functionNav.' + nav.nameKey) }}</span>
+              <span class="nav-status" v-if="nav.completed">✓</span>
+              <span class="nav-badge" v-if="nav.badge">{{ nav.badge }}</span>
+            </div>
+          </button>
+        </div>
+      </nav>
+
       <!-- 交互式星盘图 -->
-      <section class="section">
+      <section class="section" v-show="activeFunctionTab === 'basic'">
         <h2 class="section-title">{{ $t('astrology.interactiveChart') }}</h2>
         <div class="chart-container">
           <StarChart 
@@ -63,7 +87,7 @@
       </section>
 
       <!-- 占星分析标签页 -->
-      <section class="section">
+      <section class="section" v-show="activeFunctionTab === 'basic'">
         <h2 class="section-title">{{ $t('astrology.detailedAnalysis') }}</h2>
         <div class="tabs">
           <div class="tab-list">
@@ -171,13 +195,97 @@
                   </div>
                 </div>
               </div>
+
+              <!-- 个性化推荐卡片 -->
+              <div class="recommendation-cards">
+                <h4 class="recommendations-title">{{ $t('astrology.recommendationsTitle') }}</h4>
+                <div class="cards-grid">
+                  <div class="recommendation-card recommendation-card--transit" @click="goToTransitAnalysis">
+                    <div class="card-icon">🌟</div>
+                    <div class="card-content">
+                      <h5>{{ $t('astrology.actions.transitAnalysis') }}</h5>
+                      <p>{{ $t('astrology.recommendations.transitDescription') }}</p>
+                      <div class="card-badge">{{ $t('astrology.recommendations.recommended') }}</div>
+                    </div>
+                    <div class="card-arrow">→</div>
+                  </div>
+                  
+                  <div class="recommendation-card recommendation-card--compatibility" @click="goToCompatibilityAnalysis">
+                    <div class="card-icon">💕</div>
+                    <div class="card-content">
+                      <h5>{{ $t('astrology.actions.compatibility') }}</h5>
+                      <p>{{ $t('astrology.recommendations.compatibilityDescription') }}</p>
+                      <div class="card-badge card-badge--hot">{{ $t('astrology.recommendations.popular') }}</div>
+                    </div>
+                    <div class="card-arrow">→</div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
+      <!-- 行运分析内容 -->
+      <section class="section" v-show="activeFunctionTab === 'transit'">
+        <h2 class="section-title">🌟 {{ $t('astrology.functionNav.transitAnalysis') }}</h2>
+        <div class="transit-content">
+          <div class="feature-preview">
+            <div class="preview-icon">🌟</div>
+            <h3>{{ $t('astrology.actions.transitAnalysis') }}</h3>
+            <p>{{ $t('astrology.advancedFeatures.transitDescription') }}</p>
+            <div class="feature-highlights">
+              <div class="highlight-item">
+                <span class="highlight-icon">📈</span>
+                <span>{{ $t('astrology.advancedFeatures.transitFeatures.futureTrends') }}</span>
+              </div>
+              <div class="highlight-item">
+                <span class="highlight-icon">🪐</span>
+                <span>{{ $t('astrology.advancedFeatures.transitFeatures.transitPlanets') }}</span>
+              </div>
+              <div class="highlight-item">
+                <span class="highlight-icon">⏰</span>
+                <span>{{ $t('astrology.advancedFeatures.transitFeatures.timingDiagnosis') }}</span>
+              </div>
+            </div>
+            <button @click="goToTransitAnalysis" class="btn btn--primary btn--large">
+              {{ $t('astrology.actions.transitAnalysis') }}
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 合盘分析内容 -->
+      <section class="section" v-show="activeFunctionTab === 'compatibility'">
+        <h2 class="section-title">💕 {{ $t('astrology.functionNav.compatibilityAnalysis') }}</h2>
+        <div class="compatibility-content">
+          <div class="feature-preview">
+            <div class="preview-icon">💕</div>
+            <h3>{{ $t('astrology.actions.compatibility') }}</h3>
+            <p>{{ $t('astrology.advancedFeatures.compatibilityDescription') }}</p>
+            <div class="feature-highlights">
+              <div class="highlight-item">
+                <span class="highlight-icon">❤️</span>
+                <span>{{ $t('astrology.advancedFeatures.compatibilityFeatures.loveCompatibility') }}</span>
+              </div>
+              <div class="highlight-item">
+                <span class="highlight-icon">💬</span>
+                <span>{{ $t('astrology.advancedFeatures.compatibilityFeatures.communicationTrends') }}</span>
+              </div>
+              <div class="highlight-item">
+                <span class="highlight-icon">💡</span>
+                <span>{{ $t('astrology.advancedFeatures.compatibilityFeatures.relationshipAdvice') }}</span>
+              </div>
+            </div>
+            <button @click="goToCompatibilityAnalysis" class="btn btn--primary btn--large">
+              {{ $t('astrology.actions.compatibility') }}
+            </button>
+          </div>
+        </div>
+      </section>
+
       <!-- 高级功能区域 -->
-      <section class="section">
+      <section class="section" v-show="activeFunctionTab === 'basic'">
         <h2 class="section-title">{{ $t('astrology.advancedFeatures.title') }}</h2>
         <div class="advanced-features-grid">
           <button class="advanced-feature-btn advanced-feature-btn--transit" @click="goToTransitAnalysis">
@@ -254,6 +362,7 @@ export default {
   data() {
     return {
       activeTab: 'personality',
+      activeFunctionTab: 'basic', // 当前激活的功能标签
       chartSize: 450, // 从500px压缩到450px
       selectedPlanet: null,
       analysisTabs: [
@@ -261,6 +370,29 @@ export default {
         { id: 'career', nameKey: 'careerAnalysis' },
         { id: 'relationships', nameKey: 'relationshipAnalysis' },
         { id: 'fortune', nameKey: 'fortuneAnalysis' }
+      ],
+      functionNavs: [
+        { 
+          id: 'basic', 
+          nameKey: 'basicAnalysis', 
+          icon: '📊', 
+          completed: true, // 基础分析默认完成
+          badge: null 
+        },
+        { 
+          id: 'transit', 
+          nameKey: 'transitAnalysis', 
+          icon: '🌟', 
+          completed: false,
+          badge: 'NEW' 
+        },
+        { 
+          id: 'compatibility', 
+          nameKey: 'compatibilityAnalysis', 
+          icon: '💕', 
+          completed: false,
+          badge: 'HOT' 
+        }
       ]
     }
   },
@@ -461,6 +593,249 @@ export default {
 <style scoped>
 /* 导入通用样式，大部分样式使用common.css中的类 */
 @import '@/assets/styles/common.css';
+
+/* =============================================================================
+   功能导航栏样式
+   ============================================================================= */
+
+/* 功能导航栏容器 */
+.function-nav {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 16px 0;
+  margin-bottom: 24px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+}
+
+.nav-container {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* 导航按钮样式 */
+.nav-button {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  padding: 12px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  font-size: 14px;
+  min-width: 140px;
+  text-align: center;
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  position: relative;
+}
+
+.nav-button:hover {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.nav-button--active {
+  background: white;
+  color: #667eea;
+  border-color: white;
+  box-shadow: 0 4px 16px rgba(255, 255, 255, 0.3);
+}
+
+.nav-button--active:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.4);
+}
+
+/* 导航图标和内容 */
+.nav-icon {
+  font-size: 16px;
+}
+
+.nav-content {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nav-title {
+  font-weight: 500;
+}
+
+.nav-status {
+  color: #28a745;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.nav-badge {
+  background: #ff6b6b;
+  color: white;
+  font-size: 10px;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 10px;
+  text-transform: uppercase;
+}
+
+/* 功能内容区域动画 */
+.function-content {
+  min-height: 400px;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 功能预览卡片样式 */
+.feature-preview {
+  text-align: center;
+  padding: 40px;
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  border-radius: 16px;
+  color: white;
+  margin: 20px 0;
+}
+
+.preview-icon {
+  font-size: 60px;
+  margin-bottom: 20px;
+}
+
+.feature-preview h3 {
+  font-size: 28px;
+  margin-bottom: 16px;
+  font-weight: 600;
+  font-family: 'Shippori Mincho', serif;
+}
+
+.feature-preview p {
+  font-size: 16px;
+  opacity: 0.9;
+  line-height: 1.6;
+  margin-bottom: 30px;
+}
+
+/* 功能亮点列表 */
+.feature-highlights {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 30px 0;
+  align-items: center;
+}
+
+.highlight-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 12px 20px;
+  border-radius: 25px;
+  backdrop-filter: blur(10px);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.highlight-icon {
+  font-size: 18px;
+}
+
+/* 功能按钮样式 */
+.btn--large {
+  padding: 15px 30px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 25px;
+  background: white;
+  color: #667eea;
+  border: none;
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+.btn--large:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.4);
+  background: #f8f9fa;
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  .function-nav {
+    padding: 12px 8px;
+    margin: 0 -15px 20px -15px;
+    border-radius: 0;
+  }
+  
+  .nav-container {
+    gap: 6px;
+  }
+  
+  .nav-button {
+    padding: 10px 16px;
+    font-size: 13px;
+    min-width: 110px;
+    flex-direction: column;
+    gap: 4px;
+  }
+  
+  .nav-icon {
+    font-size: 14px;
+  }
+  
+  .nav-content {
+    flex-direction: column;
+    gap: 2px;
+  }
+  
+  .nav-title {
+    font-size: 12px;
+  }
+  
+  .feature-preview {
+    margin: 20px -15px;
+    border-radius: 0;
+    padding: 30px 20px;
+  }
+  
+  .feature-preview h3 {
+    font-size: 24px;
+  }
+  
+  .preview-icon {
+    font-size: 50px;
+    margin-bottom: 15px;
+  }
+  
+  .feature-highlights {
+    gap: 8px;
+  }
+  
+  .highlight-item {
+    padding: 10px 16px;
+    font-size: 13px;
+  }
+  
+  .highlight-icon {
+    font-size: 16px;
+  }
+}
 
 /* =============================================================================
    占星结果页面优化样式
