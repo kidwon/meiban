@@ -87,6 +87,36 @@ export default {
       advancedAnalysis: '高级分析',
       advancedDescription: '未来预测和深度个性化'
     },
+    userGuide: {
+      welcome: {
+        title: '欢迎使用占星分析！',
+        content: '在这个页面，您可以查看详细的占星分析结果。让我们为您介绍如何高效使用这些功能。'
+      },
+      navigation: {
+        title: '功能切换',
+        content: '通过这个导航栏，您可以轻松在基础分析、行运分析和合盘分析之间切换。'
+      },
+      chartInteraction: {
+        title: '交互式星盘',
+        content: '点击星盘上的行星可以查看详细信息。将鼠标悬停在上面可以获得更多详情。'
+      },
+      recommendations: {
+        title: '推荐功能',
+        content: '我们为您推荐最适合的高级分析功能。点击了解更多详情。'
+      },
+      advancedFeatures: {
+        title: '高级功能',
+        content: '尝试行运分析或合盘分析等高级功能，获得更深入的洞察。'
+      },
+      next: '下一步',
+      previous: '上一步',
+      finish: '完成'
+    },
+    tooltips: {
+      interaction: '很棒！您掌握了操作方法',
+      success: '操作完成！',
+      info: '提示：您也可以使用键盘快捷键'
+    },
     calculating: '正在计算星盘...',
     fortuneLabels: {
       career: '事业运',
