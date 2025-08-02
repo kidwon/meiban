@@ -52,9 +52,11 @@
 
 <script>
 import { ref, computed } from 'vue';
+import i18nMixin from '../../mixins/i18n.js';
 
 export default {
   name: 'AspectLine',
+  mixins: [i18nMixin],
   props: {
     aspect: {
       type: Object,
@@ -139,6 +141,12 @@ export default {
     // 线条样式配置
     const lineConfig = computed(() => {
       const configs = {
+        'Conjunction': { width: 2, opacity: 0.8, dash: 'none' },
+        'Sextile': { width: 1.5, opacity: 0.6, dash: '3,2' },
+        'Square': { width: 2, opacity: 0.7, dash: '5,3' },
+        'Trine': { width: 1.5, opacity: 0.6, dash: 'none' },
+        'Opposition': { width: 2, opacity: 0.8, dash: '2,2' },
+        // 兼容中文名称
         '合相': { width: 2, opacity: 0.8, dash: 'none' },
         '六分相': { width: 1.5, opacity: 0.6, dash: '3,2' },
         '四分相': { width: 2, opacity: 0.7, dash: '5,3' },

@@ -178,17 +178,17 @@
 
       <!-- 高级功能区域 -->
       <section class="section">
-        <h2 class="section-title">高級分析機能</h2>
+        <h2 class="section-title">{{ $t('astrology.advancedFeatures.title') }}</h2>
         <div class="advanced-features-grid">
           <button class="advanced-feature-btn advanced-feature-btn--transit" @click="goToTransitAnalysis">
             <div class="btn-icon">🌟</div>
             <div class="btn-content">
               <h3>{{ $t('astrology.actions.transitAnalysis') }}</h3>
-              <p>時期別の運勢変化と重要な天体移動の影響を詳細分析</p>
+              <p>{{ $t('astrology.advancedFeatures.transitDescription') }}</p>
               <div class="feature-details">
-                <span>• 未来3年間の運勢傾向</span>
-                <span>• 重要な天体トランジット</span>
-                <span>• 最適なタイミング診断</span>
+                <span>{{ $t('astrology.advancedFeatures.transitFeatures.futureTrends') }}</span>
+                <span>{{ $t('astrology.advancedFeatures.transitFeatures.transitPlanets') }}</span>
+                <span>{{ $t('astrology.advancedFeatures.transitFeatures.timingDiagnosis') }}</span>
               </div>
             </div>
           </button>
@@ -197,11 +197,11 @@
             <div class="btn-icon">💕</div>
             <div class="btn-content">
               <h3>{{ $t('astrology.actions.compatibility') }}</h3>
-              <p>パートナーとの相性や関係性の深層分析</p>
+              <p>{{ $t('astrology.advancedFeatures.compatibilityDescription') }}</p>
               <div class="feature-details">
-                <span>• 恋愛・結婚相性度</span>
-                <span>• コミュニケーション傾向</span>
-                <span>• 関係改善のアドバイス</span>
+                <span>{{ $t('astrology.advancedFeatures.compatibilityFeatures.loveCompatibility') }}</span>
+                <span>{{ $t('astrology.advancedFeatures.compatibilityFeatures.communicationTrends') }}</span>
+                <span>{{ $t('astrology.advancedFeatures.compatibilityFeatures.relationshipAdvice') }}</span>
               </div>
             </div>
           </button>
@@ -390,7 +390,7 @@ export default {
     
     goToCompatibilityAnalysis() {
       // 暂时显示提示，实际需要实现合盘分析页面
-      alert('合盤分析機能は開発中です')
+      alert(this.$t('astrology.alerts.compatibilityInDevelopment'))
     },
     
     downloadReport() {
@@ -414,15 +414,15 @@ export default {
     shareReport() {
       if (navigator.share) {
         navigator.share({
-          title: '我的占星分析報告',
-          text: `${this.userData.name}的個人星盤分析`,
+          title: this.$t('astrology.alerts.reportTitle'),
+          text: `${this.userData.name}${this.$t('astrology.alerts.reportDescription')}`,
           url: window.location.href
         }).catch(console.error)
       } else {
         // 降级方案
         navigator.clipboard.writeText(window.location.href)
-          .then(() => alert('鏈接已複製到剪貼板'))
-          .catch(() => alert('請手動複製當前頁面鏈接進行分享'))
+          .then(() => alert(this.$t('astrology.alerts.linkCopied')))
+          .catch(() => alert(this.$t('astrology.alerts.copyManually')))
       }
     },
     

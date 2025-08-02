@@ -69,6 +69,28 @@ export default {
       share: 'シェア',
       transitAnalysis: '行運分析',
       compatibility: '合盤分析'
+    },
+    advancedFeatures: {
+      title: '高級分析機能',
+      transitDescription: '時期別の運勢変化と重要な天体移動の影響を詳細分析',
+      transitFeatures: {
+        futureTrends: '• 未来3年間の運勢傾向',
+        transitPlanets: '• 重要な天体トランジット',
+        timingDiagnosis: '• 最適なタイミング診断'
+      },
+      compatibilityDescription: 'パートナーとの相性や関係性の深層分析',
+      compatibilityFeatures: {
+        loveCompatibility: '• 恋愛・結婚相性度',
+        communicationTrends: '• コミュニケーション傾向',
+        relationshipAdvice: '• 関係改善のアドバイス'
+      }
+    },
+    alerts: {
+      compatibilityInDevelopment: '合盤分析機能は開発中です',
+      reportTitle: '私の占星分析レポート',
+      reportDescription: 'の個人星盤分析',
+      linkCopied: 'リンクがクリップボードにコピーされました',
+      copyManually: '現在のページリンクを手動でコピーしてシェアしてください'
     }
   },
   
@@ -210,6 +232,78 @@ export default {
   
   common: {
     back: '戻る'
+  },
+
+  starChart: {
+    title: '星盤図',
+    controls: {
+      showAspects: 'アスペクト表示',
+      hideAspects: 'アスペクト非表示',
+      showHouses: 'ハウス表示',
+      hideHouses: 'ハウス非表示'
+    },
+    legends: {
+      planets: '惑星',
+      majorAspects: '主要アスペクト'
+    },
+    tooltip: {
+      degree: '度',
+      minute: '分'
+    },
+    aspects: {
+      conjunction: 'コンジャンクション',
+      sextile: 'セクスタイル',
+      square: 'スクエア',
+      trine: 'トライン',
+      opposition: 'オポジション'
+    },
+    houses: {
+      descriptions: {
+        1: '自己・個性',
+        2: '財富・価値観',
+        3: 'コミュニケーション・学習',
+        4: '家庭・ルーツ',
+        5: '創造・恋愛',
+        6: '仕事・健康',
+        7: 'パートナーシップ・協力',
+        8: '変容・共有',
+        9: '哲学・遠方',
+        10: 'キャリア・名声',
+        11: '友情・希望',
+        12: '潜在意識・犠牲'
+      }
+    },
+    zodiac: {
+      aries: '牡羊座',
+      taurus: '牡牛座',
+      gemini: '双子座',
+      cancer: '蟹座',
+      leo: '獅子座',
+      virgo: '乙女座',
+      libra: '天秤座',
+      scorpio: '蠍座',
+      sagittarius: '射手座',
+      capricorn: '山羊座',
+      aquarius: '水瓶座',
+      pisces: '魚座'
+    },
+    planets: {
+      sun: '太陽',
+      moon: '月',
+      mercury: '水星',
+      venus: '金星',
+      mars: '火星',
+      jupiter: '木星',
+      saturn: '土星',
+      uranus: '天王星',
+      neptune: '海王星',
+      pluto: '冥王星',
+      north_node: 'ドラゴンヘッド',
+      south_node: 'ドラゴンテイル',
+      ascendant: 'アセンダント',
+      midheaven: 'ミッドヘブン',
+      chiron: 'カイロン'
+    }
   },
 
   transitReport: {

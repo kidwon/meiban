@@ -1,21 +1,21 @@
 <template>
   <div class="star-chart-container">
     <div class="chart-header">
-      <h3 class="chart-title">星盤圖</h3>
+      <h3 class="chart-title">{{ getLocalizedText('starChart.title') }}</h3>
       <div class="chart-controls">
         <button 
           @click="toggleAspects" 
           :class="{ active: showAspects }"
           class="control-btn"
         >
-          {{ showAspects ? '隐藏相位' : '显示相位' }}
+          {{ showAspects ? getLocalizedText('starChart.controls.hideAspects') : getLocalizedText('starChart.controls.showAspects') }}
         </button>
         <button 
           @click="toggleHouses" 
           :class="{ active: showHouses }"
           class="control-btn"
         >
-          {{ showHouses ? '隐藏宫位' : '显示宫位' }}
+          {{ showHouses ? getLocalizedText('starChart.controls.hideHouses') : getLocalizedText('starChart.controls.showHouses') }}
         </button>
       </div>
     </div>
@@ -116,9 +116,9 @@
         class="planet-tooltip"
         :style="tooltipStyle"
       >
-        <div class="tooltip-title">{{ hoveredPlanet.name }}</div>
+        <div class="tooltip-title">{{ getLocalizedPlanetName(hoveredPlanet.displayName || hoveredPlanet.name) }}</div>
         <div class="tooltip-position">
-          {{ hoveredPlanet.sign }} {{ hoveredPlanet.signDegree }}°{{ hoveredPlanet.signMinute }}'
+          {{ getLocalizedSignName(hoveredPlanet.sign) }} {{ hoveredPlanet.signDegree }}{{ getLocalizedText('starChart.tooltip.degree') }}{{ hoveredPlanet.signMinute }}{{ getLocalizedText('starChart.tooltip.minute') }}
         </div>
       </div>
     </div>
@@ -126,7 +126,7 @@
     <!-- 图例 -->
     <div class="chart-legend">
       <div class="legend-section">
-        <h4>行星</h4>
+        <h4>{{ getLocalizedText('starChart.legends.planets') }}</h4>
         <div class="legend-items">
           <div 
             v-for="planet in chartData.planets" 
@@ -136,16 +136,16 @@
             <span class="planet-symbol" :style="{ color: planet.color }">
               {{ planet.symbol }}
             </span>
-            <span class="planet-name">{{ planet.displayName }}</span>
+            <span class="planet-name">{{ getLocalizedPlanetName(planet.displayName || planet.name) }}</span>
             <span class="planet-position">
-              {{ planet.sign }} {{ planet.signDegree }}°{{ planet.signMinute }}'
+              {{ getLocalizedSignName(planet.sign) }} {{ planet.signDegree }}{{ getLocalizedText('starChart.tooltip.degree') }}{{ planet.signMinute }}{{ getLocalizedText('starChart.tooltip.minute') }}
             </span>
           </div>
         </div>
       </div>
 
       <div v-if="showAspects && chartData.aspects.length > 0" class="legend-section">
-        <h4>主要相位</h4>
+        <h4>{{ getLocalizedText('starChart.legends.majorAspects') }}</h4>
         <div class="legend-items">
           <div 
             v-for="(aspect, index) in chartData.aspects.slice(0, 5)" 
@@ -154,7 +154,7 @@
           >
             <span class="aspect-color" :style="{ backgroundColor: aspect.color }"></span>
             <span class="aspect-description">
-              {{ aspect.planet1 }} {{ aspect.aspect }} {{ aspect.planet2 }}
+              {{ getLocalizedAspectDescription(aspect) }}
             </span>
             <span class="aspect-orb">{{ aspect.orb.toFixed(1) }}°</span>
           </div>
@@ -165,12 +165,13 @@
 </template>
 
 <script>
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed, onMounted, onUnmounted } from 'vue';
 import { generateChartData } from '../../utils/chartCalculator.js';
 import ZodiacSector from './ZodiacSector.vue';
 import HouseSector from './HouseSector.vue';
 import PlanetMarker from './PlanetMarker.vue';
 import AspectLine from './AspectLine.vue';
+import { getTranslation, getCurrentLanguage } from '../../i18n/index.js';
 
 export default {
   name: 'StarChart',
@@ -196,6 +197,143 @@ export default {
     const showHouses = ref(true);
     const hoveredPlanet = ref(null);
     const mousePosition = ref({ x: 0, y: 0 });
+    const currentLanguage = ref(getCurrentLanguage());
+
+    // 行星名称映射
+    const planetKeyMap = {
+      'Sun': 'sun',
+      'Moon': 'moon',
+      'Mercury': 'mercury',
+      'Venus': 'venus',
+      'Mars': 'mars',
+      'Jupiter': 'jupiter',
+      'Saturn': 'saturn',
+      'Uranus': 'uranus',
+      'Neptune': 'neptune',
+      'Pluto': 'pluto',
+      'North Node': 'north_node',
+      'South Node': 'south_node',
+      'Ascendant': 'ascendant',
+      'Midheaven': 'midheaven',
+      'Chiron': 'chiron',
+      // 中文名称映射
+      '太阳': 'sun',
+      '月亮': 'moon',
+      '水星': 'mercury',
+      '金星': 'venus',
+      '火星': 'mars',
+      '木星': 'jupiter',
+      '土星': 'saturn',
+      '天王星': 'uranus',
+      '海王星': 'neptune',
+      '冥王星': 'pluto',
+      '北交点': 'north_node',
+      '南交点': 'south_node',
+      '上升点': 'ascendant',
+      '天顶': 'midheaven',
+      '凯龙星': 'chiron'
+    };
+
+    // 相位名称映射
+    const aspectKeyMap = {
+      'Conjunction': 'conjunction',
+      'Sextile': 'sextile', 
+      'Square': 'square',
+      'Trine': 'trine',
+      'Opposition': 'opposition',
+      // 中文名称映射
+      '合相': 'conjunction',
+      '六分相': 'sextile',
+      '四分相': 'square',
+      '三分相': 'trine',
+      '对分相': 'opposition'
+    };
+
+    // 翻译行星名称
+    const getLocalizedPlanetName = (planetName) => {
+      const planetKey = planetKeyMap[planetName];
+      if (planetKey) {
+        const translationKey = `starChart.planets.${planetKey}`;
+        const translated = getTranslation(translationKey, currentLanguage.value);
+        return translated !== translationKey ? translated : planetName;
+      }
+      return planetName;
+    };
+
+    // 星座名称映射
+    const zodiacSignKeyMap = {
+      'Aries': 'aries',
+      'Taurus': 'taurus', 
+      'Gemini': 'gemini',
+      'Cancer': 'cancer',
+      'Leo': 'leo',
+      'Virgo': 'virgo',
+      'Libra': 'libra',
+      'Scorpio': 'scorpio',
+      'Sagittarius': 'sagittarius',
+      'Capricorn': 'capricorn',
+      'Aquarius': 'aquarius',
+      'Pisces': 'pisces',
+      // 中文名称映射
+      '白羊座': 'aries',
+      '金牛座': 'taurus',
+      '双子座': 'gemini',
+      '巨蟹座': 'cancer',
+      '狮子座': 'leo',
+      '处女座': 'virgo',
+      '天秤座': 'libra',
+      '天蝎座': 'scorpio',
+      '射手座': 'sagittarius',
+      '摩羯座': 'capricorn',
+      '水瓶座': 'aquarius',
+      '双鱼座': 'pisces'
+    };
+
+    // 翻译星座名称
+    const getLocalizedSignName = (signName) => {
+      const signKey = zodiacSignKeyMap[signName];
+      if (signKey) {
+        const translationKey = `starChart.zodiac.${signKey}`;
+        const translated = getTranslation(translationKey, currentLanguage.value);
+        return translated !== translationKey ? translated : signName;
+      }
+      return signName;
+    };
+
+    // 翻译相位名称
+    const getLocalizedAspectName = (aspectName) => {
+      const aspectKey = aspectKeyMap[aspectName];
+      if (aspectKey) {
+        const translationKey = `starChart.aspects.${aspectKey}`;
+        const translated = getTranslation(translationKey, currentLanguage.value);
+        return translated !== translationKey ? translated : aspectName;
+      }
+      return aspectName;
+    };
+
+    // 本地化相位描述
+    const getLocalizedAspectDescription = (aspect) => {
+      const planet1 = getLocalizedPlanetName(aspect.planet1);
+      const aspectName = getLocalizedAspectName(aspect.aspect);
+      const planet2 = getLocalizedPlanetName(aspect.planet2);
+      return `${planet1} ${aspectName} ${planet2}`;
+    };
+
+    // 通用本地化文本获取
+    const getLocalizedText = (key) => {
+      const translated = getTranslation(key, currentLanguage.value);
+      return translated !== key ? translated : key;
+    };
+
+    // 监听语言变化
+    const handleLanguageChange = (event) => {
+      currentLanguage.value = event.detail.language;
+    };
+
+    // 添加事件监听
+    if (typeof window !== 'undefined') {
+      window.addEventListener('languageChanged', handleLanguageChange);
+    }
 
     // 计算属性
     const chartSize = computed(() => props.size);
@@ -265,6 +403,13 @@ export default {
       console.log('星盘组件已挂载，数据:', chartData.value);
     });
 
+    // 清理事件监听
+    onUnmounted(() => {
+      if (typeof window !== 'undefined') {
+        window.removeEventListener('languageChanged', handleLanguageChange);
+      }
+    });
+
     return {
       showAspects,
       showHouses,
@@ -277,7 +422,11 @@ export default {
       toggleAspects,
       toggleHouses,
       onPlanetHover,
-      onPlanetLeave
+      onPlanetLeave,
+      getLocalizedAspectDescription,
+      getLocalizedPlanetName,
+      getLocalizedSignName,
+      getLocalizedText
     };
   }
 };

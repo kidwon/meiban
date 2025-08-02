@@ -64,7 +64,8 @@
 </template>
 
 <script>
-import { ref, computed } from 'vue';
+import { ref, computed, onUnmounted } from 'vue';
+import { getTranslation, getCurrentLanguage } from '../../i18n/index.js';
 
 export default {
   name: 'HouseSector',
@@ -88,22 +89,24 @@ export default {
   },
   setup(props) {
     const isHovered = ref(false);
+    const currentLanguage = ref(getCurrentLanguage());
 
-    // 宫位描述映射
-    const houseDescriptions = {
-      1: '自我・个性',
-      2: '财富・价值',
-      3: '沟通・学习',
-      4: '家庭・根源',
-      5: '创造・恋爱',
-      6: '工作・健康',
-      7: '关系・合作',
-      8: '转化・共享',
-      9: '哲学・远行',
-      10: '事业・声誉',
-      11: '友谊・希望',
-      12: '潜意识・牺牲'
+    // 宫位描述映射 - 使用国际化
+    const getHouseDescription = (houseNumber) => {
+      const key = `starChart.houses.descriptions.${houseNumber}`;
+      const translated = getTranslation(key, currentLanguage.value);
+      return translated !== key ? translated : `第${houseNumber}宫`;
     };
+
+    // 监听语言变化
+    const handleLanguageChange = (event) => {
+      currentLanguage.value = event.detail.language;
+    };
+
+    // 添加事件监听
+    if (typeof window !== 'undefined') {
+      window.addEventListener('languageChanged', handleLanguageChange);
+    }
 
     // 计算扇形路径
     const sectorPath = computed(() => {
@@ -174,7 +177,7 @@ export default {
 
     // 宫位描述
     const houseDescription = computed(() => {
-      return houseDescriptions[props.house.number] || `第${props.house.number}宫`;
+      return getHouseDescription(props.house.number);
     });
 
     // 提示框宽度
@@ -196,6 +199,13 @@ export default {
     const onLeave = () => {
       isHovered.value = false;
     };
+
+    // 清理事件监听
+    onUnmounted(() => {
+      if (typeof window !== 'undefined') {
+        window.removeEventListener('languageChanged', handleLanguageChange);
+      }
+    });
 
     return {
       isHovered,

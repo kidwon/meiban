@@ -38,6 +38,9 @@ const PLANET_CONFIG = {
 
 /**
  * 将角度转换为SVG坐标系的角度
+ * 天文学坐标：白羊座0°在正东方，逆时针增加
+ * SVG坐标：0°在正北方，顺时针增加
+ * 转换：白羊座0°应在SVG的180°位置（正东方）
  */
 function convertToSVGAngle(degree) {
   return (90 - degree + 360) % 360;
@@ -135,7 +138,7 @@ function calculatePlanetData(astrologyPositions) {
 
   return planets.map(planet => ({
     ...planet,
-    svgAngle: convertToSVGAngle(planet.degree)
+    svgAngle: convertToSVGAngle(planet.degree - 30)
   }));
 }
 
