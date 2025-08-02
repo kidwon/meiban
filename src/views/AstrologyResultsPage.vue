@@ -310,37 +310,6 @@
         </div>
       </section>
 
-      <!-- 高级功能区域 -->
-      <section class="section" v-show="activeFunctionTab === 'basic'">
-        <h2 class="section-title">{{ $t('astrology.advancedFeatures.title') }}</h2>
-        <div class="advanced-features-grid">
-          <button class="advanced-feature-btn advanced-feature-btn--transit" @click="goToTransitAnalysis">
-            <div class="btn-icon">🌟</div>
-            <div class="btn-content">
-              <h3>{{ $t('astrology.actions.transitAnalysis') }}</h3>
-              <p>{{ $t('astrology.advancedFeatures.transitDescription') }}</p>
-              <div class="feature-details">
-                <span>{{ $t('astrology.advancedFeatures.transitFeatures.futureTrends') }}</span>
-                <span>{{ $t('astrology.advancedFeatures.transitFeatures.transitPlanets') }}</span>
-                <span>{{ $t('astrology.advancedFeatures.transitFeatures.timingDiagnosis') }}</span>
-              </div>
-            </div>
-          </button>
-          
-          <button class="advanced-feature-btn advanced-feature-btn--compatibility" @click="goToCompatibilityAnalysis">
-            <div class="btn-icon">💕</div>
-            <div class="btn-content">
-              <h3>{{ $t('astrology.actions.compatibility') }}</h3>
-              <p>{{ $t('astrology.advancedFeatures.compatibilityDescription') }}</p>
-              <div class="feature-details">
-                <span>{{ $t('astrology.advancedFeatures.compatibilityFeatures.loveCompatibility') }}</span>
-                <span>{{ $t('astrology.advancedFeatures.compatibilityFeatures.communicationTrends') }}</span>
-                <span>{{ $t('astrology.advancedFeatures.compatibilityFeatures.relationshipAdvice') }}</span>
-              </div>
-            </div>
-          </button>
-        </div>
-      </section>
 
       <!-- 操作按钮 -->
       <div class="actions">
@@ -494,13 +463,6 @@ export default {
           target: '.recommendation-cards',
           titleKey: 'astrology.userGuide.recommendations.title',
           contentKey: 'astrology.userGuide.recommendations.content',
-          position: 'top'
-        },
-        {
-          id: 'advanced-features',
-          target: '.explore-more-section',
-          titleKey: 'astrology.userGuide.advancedFeatures.title',
-          contentKey: 'astrology.userGuide.advancedFeatures.content',
           position: 'top'
         }
       ]
@@ -1622,94 +1584,6 @@ export default {
   color: #ffc107;
 }
 
-/* 高级功能按钮优化 */
-.advanced-features-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px; /* 从25px压缩 */
-  margin-bottom: 20px; /* 从25px压缩 */
-}
-
-.advanced-feature-btn {
-  display: flex;
-  align-items: center;
-  gap: 15px; /* 从20px压缩 */
-  padding: 20px; /* 从25px压缩 */
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  text-align: left;
-  width: 100%;
-  font-family: inherit;
-  position: relative;
-  overflow: hidden;
-  background: #fff;
-}
-
-.advanced-feature-btn:hover {
-  transform: translateY(-3px);
-}
-
-/* 行運盤分析按钮 - 紫色主题 */
-.advanced-feature-btn--transit {
-  background: linear-gradient(135deg, #f3f0ff 0%, #f8f5ff 50%, #fff0f8 100%);
-  border: 1px solid rgba(138, 43, 226, 0.2);
-}
-
-.advanced-feature-btn--transit:hover {
-  background: linear-gradient(135deg, #e8e0ff 0%, #f0e8ff 50%, #ffe8f3 100%);
-  box-shadow: 0 8px 25px rgba(138, 43, 226, 0.15);
-}
-
-/* 合盤分析按钮 - 粉色主题 */
-.advanced-feature-btn--compatibility {
-  background: linear-gradient(135deg, #fff0f5 0%, #fef7fc 50%, #fff5f8 100%);
-  border: 1px solid rgba(255, 105, 180, 0.2);
-}
-
-.advanced-feature-btn--compatibility:hover {
-  background: linear-gradient(135deg, #ffe8f1 0%, #fdf0f7 50%, #ffebf0 100%);
-  box-shadow: 0 8px 25px rgba(255, 105, 180, 0.15);
-}
-
-.advanced-feature-btn .btn-icon {
-  font-size: 3rem; /* 从3.5rem压缩 */
-  min-width: 60px; /* 从70px压缩 */
-  text-align: center;
-  flex-shrink: 0;
-}
-
-.advanced-feature-btn .btn-content {
-  flex: 1;
-}
-
-.advanced-feature-btn .btn-content h3 {
-  margin: 0 0 8px 0; /* 从10px压缩 */
-  font-size: 1.3rem; /* 从1.5rem压缩 */
-  font-weight: 600;
-  color: #34495e;
-  font-family: 'Shippori Mincho', serif;
-}
-
-.advanced-feature-btn .btn-content p {
-  margin: 0 0 10px 0; /* 从12px压缩 */
-  font-size: 0.85rem; /* 从0.9rem压缩 */
-  color: #6c757d;
-  line-height: 1.5;
-}
-
-.advanced-feature-btn .feature-details {
-  display: flex;
-  flex-direction: column;
-  gap: 4px; /* 从6px压缩 */
-}
-
-.advanced-feature-btn .feature-details span {
-  font-size: 0.75rem; /* 从0.8rem压缩 */
-  color: #95a5a6;
-  opacity: 0.8;
-}
 
 /* 操作按钮区域 */
 .actions {
@@ -1810,32 +1684,6 @@ export default {
     right: -100%;
   }
   
-  .advanced-features-grid {
-    grid-template-columns: 1fr;
-    gap: 15px;
-  }
-  
-  .advanced-feature-btn {
-    padding: 15px;
-    gap: 12px;
-  }
-  
-  .advanced-feature-btn .btn-icon {
-    font-size: 2.5rem;
-    min-width: 50px;
-  }
-  
-  .advanced-feature-btn .btn-content h3 {
-    font-size: 1.1rem;
-  }
-  
-  .advanced-feature-btn .btn-content p {
-    font-size: 0.8rem;
-  }
-  
-  .advanced-feature-btn .feature-details span {
-    font-size: 0.7rem;
-  }
   
   .actions {
     flex-direction: column;
@@ -1872,25 +1720,6 @@ export default {
     min-height: 300px;
   }
   
-  .advanced-feature-btn {
-    flex-direction: column;
-    text-align: center;
-    padding: 12px;
-    gap: 10px;
-  }
-  
-  .advanced-feature-btn .btn-icon {
-    font-size: 2rem;
-    min-width: auto;
-  }
-  
-  .advanced-feature-btn .btn-content h3 {
-    font-size: 1rem;
-  }
-  
-  .advanced-feature-btn .feature-details {
-    align-items: center;
-  }
   
   .tab-button {
     padding: 8px 6px;
