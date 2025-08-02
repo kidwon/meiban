@@ -1137,6 +1137,38 @@ export default {
   margin: 20px 0;
 }
 
+/* 行运分析专属配色 - 蓝色系 */
+.transit-content .feature-preview {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
+}
+
+.transit-content .highlight-item {
+  background: rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.transit-content .highlight-item:hover {
+  background: rgba(255, 255, 255, 0.35);
+  transform: translateY(-2px);
+}
+
+/* 行运分析按钮样式 */
+.transit-content .btn--primary {
+  background: rgba(255, 255, 255, 0.9);
+  color: #667eea;
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  font-weight: 600;
+}
+
+.transit-content .btn--primary:hover {
+  background: white;
+  color: #5a67d8;
+  border-color: white;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(255, 255, 255, 0.4);
+}
+
 .preview-icon {
   font-size: 60px;
   margin-bottom: 20px;
