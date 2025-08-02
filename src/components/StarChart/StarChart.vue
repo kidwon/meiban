@@ -68,6 +68,7 @@
             :center="center"
             :radius="settings.planetRadius"
             @planet-hover="onPlanetHover"
+            @planet-leave="onPlanetLeave"
           />
         </g>
 
