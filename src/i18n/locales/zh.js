@@ -64,6 +64,29 @@ export default {
     compatibleSigns: '相容星座',
     overallFortune: '综合运势',
     guest: '访客',
+    // 功能导航
+    functionNav: {
+      basicAnalysis: '基础分析',
+      transitAnalysis: '行运分析',
+      compatibilityAnalysis: '合盘分析'
+    },
+    recommendationsTitle: '为您推荐的功能',
+    recommendations: {
+      transitDescription: '深入了解未来运势',
+      compatibilityDescription: '通过合盘分析深化关系',
+      recommended: '推荐',
+      popular: '热门'
+    },
+    exploreMoreTitle: '想要更深入的分析？',
+    exploreMoreSubtitle: '体验更深层的洞察和个性化分析',
+    exploreNow: '立即体验',
+    whyChooseAdvanced: '为什么选择高级分析？',
+    comparison: {
+      basicAnalysis: '基础分析',
+      basicDescription: '当前星盘和基本特质',
+      advancedAnalysis: '高级分析',
+      advancedDescription: '未来预测和深度个性化'
+    },
     calculating: '正在计算星盘...',
     fortuneLabels: {
       career: '事业运',
