@@ -63,6 +63,19 @@ export default {
     friendshipTraits: 'Friendship Traits',
     compatibleSigns: 'Compatible Signs',
     overallFortune: 'Overall Fortune',
+    guest: 'Guest',
+    calculating: 'Calculating birth chart...',
+    fortuneLabels: {
+      career: 'Career Luck',
+      wealth: 'Wealth Luck',
+      love: 'Love Luck',
+      health: 'Health Luck'
+    },
+    planetNames: {
+      sun: 'Sun',
+      moon: 'Moon',
+      ascendant: 'Ascendant'
+    },
     actions: {
       back: 'Back to Home',
       download: 'Download Report',
@@ -91,6 +104,142 @@ export default {
       reportDescription: '\'s Personal Birth Chart Analysis',
       linkCopied: 'Link copied to clipboard',
       copyManually: 'Please manually copy the current page link to share'
+    },
+    signs: {
+      descriptions: {
+        sun: {
+          'aries': 'You have pioneering spirit and leadership abilities, enjoy challenges, and possess strong initiative.',
+          'taurus': 'You are stable and practical, value security, and have enduring persistence and artistic taste.',
+          'gemini': 'You are intelligent and curious, skilled at communication, love learning new things, and adapt easily.',
+          'cancer': 'You are emotionally rich, value family, and have strong protective instincts and intuition.',
+          'leo': 'You are confident and generous, have performance talents, and enjoy being the center of attention.',
+          'virgo': 'You pay attention to details, pursue perfection, and have a strong service spirit.',
+          'libra': 'You pursue harmony and balance, have artistic temperament, and excel at diplomacy.',
+          'scorpio': 'You are deep and perceptive, possess insight, and have strong willpower.',
+          'sagittarius': 'You are optimistic and cheerful, love freedom, and have philosophical thinking.',
+          'capricorn': 'You are practical and realistic, have strong responsibility and achievement drive.',
+          'aquarius': 'You are independent and innovative, forward-thinking, and care about humanitarian causes.',
+          'pisces': 'You are imaginative, sensitive and intuitive, and possess artistic talents.'
+        },
+        moon: {
+          'aries': 'Emotions are direct and impulsive, need immediate emotional response, enjoy stimulating emotional experiences.',
+          'taurus': 'Emotions are stable and lasting, need security, prefer warm and comfortable environments.',
+          'gemini': 'Emotions are varied and changeable, need intellectual stimulation, enjoy communicating and sharing with others.',
+          'cancer': 'Emotions are deep and sensitive, need belonging, value family and kinship.',
+          'leo': 'Emotions are passionate and generous, need appreciation, enjoy being the focus of attention.',
+          'virgo': 'Emotions are delicate and rational, need sense of order, enjoy caring for others.',
+          'libra': 'Emotions seek harmony, need partnership, avoid conflict.',
+          'scorpio': 'Emotions are deep and intense, need deep connections, have strong possessiveness.',
+          'sagittarius': 'Emotions are free and optimistic, need space and freedom, enjoy exploring new experiences.',
+          'capricorn': 'Emotions are introverted and practical, need stable structure, value traditional values.',
+          'aquarius': 'Emotions are independent and rational, need friendship support, care about collective interests.',
+          'pisces': 'Emotions are sensitive and dreamy, need spiritual resonance, possess empathy.'
+        },
+        ascendant: {
+          'aries': 'Give a positive and proactive first impression, displaying leadership qualities.',
+          'taurus': 'Give a stable and reliable impression, displaying elegant taste.',
+          'gemini': 'Give an intelligent and witty impression, displaying excellent communication skills.',
+          'cancer': 'Give a warm and friendly impression, displaying caring qualities.',
+          'leo': 'Give a confident and generous impression, displaying royal demeanor.',
+          'virgo': 'Give a careful and thoughtful impression, displaying professional abilities.',
+          'libra': 'Give an elegant and harmonious impression, displaying excellent social skills.',
+          'scorpio': 'Give a mysterious and profound impression, displaying strong personal charisma.',
+          'sagittarius': 'Give an optimistic and free impression, displaying adventurous spirit.',
+          'capricorn': 'Give a mature and stable impression, displaying sense of responsibility.',
+          'aquarius': 'Give a unique and innovative impression, displaying avant-garde thinking.',
+          'pisces': 'Give a gentle and dreamy impression, displaying artistic temperament.'
+        }
+      }
+    },
+    career: {
+      strengths: {
+        'aries': 'You have natural leadership and pioneering spirit, suitable for environments requiring innovation and decision-making.',
+        'taurus': 'You excel at practical work, performing excellently in fields requiring stability and continuous effort.',
+        'gemini': 'You have excellent communication skills and learning adaptability, suitable for diverse work environments.',
+        'cancer': 'You have strong responsibility and caring abilities, particularly outstanding in service industries.',
+        'leo': 'You have natural performance talents and leadership charisma, suitable for work requiring personal charm.',
+        'virgo': 'You focus on details and quality, performing excellently in fields requiring precision and professional skills.',
+        'libra': 'You have excellent coordination abilities and aesthetic sense, suitable for work requiring balance and aesthetics.',
+        'scorpio': 'You have deep insight and research abilities, suitable for professional fields requiring in-depth analysis.',
+        'sagittarius': 'You have international vision and philosophical thinking, suitable for education, publishing, or international affairs.',
+        'capricorn': 'You have strong goal orientation and management abilities, suitable for corporate management and long-term planning.',
+        'aquarius': 'You have innovative thinking and humanitarian spirit, suitable for technology and social reform fields.',
+        'pisces': 'You have rich imagination and empathy, suitable for artistic creation and psychological counseling.'
+      },
+      suggestions: {
+        'aries': ['Entrepreneur', 'Sales Manager', 'Sports Coach', 'Military Commander'],
+        'taurus': ['Banker', 'Architect', 'Chef', 'Gardener'],
+        'gemini': ['Journalist', 'Teacher', 'Translator', 'Marketing'],
+        'cancer': ['Nurse', 'Psychologist', 'Real Estate', 'Restaurant Business'],
+        'leo': ['Actor', 'Politician', 'Fashion Designer', 'Entertainment Industry'],
+        'virgo': ['Accountant', 'Doctor', 'Editor', 'Quality Management'],
+        'libra': ['Lawyer', 'Diplomat', 'Designer', 'Human Resources'],
+        'scorpio': ['Researcher', 'Detective', 'Psychologist', 'Surgeon'],
+        'sagittarius': ['Professor', 'Tourism', 'Publishing', 'International Trade'],
+        'capricorn': ['CEO', 'Government Official', 'Engineer', 'Project Manager'],
+        'aquarius': ['Scientist', 'IT Engineer', 'Social Worker', 'Inventor'],
+        'pisces': ['Artist', 'Musician', 'Therapist', 'Charity Worker']
+      }
+    },
+    relationships: {
+      love: {
+        'aries': 'In love, you are passionate and proactive, like to express feelings directly, need partners who can keep up with your pace.',
+        'taurus': 'In love, you are loyal and stable, value physical touch and material security, prefer long-term relationships.',
+        'gemini': 'In love, you need intellectual stimulation, enjoy sharing thoughts with partners, value communication.',
+        'cancer': 'In love, you are affectionate and gentle, value emotional security, enjoy caring and being cared for.',
+        'leo': 'In love, you are generous and passionate, need appreciation and praise, enjoy romantic expressions.',
+        'virgo': 'In love, you are careful and considerate, value practical expressions of care, enjoy serving partners.',
+        'libra': 'In love, you pursue harmony and balance, value beauty and romance, good at compromise and cooperation.',
+        'scorpio': 'In love, you are deep and devoted, need deep emotional connections, somewhat possessive.',
+        'sagittarius': 'In love, you need freedom and space, enjoy exploring the world with partners, value spiritual compatibility.',
+        'capricorn': 'In love, you are serious and responsible, value long-term commitment, prefer stable developing relationships.',
+        'aquarius': 'In love, you are independent and rational, value friendship foundation, need understanding and respect.',
+        'pisces': 'In love, you are romantic and dreamy, have strong compassion, easily sacrifice yourself.'
+      },
+      friendship: {
+        'aries': 'In friendship, you are active and leading, enjoy guiding friends to explore new things, a trustworthy partner.',
+        'taurus': 'In friendship, you are loyal and reliable, value long-term friendships, an excellent listener.',
+        'gemini': 'In friendship, you are sociable with wide friend circles, enjoy sharing new knowledge with friends.',
+        'cancer': 'In friendship, you are caring and considerate, value deep emotional connections, an excellent supporter.',
+        'leo': 'In friendship, you are generous, enjoy being the center of friend groups, value loyalty.',
+        'virgo': 'In friendship, you are careful and thoughtful, willing to help friends solve practical problems, dependable.',
+        'libra': 'In friendship, you pursue harmony, good at mediating conflicts between friends, value fairness.',
+        'scorpio': 'In friendship, you are deep and sincere, though friends are few but relationships are deep, very loyal.',
+        'sagittarius': 'In friendship, you are optimistic and cheerful, enjoy sharing adventure experiences with friends, value freedom.',
+        'capricorn': 'In friendship, you are reliable and stable, though cautious in making friends but relationships last long, value quality.',
+        'aquarius': 'In friendship, you are unique and interesting, value friendship over romance, care about friends\' personal development.',
+        'pisces': 'In friendship, you are gentle and considerate, have strong compassion, excellent emotional support.'
+      },
+      compatibility: {
+        'aries': ['Leo', 'Sagittarius', 'Gemini', 'Aquarius'],
+        'taurus': ['Virgo', 'Capricorn', 'Cancer', 'Pisces'],
+        'gemini': ['Libra', 'Aquarius', 'Aries', 'Leo'],
+        'cancer': ['Scorpio', 'Pisces', 'Taurus', 'Virgo'],
+        'leo': ['Aries', 'Sagittarius', 'Gemini', 'Libra'],
+        'virgo': ['Taurus', 'Capricorn', 'Cancer', 'Scorpio'],
+        'libra': ['Gemini', 'Aquarius', 'Leo', 'Sagittarius'],
+        'scorpio': ['Cancer', 'Pisces', 'Virgo', 'Capricorn'],
+        'sagittarius': ['Aries', 'Leo', 'Libra', 'Aquarius'],
+        'capricorn': ['Taurus', 'Virgo', 'Scorpio', 'Pisces'],
+        'aquarius': ['Gemini', 'Libra', 'Aries', 'Sagittarius'],
+        'pisces': ['Cancer', 'Scorpio', 'Taurus', 'Capricorn']
+      }
+    },
+    fortune: {
+      overview: {
+        'Great Fortune': 'Your overall fortune is very strong with good development opportunities in all aspects. This is an excellent time to achieve goals.',
+        'Good Fortune': 'Your fortune is stable and upward, though there may be some small challenges, the overall trend is positive.',
+        'Moderate Fortune': 'Your fortune is stable, suitable for steady progress without rushing for quick success, focus on maintaining current advantages.',
+        'Challenging Fortune': 'Your fortune faces some challenges requiring careful action, but this is also an opportunity for growth and learning.'
+      }
+    },
+    planetKeywords: {
+      sun: ['Self', 'Will', 'Creativity', 'Leadership', 'Confidence'],
+      moon: ['Emotion', 'Intuition', 'Needs', 'Habits', 'Memory'],
+      ascendant: ['Appearance', 'First Impression', 'Mask', 'Starting Point', 'Life Theme'],
+      mercury: ['Communication', 'Thinking', 'Learning', 'Logic', 'Expression'],
+      venus: ['Love', 'Aesthetics', 'Harmony', 'Art', 'Values'],
+      mars: ['Action', 'Competition', 'Desire', 'Courage', 'Conflict']
     }
   },
   

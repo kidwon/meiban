@@ -9,7 +9,7 @@
     
     <header class="page-header">
       <h1 class="page-title">{{ $t('astrology.resultsTitle') }}</h1>
-      <p class="user-name">{{ userData ? userData.name : 'ゲスト' }}{{ $t('astrology.chartSuffix') }}</p>
+      <p class="user-name">{{ userData ? userData.name : $t('astrology.guest') }}{{ $t('astrology.chartSuffix') }}</p>
     </header>
 
     <div class="content-wrapper" v-if="calculationResults">
@@ -154,19 +154,19 @@
                 <p>{{ getOverallFortuneDescription() }}</p>
                 <div class="fortune-grid">
                   <div class="fortune-item">
-                    <div class="fortune-label">事業運</div>
+                    <div class="fortune-label">{{ $t('astrology.fortuneLabels.career') }}</div>
                     <div class="fortune-stars">{{ calculationResults.fortune.career }}</div>
                   </div>
                   <div class="fortune-item">
-                    <div class="fortune-label">金運</div>
+                    <div class="fortune-label">{{ $t('astrology.fortuneLabels.wealth') }}</div>
                     <div class="fortune-stars">{{ calculationResults.fortune.wealth }}</div>
                   </div>
                   <div class="fortune-item">
-                    <div class="fortune-label">戀愛運</div>
+                    <div class="fortune-label">{{ $t('astrology.fortuneLabels.love') }}</div>
                     <div class="fortune-stars">{{ calculationResults.fortune.love }}</div>
                   </div>
                   <div class="fortune-item">
-                    <div class="fortune-label">健康運</div>
+                    <div class="fortune-label">{{ $t('astrology.fortuneLabels.health') }}</div>
                     <div class="fortune-stars">{{ calculationResults.fortune.health }}</div>
                   </div>
                 </div>
@@ -217,7 +217,7 @@
     </div>
 
     <div class="loading" v-else>
-      <p>星盤を計算中...</p>
+      <p>{{ $t('astrology.calculating') }}</p>
     </div>
 
     <footer class="footer">
@@ -304,12 +304,7 @@ export default {
     },
     
     getPlanetDisplayName(planetType) {
-      const nameMap = {
-        sun: '太陽',
-        moon: '月亮',
-        ascendant: '上升星座'
-      }
-      return nameMap[planetType] || ''
+      return this.$t(`astrology.planetNames.${planetType}`) || ''
     },
     
     getPlanetSign(planetType) {
@@ -327,60 +322,60 @@ export default {
     getPlanetDescription(planetType) {
       if (!planetType) return ''
       const sign = this.getPlanetSign(planetType)
-      return getSignDescription(planetType, sign)
+      return getSignDescription(planetType, sign, this.currentLanguage)
     },
     
     getPlanetKeywords(planetType) {
-      return getPlanetKeywords(planetType)
+      return getPlanetKeywords(planetType, this.currentLanguage)
     },
     
     // 使用数据服务的方法
     getSunDescription() {
       if (!this.calculationResults) return ''
       const sunSign = this.calculationResults.astrologyPositions.sun.sign
-      return getSignDescription('sun', sunSign)
+      return getSignDescription('sun', sunSign, this.currentLanguage)
     },
     
     getMoonDescription() {
       if (!this.calculationResults) return ''
       const moonSign = this.calculationResults.astrologyPositions.moon.sign
-      return getSignDescription('moon', moonSign)
+      return getSignDescription('moon', moonSign, this.currentLanguage)
     },
     
     getAscendantDescription() {
       if (!this.calculationResults) return ''
       const ascendantSign = this.calculationResults.astrologyPositions.ascendant.sign
-      return getSignDescription('ascendant', ascendantSign)
+      return getSignDescription('ascendant', ascendantSign, this.currentLanguage)
     },
     
     getCareerStrengths() {
       if (!this.calculationResults) return ''
-      return getCareerStrengths(this.calculationResults.astrologyPositions)
+      return getCareerStrengths(this.calculationResults.astrologyPositions, this.currentLanguage)
     },
     
     getSuggestedCareers() {
       if (!this.calculationResults) return []
-      return getSuggestedCareers(this.calculationResults.astrologyPositions)
+      return getSuggestedCareers(this.calculationResults.astrologyPositions, this.currentLanguage)
     },
     
     getLoveDescription() {
       if (!this.calculationResults) return ''
-      return getLoveDescription(this.calculationResults.astrologyPositions)
+      return getLoveDescription(this.calculationResults.astrologyPositions, this.currentLanguage)
     },
     
     getFriendshipDescription() {
       if (!this.calculationResults) return ''
-      return getFriendshipDescription(this.calculationResults.astrologyPositions)
+      return getFriendshipDescription(this.calculationResults.astrologyPositions, this.currentLanguage)
     },
     
     getCompatibleSigns() {
       if (!this.calculationResults) return []
-      return getCompatibleSigns(this.calculationResults.astrologyPositions.sun.sign)
+      return getCompatibleSigns(this.calculationResults.astrologyPositions.sun.sign, this.currentLanguage)
     },
     
     getOverallFortuneDescription() {
       if (!this.calculationResults) return ''
-      return getFortuneDescription(this.calculationResults.fortune)
+      return getFortuneDescription(this.calculationResults.fortune, this.currentLanguage)
     },
     
     // 导航方法
