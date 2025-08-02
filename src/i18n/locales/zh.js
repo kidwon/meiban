@@ -93,7 +93,7 @@ export default {
         content: '在这个页面，您可以查看详细的占星分析结果。让我们为您介绍如何高效使用这些功能。'
       },
       navigation: {
-        title: '功能切换',
+        title: '功能导航',
         content: '通过这个导航栏，您可以轻松在基础分析、行运分析和合盘分析之间切换。'
       },
       chartInteraction: {

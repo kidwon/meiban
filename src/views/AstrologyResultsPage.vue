@@ -358,11 +358,11 @@
     <div class="user-guide-overlay" v-if="showUserGuide" @click="endUserGuide">
       <div class="guide-modal" @click.stop>
         <div class="guide-header">
-          <h3>{{ $t(userGuideSteps[guideStep]?.title || '') }}</h3>
+          <h3>{{ getGuideTitle() }}</h3>
           <button @click="endUserGuide" class="guide-close-btn">×</button>
         </div>
         <div class="guide-content">
-          <p>{{ $t(userGuideSteps[guideStep]?.content || '') }}</p>
+          <p>{{ getGuideContent() }}</p>
         </div>
         <div class="guide-footer">
           <div class="guide-progress">
@@ -378,10 +378,10 @@
           </div>
           <div class="guide-actions">
             <button @click="prevGuideStep" :disabled="guideStep === 0" class="btn btn--outline">
-              {{ $t('userGuide.previous') }}
+              {{ $t('astrology.userGuide.previous') }}
             </button>
             <button @click="nextGuideStep" class="btn btn--primary">
-              {{ guideStep === userGuideSteps.length - 1 ? $t('userGuide.finish') : $t('userGuide.next') }}
+              {{ guideStep === userGuideSteps.length - 1 ? $t('astrology.userGuide.finish') : $t('astrology.userGuide.next') }}
             </button>
           </div>
         </div>
@@ -390,7 +390,7 @@
 
     <!-- 浮动提示 -->
     <div class="floating-tooltip" v-if="showTooltip" :class="`tooltip-${showTooltip}`">
-      <span>{{ $t(`tooltips.${showTooltip}`) }}</span>
+      <span>{{ $t(`astrology.tooltips.${showTooltip}`) }}</span>
     </div>
 
     <footer class="footer">
@@ -471,36 +471,36 @@ export default {
         {
           id: 'welcome',
           target: '.function-nav',
-          title: 'userGuide.welcome.title',
-          content: 'userGuide.welcome.content',
+          titleKey: 'astrology.userGuide.welcome.title',
+          contentKey: 'astrology.userGuide.welcome.content',
           position: 'bottom'
         },
         {
           id: 'navigation',
           target: '.nav-button--active',
-          title: 'userGuide.navigation.title',
-          content: 'userGuide.navigation.content',
+          titleKey: 'astrology.userGuide.navigation.title',
+          contentKey: 'astrology.userGuide.navigation.content',
           position: 'bottom'
         },
         {
           id: 'chart-interaction',
           target: '.chart-container',
-          title: 'userGuide.chartInteraction.title',
-          content: 'userGuide.chartInteraction.content',
+          titleKey: 'astrology.userGuide.chartInteraction.title',
+          contentKey: 'astrology.userGuide.chartInteraction.content',
           position: 'top'
         },
         {
           id: 'recommendations',
           target: '.recommendation-cards',
-          title: 'userGuide.recommendations.title',
-          content: 'userGuide.recommendations.content',
+          titleKey: 'astrology.userGuide.recommendations.title',
+          contentKey: 'astrology.userGuide.recommendations.content',
           position: 'top'
         },
         {
           id: 'advanced-features',
           target: '.explore-more-section',
-          title: 'userGuide.advancedFeatures.title',
-          content: 'userGuide.advancedFeatures.content',
+          titleKey: 'astrology.userGuide.advancedFeatures.title',
+          contentKey: 'astrology.userGuide.advancedFeatures.content',
           position: 'top'
         }
       ]
@@ -517,6 +517,7 @@ export default {
     calculationResults() {
       return this.getCalculationResults
     },
+
     
     formattedBirthInfo() {
       return formatBirthInfo(this.userData)
@@ -528,6 +529,19 @@ export default {
   },
   
   methods: {
+    // 用户引导翻译方法
+    getGuideTitle() {
+      const step = this.userGuideSteps[this.guideStep]
+      if (!step || !step.titleKey) return ''
+      return this.$t(step.titleKey)
+    },
+
+    getGuideContent() {
+      const step = this.userGuideSteps[this.guideStep]
+      if (!step || !step.contentKey) return ''
+      return this.$t(step.contentKey)
+    },
+
     // 增强的功能切换逻辑
     switchFunctionTab(newTabId) {
       if (this.activeFunctionTab === newTabId || this.isTransitioning) {
@@ -642,14 +656,14 @@ export default {
         this.isFirstVisit = true
         localStorage.setItem(visitKey, 'true')
         
-        // 延迟显示用户引导
-        setTimeout(() => {
-          this.startUserGuide()
-        }, 1500)
+        // 延迟显示用户引导 - 暂时禁用
+        // setTimeout(() => {
+        //   this.startUserGuide()
+        // }, 1500)
       }
     },
 
-    // 开始用户引导
+    // 开始用户引导 (手动调用: 在控制台输入 $vm0.startUserGuide() 来测试)
     startUserGuide() {
       if (this.userGuideSteps.length > 0) {
         this.showUserGuide = true
@@ -1155,18 +1169,19 @@ export default {
 
 /* 行运分析按钮样式 */
 .transit-content .btn--primary {
-  background: rgba(255, 255, 255, 0.9);
-  color: #667eea;
-  border: 2px solid rgba(255, 255, 255, 0.9);
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+  color: white;
+  border: 2px solid transparent;
   font-weight: 600;
+  box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
 }
 
 .transit-content .btn--primary:hover {
-  background: white;
-  color: #5a67d8;
-  border-color: white;
+  background: linear-gradient(135deg, #4338ca 0%, #6d28d9 100%);
+  color: white;
+  border-color: transparent;
   transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(255, 255, 255, 0.4);
+  box-shadow: 0 8px 25px rgba(79, 70, 229, 0.4);
 }
 
 .preview-icon {
@@ -1890,12 +1905,13 @@ export default {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.4);
   z-index: 10000;
   display: flex;
   align-items: center;
   justify-content: center;
-  backdrop-filter: blur(5px);
+  backdrop-filter: blur(2px);
+  pointer-events: auto;
 }
 
 .guide-modal {
