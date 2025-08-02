@@ -87,6 +87,36 @@ export default {
       advancedAnalysis: '高級分析',
       advancedDescription: '未来予測と深いパーソナライズ'
     },
+    userGuide: {
+      welcome: {
+        title: '占星分析へようこそ！',
+        content: 'このページでは、あなたの詳しい占星分析結果をご覧いただけます。機能を効率的に使用する方法をご案内します。'
+      },
+      navigation: {
+        title: '機能切り替え',
+        content: 'この導航栏で基礎分析、行運分析、合盤分析を簡単に切り替えができます。'
+      },
+      chartInteraction: {
+        title: 'インタラクティブ星盤',
+        content: '星盤上の行星をクリックすると詳細情報が表示されます。マウスを重ねて詳細を確認してください。'
+      },
+      recommendations: {
+        title: 'おすすめ機能',
+        content: 'あなたにぴったりの高級分析機能をおすすめします。クリックして詳しく見てみましょう。'
+      },
+      advancedFeatures: {
+        title: '高級機能',
+        content: 'より深い洞察を得るために、行運分析や合盤分析などの高級機能をぜひお試しください。'
+      },
+      next: '次へ',
+      previous: '前へ',
+      finish: '完了'
+    },
+    tooltips: {
+      interaction: '素晴らしい！操作を覚えていますね',
+      success: '操作完了！',
+      info: 'ヒント：キーボードのショートカットも使えます'
+    },
     calculating: '星盤を計算中...',
     fortuneLabels: {
       career: '事業運',

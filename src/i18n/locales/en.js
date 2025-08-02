@@ -87,6 +87,36 @@ export default {
       advancedAnalysis: 'Advanced Analysis',
       advancedDescription: 'Future predictions and deep personalization'
     },
+    userGuide: {
+      welcome: {
+        title: 'Welcome to Astrology Analysis!',
+        content: 'On this page, you can view your detailed astrology analysis results. Let us guide you through using these features effectively.'
+      },
+      navigation: {
+        title: 'Function Navigation',
+        content: 'Use this navigation bar to easily switch between basic analysis, transit analysis, and compatibility analysis.'
+      },
+      chartInteraction: {
+        title: 'Interactive Chart',
+        content: 'Click on planets in the chart to view detailed information. Hover over them to see more details.'
+      },
+      recommendations: {
+        title: 'Recommended Features',
+        content: 'We recommend the most suitable advanced analysis features for you. Click to learn more.'
+      },
+      advancedFeatures: {
+        title: 'Advanced Features',
+        content: 'Try advanced features like transit analysis or compatibility analysis for deeper insights.'
+      },
+      next: 'Next',
+      previous: 'Previous',
+      finish: 'Finish'
+    },
+    tooltips: {
+      interaction: 'Great! You\'ve got the hang of it',
+      success: 'Operation completed!',
+      info: 'Tip: You can also use keyboard shortcuts'
+    },
     calculating: 'Calculating birth chart...',
     fortuneLabels: {
       career: 'Career Luck',

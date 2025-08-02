@@ -24,13 +24,15 @@
           <button 
             v-for="(nav) in functionNavs" 
             :key="nav.id"
-            @click="activeFunctionTab = nav.id"
+            @click="switchFunctionTab(nav.id)"
             :class="{ 
               'nav-button': true,
               'nav-button--active': activeFunctionTab === nav.id,
-              'nav-button--completed': nav.completed
+              'nav-button--completed': nav.completed,
+              'nav-button--visited': nav.visited,
+              'nav-button--transitioning': isTransitioning
             }"
-            class="nav-button"
+            :disabled="isTransitioning"
           >
             <div class="nav-icon">{{ nav.icon }}</div>
             <div class="nav-content">
@@ -43,8 +45,16 @@
       </nav>
 
       <!-- 交互式星盘图 -->
-      <section class="section" v-show="activeFunctionTab === 'basic'">
-        <h2 class="section-title">{{ $t('astrology.interactiveChart') }}</h2>
+      <section 
+        class="section function-tab-content" 
+        v-show="activeFunctionTab === 'basic'"
+        :class="{ 
+          'content-transitioning': isTransitioning,
+          'content-direction-forward': tabSwitchDirection === 'forward',
+          'content-direction-backward': tabSwitchDirection === 'backward'
+        }"
+      >
+          <h2 class="section-title">{{ $t('astrology.interactiveChart') }}</h2>
         <div class="chart-container">
           <StarChart 
             :calculationResults="calculationResults"
@@ -227,7 +237,15 @@
       </section>
 
       <!-- 行运分析内容 -->
-      <section class="section" v-show="activeFunctionTab === 'transit'">
+      <section 
+        class="section function-tab-content" 
+        v-show="activeFunctionTab === 'transit'"
+        :class="{ 
+          'content-transitioning': isTransitioning,
+          'content-direction-forward': tabSwitchDirection === 'forward',
+          'content-direction-backward': tabSwitchDirection === 'backward'
+        }"
+      >
         <h2 class="section-title">🌟 {{ $t('astrology.functionNav.transitAnalysis') }}</h2>
         <div class="transit-content">
           <div class="feature-preview">
@@ -256,7 +274,15 @@
       </section>
 
       <!-- 合盘分析内容 -->
-      <section class="section" v-show="activeFunctionTab === 'compatibility'">
+      <section 
+        class="section function-tab-content" 
+        v-show="activeFunctionTab === 'compatibility'"
+        :class="{ 
+          'content-transitioning': isTransitioning,
+          'content-direction-forward': tabSwitchDirection === 'forward',
+          'content-direction-backward': tabSwitchDirection === 'backward'
+        }"
+      >
         <h2 class="section-title">💕 {{ $t('astrology.functionNav.compatibilityAnalysis') }}</h2>
         <div class="compatibility-content">
           <div class="feature-preview">
@@ -328,6 +354,45 @@
       <p>{{ $t('astrology.calculating') }}</p>
     </div>
 
+    <!-- 用户引导覆盖层 -->
+    <div class="user-guide-overlay" v-if="showUserGuide" @click="endUserGuide">
+      <div class="guide-modal" @click.stop>
+        <div class="guide-header">
+          <h3>{{ $t(userGuideSteps[guideStep]?.title || '') }}</h3>
+          <button @click="endUserGuide" class="guide-close-btn">×</button>
+        </div>
+        <div class="guide-content">
+          <p>{{ $t(userGuideSteps[guideStep]?.content || '') }}</p>
+        </div>
+        <div class="guide-footer">
+          <div class="guide-progress">
+            <span>{{ guideStep + 1 }} / {{ userGuideSteps.length }}</span>
+            <div class="progress-dots">
+              <span 
+                v-for="(step, index) in userGuideSteps" 
+                :key="index"
+                :class="{ active: index === guideStep, completed: index < guideStep }"
+                class="progress-dot"
+              ></span>
+            </div>
+          </div>
+          <div class="guide-actions">
+            <button @click="prevGuideStep" :disabled="guideStep === 0" class="btn btn--outline">
+              {{ $t('userGuide.previous') }}
+            </button>
+            <button @click="nextGuideStep" class="btn btn--primary">
+              {{ guideStep === userGuideSteps.length - 1 ? $t('userGuide.finish') : $t('userGuide.next') }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 浮动提示 -->
+    <div class="floating-tooltip" v-if="showTooltip" :class="`tooltip-${showTooltip}`">
+      <span>{{ $t(`tooltips.${showTooltip}`) }}</span>
+    </div>
+
     <footer class="footer">
       <p>{{ $t('footer.copyright') }}</p>
     </footer>
@@ -363,6 +428,14 @@ export default {
     return {
       activeTab: 'personality',
       activeFunctionTab: 'basic', // 当前激活的功能标签
+      isTransitioning: false, // 控制切换动画状态
+      lastActiveTab: 'basic', // 记录上一个激活的标签
+      tabSwitchDirection: 'forward', // 切换方向：'forward' 或 'backward'
+      showUserGuide: false, // 控制用户引导显示
+      guideStep: 0, // 当前引导步骤
+      isFirstVisit: false, // 是否首次访问
+      showTooltip: null, // 当前显示的提示
+      interactionCount: 0, // 用户交互计数
       chartSize: 450, // 从500px压缩到450px
       selectedPlanet: null,
       analysisTabs: [
@@ -393,6 +466,43 @@ export default {
           completed: false,
           badge: 'HOT' 
         }
+      ],
+      userGuideSteps: [
+        {
+          id: 'welcome',
+          target: '.function-nav',
+          title: 'userGuide.welcome.title',
+          content: 'userGuide.welcome.content',
+          position: 'bottom'
+        },
+        {
+          id: 'navigation',
+          target: '.nav-button--active',
+          title: 'userGuide.navigation.title',
+          content: 'userGuide.navigation.content',
+          position: 'bottom'
+        },
+        {
+          id: 'chart-interaction',
+          target: '.chart-container',
+          title: 'userGuide.chartInteraction.title',
+          content: 'userGuide.chartInteraction.content',
+          position: 'top'
+        },
+        {
+          id: 'recommendations',
+          target: '.recommendation-cards',
+          title: 'userGuide.recommendations.title',
+          content: 'userGuide.recommendations.content',
+          position: 'top'
+        },
+        {
+          id: 'advanced-features',
+          target: '.explore-more-section',
+          title: 'userGuide.advancedFeatures.title',
+          content: 'userGuide.advancedFeatures.content',
+          position: 'top'
+        }
       ]
     }
   },
@@ -418,6 +528,223 @@ export default {
   },
   
   methods: {
+    // 增强的功能切换逻辑
+    switchFunctionTab(newTabId) {
+      if (this.activeFunctionTab === newTabId || this.isTransitioning) {
+        return // 防止重复切换或切换过程中的操作
+      }
+
+      // 确定切换方向
+      const tabOrder = ['basic', 'transit', 'compatibility']
+      const currentIndex = tabOrder.indexOf(this.activeFunctionTab)
+      const newIndex = tabOrder.indexOf(newTabId)
+      this.tabSwitchDirection = newIndex > currentIndex ? 'forward' : 'backward'
+
+      // 开始切换动画
+      this.isTransitioning = true
+      this.lastActiveTab = this.activeFunctionTab
+
+      // 添加触觉反馈（如果支持）
+      if (navigator.vibrate) {
+        navigator.vibrate(50)
+      }
+
+      // 延迟切换以显示动画效果
+      setTimeout(() => {
+        this.activeFunctionTab = newTabId
+        
+        // 标记导航项为已访问
+        const navItem = this.functionNavs.find(nav => nav.id === newTabId)
+        if (navItem && !navItem.visited) {
+          navItem.visited = true
+        }
+
+        // 完成切换动画
+        setTimeout(() => {
+          this.isTransitioning = false
+          this.lastActiveTab = newTabId
+        }, 300)
+      }, 150)
+
+      // 发送分析事件（用于用户行为追踪）
+      this.$nextTick(() => {
+        this.trackTabSwitch(newTabId)
+      })
+    },
+
+    // 用户行为追踪
+    trackTabSwitch(tabId) {
+      // 这里可以添加分析代码，如Google Analytics
+      console.log(`User switched to tab: ${tabId}`)
+      
+      // 可以发送到analytics服务
+      if (window.gtag) {
+        window.gtag('event', 'tab_switch', {
+          'tab_name': tabId,
+          'previous_tab': this.lastActiveTab
+        })
+      }
+    },
+
+    // 键盘导航支持
+    handleKeyNavigation(event) {
+      if (!event.ctrlKey && !event.metaKey) return
+      
+      const tabOrder = ['basic', 'transit', 'compatibility']
+      const currentIndex = tabOrder.indexOf(this.activeFunctionTab)
+      
+      switch(event.key) {
+        case 'ArrowLeft': {
+          event.preventDefault()
+          const prevIndex = (currentIndex - 1 + tabOrder.length) % tabOrder.length
+          this.switchFunctionTab(tabOrder[prevIndex])
+          break
+        }
+        case 'ArrowRight': {
+          event.preventDefault()
+          const nextIndex = (currentIndex + 1) % tabOrder.length
+          this.switchFunctionTab(tabOrder[nextIndex])
+          break
+        }
+        case '1':
+          event.preventDefault()
+          this.switchFunctionTab('basic')
+          break
+        case '2':
+          event.preventDefault()
+          this.switchFunctionTab('transit')
+          break
+        case '3':
+          event.preventDefault()
+          this.switchFunctionTab('compatibility')
+          break
+      }
+    },
+
+    // 初始化功能导航状态
+    initializeFunctionNavigation() {
+      // 标记基础分析为已访问
+      const basicNav = this.functionNavs.find(nav => nav.id === 'basic')
+      if (basicNav) {
+        basicNav.visited = true
+      }
+      
+      // 检查是否首次访问
+      this.checkFirstVisit()
+    },
+
+    // 检查是否首次访问
+    checkFirstVisit() {
+      const visitKey = 'astrology_results_visited'
+      const hasVisited = localStorage.getItem(visitKey)
+      
+      if (!hasVisited) {
+        this.isFirstVisit = true
+        localStorage.setItem(visitKey, 'true')
+        
+        // 延迟显示用户引导
+        setTimeout(() => {
+          this.startUserGuide()
+        }, 1500)
+      }
+    },
+
+    // 开始用户引导
+    startUserGuide() {
+      if (this.userGuideSteps.length > 0) {
+        this.showUserGuide = true
+        this.guideStep = 0
+        this.showGuideStep(0)
+      }
+    },
+
+    // 显示引导步骤
+    showGuideStep(stepIndex) {
+      if (stepIndex >= this.userGuideSteps.length) {
+        this.endUserGuide()
+        return
+      }
+
+      const step = this.userGuideSteps[stepIndex]
+      const targetElement = document.querySelector(step.target)
+      
+      if (targetElement) {
+        // 滚动到目标元素
+        targetElement.scrollIntoView({ 
+          behavior: 'smooth', 
+          block: 'center' 
+        })
+        
+        // 高亮目标元素
+        this.highlightElement(targetElement)
+      }
+
+      this.guideStep = stepIndex
+    },
+
+    // 下一个引导步骤
+    nextGuideStep() {
+      this.clearHighlight()
+      if (this.guideStep < this.userGuideSteps.length - 1) {
+        this.showGuideStep(this.guideStep + 1)
+      } else {
+        this.endUserGuide()
+      }
+    },
+
+    // 上一个引导步骤
+    prevGuideStep() {
+      this.clearHighlight()
+      if (this.guideStep > 0) {
+        this.showGuideStep(this.guideStep - 1)
+      }
+    },
+
+    // 结束用户引导
+    endUserGuide() {
+      this.showUserGuide = false
+      this.guideStep = 0
+      this.clearHighlight()
+    },
+
+    // 高亮元素
+    highlightElement(element) {
+      this.clearHighlight()
+      element.classList.add('guide-highlight')
+    },
+
+    // 清除高亮
+    clearHighlight() {
+      const highlighted = document.querySelectorAll('.guide-highlight')
+      highlighted.forEach(el => el.classList.remove('guide-highlight'))
+    },
+
+    // 显示提示
+    showInteractionTooltip(type) {
+      this.showTooltip = type
+      this.interactionCount++
+      
+      // 自动隐藏提示
+      setTimeout(() => {
+        this.hideTooltip()
+      }, 3000)
+    },
+
+    // 隐藏提示
+    hideTooltip() {
+      this.showTooltip = null
+    },
+
+    // 添加微交互反馈
+    addMicroInteraction(element, type = 'pulse') {
+      if (!element) return
+      
+      element.classList.add(`micro-${type}`)
+      setTimeout(() => {
+        element.classList.remove(`micro-${type}`)
+      }, 600)
+    },
+
     onLanguageChanged(language) {
       console.log('Language changed to:', language)
     },
@@ -581,11 +908,18 @@ export default {
       this.$forceUpdate() // 触发isMobile计算属性更新
     }
     window.addEventListener('resize', this.handleResize)
+    
+    // 添加键盘导航支持
+    window.addEventListener('keydown', this.handleKeyNavigation)
+    
+    // 初始化功能导航状态
+    this.initializeFunctionNavigation()
   },
   
   beforeUnmount() {
     window.removeEventListener('resize', this.updateChartSize)
     window.removeEventListener('resize', this.handleResize)
+    window.removeEventListener('keydown', this.handleKeyNavigation)
   }
 }
 </script>
@@ -643,15 +977,17 @@ export default {
 }
 
 .nav-button--active {
-  background: white;
-  color: #667eea;
-  border-color: white;
-  box-shadow: 0 4px 16px rgba(255, 255, 255, 0.3);
+  background: white !important;
+  color: #667eea !important;
+  border-color: white !important;
+  box-shadow: 0 4px 16px rgba(255, 255, 255, 0.3) !important;
 }
 
 .nav-button--active:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.4);
+  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.4) !important;
+  background: white !important;
+  color: #667eea !important;
 }
 
 /* 导航图标和内容 */
@@ -689,6 +1025,95 @@ export default {
 .function-content {
   min-height: 400px;
   animation: fadeIn 0.3s ease-in-out;
+}
+
+/* 功能标签切换动画 */
+.function-tab-content {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.content-transitioning {
+  pointer-events: none;
+}
+
+/* Vue transition 动画 */
+.tab-content-enter-active,
+.tab-content-leave-active {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tab-content-enter-from {
+  opacity: 0;
+  transform: translateX(30px);
+}
+
+.tab-content-leave-to {
+  opacity: 0;
+  transform: translateX(-30px);
+}
+
+.content-direction-forward.tab-content-enter-from {
+  transform: translateX(30px);
+}
+
+.content-direction-forward.tab-content-leave-to {
+  transform: translateX(-30px);
+}
+
+.content-direction-backward.tab-content-enter-from {
+  transform: translateX(-30px);
+}
+
+.content-direction-backward.tab-content-leave-to {
+  transform: translateX(30px);
+}
+
+/* 导航按钮增强状态 */
+.nav-button--visited {
+  position: relative;
+}
+
+.nav-button--visited:after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  background: #28a745;
+  border-radius: 50%;
+  opacity: 0.7;
+}
+
+.nav-button--transitioning {
+  transform: scale(0.95);
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.nav-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* 键盘导航提示 */
+.function-nav:after {
+  content: 'Ctrl + ← → 或 Ctrl + 1/2/3 快速切换';
+  position: absolute;
+  bottom: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.7rem;
+  color: #95a5a6;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.function-nav:hover:after {
+  opacity: 1;
 }
 
 @keyframes fadeIn {
@@ -785,6 +1210,11 @@ export default {
   
   .nav-container {
     gap: 6px;
+  }
+  
+  /* 移动端隐藏键盘导航提示 */
+  .function-nav:after {
+    display: none;
   }
   
   .nav-button {
@@ -1418,6 +1848,267 @@ export default {
   .tab-button {
     padding: 8px 6px;
     font-size: 0.75rem;
+  }
+}
+
+/* 用户引导样式 */
+.user-guide-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(5px);
+}
+
+.guide-modal {
+  background: white;
+  border-radius: 16px;
+  max-width: 480px;
+  width: 90%;
+  max-height: 80vh;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: guideModalIn 0.3s ease-out;
+}
+
+@keyframes guideModalIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.guide-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 25px;
+  border-bottom: 1px solid #e9ecef;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.guide-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.guide-close-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease;
+}
+
+.guide-close-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.guide-content {
+  padding: 25px;
+}
+
+.guide-content p {
+  margin: 0;
+  line-height: 1.6;
+  color: #495057;
+  font-size: 0.95rem;
+}
+
+.guide-footer {
+  padding: 20px 25px;
+  border-top: 1px solid #e9ecef;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.guide-progress {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 0.85rem;
+  color: #6c757d;
+}
+
+.progress-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.progress-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #e9ecef;
+  transition: all 0.3s ease;
+}
+
+.progress-dot.active {
+  background: #667eea;
+}
+
+.progress-dot.completed {
+  background: #28a745;
+}
+
+.guide-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.guide-actions .btn {
+  padding: 8px 16px;
+  font-size: 0.85rem;
+}
+
+/* 高亮效果 */
+.guide-highlight {
+  position: relative;
+  z-index: 9999;
+  animation: guideHighlight 2s infinite;
+  border-radius: 8px;
+  box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.5) !important;
+}
+
+@keyframes guideHighlight {
+  0%, 100% {
+    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(102, 126, 234, 0.3);
+  }
+}
+
+/* 浮动提示样式 */
+.floating-tooltip {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #28a745;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 25px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  z-index: 9998;
+  animation: tooltipSlideIn 0.3s ease-out;
+  box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+}
+
+@keyframes tooltipSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.tooltip-interaction {
+  background: #17a2b8;
+  box-shadow: 0 4px 15px rgba(23, 162, 184, 0.3);
+}
+
+.tooltip-success {
+  background: #28a745;
+  box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+}
+
+.tooltip-info {
+  background: #007bff;
+  box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+}
+
+/* 微交互动画 */
+.micro-pulse {
+  animation: microPulse 0.6s ease-out;
+}
+
+@keyframes microPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.micro-bounce {
+  animation: microBounce 0.6s ease-out;
+}
+
+@keyframes microBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+.micro-shake {
+  animation: microShake 0.6s ease-out;
+}
+
+@keyframes microShake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-3px); }
+  75% { transform: translateX(3px); }
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  .user-guide-overlay {
+    padding: 20px;
+  }
+  
+  .guide-modal {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    border-radius: 12px;
+  }
+  
+  .guide-header {
+    padding: 15px 20px;
+  }
+  
+  .guide-content {
+    padding: 20px;
+  }
+  
+  .guide-footer {
+    padding: 15px 20px;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .guide-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  .floating-tooltip {
+    top: 10px;
+    right: 10px;
+    left: 10px;
+    text-align: center;
   }
 }
 </style>
