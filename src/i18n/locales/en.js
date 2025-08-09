@@ -158,6 +158,8 @@ export default {
       linkCopied: 'Link copied to clipboard',
       copyManually: 'Please manually copy the current page link to share'
     },
+    generating: 'Generating PDF...',
+    pdfError: 'PDF generation failed. Please try again later',
     signs: {
       descriptions: {
         sun: {
@@ -428,6 +430,10 @@ export default {
     practicalAdvice: 'Practical Advice',
     spiritualAdvice: 'Spiritual Advice',
     detailedRecommendations: 'Detailed Field Recommendations',
+    downloadReport: 'Download PDF Report',
+    noReportError: 'No analysis report available for download',
+    generating: 'Generating...',
+    pdfError: 'PDF generation failed. Please try again later',
     reanalyze: 'Re-analyze',
     returnHome: 'Return Home',
     tabs: {

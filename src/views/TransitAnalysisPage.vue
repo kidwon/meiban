@@ -405,7 +405,8 @@
         <!-- 操作按钮 -->
         <div class="action-section">
           <button @click="generateNewAnalysis" class="secondary-btn">{{ $t('transitAnalysis.reanalyze') }}</button>
-          <button @click="shareReport" class="primary-btn">{{ $t('transitAnalysis.shareReport') }}</button>
+          <button @click="downloadReport" class="primary-btn">{{ $t('transitAnalysis.downloadReport') }}</button>
+          <button @click="shareReport" class="secondary-btn">{{ $t('transitAnalysis.shareReport') }}</button>
           <button @click="goBack" class="secondary-btn">{{ $t('transitAnalysis.returnHome') }}</button>
         </div>
       </section>
@@ -790,6 +791,46 @@ export default {
     generateNewAnalysis() {
       this.transitReport = null
       this.lastTransitData = null // 清空原始数据
+    },
+
+    async downloadReport() {
+      if (!this.transitReport) {
+        alert(this.$t('transitAnalysis.noReportError') || '没有可下载的分析报告')
+        return
+      }
+
+      try {
+        // 动态导入PDF生成器
+        const { generateComprehensivePDFReport, downloadPDF } = await import('../utils/pdfReportGenerator.js')
+        
+        // 显示加载状态
+        const btn = document.querySelector('[onclick*="downloadReport"]')
+        const originalText = btn?.textContent
+        if (btn) btn.textContent = this.$t('transitAnalysis.generating') || '生成中...'
+        
+        // 生成PDF - 专门用于行运分析报告
+        const pdf = await generateComprehensivePDFReport(
+          this.userData,
+          null, // 行运分析页面不包含生辰八字和基础占星数据
+          this.transitReport,
+          this.currentLanguage
+        )
+        
+        // 下载PDF
+        const filename = `transit-analysis-${this.userData.name || 'user'}`
+        downloadPDF(pdf, filename)
+        
+        // 恢复按钮文本
+        if (btn && originalText) {
+          setTimeout(() => {
+            btn.textContent = originalText
+          }, 1000)
+        }
+        
+      } catch (error) {
+        console.error('Failed to generate PDF report:', error)
+        alert(this.$t('transitAnalysis.pdfError') || 'PDF生成失败，请稍后重试')
+      }
     },
 
     shareReport() {
