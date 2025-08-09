@@ -828,13 +828,62 @@ export default {
         // 动态导入PDF生成器
         const { generateComprehensivePDFReport, downloadPDF } = await import('../utils/pdfReportGenerator.js')
         
-        // 准备数据 - 包含当前页面的所有分析结果
+        // 准备数据 - 包含当前页面的所有分析结果和计算出的详细分析
+        const enhancedCalculationResults = {
+          ...this.calculationResults,
+          // 确保生辰八字数据存在
+          bazi: this.calculationResults?.bazi || {
+            pillars: this.calculationResults?.pillars || [],
+            elements: this.calculationResults?.elements || {},
+            personality: this.calculationResults?.personality || ''
+          },
+          // 添加详细的占星分析数据
+          astrology: {
+            sun: {
+              sign: this.calculationResults?.astrologyPositions?.sun?.sign,
+              description: this.getSunDescription()
+            },
+            moon: {
+              sign: this.calculationResults?.astrologyPositions?.moon?.sign,
+              description: this.getMoonDescription()
+            },
+            ascendant: {
+              sign: this.calculationResults?.astrologyPositions?.ascendant?.sign,
+              description: this.getAscendantDescription()
+            },
+            // 事业分析
+            career: {
+              strengths: this.getCareerStrengths(),
+              suggestions: this.getSuggestedCareers()
+            },
+            // 感情分析
+            relationships: {
+              love: this.getLoveDescription(),
+              friendship: this.getFriendshipDescription(),
+              compatibility: this.getCompatibleSigns()
+            },
+            // 性格关键词
+            planetKeywords: this.calculationResults?.planetKeywords || {},
+            // 运势概览
+            fortune: {
+              overall: this.getOverallFortuneDescription(),
+              ...this.calculationResults?.fortune
+            }
+          }
+        }
+        
         const reportData = {
           userData: this.userData,
-          calculationResults: this.calculationResults,
+          calculationResults: enhancedCalculationResults,
           // 如果有行运数据也包含进去
           transitReport: this.transitReport || null
         }
+        
+        // 调试：检查数据完整性
+        console.log('Vue Component - Preparing PDF data:')
+        console.log('userData:', this.userData)
+        console.log('enhancedCalculationResults:', enhancedCalculationResults)
+        console.log('transitReport:', this.transitReport)
         
         // 显示加载提示
         const originalText = document.querySelector('.btn[onclick*="downloadReport"]')?.textContent
