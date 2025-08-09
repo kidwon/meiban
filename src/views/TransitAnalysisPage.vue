@@ -15,62 +15,78 @@
     <div class="analysis-content">
       <!-- 日期选择区域 -->
       <section class="date-selection-section" v-if="!transitReport">
-        <div class="selection-card">
+        <div class="selection-card compact-layout" :class="{ 'analyzing-mode': isAnalyzing }">
           <h2 class="section-title">{{ $t('transitAnalysis.selectDate') }}</h2>
           
-          <div class="date-options">
-            <div class="quick-options">
-              <h3>{{ $t('transitAnalysis.quickSelect') }}</h3>
-              <div class="quick-buttons">
-                <button @click="selectToday" :class="['quick-btn', { current: isToday }]">
-                  {{ $t('transitAnalysis.today') }}
-                </button>
-                <button @click="selectBirthday" :class="['quick-btn', { current: isBirthday }]">
-                  {{ $t('transitAnalysis.birthday') }}
-                </button>
-                <button @click="selectNewYear" :class="['quick-btn', { current: isNewYear }]">
-                  {{ $t('transitAnalysis.newYear') }}
-                </button>
-              </div>
+          <!-- 紧凑的日期选择 -->
+          <div class="compact-date-selection" v-show="!isAnalyzing">
+            <div class="quick-select-row">
+              <button @click="selectToday" :class="['quick-btn', { current: isToday }]">
+                {{ $t('transitAnalysis.today') }}
+              </button>
+              <button @click="selectBirthday" :class="['quick-btn', { current: isBirthday }]">
+                {{ $t('transitAnalysis.birthday') }}
+              </button>
+              <button @click="selectNewYear" :class="['quick-btn', { current: isNewYear }]">
+                {{ $t('transitAnalysis.newYear') }}
+              </button>
             </div>
             
-            <div class="custom-date">
-              <h3>{{ $t('transitAnalysis.customDate') }}</h3>
-              <div class="date-inputs">
-                <div class="input-group">
-                  <label>{{ $t('transitAnalysis.analysisDate') }}</label>
-                  <input 
-                    type="date" 
-                    v-model="selectedDate" 
-                    :min="minDate"
-                    :max="maxDate"
-                  />
-                </div>
-                <div class="input-group">
-                  <label>{{ $t('transitAnalysis.analysisTime') }}</label>
-                  <input 
-                    type="time" 
-                    v-model="selectedTime"
-                  />
-                </div>
-              </div>
+            <div class="date-time-inputs">
+              <input 
+                type="date" 
+                v-model="selectedDate" 
+                :min="minDate"
+                :max="maxDate"
+                class="date-input"
+              />
+              <input 
+                type="time" 
+                v-model="selectedTime"
+                class="time-input"
+              />
+            </div>
+            
+            <div class="preview-summary" v-if="selectedDate">
+              <span>{{ formatSelectedDate }} | {{ $t('transitAnalysis.age') }}: {{ calculatedAge }}岁</span>
             </div>
           </div>
 
-          <div class="analysis-preview" v-if="selectedDate">
-            <h3>{{ $t('transitAnalysis.preview') }}</h3>
-            <div class="preview-info">
-              <p><strong>{{ $t('transitAnalysis.previewDate') }}:</strong> {{ formatSelectedDate }}</p>
-              <p><strong>{{ $t('transitAnalysis.ageAtTime') }}:</strong> {{ calculatedAge }}{{ $t('transitAnalysis.yearsOld') }}</p>
-              <p><strong>{{ $t('transitAnalysis.daysToBirthday') }}:</strong> {{ daysToBirthday }}{{ $t('transitAnalysis.days') }}</p>
+          <!-- 分析进度区域 -->
+          <div class="analysis-progress-section" v-show="isAnalyzing" ref="progressSection">
+            <h3 class="progress-title">正在进行个人行运盘深度分析</h3>
+            <div class="progress-container">
+              <div class="progress-bar">
+                <div class="progress-fill" :style="{ width: analysisProgress + '%' }"></div>
+              </div>
+              <div class="progress-text">{{ Math.round(analysisProgress) }}%</div>
+            </div>
+            <div class="current-step">
+              <div class="step-icon">⚡</div>
+              <span>{{ currentAnalysisStep }}</span>
+            </div>
+            <div class="analysis-steps">
+              <div 
+                v-for="(step, index) in analysisSteps" 
+                :key="step.key"
+                class="step-item"
+                :class="{ 
+                  'completed': analysisProgress > (index * 20),
+                  'active': currentAnalysisStep === step.name 
+                }"
+              >
+                <div class="step-number">{{ index + 1 }}</div>
+                <span>{{ step.name }}</span>
+              </div>
             </div>
           </div>
 
           <div class="action-buttons">
             <button @click="startAnalysis" :disabled="!selectedDate || isAnalyzing" class="analyze-btn">
-              {{ isAnalyzing ? $t('transitAnalysis.analyzing') : $t('transitAnalysis.startAnalysis') }}
+              <span v-if="!isAnalyzing">{{ $t('transitAnalysis.startAnalysis') }}</span>
+              <span v-else>{{ currentAnalysisStep }}</span>
             </button>
-            <button @click="goBack" class="back-btn">{{ $t('common.back') }}</button>
+            <button @click="goBack" class="back-btn" v-show="!isAnalyzing">{{ $t('common.back') }}</button>
           </div>
         </div>
       </section>
@@ -438,6 +454,17 @@ export default {
     const transitReport = ref(null)
     const loadingStep = ref(0)
     const activeTab = ref('career')
+    
+    // 分析进度相关状态
+    const analysisProgress = ref(0)
+    const currentAnalysisStep = ref('')
+    const analysisSteps = [
+      { key: 'prepare', name: '准备数据...', duration: 800 },
+      { key: 'calculate', name: '计算天体位置...', duration: 1200 },
+      { key: 'analyze', name: '分析行运影响...', duration: 1500 },
+      { key: 'interpret', name: '生成个人解读...', duration: 1000 },
+      { key: 'complete', name: '分析完成！', duration: 500 }
+    ]
 
     // 建议标签配置
     const recommendationTabs = {
@@ -502,7 +529,10 @@ export default {
       maxDate,
       formatSelectedDate,
       formatAnalysisDate,
-      intensityClass
+      intensityClass,
+      analysisProgress,
+      currentAnalysisStep,
+      analysisSteps
     }
   },
   
@@ -642,40 +672,101 @@ export default {
     async startAnalysis() {
       if (!this.userData || !this.selectedDate) return
       
+      // 开始分析
       this.isAnalyzing = true
+      this.analysisProgress = 0
+      this.currentAnalysisStep = ''
       this.loadingStep = 0
       
+      // 等待Vue渲染进度区域
+      await this.$nextTick()
+      
+      // 延迟滚动到进度区域
+      setTimeout(() => {
+        if (this.$refs.progressSection) {
+          const element = this.$refs.progressSection
+          const elementTop = element.offsetTop - 80 // 留些上边距
+          
+          window.scrollTo({
+            top: elementTop,
+            behavior: 'smooth'
+          })
+        }
+      }, 150)
+      
       try {
-        // 模拟加载步骤
-        this.loadingStep = 1
-        await this.delay(1000)
+        // 执行分析步骤
+        const totalSteps = this.analysisSteps.length
         
-        // 构建分析时间
-        const analysisDateTime = `${this.selectedDate}T${this.selectedTime}:00`
+        for (let i = 0; i < totalSteps; i++) {
+          const step = this.analysisSteps[i]
+          this.currentAnalysisStep = step.name
+          this.loadingStep = i + 1
+          
+          // 进度条动画
+          await this.animateProgress(i * 20, (i + 1) * 20, step.duration)
+          
+          // 实际计算逻辑
+          if (step.key === 'calculate') {
+            // 构建分析时间
+            const analysisDateTime = `${this.selectedDate}T${this.selectedTime}:00`
+            // 计算行运盘数据
+            this.lastTransitData = calculateTransitChart(this.userData, analysisDateTime)
+          } else if (step.key === 'interpret') {
+            // 生成详细报告
+            this.transitReport = generateDetailedTransitReport(
+              this.lastTransitData, 
+              this.userData, 
+              this.currentLanguage
+            )
+          }
+          
+          // 步骤之间的间隔
+          await this.delay(200)
+        }
         
-        this.loadingStep = 2
-        await this.delay(1000)
-        
-        // 计算行运盘数据
-        const transitData = calculateTransitChart(this.userData, analysisDateTime)
-        
-        this.loadingStep = 3
-        await this.delay(1000)
-        
-        // 生成详细报告 (传递当前语言)
-        const detailedReport = generateDetailedTransitReport(transitData, this.userData, this.currentLanguage)
-        
-        // 保存原始数据和报告
-        this.lastTransitData = transitData // 保存原始数据供语言切换使用
-        this.transitReport = detailedReport
+        // 分析完成
+        this.currentAnalysisStep = '分析完成！'
         
       } catch (error) {
         console.error('行运分析失败:', error)
         alert(this.$t('transitAnalysis.analysisError'))
       } finally {
-        this.isAnalyzing = false
-        this.loadingStep = 0
+        // 延迟重置状态
+        setTimeout(() => {
+          this.isAnalyzing = false
+          this.analysisProgress = 0
+          this.currentAnalysisStep = ''
+          this.loadingStep = 0
+        }, 1000)
       }
+    },
+    
+    // 进度条动画
+    async animateProgress(startProgress, endProgress, duration) {
+      return new Promise(resolve => {
+        const startTime = performance.now()
+        const progressDiff = endProgress - startProgress
+        
+        // 缓动函数
+        const easeOutQuart = t => 1 - Math.pow(1 - t, 4)
+        
+        const animate = (currentTime) => {
+          const elapsed = currentTime - startTime
+          const t = Math.min(elapsed / duration, 1)
+          
+          this.analysisProgress = startProgress + (progressDiff * easeOutQuart(t))
+          
+          if (t < 1) {
+            requestAnimationFrame(animate)
+          } else {
+            this.analysisProgress = endProgress
+            resolve()
+          }
+        }
+        
+        requestAnimationFrame(animate)
+      })
     },
 
     intensityAspectClass(intensity) {
@@ -772,6 +863,249 @@ export default {
   padding: 30px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   margin-bottom: 30px;
+  transition: all 0.3s ease;
+}
+
+/* 紧凑布局模式 */
+.compact-layout {
+  max-height: 70vh;
+  overflow: hidden;
+}
+
+.compact-layout.analyzing-mode {
+  max-height: none;
+  padding-bottom: 20px;
+}
+
+/* 紧凑的日期选择 */
+.compact-date-selection {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.quick-select-row {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.date-time-inputs {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  align-items: center;
+}
+
+.date-input, .time-input {
+  padding: 10px 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+  min-width: 150px;
+}
+
+.date-input:focus, .time-input:focus {
+  border-color: #d35400;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(211, 84, 0, 0.1);
+}
+
+.preview-summary {
+  text-align: center;
+  color: #7f8c8d;
+  font-size: 0.95rem;
+  padding: 8px;
+  background: #f8f9fa;
+  border-radius: 6px;
+}
+
+/* 分析进度区域样式 */
+.analysis-progress-section {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: 12px;
+  padding: 25px;
+  margin: 20px 0;
+  border-left: 4px solid #d35400;
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.progress-title {
+  color: #d35400;
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.progress-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.progress-bar {
+  flex: 1;
+  height: 12px;
+  background: #e9ecef;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(135deg, #d35400 0%, #e67e22 100%);
+  transition: width 0.3s ease;
+  position: relative;
+}
+
+.progress-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.progress-text {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #d35400;
+  min-width: 45px;
+}
+
+.current-step {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 20px;
+  padding: 10px;
+  background: rgba(211, 84, 0, 0.1);
+  border-radius: 8px;
+}
+
+.step-icon {
+  font-size: 1.2rem;
+  color: #d35400;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.1); opacity: 0.8; }
+}
+
+.current-step span {
+  font-weight: 500;
+  color: #d35400;
+  font-size: 1.05rem;
+}
+
+.analysis-steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.step-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px 8px;
+  background: #fff;
+  border-radius: 8px;
+  border: 2px solid #e9ecef;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.step-item.completed {
+  background: #d4edda;
+  border-color: #27ae60;
+  transform: scale(1.02);
+}
+
+.step-item.active {
+  background: #fff3cd;
+  border-color: #d35400;
+  animation: glow 2s infinite;
+  transform: scale(1.05);
+}
+
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 5px rgba(211, 84, 0, 0.3); }
+  50% { box-shadow: 0 0 15px rgba(211, 84, 0, 0.6); }
+}
+
+.step-number {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #6c757d;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  transition: all 0.3s ease;
+}
+
+.step-item.completed .step-number {
+  background: #27ae60;
+}
+
+.step-item.active .step-number {
+  background: #d35400;
+  animation: rotate 2s infinite linear;
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.step-item span {
+  font-size: 0.85rem;
+  color: #495057;
+  line-height: 1.2;
+}
+
+.step-item.completed span {
+  color: #155724;
+  font-weight: 500;
+}
+
+.step-item.active span {
+  color: #d35400;
+  font-weight: 600;
 }
 
 .section-title {
@@ -1633,6 +1967,63 @@ export default {
   
   .selection-card {
     padding: 20px;
+  }
+  
+  /* 移动端紧凑布局 */
+  .compact-layout {
+    max-height: 60vh;
+  }
+  
+  .date-time-inputs {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .date-input, .time-input {
+    width: 100%;
+    min-width: unset;
+  }
+  
+  .quick-select-row {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .quick-btn {
+    width: 100%;
+  }
+  
+  /* 分析进度移动端优化 */
+  .analysis-progress-section {
+    padding: 20px;
+  }
+  
+  .progress-title {
+    font-size: 1.1rem;
+  }
+  
+  .analysis-steps {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+  
+  .step-item {
+    padding: 8px 6px;
+  }
+  
+  .step-item span {
+    font-size: 0.75rem;
+  }
+  
+  .current-step {
+    flex-direction: column;
+    gap: 5px;
+    padding: 8px;
+  }
+  
+  .current-step span {
+    font-size: 0.95rem;
+    text-align: center;
   }
   
   .cycles-grid,
