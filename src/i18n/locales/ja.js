@@ -158,6 +158,8 @@ export default {
       linkCopied: 'リンクがクリップボードにコピーされました',
       copyManually: '現在のページリンクを手動でコピーしてシェアしてください'
     },
+    generating: 'PDF生成中...',
+    pdfError: 'PDF生成に失敗しました。後でもう一度お試しください',
     signs: {
       descriptions: {
         sun: {
@@ -428,6 +430,10 @@ export default {
     practicalAdvice: '実践アドバイス',
     spiritualAdvice: 'スピリチュアルアドバイス',
     detailedRecommendations: '分野別詳細アドバイス',
+    downloadReport: 'PDFレポートダウンロード',
+    noReportError: 'ダウンロード可能な分析レポートがありません',
+    generating: '生成中...',
+    pdfError: 'PDF生成に失敗しました。後でもう一度お試しください',
     reanalyze: '再分析',
     returnHome: 'ホームに戻る',
     tabs: {

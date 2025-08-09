@@ -823,22 +823,49 @@ export default {
       alert(this.$t('astrology.alerts.compatibilityInDevelopment'))
     },
     
-    downloadReport() {
-      const reportData = {
-        userData: this.userData,
-        calculationResults: this.calculationResults,
-        generatedAt: new Date().toISOString()
+    async downloadReport() {
+      try {
+        // 动态导入PDF生成器
+        const { generateComprehensivePDFReport, downloadPDF } = await import('../utils/pdfReportGenerator.js')
+        
+        // 准备数据 - 包含当前页面的所有分析结果
+        const reportData = {
+          userData: this.userData,
+          calculationResults: this.calculationResults,
+          // 如果有行运数据也包含进去
+          transitReport: this.transitReport || null
+        }
+        
+        // 显示加载提示
+        const originalText = document.querySelector('.btn[onclick*="downloadReport"]')?.textContent
+        if (originalText) {
+          document.querySelector('.btn[onclick*="downloadReport"]').textContent = this.$t('astrology.generating')
+        }
+        
+        // 生成PDF
+        const pdf = await generateComprehensivePDFReport(
+          reportData.userData,
+          reportData.calculationResults,
+          reportData.transitReport,
+          this.currentLanguage
+        )
+        
+        // 下载PDF
+        const filename = `astrology-report-${this.userData.name || 'user'}`
+        downloadPDF(pdf, filename)
+        
+        // 恢复按钮文本
+        if (originalText) {
+          setTimeout(() => {
+            const btn = document.querySelector('.btn[onclick*="downloadReport"]')
+            if (btn) btn.textContent = originalText
+          }, 1000)
+        }
+        
+      } catch (error) {
+        console.error('PDF generation failed:', error)
+        alert(this.$t('astrology.pdfError') || '生成PDF报告时出现错误')
       }
-      
-      const blob = new Blob([JSON.stringify(reportData, null, 2)], { type: 'application/json' })
-      const url = URL.createObjectURL(blob)
-      const a = document.createElement('a')
-      a.href = url
-      a.download = `astrology-results-${this.userData.name}-${new Date().toISOString().split('T')[0]}.json`
-      document.body.appendChild(a)
-      a.click()
-      document.body.removeChild(a)
-      URL.revokeObjectURL(url)
     },
     
     shareReport() {
