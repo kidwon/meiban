@@ -355,6 +355,14 @@ export default {
     step1: '计算行运行星位置',
     step2: '分析相位关系',
     step3: '生成详细报告',
+    analysisSteps: {
+      prepare: '准备数据...',
+      calculate: '计算天体位置...',
+      analyze: '分析行运影响...',
+      interpret: '生成个人解读...',
+      complete: '分析完成！'
+    },
+    analysisInProgress: '正在进行个人行运盘深度分析',
     analysisError: '分析过程中出现错误，请稍后重试',
     reportTitle: '的流年分析',
     age: '年龄',

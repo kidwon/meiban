@@ -885,6 +885,16 @@ export default {
     }
     window.addEventListener('resize', this.handleResize)
     
+    // 处理URL查询参数中的tab切换
+    if (this.$route.query.tab) {
+      const targetTab = this.$route.query.tab
+      if (['basic', 'transit', 'compatibility'].includes(targetTab)) {
+        this.activeFunctionTab = targetTab
+        // 清除查询参数以保持URL整洁
+        this.$router.replace({ query: {} })
+      }
+    }
+    
     // 添加键盘导航支持
     window.addEventListener('keydown', this.handleKeyNavigation)
     

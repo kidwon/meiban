@@ -355,6 +355,14 @@ export default {
     step1: 'Calculating Transit Planetary Positions',
     step2: 'Analyzing Aspect Relationships',
     step3: 'Generating Detailed Report',
+    analysisSteps: {
+      prepare: 'Preparing data...',
+      calculate: 'Calculating celestial positions...',
+      analyze: 'Analyzing transit influences...',
+      interpret: 'Generating personal interpretation...',
+      complete: 'Analysis complete!'
+    },
+    analysisInProgress: 'Conducting In-Depth Personal Transit Analysis',
     analysisError: 'An error occurred during analysis, please try again later',
     reportTitle: '\'s Transit Analysis',
     age: 'Age',
