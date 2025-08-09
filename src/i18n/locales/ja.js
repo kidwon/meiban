@@ -355,6 +355,14 @@ export default {
     step1: '行運惑星位置計算',
     step2: 'アスペクト関係分析',
     step3: '詳細レポート生成',
+    analysisSteps: {
+      prepare: 'データ準備中...',
+      calculate: '天体位置計算中...',
+      analyze: '行運影響分析中...',
+      interpret: '個人読解生成中...',
+      complete: '分析完了！'
+    },
+    analysisInProgress: '個人行運盤詳細分析を実行中',
     analysisError: '分析中にエラーが発生しました。後でもう一度お試しください',
     reportTitle: 'の行運分析',
     age: '年齢',

@@ -48,13 +48,13 @@
             </div>
             
             <div class="preview-summary" v-if="selectedDate">
-              <span>{{ formatSelectedDate }} | {{ $t('transitAnalysis.age') }}: {{ calculatedAge }}岁</span>
+              <span>{{ formatSelectedDate }} | {{ $t('transitAnalysis.age') }}: {{ calculatedAge }}{{ $t('transitAnalysis.yearsOld') }}</span>
             </div>
           </div>
 
           <!-- 分析进度区域 -->
           <div class="analysis-progress-section" v-show="isAnalyzing" ref="progressSection">
-            <h3 class="progress-title">正在进行个人行运盘深度分析</h3>
+            <h3 class="progress-title">{{ $t('transitAnalysis.analysisInProgress') }}</h3>
             <div class="progress-container">
               <div class="progress-bar">
                 <div class="progress-fill" :style="{ width: analysisProgress + '%' }"></div>
@@ -458,13 +458,6 @@ export default {
     // 分析进度相关状态
     const analysisProgress = ref(0)
     const currentAnalysisStep = ref('')
-    const analysisSteps = [
-      { key: 'prepare', name: '准备数据...', duration: 800 },
-      { key: 'calculate', name: '计算天体位置...', duration: 1200 },
-      { key: 'analyze', name: '分析行运影响...', duration: 1500 },
-      { key: 'interpret', name: '生成个人解读...', duration: 1000 },
-      { key: 'complete', name: '分析完成！', duration: 500 }
-    ]
 
     // 建议标签配置
     const recommendationTabs = {
@@ -493,7 +486,7 @@ export default {
     const formatSelectedDate = computed(() => {
       if (!selectedDate.value) return ''
       const date = new Date(selectedDate.value)
-      return `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日`
+      return `${date.getFullYear()}/${String(date.getMonth() + 1).padStart(2, '0')}/${String(date.getDate()).padStart(2, '0')}`
     })
 
     const formatAnalysisDate = computed(() => {
@@ -531,8 +524,7 @@ export default {
       formatAnalysisDate,
       intensityClass,
       analysisProgress,
-      currentAnalysisStep,
-      analysisSteps
+      currentAnalysisStep
     }
   },
   
@@ -540,6 +532,17 @@ export default {
     ...mapGetters({
       userData: 'getUserData'
     }),
+    
+    // 分析步骤
+    analysisSteps() {
+      return [
+        { key: 'prepare', name: this.$t('transitAnalysis.analysisSteps.prepare'), duration: 800 },
+        { key: 'calculate', name: this.$t('transitAnalysis.analysisSteps.calculate'), duration: 1200 },
+        { key: 'analyze', name: this.$t('transitAnalysis.analysisSteps.analyze'), duration: 1500 },
+        { key: 'interpret', name: this.$t('transitAnalysis.analysisSteps.interpret'), duration: 1000 },
+        { key: 'complete', name: this.$t('transitAnalysis.analysisSteps.complete'), duration: 500 }
+      ]
+    },
     
     calculatedAge() {
       if (!this.selectedDate || !this.userData) return 0
@@ -607,7 +610,7 @@ export default {
 
     async regenerateReportWithLanguage(language) {
       try {
-        console.log('重新生成报告以适应新语言:', language)
+        console.log('Regenerating report for new language:', language)
         
         // 使用原有的分析数据重新生成报告
         if (this.lastTransitData) {
@@ -622,9 +625,9 @@ export default {
           this.lastTransitData = transitData // 保存原始数据供后续语言切换使用
         }
         
-        console.log('报告语言更新完成')
+        console.log('Report language update completed')
       } catch (error) {
-        console.error('重新生成报告失败:', error)
+        console.error('Failed to regenerate report:', error)
         // 如果重新生成失败，显示错误提示
         alert(this.$t('transitAnalysis.analysisError'))
       }
@@ -726,10 +729,10 @@ export default {
         }
         
         // 分析完成
-        this.currentAnalysisStep = '分析完成！'
+        this.currentAnalysisStep = this.$t('transitAnalysis.analysisSteps.complete')
         
       } catch (error) {
-        console.error('行运分析失败:', error)
+        console.error('Transit analysis failed:', error)
         alert(this.$t('transitAnalysis.analysisError'))
       } finally {
         // 延迟重置状态
@@ -805,11 +808,14 @@ export default {
     },
 
     goBack() {
-      if (window.history.length > 1) {
-        this.$router.go(-1)
-      } else {
-        this.$router.push({ name: 'home' })
-      }
+      // 返回到行运分析页面（AstrologyResultsPage的行运分析标签页）
+      // 需要获取用户ID来构建正确的路由
+      const userId = this.userData ? this.userData.id || 'user' : 'user'
+      this.$router.push({ 
+        name: 'astrology-results',
+        params: { id: userId },
+        query: { tab: 'transit' }
+      })
     },
 
     delay(ms) {
