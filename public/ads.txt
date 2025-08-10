@@ -1,0 +1,12 @@
+# ads.txt file for meiban.info
+# Authorized Digital Sellers declaration as per IAB specification
+# https://iabtechlab.com/ads-txt/
+
+# Google AdSense - Direct relationship
+google.com, pub-8250499267865326, DIRECT, f08c47fec0942fa0
+
+# Google Ad Exchange (AdX) - if applicable
+# google.com, pub-8250499267865326, RESELLER, f08c47fec0942fa0
+
+# Contact information (optional but recommended)
+# contact=webmaster@meiban.info
