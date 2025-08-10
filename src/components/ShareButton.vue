@@ -3,7 +3,7 @@
     <!-- 分享按钮 -->
     <button 
       @click="handleShare"
-      class="share-btn"
+      class="btn btn--secondary share-btn"
       :class="{ 'wechat': isWechatBrowser }"
       :disabled="loading"
     >
@@ -305,31 +305,14 @@ export default {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 12px 20px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  border: none;
-  border-radius: 25px;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
-}
-
-.share-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
-}
-
-.share-btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-  transform: none;
 }
 
 .share-btn.wechat {
   background: linear-gradient(135deg, #07c160 0%, #00d4aa 100%);
+}
+
+.share-btn.wechat:hover {
+  background: linear-gradient(135deg, #059a4f 0%, #00c49a 100%);
 }
 
 .share-icon {

@@ -173,8 +173,8 @@
           @error="handleShareError"
           @showTip="showShareTip"
         />
-        <button @click="saveResults" class="save-btn">結果を保存</button>
-        <button @click="goBack" class="back-btn">トップに戻る</button>
+        <button @click="saveResults" class="btn btn--primary">結果を保存</button>
+        <button @click="goBack" class="btn btn--outline">トップに戻る</button>
       </div>
     </div>
 
@@ -906,36 +906,52 @@ export default {
   margin-top: 30px;
 }
 
-.share-btn,
-.save-btn {
-  background-color: #3498db;
-  color: white;
+/* 统一按钮样式系统 */
+.btn {
+  padding: 10px 20px;
   border: none;
-  padding: 12px 25px;
-  border-radius: 8px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.share-btn:hover,
-.save-btn:hover {
-  background-color: #2980b9;
-}
-
-.back-btn {
-  background-color: #7f8c8d;
-  color: white;
-  border: none;
-  padding: 12px 25px;
   border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
 
-.back-btn:hover {
-  background-color: #95a5a6;
+.btn--primary {
+  background: #d35400;
+  color: white;
 }
+
+.btn--primary:hover {
+  background: #e67e22;
+  transform: translateY(-1px);
+}
+
+.btn--secondary {
+  background: #6c757d;
+  color: white;
+}
+
+.btn--secondary:hover {
+  background: #5a6268;
+  transform: translateY(-1px);
+}
+
+.btn--outline {
+  background: none;
+  color: #6c757d;
+  border: 1px solid #6c757d;
+}
+
+.btn--outline:hover {
+  background: #6c757d;
+  color: white;
+}
+
 
 .loading {
   display: flex;

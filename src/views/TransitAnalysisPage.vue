@@ -82,11 +82,11 @@
           </div>
 
           <div class="action-buttons">
-            <button @click="startAnalysis" :disabled="!selectedDate || isAnalyzing" class="analyze-btn">
+            <button @click="startAnalysis" :disabled="!selectedDate || isAnalyzing" class="btn btn--primary analyze-btn">
               <span v-if="!isAnalyzing">{{ $t('transitAnalysis.startAnalysis') }}</span>
               <span v-else>{{ currentAnalysisStep }}</span>
             </button>
-            <button @click="goBack" class="back-btn" v-show="!isAnalyzing">{{ $t('common.back') }}</button>
+            <button @click="goBack" class="btn btn--outline" v-show="!isAnalyzing">{{ $t('common.back') }}</button>
           </div>
         </div>
       </section>
@@ -404,10 +404,10 @@
 
         <!-- 操作按钮 -->
         <div class="action-section">
-          <button @click="generateNewAnalysis" class="secondary-btn">{{ $t('transitAnalysis.reanalyze') }}</button>
-          <button @click="downloadReport" class="primary-btn">{{ $t('transitAnalysis.downloadReport') }}</button>
-          <button @click="shareReport" class="secondary-btn">{{ $t('transitAnalysis.shareReport') }}</button>
-          <button @click="goBack" class="secondary-btn">{{ $t('transitAnalysis.returnHome') }}</button>
+          <button @click="generateNewAnalysis" class="btn btn--outline">{{ $t('transitAnalysis.reanalyze') }}</button>
+          <button @click="downloadReport" class="btn btn--primary">{{ $t('transitAnalysis.downloadReport') }}</button>
+          <button @click="shareReport" class="btn btn--secondary">{{ $t('transitAnalysis.shareReport') }}</button>
+          <button @click="goBack" class="btn btn--outline">{{ $t('transitAnalysis.returnHome') }}</button>
         </div>
       </section>
 
@@ -874,6 +874,58 @@ export default {
 </script>
 
 <style scoped>
+/* 统一按钮样式系统 */
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn--primary {
+  background: #d35400;
+  color: white;
+}
+
+.btn--primary:hover {
+  background: #e67e22;
+  transform: translateY(-1px);
+}
+
+.btn--primary:disabled {
+  background: #bdc3c7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn--secondary {
+  background: #6c757d;
+  color: white;
+}
+
+.btn--secondary:hover {
+  background: #5a6268;
+  transform: translateY(-1px);
+}
+
+.btn--outline {
+  background: none;
+  color: #6c757d;
+  border: 1px solid #6c757d;
+}
+
+.btn--outline:hover {
+  background: #6c757d;
+  color: white;
+}
+
 .transit-analysis-container {
   max-width: 1000px;
   margin: 0 auto;
@@ -1265,46 +1317,12 @@ export default {
 }
 
 .analyze-btn {
-  background: linear-gradient(135deg, #d35400 0%, #e67e22 100%);
-  color: white;
-  border: none;
   padding: 15px 30px;
-  border-radius: 25px;
   font-size: 1.1rem;
   font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(211, 84, 0, 0.3);
-}
-
-.analyze-btn:hover:not(:disabled) {
-  background: linear-gradient(135deg, #e67e22 0%, #f39c12 100%);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(211, 84, 0, 0.4);
-}
-
-.analyze-btn:disabled {
-  background: #bdc3c7;
-  cursor: not-allowed;
-  transform: none;
-  box-shadow: none;
-}
-
-.back-btn {
-  background: #7f8c8d;
-  color: white;
-  border: none;
-  padding: 15px 25px;
   border-radius: 25px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-weight: 500;
 }
 
-.back-btn:hover {
-  background: #95a5a6;
-  transform: translateY(-1px);
-}
 
 /* 加载状态 */
 .loading-section {
@@ -1960,39 +1978,6 @@ export default {
   flex-wrap: wrap;
 }
 
-.primary-btn,
-.secondary-btn {
-  padding: 12px 25px;
-  border-radius: 25px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  border: none;
-  font-size: 1rem;
-}
-
-.primary-btn {
-  background: linear-gradient(135deg, #d35400 0%, #e67e22 100%);
-  color: white;
-  box-shadow: 0 4px 15px rgba(211, 84, 0, 0.3);
-}
-
-.primary-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(211, 84, 0, 0.4);
-}
-
-.secondary-btn {
-  background: #f8f9fa;
-  color: #6c757d;
-  border: 1px solid #dee2e6;
-}
-
-.secondary-btn:hover {
-  background: #e9ecef;
-  transform: translateY(-1px);
-  color: #495057;
-}
 
 /* Footer */
 .footer {
@@ -2091,11 +2076,6 @@ export default {
     align-items: center;
   }
   
-  .primary-btn,
-  .secondary-btn {
-    width: 100%;
-    max-width: 200px;
-  }
 }
 
 @media (max-width: 480px) {

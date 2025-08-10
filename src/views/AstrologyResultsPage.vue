@@ -1273,23 +1273,6 @@ export default {
   transform: translateY(-2px);
 }
 
-/* 行运分析按钮样式 */
-.transit-content .btn--primary {
-  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
-  color: white;
-  border: 2px solid transparent;
-  font-weight: 600;
-  box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
-}
-
-.transit-content .btn--primary:hover {
-  background: linear-gradient(135deg, #4338ca 0%, #6d28d9 100%);
-  color: white;
-  border-color: transparent;
-  transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(79, 70, 229, 0.4);
-}
-
 .preview-icon {
   font-size: 60px;
   margin-bottom: 20px;
