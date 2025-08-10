@@ -474,6 +474,12 @@ export default {
     }
   },
   created() {
+    // 对于分享页面，数据可能在路由守卫中异步恢复，给一些时间等待
+    if (this.$route.meta.requiresSharedData) {
+      // 分享页面数据由路由守卫处理，不需要在这里检查
+      return;
+    }
+    
     if (!this.userData || !this.calculationResults) {
       this.$router.push({ name: 'home' });
     }

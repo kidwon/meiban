@@ -114,7 +114,9 @@ router.beforeEach(async (to, from, next) => {
   if (to.meta.requiresSharedData) {
     try {
       const { restoreDataFromUrl, validateShareData } = await import('../utils/dataEncoder.js');
-      const sharedData = restoreDataFromUrl(to.query);
+      // 将查询对象转换为URLSearchParams格式
+      const searchParams = new URLSearchParams(to.query).toString();
+      const sharedData = restoreDataFromUrl(searchParams);
       
       if (sharedData && validateShareData(sharedData)) {
         // 将分享数据保存到store
