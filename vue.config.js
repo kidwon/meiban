@@ -1,10 +1,9 @@
 const { defineConfig } = require('@vue/cli-service')
 module.exports = defineConfig({
   transpileDependencies: true,
-  // 设置publicPath为仓库名，这在GitHub Pages中很重要
-  // 将'meiban-app'替换为您的GitHub仓库名称
+  // 使用自定义域名时，publicPath应该设置为根路径
   publicPath: process.env.NODE_ENV === 'production'
-    ? '/meiban/'
+    ? '/'
     : '/',
   // 优化性能
   configureWebpack: {
