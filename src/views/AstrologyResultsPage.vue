@@ -370,6 +370,11 @@
       <span>{{ $t(`astrology.tooltips.${showTooltip}`) }}</span>
     </div>
 
+    <!-- 广告位 -->
+    <AdSenseAd 
+      :ad-slot="$options.AD_SLOTS.RECTANGLE"
+      container-class="rectangle"
+    />
 
     <footer class="footer">
       <p>{{ $t('footer.copyright') }}</p>
@@ -381,6 +386,7 @@
 import { mapGetters } from 'vuex'
 import LanguageSwitcher from '../components/LanguageSwitcher.vue'
 import ShareButton from '../components/ShareButton.vue'
+import AdSenseAd from '../components/AdSenseAd.vue'
 import i18nMixin from '../mixins/i18n.js'
 import StarChart from '../components/StarChart/StarChart.vue'
 import {
@@ -398,9 +404,17 @@ import {
 export default {
   name: 'AstrologyResultsPage',
   mixins: [i18nMixin],
+  
+  AD_SLOTS: {
+    BANNER: process.env.VUE_APP_AD_SLOT_BANNER || '1234567890',
+    RECTANGLE: process.env.VUE_APP_AD_SLOT_RECTANGLE || '0987654321',
+    RESPONSIVE: process.env.VUE_APP_AD_SLOT_RESPONSIVE || '5678901234'
+  },
+  
   components: {
     LanguageSwitcher,
     ShareButton,
+    AdSenseAd,
     StarChart
   },
   

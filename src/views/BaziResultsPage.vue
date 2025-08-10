@@ -182,6 +182,12 @@
       <p>八字命盤を計算中...</p>
     </div>
 
+    <!-- 广告位 -->
+    <AdSenseAd 
+      :ad-slot="$options.AD_SLOTS.RECTANGLE"
+      container-class="rectangle"
+    />
+
     <footer class="footer">
       <p>© 2025 命盤 - 生辰八字・四柱推命</p>
     </footer>
@@ -191,11 +197,20 @@
 <script>
 import { mapGetters } from 'vuex';
 import ShareButton from '../components/ShareButton.vue';
+import AdSenseAd from '../components/AdSenseAd.vue';
 
 export default {
   name: 'BaziResultsPage',
+  
+  AD_SLOTS: {
+    BANNER: process.env.VUE_APP_AD_SLOT_BANNER || '1234567890',
+    RECTANGLE: process.env.VUE_APP_AD_SLOT_RECTANGLE || '0987654321',
+    RESPONSIVE: process.env.VUE_APP_AD_SLOT_RESPONSIVE || '5678901234'
+  },
+  
   components: {
-    ShareButton
+    ShareButton,
+    AdSenseAd
   },
   data() {
     return {
