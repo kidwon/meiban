@@ -36,6 +36,27 @@ const routes = [
       title: '占星分析結果'
     }
   },
+  // 分享页面路由（支持数据恢复）
+  {
+    path: '/bazi-results/shared',
+    name: 'bazi-results-shared',
+    component: () => import('../views/BaziResultsPage.vue'),
+    meta: { 
+      requiresSharedData: true,
+      analysisType: 'bazi',
+      title: '生辰八字結果'
+    }
+  },
+  {
+    path: '/astrology-results/shared', 
+    name: 'astrology-results-shared',
+    component: () => import('../views/AstrologyResultsPage.vue'),
+    meta: {
+      requiresSharedData: true,
+      analysisType: 'astrology',
+      title: '占星分析結果'
+    }
+  },
   // 行运分析页面
   {
     path: '/transit-analysis',
@@ -79,7 +100,7 @@ const router = createRouter({
 })
 
 // 增强的路由守卫
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   console.log('路由守卫检查:', to.name, to.meta);
   
   // 设置页面标题
@@ -87,6 +108,36 @@ router.beforeEach((to, from, next) => {
     document.title = `${to.meta.title} - 命盤`;
   } else {
     document.title = '命盤 - 生辰八字・占星分析';
+  }
+  
+  // 处理分享页面（从URL恢复数据）
+  if (to.meta.requiresSharedData) {
+    try {
+      const { restoreDataFromUrl, validateShareData } = await import('../utils/dataEncoder.js');
+      const sharedData = restoreDataFromUrl(to.query);
+      
+      if (sharedData && validateShareData(sharedData)) {
+        // 将分享数据保存到store
+        console.log('从分享链接恢复数据:', sharedData);
+        store.commit('setUserData', sharedData.userData);
+        store.commit('setCalculationResults', sharedData.calculationResults);
+        store.commit('setAnalysisType', sharedData.analysisType);
+        
+        console.log('分享数据恢复成功，允许访问');
+        next();
+        return;
+      } else {
+        console.log('分享数据无效，重定向到首页');
+        alert('分享链接已失效或损坏，请重新进行分析');
+        next({ name: 'home' });
+        return;
+      }
+    } catch (error) {
+      console.error('处理分享数据失败:', error);
+      alert('无法加载分享内容，请重新进行分析');
+      next({ name: 'home' });
+      return;
+    }
   }
   
   if (to.meta.requiresUserData) {
