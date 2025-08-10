@@ -129,6 +129,7 @@ async function testWechatShare() {
 
   try {
     const { isWechatBrowser } = await import('./src/utils/wechatShare.js');
+    console.log('微信环境检测可用:', typeof isWechatBrowser === 'function');
     
     console.log('✅ 微信分享模块导入成功');
     
