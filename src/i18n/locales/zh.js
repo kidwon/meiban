@@ -34,7 +34,8 @@ export default {
     selectType: '选择分析类型',
     bazi: {
       title: '生辰八字',
-      description: '传统命理分析'
+      description: '传统命理分析',
+      shareDescription: '分享{name}的生辰八字命盘结果，和朋友一起探索东方命理的奥秘！'
     },
     astrology: {
       title: '西方占星',
@@ -64,6 +65,7 @@ export default {
     compatibleSigns: '相容星座',
     overallFortune: '综合运势',
     guest: '访客',
+    shareDescription: '分享{name}的星座分析结果，和朋友一起探索占星的奥秘！',
     // 功能导航
     functionNav: {
       basicAnalysis: '基础分析',
@@ -843,5 +845,20 @@ export default {
       fallbackYear: '继续稳定发展',
       fallbackLongTerm: '保持长期规划'
     }
+  },
+  
+  // 分享功能翻译
+  share: {
+    title: '分享结果',
+    share: '分享',
+    wechat: '微信分享',
+    generating: '准备分享中...',
+    success: '分享成功！',
+    copyLink: '复制链接',
+    qq: 'QQ分享',
+    weibo: '微博分享',
+    email: '邮件分享',
+    wechatTip: '请点击右上角「…」按钮进行分享',
+    error: '分享失败，请稍后重试'
   }
 }

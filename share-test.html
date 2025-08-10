@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>分享功能测试</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .test-section {
+            background: #f8f9fa;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            border-left: 4px solid #007bff;
+        }
+        .test-result {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        .test-error {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .url-output {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+            font-family: monospace;
+            font-size: 12px;
+            word-break: break-all;
+        }
+    </style>
+</head>
+<body>
+    <h1>🚀 微信分享功能测试页面</h1>
+    
+    <div class="test-section">
+        <h2>📊 测试数据</h2>
+        <p>我们将使用以下模拟数据进行测试：</p>
+        <pre id="testData"></pre>
+    </div>
+
+    <div class="test-section">
+        <h2>🔗 URL 编码测试</h2>
+        <button onclick="testUrlEncoding()">测试数据编码</button>
+        <button onclick="testUrlDecoding()">测试数据解码</button>
+        <div id="encodingResults"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>📱 分享链接生成测试</h2>
+        <button onclick="testShareUrlGeneration('astrology')">生成占星分析分享链接</button>
+        <button onclick="testShareUrlGeneration('bazi')">生成生辰八字分享链接</button>
+        <div id="shareResults"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>🌐 微信环境检测</h2>
+        <button onclick="testWechatDetection()">检测微信环境</button>
+        <div id="wechatResults"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>📋 使用说明</h2>
+        <ol>
+            <li><strong>URL编码测试</strong>：验证数据能否正确编码和解码</li>
+            <li><strong>分享链接生成</strong>：生成包含数据的分享链接</li>
+            <li><strong>微信环境检测</strong>：检测当前是否在微信浏览器中</li>
+            <li><strong>手动测试</strong>：复制生成的链接，在新标签页中打开测试</li>
+        </ol>
+    </div>
+
+    <script type="module">
+        // 模拟的测试数据
+        const mockUserData = {
+            name: "测试用户",
+            birthdate: "1990-03-15",
+            birthHour: 14,
+            birthMinute: 30,
+            birthplace: "北京",
+            gender: "male",
+            fullBirthDateTime: "1990-03-15T14:30:00.000Z"
+        };
+
+        const mockCalculationResults = {
+            eightCharacters: {
+                year: { heavenlyStem: "庚", earthlyBranch: "午" },
+                month: { heavenlyStem: "己", earthlyBranch: "卯" },
+                day: { heavenlyStem: "癸", earthlyBranch: "亥" },
+                hour: { heavenlyStem: "己", earthlyBranch: "未" }
+            },
+            elements: ["金", "土", "水", "土"],
+            astrologyPositions: {
+                ascendant: { sign: "双子座", degree: 4, minute: 11 },
+                sun: { sign: "双鱼座", degree: 13, minute: 49 },
+                moon: { sign: "水瓶座", degree: 18, minute: 56 }
+            },
+            fortune: {
+                overview: "大吉",
+                career: "★★★☆☆",
+                wealth: "★★★★☆",
+                love: "★★★★★",
+                health: "★★★☆☆"
+            }
+        };
+
+        // 显示测试数据
+        document.getElementById('testData').textContent = JSON.stringify({
+            userData: mockUserData,
+            calculationResults: mockCalculationResults
+        }, null, 2);
+
+        // 动态导入我们的工具函数
+        let dataEncoder, wechatShare;
+        
+        try {
+            const modules = await Promise.all([
+                import('./src/utils/dataEncoder.js'),
+                import('./src/utils/wechatShare.js')
+            ]);
+            dataEncoder = modules[0];
+            wechatShare = modules[1];
+            console.log('✅ 工具模块加载成功');
+        } catch (error) {
+            console.error('❌ 工具模块加载失败:', error);
+            document.body.innerHTML += '<div class="test-error">❌ 工具模块加载失败，请确保项目已正确构建</div>';
+        }
+
+        // 测试函数
+        window.testUrlEncoding = function() {
+            const resultsDiv = document.getElementById('encodingResults');
+            resultsDiv.innerHTML = '';
+
+            try {
+                const shareData = {
+                    userData: mockUserData,
+                    calculationResults: mockCalculationResults,
+                    analysisType: 'astrology'
+                };
+
+                const encoded = dataEncoder.encodeDataForUrl(shareData);
+                const urlLength = encoded.length;
+
+                resultsDiv.innerHTML += `
+                    <div class="test-result">
+                        <strong>✅ 编码成功</strong><br>
+                        编码长度: ${urlLength} 字符<br>
+                        URL长度是否合理: ${dataEncoder.isUrlLengthReasonable(`https://example.com/?data=${encoded}`) ? '✅ 是' : '❌ 否'}
+                    </div>
+                    <div class="url-output">编码结果: ${encoded}</div>
+                `;
+            } catch (error) {
+                resultsDiv.innerHTML += `<div class="test-error">❌ 编码失败: ${error.message}</div>`;
+            }
+        };
+
+        window.testUrlDecoding = function() {
+            const resultsDiv = document.getElementById('encodingResults');
+            
+            try {
+                const shareData = {
+                    userData: mockUserData,
+                    calculationResults: mockCalculationResults,
+                    analysisType: 'astrology'
+                };
+
+                const encoded = dataEncoder.encodeDataForUrl(shareData);
+                const decoded = dataEncoder.decodeDataFromUrl(encoded);
+                const isValid = dataEncoder.validateShareData(decoded);
+
+                resultsDiv.innerHTML += `
+                    <div class="test-result">
+                        <strong>✅ 解码成功</strong><br>
+                        数据验证: ${isValid ? '✅ 有效' : '❌ 无效'}<br>
+                        用户姓名: ${decoded.userData?.name || '未找到'}<br>
+                        分析类型: ${decoded.analysisType || '未找到'}
+                    </div>
+                `;
+            } catch (error) {
+                resultsDiv.innerHTML += `<div class="test-error">❌ 解码失败: ${error.message}</div>`;
+            }
+        };
+
+        window.testShareUrlGeneration = function(analysisType) {
+            const resultsDiv = document.getElementById('shareResults');
+            
+            try {
+                const shareUrl = dataEncoder.generateShareUrl(mockUserData, mockCalculationResults, analysisType);
+                const shareContent = dataEncoder.generateShareContent(mockUserData, mockCalculationResults, analysisType);
+
+                resultsDiv.innerHTML += `
+                    <div class="test-result">
+                        <strong>✅ ${analysisType === 'astrology' ? '占星分析' : '生辰八字'}分享链接生成成功</strong><br>
+                        标题: ${shareContent.title}<br>
+                        描述: ${shareContent.desc}<br>
+                        <button onclick="window.open('${shareUrl}', '_blank')">🔗 在新标签页打开测试</button>
+                        <button onclick="navigator.clipboard.writeText('${shareUrl}').then(() => alert('链接已复制到剪贴板'))">📋 复制链接</button>
+                    </div>
+                    <div class="url-output">分享链接: ${shareUrl}</div>
+                `;
+            } catch (error) {
+                resultsDiv.innerHTML += `<div class="test-error">❌ 链接生成失败: ${error.message}</div>`;
+            }
+        };
+
+        window.testWechatDetection = function() {
+            const resultsDiv = document.getElementById('wechatResults');
+            const isWechat = wechatShare.isWechatBrowser();
+            const userAgent = navigator.userAgent;
+
+            resultsDiv.innerHTML = `
+                <div class="test-result">
+                    <strong>环境检测结果</strong><br>
+                    微信环境: ${isWechat ? '✅ 是' : '❌ 否'}<br>
+                    User Agent: <small>${userAgent}</small>
+                </div>
+            `;
+        };
+
+        // 页面加载完成提示
+        console.log('🎉 分享功能测试页面已准备就绪');
+        console.log('💡 打开浏览器开发者工具查看详细日志');
+    </script>
+</body>
+</html>

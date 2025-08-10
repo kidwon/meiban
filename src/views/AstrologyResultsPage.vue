@@ -315,7 +315,15 @@
       <div class="actions">
         <button @click="goBack" class="btn btn--outline">{{ $t('astrology.actions.back') }}</button>
         <button @click="downloadReport" class="btn btn--primary">{{ $t('astrology.actions.download') }}</button>
-        <button @click="shareReport" class="btn btn--secondary">{{ $t('astrology.actions.share') }}</button>
+        <ShareButton 
+          :userData="userData"
+          :calculationResults="calculationResults"
+          analysisType="astrology"
+          @shareSuccess="handleShareSuccess"
+          @shareCancel="handleShareCancel"
+          @error="handleShareError"
+          @showTip="showShareTip"
+        />
       </div>
     </div>
 
@@ -362,6 +370,7 @@
       <span>{{ $t(`astrology.tooltips.${showTooltip}`) }}</span>
     </div>
 
+
     <footer class="footer">
       <p>{{ $t('footer.copyright') }}</p>
     </footer>
@@ -371,6 +380,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import LanguageSwitcher from '../components/LanguageSwitcher.vue'
+import ShareButton from '../components/ShareButton.vue'
 import i18nMixin from '../mixins/i18n.js'
 import StarChart from '../components/StarChart/StarChart.vue'
 import {
@@ -390,6 +400,7 @@ export default {
   mixins: [i18nMixin],
   components: {
     LanguageSwitcher,
+    ShareButton,
     StarChart
   },
   
@@ -917,20 +928,6 @@ export default {
       }
     },
     
-    shareReport() {
-      if (navigator.share) {
-        navigator.share({
-          title: this.$t('astrology.alerts.reportTitle'),
-          text: `${this.userData.name}${this.$t('astrology.alerts.reportDescription')}`,
-          url: window.location.href
-        }).catch(console.error)
-      } else {
-        // 降级方案
-        navigator.clipboard.writeText(window.location.href)
-          .then(() => alert(this.$t('astrology.alerts.linkCopied')))
-          .catch(() => alert(this.$t('astrology.alerts.copyManually')))
-      }
-    },
     
     goBack() {
       this.$router.push({ name: 'home' })
@@ -941,6 +938,67 @@ export default {
       if (container) {
         const containerWidth = container.clientWidth
         this.chartSize = Math.min(containerWidth - 30, 450) // 压缩最大尺寸
+      }
+    },
+
+    // 分享功能相关方法
+    handleShareSuccess(platform) {
+      console.log(`占星分析结果分享成功: ${platform}`);
+      // 显示成功提示
+      this.showTooltip = 'success';
+      setTimeout(() => {
+        this.showTooltip = null;
+      }, 3000);
+      
+      // 统计分享事件
+      if (window.gtag) {
+        window.gtag('event', 'share_success', {
+          'content_type': 'astrology_results',
+          'platform': platform,
+          'user_name': this.userData?.name || 'anonymous'
+        });
+      }
+    },
+
+    handleShareCancel(platform) {
+      console.log(`取消占星分析结果分享: ${platform}`);
+      
+      // 统计取消事件
+      if (window.gtag) {
+        window.gtag('event', 'share_cancel', {
+          'content_type': 'astrology_results',
+          'platform': platform
+        });
+      }
+    },
+
+    handleShareError(error) {
+      console.error('占星分析结果分享失败:', error);
+      
+      // 显示错误提示
+      this.showTooltip = 'error';
+      setTimeout(() => {
+        this.showTooltip = null;
+      }, 3000);
+
+      // 可以显示用户友好的错误消息
+      if (this.$toast) {
+        this.$toast.error(this.$t('share.error') || '分享失败，请稍后重试');
+      } else {
+        alert(this.$t('share.error') || '分享失败，请稍后重试');
+      }
+    },
+
+    showShareTip(message) {
+      // 显示分享提示信息
+      if (this.$toast) {
+        this.$toast.info(message);
+      } else {
+        // 使用浮动提示显示消息
+        this.showTooltip = 'info';
+        setTimeout(() => {
+          this.showTooltip = null;
+        }, 5000);
       }
     }
   },
@@ -1723,6 +1781,7 @@ export default {
 }
 
 /* 页脚优化 */
+
 .footer {
   text-align: center;
   margin-top: 20px; /* 从25px压缩 */

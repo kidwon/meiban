@@ -164,7 +164,15 @@
       </section>
 
       <div class="actions">
-        <button @click="shareResults" class="share-btn">結果をシェア</button>
+        <ShareButton 
+          :userData="userData"
+          :calculationResults="calculationResults"
+          analysisType="bazi"
+          @shareSuccess="handleShareSuccess"
+          @shareCancel="handleShareCancel"
+          @error="handleShareError"
+          @showTip="showShareTip"
+        />
         <button @click="saveResults" class="save-btn">結果を保存</button>
         <button @click="goBack" class="back-btn">トップに戻る</button>
       </div>
@@ -182,9 +190,13 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import ShareButton from '../components/ShareButton.vue';
 
 export default {
   name: 'BaziResultsPage',
+  components: {
+    ShareButton
+  },
   data() {
     return {
       allElements: ['木', '火', '土', '金', '水'],
@@ -392,19 +404,52 @@ export default {
       return years;
     },
     
-    shareResults() {
-      if (navigator.share) {
-        navigator.share({
-          title: '生辰八字結果',
-          text: `${this.userData.name}の生辰八字命盤結果`,
-          url: window.location.href
-        }).catch(console.error);
-      } else {
-        navigator.clipboard.writeText(window.location.href)
-          .then(() => alert('URLをクリップボードにコピーしました'))
-          .catch(() => alert('手動でURLをコピーしてください'));
+    // 新的分享功能方法
+    handleShareSuccess(platform) {
+      console.log(`生辰八字结果分享成功: ${platform}`);
+      
+      // 统计分享事件
+      if (window.gtag) {
+        window.gtag('event', 'share_success', {
+          'content_type': 'bazi_results',
+          'platform': platform,
+          'user_name': this.userData?.name || 'anonymous'
+        });
       }
     },
+
+    handleShareCancel(platform) {
+      console.log(`取消生辰八字结果分享: ${platform}`);
+      
+      // 统计取消事件
+      if (window.gtag) {
+        window.gtag('event', 'share_cancel', {
+          'content_type': 'bazi_results',
+          'platform': platform
+        });
+      }
+    },
+
+    handleShareError(error) {
+      console.error('生辰八字结果分享失败:', error);
+
+      // 可以显示用户友好的错误消息
+      if (this.$toast) {
+        this.$toast.error(this.$t('share.error') || '分享失败，请稍后重试');
+      } else {
+        alert(this.$t('share.error') || '分享失败，请稍后重试');
+      }
+    },
+
+    showShareTip(message) {
+      // 显示分享提示信息
+      if (this.$toast) {
+        this.$toast.info(message);
+      } else {
+        alert(message);
+      }
+    },
+    
     
     saveResults() {
       const data = {
@@ -900,6 +945,7 @@ export default {
   font-size: 1.2rem;
   color: #7f8c8d;
 }
+
 
 .footer {
   margin-top: 30px;

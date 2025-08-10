@@ -34,7 +34,8 @@ export default {
     selectType: 'Select Analysis Type',
     bazi: {
       title: 'BaZi Analysis',
-      description: 'Traditional Chinese'
+      description: 'Traditional Chinese',
+      shareDescription: 'Share {name}\'s BaZi (Eight Characters) destiny reading results and explore the mysteries of Eastern divination with friends!'
     },
     astrology: {
       title: 'Astrology',
@@ -64,6 +65,7 @@ export default {
     compatibleSigns: 'Compatible Signs',
     overallFortune: 'Overall Fortune',
     guest: 'Guest',
+    shareDescription: 'Share {name}\'s astrology analysis results and explore the mysteries of astrology with friends!',
     // Function Navigation
     functionNav: {
       basicAnalysis: 'Basic Analysis',
@@ -845,5 +847,20 @@ export default {
       fallbackYear: 'Continue stable development',
       fallbackLongTerm: 'Maintain long-term planning'
     }
+  },
+  
+  // Share functionality translations
+  share: {
+    title: 'Share Results',
+    share: 'Share',
+    wechat: 'WeChat Share',
+    generating: 'Preparing to share...',
+    success: 'Share successful!',
+    copyLink: 'Copy Link',
+    qq: 'Share to QQ',
+    weibo: 'Share to Weibo', 
+    email: 'Share via Email',
+    wechatTip: 'Please tap the "..." button in the top right corner to share',
+    error: 'Share failed, please try again later'
   }
 }

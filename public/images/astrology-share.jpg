@@ -1,0 +1,28 @@
+<svg width="300" height="300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="astrologyGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- 背景 -->
+  <rect width="300" height="300" fill="url(#astrologyGradient)"/>
+  
+  <!-- 星座环 -->
+  <circle cx="150" cy="150" r="120" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+  <circle cx="150" cy="150" r="80" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1"/>
+  
+  <!-- 星星装饰 -->
+  <text x="150" y="80" text-anchor="middle" fill="white" font-size="24">⭐</text>
+  <text x="80" y="120" text-anchor="middle" fill="white" font-size="16">✨</text>
+  <text x="220" y="180" text-anchor="middle" fill="white" font-size="16">✨</text>
+  <text x="120" y="220" text-anchor="middle" fill="white" font-size="16">⭐</text>
+  
+  <!-- 中心图标 -->
+  <text x="150" y="165" text-anchor="middle" fill="white" font-size="48">🌟</text>
+  
+  <!-- 标题 -->
+  <text x="150" y="50" text-anchor="middle" fill="white" font-size="20" font-weight="bold">占星分析</text>
+  <text x="150" y="270" text-anchor="middle" fill="white" font-size="16">探索星座的奥秘</text>
+</svg>

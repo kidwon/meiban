@@ -34,7 +34,8 @@ export default {
     selectType: '分析種類を選択',
     bazi: {
       title: '生辰八字',
-      description: '伝統八字命盤'
+      description: '伝統八字命盤',
+      shareDescription: '{name}の生辰八字命盤結果をシェアして、友達と一緒に東洋占術の神秘を探索しましょう！'
     },
     astrology: {
       title: '占星分析',
@@ -64,6 +65,7 @@ export default {
     compatibleSigns: '相性星座',
     overallFortune: '総合運勢',
     guest: 'ゲスト',
+    shareDescription: '{name}の星座分析結果をシェアして、友達と一緒に占星の世界を探索しましょう！',
     // 功能导航
     functionNav: {
       basicAnalysis: '基礎分析',
@@ -845,5 +847,20 @@ export default {
       fallbackYear: '安定発展を継続',
       fallbackLongTerm: '長期計画を保つ'
     }
+  },
+  
+  // 分享功能翻译
+  share: {
+    title: '結果をシェア',
+    share: 'シェア',
+    wechat: 'WeChat シェア',
+    generating: 'シェア準備中...',
+    success: 'シェア成功！',
+    copyLink: 'リンクをコピー',
+    qq: 'QQでシェア',
+    weibo: '微博でシェア',
+    email: 'メールでシェア',
+    wechatTip: '右上の「…」ボタンをタップしてシェアしてください',
+    error: 'シェアに失敗しました。後でもう一度お試しください'
   }
 }
