@@ -1,2 +1,0 @@
-"use strict";(self["webpackChunkmeiban_app"]=self["webpackChunkmeiban_app"]||[]).push([[778],{50778:(e,n,a)=>{var r=a(46518),t=a(77240),i=a(23061);r({target:"String",proto:!0,forced:i("link")},{link:function(e){return t(this,"a","href",e)}})}}]);
-//# sourceMappingURL=778.6f720969.js.map
