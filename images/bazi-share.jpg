@@ -1,0 +1,41 @@
+<svg width="300" height="300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="baziGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#d35400;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f39c12;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- 背景 -->
+  <rect width="300" height="300" fill="url(#baziGradient)"/>
+  
+  <!-- 太极图案 -->
+  <circle cx="150" cy="150" r="100" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.5)" stroke-width="2"/>
+  
+  <!-- 八卦图案装饰 -->
+  <g transform="translate(150,150)">
+    <!-- 八个方位的线条 -->
+    <line x1="0" y1="-80" x2="0" y2="-60" stroke="white" stroke-width="3"/>
+    <line x1="56" y1="-56" x2="42" y2="-42" stroke="white" stroke-width="2"/>
+    <line x1="80" y1="0" x2="60" y2="0" stroke="white" stroke-width="3"/>
+    <line x1="56" y1="56" x2="42" y2="42" stroke="white" stroke-width="2"/>
+    <line x1="0" y1="80" x2="0" y2="60" stroke="white" stroke-width="3"/>
+    <line x1="-56" y1="56" x2="-42" y2="42" stroke="white" stroke-width="2"/>
+    <line x1="-80" y1="0" x2="-60" y2="0" stroke="white" stroke-width="3"/>
+    <line x1="-56" y1="-56" x2="-42" y2="-42" stroke="white" stroke-width="2"/>
+  </g>
+  
+  <!-- 中心的阴阳符号 -->
+  <text x="150" y="165" text-anchor="middle" fill="white" font-size="48">☯</text>
+  
+  <!-- 五行元素装饰 -->
+  <text x="80" y="80" text-anchor="middle" fill="white" font-size="14">木</text>
+  <text x="220" y="80" text-anchor="middle" fill="white" font-size="14">火</text>
+  <text x="220" y="220" text-anchor="middle" fill="white" font-size="14">土</text>
+  <text x="80" y="220" text-anchor="middle" fill="white" font-size="14">金</text>
+  <text x="150" y="50" text-anchor="middle" fill="white" font-size="14">水</text>
+  
+  <!-- 标题 -->
+  <text x="150" y="30" text-anchor="middle" fill="white" font-size="20" font-weight="bold">生辰八字</text>
+  <text x="150" y="280" text-anchor="middle" fill="white" font-size="16">传统命理分析</text>
+</svg>
