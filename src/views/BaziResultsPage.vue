@@ -182,8 +182,9 @@
       <p>八字命盤を計算中...</p>
     </div>
 
-    <!-- 广告位 -->
+    <!-- 广告位 - 只在有完整计算结果时显示 -->
     <AdSenseAd 
+      v-if="calculationResults && calculationResults.bazi"
       :ad-slot="$options.AD_SLOTS.RECTANGLE"
       container-class="rectangle"
     />
