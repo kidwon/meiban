@@ -146,7 +146,7 @@
       </div>
     </div>
     
-    <!-- 广告位 -->
+    <!-- 广告位 - 主页有实质内容，可以显示 -->
     <AdSenseAd 
       :ad-slot="$options.AD_SLOTS.BANNER"
       container-class="banner"

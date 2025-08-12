@@ -370,8 +370,9 @@
       <span>{{ $t(`astrology.tooltips.${showTooltip}`) }}</span>
     </div>
 
-    <!-- 广告位 -->
+    <!-- 广告位 - 只在有完整计算结果时显示 -->
     <AdSenseAd 
+      v-if="calculationResults && calculationResults.astrology"
       :ad-slot="$options.AD_SLOTS.RECTANGLE"
       container-class="rectangle"
     />
