@@ -77,11 +77,11 @@ const routes = [
       message: route.query.message || 'An error occurred'
     })
   },
-  // 404 页面
+  // 404 页面 - 直接重定向到首页
   {
     path: '/:pathMatch(.*)*',
     name: 'not-found',
-    component: () => import('../views/NotFoundPage.vue')
+    redirect: '/'
   }
 ]
 
@@ -130,13 +130,13 @@ router.beforeEach(async (to, from, next) => {
         return;
       } else {
         console.log('分享数据无效，重定向到首页');
-        alert('分享链接已失效或损坏，请重新进行分析');
+        // 静默重定向，不显示alert
         next({ name: 'home' });
         return;
       }
     } catch (error) {
       console.error('处理分享数据失败:', error);
-      alert('无法加载分享内容，请重新进行分析');
+      // 静默重定向，不显示alert
       next({ name: 'home' });
       return;
     }
@@ -168,19 +168,8 @@ router.beforeEach(async (to, from, next) => {
     if (!hasValidUserData) {
       console.log('用户数据不完整，重定向到首页');
       
-      // 根据页面类型显示不同的提示
-      let message = '';
-      if (to.name === 'transit-analysis') {
-        message = '行運分析需要完整的出生信息，請先填寫基本資料';
-      } else if (to.name === 'bazi-results') {
-        message = '生辰八字分析需要完整的出生信息，請先填寫基本資料';
-      } else if (to.name === 'astrology-results') {
-        message = '占星分析需要完整的出生信息，請先填寫基本資料';
-      } else {
-        message = '訪問此頁面需要完整的出生信息，請先填寫基本資料';
-      }
-      
-      alert(message);
+      // 静默重定向，不显示alert
+      // 这样可以避免在用户直接访问无效链接时出现烦人的弹窗
       next({ name: 'home' });
       return;
     }
@@ -188,7 +177,7 @@ router.beforeEach(async (to, from, next) => {
     // 对于结果页面，还需要检查是否有计算结果
     if ((to.name === 'bazi-results' || to.name === 'astrology-results') && !calculationResults) {
       console.log('没有计算结果，重定向到首页');
-      alert('沒有找到計算結果，請先進行分析');
+      // 静默重定向，不显示alert
       next({ name: 'home' });
       return;
     }
