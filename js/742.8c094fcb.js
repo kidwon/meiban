@@ -1,2 +1,0 @@
-"use strict";(self["webpackChunkmeiban_app"]=self["webpackChunkmeiban_app"]||[]).push([[742],{50778:(r,t,e)=>{var n=e(46518),i=e(77240),u=e(23061);n({target:"String",proto:!0,forced:u("link")},{link:function(r){return i(this,"a","href",r)}})},89429:(r,t,e)=>{var n=e(22195),i=e(16193);r.exports=function(r){if(i){try{return n.process.getBuiltinModule(r)}catch(t){}try{return Function('return require("'+r+'")')()}catch(t){}}}}}]);
-//# sourceMappingURL=742.8c094fcb.js.map
