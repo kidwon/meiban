@@ -9,10 +9,12 @@
     "deploy": "npm run build && gh-pages -d dist"
   },
   "dependencies": {
+    "astronomy-engine": "^2.1.19",
     "core-js": "^3.8.3",
     "dayjs": "^1.11.9",
     "html2canvas": "^1.4.1",
     "jspdf": "^3.0.1",
+    "three": "^0.179.1",
     "vue": "^3.2.13",
     "vue-router": "^4.0.3",
     "vuex": "^4.0.0"
