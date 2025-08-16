@@ -218,6 +218,19 @@ export default {
       this.fillFormWithStoredData()
     }
     
+    // 检查是否是从过期链接重定向过来的
+    if (this.$route.query.expired === '1') {
+      // 显示友好提示
+      this.$nextTick(() => {
+        const message = this.$t('messages.linkExpired') || '链接可能已过期，请重新进行分析'
+        if (typeof window !== 'undefined' && window.alert) {
+          alert(message)
+        }
+        // 清除URL中的expired参数
+        this.$router.replace({ name: 'home' })
+      })
+    }
+    
     // 监听窗口大小变化，用于响应式设计
     this.handleResize = () => {
       this.$forceUpdate() // 触发isMobile计算属性更新
