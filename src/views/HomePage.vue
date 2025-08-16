@@ -146,12 +146,6 @@
       </div>
     </div>
     
-    <!-- 广告位 - 主页有实质内容，可以显示 -->
-    <AdSenseAd 
-      :ad-slot="$options.AD_SLOTS.BANNER"
-      container-class="banner"
-    />
-    
     <footer class="footer">
       <p>{{ $t('footer.copyright') }}</p>
     </footer>
@@ -162,22 +156,14 @@
 import { getCityList } from '../utils/calculator.js'
 import { mapGetters } from 'vuex'
 import LanguageSwitcher from '../components/LanguageSwitcher.vue'
-import AdSenseAd from '../components/AdSenseAd.vue'
 import i18nMixin from '../mixins/i18n.js'
 
 export default {
   name: 'HomePage',
   mixins: [i18nMixin],
   
-  AD_SLOTS: {
-    BANNER: process.env.VUE_APP_AD_SLOT_BANNER || '1234567890',
-    RECTANGLE: process.env.VUE_APP_AD_SLOT_RECTANGLE || '0987654321',
-    RESPONSIVE: process.env.VUE_APP_AD_SLOT_RESPONSIVE || '5678901234'
-  },
-  
   components: {
-    LanguageSwitcher,
-    AdSenseAd
+    LanguageSwitcher
   },
   
   data() {

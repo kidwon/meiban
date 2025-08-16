@@ -115,7 +115,7 @@ export default {
     hasSubstantialContent() {
       // 检查当前路由是否为内容页面
       const currentRoute = this.$route.name
-      const contentRoutes = ['home', 'bazi-results', 'astrology-results', 'transit-analysis', 'bazi-results-shared', 'astrology-results-shared']
+      const contentRoutes = ['bazi-results', 'astrology-results', 'transit-analysis', 'bazi-results-shared', 'astrology-results-shared']
       
       // 明确禁止在这些页面显示广告
       const prohibitedRoutes = ['error', 'not-found', '404']
@@ -138,7 +138,7 @@ export default {
       // 检查页面是否有足够的文本内容
       if (typeof document !== 'undefined') {
         const bodyText = document.body.innerText || document.body.textContent || ''
-        const minContentLength = 800 // 提高到800字符确保有足够内容
+        const minContentLength = 1200 // 提高到1200字符确保有足够内容
         
         if (bodyText.length < minContentLength) {
           return false

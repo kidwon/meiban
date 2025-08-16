@@ -182,9 +182,9 @@
       <p>八字命盤を計算中...</p>
     </div>
 
-    <!-- 广告位 - 只在有完整计算结果时显示 -->
+    <!-- 广告位 - 只在有完整计算结果且内容充实时显示 -->
     <AdSenseAd 
-      v-if="calculationResults && calculationResults.bazi"
+      v-if="hasCompleteContent"
       :ad-slot="$options.AD_SLOTS.RECTANGLE"
       container-class="rectangle"
     />
@@ -264,6 +264,22 @@ export default {
     formatBirthTime() {
       if (!this.userData) return '';
       return `${this.userData.birthHour}時${this.userData.birthMinute}分`;
+    },
+    // 检查是否有完整的内容可以显示广告
+    hasCompleteContent() {
+      return this.calculationResults && 
+             this.calculationResults.bazi &&
+             this.calculationResults.eightCharacters &&
+             this.calculationResults.eightCharacters.year &&
+             this.calculationResults.eightCharacters.month &&
+             this.calculationResults.eightCharacters.day &&
+             this.calculationResults.eightCharacters.hour &&
+             this.calculationResults.elements &&
+             this.calculationResults.elements.length > 0 &&
+             this.calculationResults.fortune &&
+             this.userData &&
+             this.userData.birthdate &&
+             this.userData.birthplace;
     }
   },
   methods: {
