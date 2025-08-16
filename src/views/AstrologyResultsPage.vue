@@ -370,9 +370,9 @@
       <span>{{ $t(`astrology.tooltips.${showTooltip}`) }}</span>
     </div>
 
-    <!-- 广告位 - 只在有完整计算结果时显示 -->
+    <!-- 广告位 - 只在有完整计算结果且内容充实时显示 -->
     <AdSenseAd 
-      v-if="calculationResults && calculationResults.astrology"
+      v-if="hasCompleteAstrologyContent"
       :ad-slot="$options.AD_SLOTS.RECTANGLE"
       container-class="rectangle"
     />
@@ -513,6 +513,20 @@ export default {
     
     isMobile() {
       return window.innerWidth <= 768
+    },
+
+    // 检查是否有完整的占星内容可以显示广告
+    hasCompleteAstrologyContent() {
+      return this.calculationResults && 
+             this.calculationResults.astrology &&
+             this.calculationResults.astrology.planets &&
+             this.calculationResults.astrology.houses &&
+             this.calculationResults.astrology.aspects &&
+             this.userData &&
+             this.userData.birthdate &&
+             this.userData.birthplace &&
+             Object.keys(this.calculationResults.astrology.planets).length > 5 &&
+             Object.keys(this.calculationResults.astrology.houses).length > 5;
     }
   },
   
