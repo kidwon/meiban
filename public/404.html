@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>页面不存在 - 命盤</title>
+  <style>
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      text-align: center;
+    }
+    .container {
+      padding: 2rem;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+    }
+    h1 { margin-bottom: 1rem; }
+    p { margin-bottom: 1.5rem; }
+    .countdown { font-size: 1.2em; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>页面不存在</h1>
+    <p>该链接可能已失效或不存在</p>
+    <p class="countdown">将在 <span id="timer">3</span> 秒后自动跳转到首页</p>
+  </div>
+
+  <script>
+    let countdown = 3;
+    const timerElement = document.getElementById('timer');
+    
+    const timer = setInterval(() => {
+      countdown--;
+      timerElement.textContent = countdown;
+      
+      if (countdown <= 0) {
+        clearInterval(timer);
+        window.location.href = '/';
+      }
+    }, 1000);
+  </script>
+</body>
+</html>
