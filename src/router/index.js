@@ -77,11 +77,11 @@ const routes = [
       message: route.query.message || 'An error occurred'
     })
   },
-  // 404 页面 - 直接重定向到首页
+  // 404 页面
   {
     path: '/:pathMatch(.*)*',
     name: 'not-found',
-    redirect: '/'
+    component: () => import('../views/NotFoundPage.vue')
   }
 ]
 
@@ -98,6 +98,21 @@ const router = createRouter({
     }
   }
 })
+
+// 处理GitHub Pages的SPA重定向
+router.beforeEach((to, from, next) => {
+  // 检查是否是从404页面重定向过来的
+  const redirectPath = sessionStorage.getItem('spa_redirect');
+  if (redirectPath && to.path === '/' && to.query.spa) {
+    sessionStorage.removeItem('spa_redirect');
+    // 清除spa参数并导航到原始路径
+    const query = { ...to.query };
+    delete query.spa;
+    router.replace({ path: '/' + redirectPath, query });
+    return;
+  }
+  next();
+});
 
 // 增强的路由守卫
 router.beforeEach(async (to, from, next) => {
@@ -166,19 +181,37 @@ router.beforeEach(async (to, from, next) => {
     console.log('用户数据验证结果:', hasValidUserData);
     
     if (!hasValidUserData) {
-      console.log('用户数据不完整，重定向到首页');
+      console.log('用户数据不完整，尝试恢复或重定向');
       
-      // 静默重定向，不显示alert
-      // 这样可以避免在用户直接访问无效链接时出现烦人的弹窗
-      next({ name: 'home' });
+      // 检查是否是从GitHub Pages重定向过来的（说明可能是有效链接）
+      const fromSPA = to.query.spa || sessionStorage.getItem('spa_redirect');
+      
+      if (fromSPA) {
+        // 如果是SPA重定向，显示友好提示并跳转到首页
+        console.log('检测到SPA重定向，但数据已失效');
+        // 可以在这里显示一个提示，告诉用户链接可能已过期
+        next({ name: 'home', query: { expired: '1' } });
+      } else {
+        // 正常的应用内导航，静默重定向
+        next({ name: 'home' });
+      }
       return;
     }
     
     // 对于结果页面，还需要检查是否有计算结果
     if ((to.name === 'bazi-results' || to.name === 'astrology-results') && !calculationResults) {
-      console.log('没有计算结果，重定向到首页');
-      // 静默重定向，不显示alert
-      next({ name: 'home' });
+      console.log('没有计算结果');
+      
+      // 同样检查是否是从外部链接进入
+      const fromSPA = to.query.spa || sessionStorage.getItem('spa_redirect');
+      
+      if (fromSPA) {
+        console.log('外部链接访问但无计算结果，可能链接已过期');
+        next({ name: 'home', query: { expired: '1' } });
+      } else {
+        // 应用内导航，静默重定向
+        next({ name: 'home' });
+      }
       return;
     }
     
