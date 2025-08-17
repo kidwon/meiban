@@ -454,11 +454,39 @@ export default {
 
   starChart: {
     title: '星盤図',
+    viewMode: {
+      title: '星盤表示モード',
+      description: 'お好みの星盤表示方法を選択してください'
+    },
     controls: {
       showAspects: 'アスペクト表示',
       hideAspects: 'アスペクト非表示',
       showHouses: 'ハウス表示',
-      hideHouses: 'ハウス非表示'
+      hideHouses: 'ハウス非表示',
+      fullscreen: 'フルスクリーン',
+      reset: 'ビューリセット',
+      title: '表示制御',
+      animation: 'アニメーション有効',
+      zodiacLabels: '星座ラベル',
+      rotationSpeed: '回転速度',
+      showEquator: '赤道環表示',
+      showHorizon: '地平環表示',
+      latitude: '緯度',
+      longitude: '経度'
+    },
+    astro3d: {
+      title: '天文級3D可視化',
+      timeLocation: '時間と位置',
+      dateTime: '日時（ローカルタイムゾーン）',
+      altitude: '標高',
+      altitudePlaceholder: '標高（メートル）',
+      latitudePlaceholder: '緯度（度）',
+      longitudePlaceholder: '経度（度）',
+      displayOptions: '表示オプション',
+      testResults: 'テスト結果',
+      selfCheck: 'セルフチェック実行',
+      runTests: '天文計算の精度を検証するための内蔵テストを実行',
+      description: '天文エンジンベースの精密3D天体位置可視化。世界座標系：ECT（真黄道-当日）。回転/ズームで3D空間関係を確認できます。'
     },
     legends: {
       planets: '惑星',

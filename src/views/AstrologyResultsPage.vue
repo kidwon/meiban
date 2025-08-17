@@ -54,36 +54,16 @@
           'content-direction-backward': tabSwitchDirection === 'backward'
         }"
       >
-          <h2 class="section-title">
-            {{ $t('astrology.interactiveChart') }}
-            <button 
-              @click="toggle3DChart" 
-              :class="{ 
-                'mode-toggle-btn': true,
-                'mode-toggle-btn--3d': is3DChartEnabled 
-              }"
-              :title="is3DChartEnabled ? '切换到2D模式' : '切换到3D模式'"
-            >
-              {{ is3DChartEnabled ? '🌐' : '🎯' }}
-              {{ is3DChartEnabled ? '3D' : '2D' }}
-            </button>
-          </h2>
-        <div class="chart-container">
-          <StarChart3D 
-            v-if="is3DChartEnabled"
-            :chart-data="formatChartDataFor3D(calculationResults)"
-            :initial-mode="'3d'"
-            @planetClick="handlePlanetClick"
-            @planetHover="handlePlanetHover"
-          />
-          <StarChart 
-            v-else
-            :calculationResults="calculationResults"
-            :size="chartSize"
-            @planetClick="handlePlanetClick"
-            @planetHover="handlePlanetHover"
-          />
-        </div>
+        <h2 class="section-title">{{ $t('astrology.interactiveChart') }}</h2>
+        <ChartViewSelector 
+          :calculationResults="calculationResults"
+          :userData="userData"
+          :initialMode="'2d'"
+          @modeChange="handleChartModeChange"
+          @planetClick="handlePlanetClick"
+          @planetHover="handlePlanetHover"
+          @resetView="handleResetView"
+        />
         
         <!-- 行星详情侧边栏 -->
         <div class="planet-details-sidebar" :class="{ 'open': selectedPlanet }">
@@ -410,8 +390,7 @@ import LanguageSwitcher from '../components/LanguageSwitcher.vue'
 import ShareButton from '../components/ShareButton.vue'
 import AdSenseAd from '../components/AdSenseAd.vue'
 import i18nMixin from '../mixins/i18n.js'
-import StarChart from '../components/StarChart/StarChart.vue'
-import StarChart3D from '../components/StarChart/StarChart3D.vue'
+import ChartViewSelector from '../components/StarChart/ChartViewSelector.vue'
 import {
   getSignDescription,
   getCareerStrengths,
@@ -438,8 +417,7 @@ export default {
     LanguageSwitcher,
     ShareButton,
     AdSenseAd,
-    StarChart,
-    StarChart3D
+    ChartViewSelector
   },
   
   data() {
@@ -454,9 +432,7 @@ export default {
       isFirstVisit: false, // 是否首次访问
       showTooltip: null, // 当前显示的提示
       interactionCount: 0, // 用户交互计数
-      chartSize: 450, // 从500px压缩到450px
       selectedPlanet: null,
-      is3DChartEnabled: false, // 控制3D星盘图模式
       analysisTabs: [
         { id: 'personality', nameKey: 'personalityAnalysis' },
         { id: 'career', nameKey: 'careerAnalysis' },
@@ -626,9 +602,9 @@ export default {
       }
     },
 
-    // 切换3D星盘图模式
-    toggle3DChart() {
-      this.is3DChartEnabled = !this.is3DChartEnabled
+    // 处理星盘视图模式变化
+    handleChartModeChange(mode) {
+      console.log('Chart mode changed to:', mode)
       
       // 添加触觉反馈
       if (navigator.vibrate) {
@@ -638,93 +614,24 @@ export default {
       // 发送分析事件
       if (window.gtag) {
         window.gtag('event', 'chart_mode_toggle', {
-          'mode': this.is3DChartEnabled ? '3d' : '2d'
+          'mode': mode,
+          'user_name': this.userData?.name || 'anonymous'
         })
       }
     },
 
-    // 格式化数据供3D星盘图使用
-    formatChartDataFor3D(calculationResults) {
-      if (!calculationResults) return null
+    // 处理视图重置
+    handleResetView() {
+      console.log('Chart view reset')
       
-      return {
-        zodiac: this.generateZodiacData(),
-        houses: this.generateHouseData(),
-        planets: this.generatePlanetData(calculationResults),
-        aspects: this.generateAspectData(calculationResults)
-      }
-    },
-
-    // 生成星座数据
-    generateZodiacData() {
-      const zodiacSigns = [
-        'Aries', 'Taurus', 'Gemini', 'Cancer', 
-        'Leo', 'Virgo', 'Libra', 'Scorpio',
-        'Sagittarius', 'Capricorn', 'Aquarius', 'Pisces'
-      ]
-      
-      return zodiacSigns.map((name, index) => ({
-        name,
-        startAngle: index * 30,
-        endAngle: (index + 1) * 30
-      }))
-    },
-
-    // 生成宫位数据
-    generateHouseData() {
-      const houses = []
-      
-      for (let i = 1; i <= 12; i++) {
-        houses.push({
-          number: i,
-          startAngle: (i - 1) * 30, // 简化的宫位分割
-          endAngle: i * 30
+      // 可以添加重置逻辑
+      if (window.gtag) {
+        window.gtag('event', 'chart_view_reset', {
+          'user_name': this.userData?.name || 'anonymous'
         })
       }
-      
-      return houses
     },
 
-    // 生成行星数据
-    generatePlanetData(calculationResults) {
-      const planets = []
-      
-      if (calculationResults.astrology) {
-        Object.entries(calculationResults.astrology).forEach(([planetName, data]) => {
-          if (data && typeof data.longitude === 'number') {
-            planets.push({
-              id: planetName,
-              name: planetName,
-              longitude: data.longitude,
-              latitude: data.latitude || 0,
-              sign: data.sign || '',
-              house: data.house || 1
-            })
-          }
-        })
-      }
-      
-      return planets
-    },
-
-    // 生成相位数据
-    generateAspectData(calculationResults) {
-      const aspects = []
-      
-      if (calculationResults.aspects) {
-        calculationResults.aspects.forEach(aspect => {
-          aspects.push({
-            planet1: aspect.planet1,
-            planet2: aspect.planet2,
-            type: aspect.aspect,
-            angle: aspect.angle,
-            orb: aspect.orb
-          })
-        })
-      }
-      
-      return aspects
-    },
 
     // 键盘导航支持
     handleKeyNavigation(event) {
@@ -1085,14 +992,6 @@ export default {
     goBack() {
       this.$router.push({ name: 'home' })
     },
-    
-    updateChartSize() {
-      const container = this.$el?.querySelector('.chart-container')
-      if (container) {
-        const containerWidth = container.clientWidth
-        this.chartSize = Math.min(containerWidth - 30, 450) // 压缩最大尺寸
-      }
-    },
 
     // 分享功能相关方法
     handleShareSuccess(platform) {
@@ -1169,9 +1068,6 @@ export default {
   },
   
   mounted() {
-    this.updateChartSize()
-    window.addEventListener('resize', this.updateChartSize)
-    
     // 监听窗口大小变化，用于响应式设计
     this.handleResize = () => {
       this.$forceUpdate() // 触发isMobile计算属性更新
@@ -1196,7 +1092,6 @@ export default {
   },
   
   beforeUnmount() {
-    window.removeEventListener('resize', this.updateChartSize)
     window.removeEventListener('resize', this.handleResize)
     window.removeEventListener('keydown', this.handleKeyNavigation)
   }
@@ -1622,58 +1517,6 @@ export default {
   gap: 10px;
 }
 
-/* 3D模式切换按钮 */
-.mode-toggle-btn {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  border: none;
-  border-radius: 25px;
-  padding: 8px 16px;
-  font-size: 0.9rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
-  position: relative;
-  overflow: hidden;
-}
-
-.mode-toggle-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
-}
-
-.mode-toggle-btn:active {
-  transform: translateY(0);
-}
-
-.mode-toggle-btn--3d {
-  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
-  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
-}
-
-.mode-toggle-btn--3d:hover {
-  box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
-}
-
-/* 按钮闪烁动画效果 */
-.mode-toggle-btn::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-  transition: left 0.6s;
-}
-
-.mode-toggle-btn:hover::before {
-  left: 100%;
-}
 
 /* 出生信息摘要 */
 .birth-data-summary {
@@ -1683,17 +1526,6 @@ export default {
   font-size: 0.9rem;
 }
 
-/* 星盘图容器优化 */
-.chart-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 420px; /* 从500px压缩到420px */
-  background: #f8f9fa;
-  border-radius: 12px;
-  padding: 15px; /* 从20px压缩 */
-  position: relative;
-}
 
 /* 行星详情侧边栏 */
 .planet-details-sidebar {
