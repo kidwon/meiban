@@ -113,53 +113,96 @@ export default {
     },
     
     hasSubstantialContent() {
-      // 检查当前路由是否为内容页面
-      const currentRoute = this.$route.name
-      const contentRoutes = ['bazi-results', 'astrology-results', 'transit-analysis', 'bazi-results-shared', 'astrology-results-shared']
-      
-      // 明确禁止在这些页面显示广告
-      const prohibitedRoutes = ['error', 'not-found', '404']
-      if (prohibitedRoutes.includes(currentRoute)) {
+      // 首先检查路由元信息是否允许广告
+      const currentRoute = this.$route
+      if (currentRoute.meta && currentRoute.meta.allowAds === false) {
+        console.log(`AdSense ad blocked: route '${currentRoute.name}' has allowAds: false in meta`)
         return false
       }
       
-      if (!contentRoutes.includes(currentRoute)) {
+      // 检查当前路由是否为内容页面
+      const currentRouteName = currentRoute.name
+      const contentRoutes = ['bazi-results', 'astrology-results', 'transit-analysis', 'bazi-results-shared', 'astrology-results-shared']
+      
+      // 明确禁止在这些页面显示广告 - 扩展禁止列表（作为备用检查）
+      const prohibitedRoutes = [
+        'error', 'not-found', '404', 
+        'home', 'HomePage',  // 首页（表单页面）
+        'loading', 'maintenance',  // 加载和维护页面
+        'terms', 'privacy',  // 法律条款页面
+        'contact', 'about'   // 静态信息页面
+      ]
+      if (prohibitedRoutes.includes(currentRouteName)) {
+        console.log(`AdSense ad blocked: route '${currentRouteName}' is in prohibited list`)
+        return false
+      }
+      
+      // 只允许在结果页面显示广告
+      if (!contentRoutes.includes(currentRouteName)) {
+        console.log(`AdSense ad blocked: route '${currentRouteName}' is not a content route`)
         return false
       }
       
       // 对于结果页面，检查是否有实际计算结果
-      if (['bazi-results', 'astrology-results', 'transit-analysis', 'bazi-results-shared', 'astrology-results-shared'].includes(currentRoute)) {
+      if (['bazi-results', 'astrology-results', 'transit-analysis', 'bazi-results-shared', 'astrology-results-shared'].includes(currentRouteName)) {
         const hasResults = this.$store.getters.getCalculationResults || this.$store.getters.getUserData
         if (!hasResults) {
+          console.log('AdSense ad blocked: no calculation results found')
           return false
+        }
+        
+        // 额外检查：确保计算结果不为空或无效
+        const results = this.$store.getters.getCalculationResults
+        if (results && typeof results === 'object') {
+          // 检查结果是否包含实质内容
+          const hasValidResults = results.eightCharacters || results.astrology || results.analysis
+          if (!hasValidResults) {
+            console.log('AdSense ad blocked: calculation results are empty')
+            return false
+          }
         }
       }
       
       // 检查页面是否有足够的文本内容
       if (typeof document !== 'undefined') {
         const bodyText = document.body.innerText || document.body.textContent || ''
-        const minContentLength = 1200 // 提高到1200字符确保有足够内容
+        const minContentLength = 1500 // 提高到1500字符确保有足够内容
         
         if (bodyText.length < minContentLength) {
+          console.log(`AdSense ad blocked: content too short (${bodyText.length} chars, min: ${minContentLength})`)
           return false
         }
         
-        // 检查是否包含错误页面、导航页面等非实质内容
-        const hasErrorContent = bodyText.includes('エラーが発生しました') || 
+        // 检查是否包含错误页面、导航页面、表单页面等非实质内容
+        const hasProhibitedContent = bodyText.includes('エラーが発生しました') || 
                               bodyText.includes('ページが見つかりません') ||
                               bodyText.includes('404') ||
                               bodyText.includes('問題が発生しました') ||
                               bodyText.includes('星々の中でページが迷子') ||
                               bodyText.includes('解決方法') ||
-                              bodyText.includes('デバッグ情報')
+                              bodyText.includes('デバッグ情報') ||
+                              // 添加表单页面相关内容检测
+                              bodyText.includes('生年月日') ||
+                              bodyText.includes('出生时间') ||
+                              bodyText.includes('出生地') ||
+                              bodyText.includes('分析类型选择') ||
+                              bodyText.includes('選択してください') ||
+                              // 添加导航和建设中页面检测
+                              bodyText.includes('工事中') ||
+                              bodyText.includes('準備中') ||
+                              bodyText.includes('メンテナンス') ||
+                              bodyText.includes('しばらくお待ち')
         
-        if (hasErrorContent) {
+        if (hasProhibitedContent) {
+          console.log('AdSense ad blocked: page contains prohibited content (forms, errors, navigation, etc.)')
           return false
         }
         
         // 检查页面URL路径
         const currentPath = this.$route.path
-        if (currentPath.includes('error') || currentPath.includes('404') || currentPath.includes('not-found')) {
+        const prohibitedPaths = ['error', '404', 'not-found', 'home', 'index', 'contact', 'about', 'terms', 'privacy']
+        if (prohibitedPaths.some(path => currentPath.includes(path))) {
+          console.log(`AdSense ad blocked: path '${currentPath}' contains prohibited segments`)
           return false
         }
       }

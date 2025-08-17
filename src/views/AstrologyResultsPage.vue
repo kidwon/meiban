@@ -376,6 +376,8 @@
       v-if="hasCompleteAstrologyContent"
       :ad-slot="$options.AD_SLOTS.RECTANGLE"
       container-class="rectangle"
+      :require-content="true"
+      :force-hide="false"
     />
 
     <footer class="footer">
