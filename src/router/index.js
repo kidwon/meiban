@@ -6,7 +6,11 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: HomePage
+    component: HomePage,
+    meta: {
+      allowAds: false,  // 首页禁止显示广告
+      title: '命盤'
+    }
   },
   // 原有的通用结果页面，保持向后兼容
   {
@@ -22,6 +26,7 @@ const routes = [
     meta: { 
       requiresUserData: true,
       analysisType: 'bazi',
+      allowAds: true,  // 结果页面允许显示广告
       title: '生辰八字結果'
     }
   },
@@ -33,6 +38,7 @@ const routes = [
     meta: { 
       requiresUserData: true,
       analysisType: 'astrology',
+      allowAds: true,  // 结果页面允许显示广告
       title: '占星分析結果'
     }
   },
@@ -44,6 +50,7 @@ const routes = [
     meta: { 
       requiresSharedData: true,
       analysisType: 'bazi',
+      allowAds: true,  // 共享结果页面允许显示广告
       title: '生辰八字結果'
     }
   },
@@ -54,6 +61,7 @@ const routes = [
     meta: {
       requiresSharedData: true,
       analysisType: 'astrology',
+      allowAds: true,  // 共享结果页面允许显示广告
       title: '占星分析結果'
     }
   },
@@ -64,6 +72,7 @@ const routes = [
     component: () => import('../views/TransitAnalysisPage.vue'),
     meta: { 
       requiresUserData: true,
+      allowAds: true,  // 行运分析页面允许显示广告
       title: '行運盤分析'
     }
   },
@@ -72,6 +81,10 @@ const routes = [
     path: '/error',
     name: 'error',
     component: () => import('../views/ErrorPage.vue'),
+    meta: {
+      allowAds: false,  // 错误页面禁止显示广告
+      title: 'エラー'
+    },
     props: route => ({ 
       error: route.query.error || 'Unknown error',
       message: route.query.message || 'An error occurred'
@@ -81,7 +94,11 @@ const routes = [
   {
     path: '/:pathMatch(.*)*',
     name: 'not-found',
-    component: () => import('../views/NotFoundPage.vue')
+    component: () => import('../views/NotFoundPage.vue'),
+    meta: {
+      allowAds: false,  // 404页面禁止显示广告
+      title: 'ページが見つかりません'
+    }
   }
 ]
 
