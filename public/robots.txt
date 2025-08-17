@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+Allow: /bazi-results/
+Allow: /astrology-results/
+Allow: /transit-analysis
+
+Disallow: /error
+Disallow: /404
+Disallow: /*?spa=*
+
+Sitemap: https://meiban.info/sitemap.xml

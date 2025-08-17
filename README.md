@@ -2,7 +2,7 @@
 
 [![Vue.js](https://img.shields.io/badge/Vue.js-3.2.13-4FC08D?style=flat-square&logo=vue.js&logoColor=white)](https://vuejs.org/)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)](LICENSE)
-[![Deploy](https://img.shields.io/badge/Deploy-GitHub%20Pages-green?style=flat-square&logo=github)](https://kidwon.github.io/meiban)
+[![Deploy](https://img.shields.io/badge/Deploy-Live-green?style=flat-square&logo=github)](https://meiban.info)
 
 一个现代化的命理分析应用，提供八字命盘计算、西洋占星分析和行运分析功能。支持三种语言（日语、中文、英语），具有响应式设计和直观的用户界面。
 
@@ -138,8 +138,8 @@ src/
 
 ## 🚀 部署
 
-应用部署在 GitHub Pages：
-**访问地址**: [https://kidwon.github.io/meiban](https://kidwon.github.io/meiban)
+应用部署在自定义域名：
+**访问地址**: [https://meiban.info](https://meiban.info)
 
 ### 自动部署
 每次推送到 `main` 分支时，会自动触发 GitHub Actions 部署流程。
