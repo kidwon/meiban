@@ -154,8 +154,8 @@ export default {
       },
       medium: {
         starCount: 1800, // 增加中等性能模式下的星星数量
-        planetSegments: 16,
-        aspectSegments: 12,
+        planetSegments: 20, // 提高移动端的球体质量
+        aspectSegments: 16, // 提高连线质量
         enableGlow: true,
         enableAnimation: true,
         pixelRatio: 1.5
@@ -254,26 +254,28 @@ export default {
       );
       camera.position.set(0, 0, 10);
 
-      // 渲染器 - 性能优化设置
-      const antialias = !isMobile.value && performanceMode.value !== 'low';
+      // 渲染器 - 性能优化设置，移动端也启用抗锯齿以改善显示质量
+      const antialias = performanceMode.value !== 'low'; // 移动端也启用抗锯齿
       renderer = new THREE.WebGLRenderer({ 
         antialias: antialias,
         alpha: true,
-        powerPreference: 'high-performance'
+        powerPreference: isMobile.value ? 'default' : 'high-performance',
+        logarithmicDepthBuffer: true // 改善深度精度，减少z-fighting
       });
       renderer.setSize(
         threejsContainer.value.clientWidth, 
         threejsContainer.value.clientHeight
       );
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, lod.pixelRatio));
       
-      // 移动端优化
+      // 移动端优化 - 保持合理的像素比以减少锯齿
       if (isMobile.value) {
         renderer.shadowMap.enabled = false;
-        renderer.setPixelRatio(1);
+        // 使用1.5倍像素比改善移动端显示质量，但不超过设备像素比
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
       } else {
         renderer.shadowMap.enabled = lod.enableGlow;
         renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, lod.pixelRatio));
       }
       
       threejsContainer.value.appendChild(renderer.domElement);
@@ -2163,7 +2165,11 @@ export default {
     // 优化低性能设备
     const optimizeForLowPerformance = () => {
       // 降低像素比
-      renderer.setPixelRatio(0.8);
+      if (isMobile.value) {
+        renderer.setPixelRatio(1); // 移动端低性能模式使用标准像素比
+      } else {
+        renderer.setPixelRatio(0.8);
+      }
       
       
       // 禁用一些动画
@@ -2185,8 +2191,12 @@ export default {
     const restorePerformance = () => {
       const lod = getCurrentLOD();
       
-      // 恢复像素比
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, lod.pixelRatio));
+      // 恢复像素比 - 移动端使用优化设置
+      if (isMobile.value) {
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+      } else {
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, lod.pixelRatio));
+      }
       
       // 恢复自动旋转
       if (controls && animationEnabled.value) {
@@ -2271,8 +2281,12 @@ export default {
       if (scene && renderer) {
         const lod = getCurrentLOD();
         
-        // 更新像素比
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, lod.pixelRatio));
+        // 更新像素比 - 移动端使用优化设置
+        if (isMobile.value) {
+          renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+        } else {
+          renderer.setPixelRatio(Math.min(window.devicePixelRatio, lod.pixelRatio));
+        }
         
         
         // 重建行星
