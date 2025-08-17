@@ -4,18 +4,11 @@
       <h3 class="chart-title">{{ getLocalizedText('starChart.title') }} - 3D</h3>
       <div class="chart-controls">
         <button 
-          @click="toggle3DMode" 
-          :class="{ active: is3DMode }"
-          class="control-btn mode-btn"
+          @click="toggleFullscreen"
+          class="control-btn fullscreen-btn"
+          :title="isFullscreen ? '退出全屏' : '全屏显示'"
         >
-          {{ is3DMode ? '2D模式' : '3D模式' }}
-        </button>
-        <button 
-          @click="toggleAspects" 
-          :class="{ active: showAspects }"
-          class="control-btn"
-        >
-          {{ showAspects ? '隐藏相位' : '显示相位' }}
+          {{ isFullscreen ? '🪟' : '🔍' }}
         </button>
         <button 
           @click="toggleAnimation" 
@@ -37,6 +30,27 @@
           class="control-btn"
         >
           {{ showHouseRing ? '隐藏宫位' : '显示宫位' }}
+        </button>
+        <button 
+          @click="toggleEquatorRing" 
+          :class="{ active: showEquatorRing }"
+          class="control-btn"
+        >
+          {{ showEquatorRing ? '隐藏赤道' : '显示赤道' }}
+        </button>
+        <button 
+          @click="toggleHorizonRing" 
+          :class="{ active: showHorizonRing }"
+          class="control-btn"
+        >
+          {{ showHorizonRing ? '隐藏地平' : '显示地平' }}
+        </button>
+        <button 
+          @click="toggleCelestialSphere" 
+          :class="{ active: showCelestialSphere }"
+          class="control-btn"
+        >
+          {{ showCelestialSphere ? '隐藏天球' : '显示天球' }}
         </button>
         <button 
           @click="resetCamera" 
@@ -61,79 +75,6 @@
       </div>
     </div>
 
-    <!-- 3D控制面板 -->
-    <div v-if="is3DMode" class="controls-panel">
-      <div class="control-group">
-        <label>性能模式</label>
-        <select v-model="performanceMode" @change="setPerformanceMode(performanceMode)" class="performance-select">
-          <option value="auto">自动</option>
-          <option value="high">高质量</option>
-          <option value="medium">中等</option>
-          <option value="low">高性能</option>
-        </select>
-      </div>
-      <div class="control-group">
-        <label>LOD优化</label>
-        <button @click="lodEnabled = !lodEnabled" :class="{ active: lodEnabled }" class="toggle-btn">
-          {{ lodEnabled ? '已启用' : '已禁用' }}
-        </button>
-      </div>
-      <div class="control-group">
-        <label>自动旋转速度</label>
-        <input 
-          type="range" 
-          v-model="autoRotateSpeed" 
-          min="0" 
-          max="5" 
-          step="0.1"
-          @input="updateAutoRotation"
-        />
-      </div>
-      <div class="control-group">
-        <label>缩放</label>
-        <input 
-          type="range" 
-          v-model="zoomLevel" 
-          min="0.5" 
-          max="3" 
-          step="0.1"
-          @input="updateZoom"
-        />
-      </div>
-      <div class="control-group">
-        <label>粒子密度</label>
-        <input 
-          type="range" 
-          v-model="particleDensity" 
-          min="200" 
-          max="4000" 
-          step="200"
-          @input="updateParticles"
-        />
-      </div>
-      <div class="control-group">
-        <label>光晕强度</label>
-        <input 
-          type="range" 
-          v-model="glowIntensity" 
-          min="0" 
-          max="2" 
-          step="0.1"
-          @input="updateGlowIntensity"
-        />
-      </div>
-      <div class="control-group">
-        <label>相位线强度</label>
-        <input 
-          type="range" 
-          v-model="aspectIntensity" 
-          min="0" 
-          max="2" 
-          step="0.1"
-          @input="updateAspectIntensity"
-        />
-      </div>
-    </div>
 
     <!-- 性能信息 -->
     <div v-if="showDebugInfo" class="debug-info">
@@ -141,7 +82,6 @@
       <div>Objects: {{ objectCount }}</div>
       <div>Triangles: {{ triangleCount }}</div>
       <div>Frame: {{ frameTime.toFixed(1) }}ms</div>
-      <div>Mode: {{ performanceMode }}</div>
       <div v-if="isMobile" class="mobile-indicator">📱 移动端</div>
       <div v-if="isLowPerformance" class="performance-warning">⚠️ 低性能</div>
     </div>
@@ -151,6 +91,7 @@
 <script>
 import { ref, onMounted, onUnmounted, watch } from 'vue';
 import * as THREE from 'three';
+import * as Astronomy from 'astronomy-engine';
 import StarChart from './StarChart.vue';
 import { getTranslation, getCurrentLanguage } from '../../i18n';
 
@@ -173,13 +114,17 @@ export default {
     // 响应式变量
     const threejsContainer = ref(null);
     const is3DMode = ref(props.initialMode === '3d');
-    const showAspects = ref(true);
+    const isFullscreen = ref(false);
+    const showAspects = ref(false); // 默认关闭相位显示
     const animationEnabled = ref(true);
     const showZodiacLabels = ref(true);
     const showHouseRing = ref(true);
+    const showEquatorRing = ref(false);
+    const showHorizonRing = ref(false);
+    const showCelestialSphere = ref(false);
+    // 简化为固定值，不再提供UI控制
     const autoRotateSpeed = ref(1);
     const zoomLevel = ref(1);
-    const particleDensity = ref(2000); // 增加默认粒子密度
     const glowIntensity = ref(1);
     const aspectIntensity = ref(1);
     const showDebugInfo = ref(false);
@@ -229,7 +174,9 @@ export default {
     let scene, camera, renderer, controls;
     let planetSpheres = [];
     let zodiacRing, houseRing, aspectLines;
-    let starField, energyCore;
+    let equatorRing, horizonRing; // 新添加的天文参考环
+    let celestialSphere; // 天文级天球
+    let energyCore;
     let animationId;
 
     // 性能监控
@@ -340,10 +287,12 @@ export default {
       controls.autoRotateSpeed = autoRotateSpeed.value;
 
       // 创建3D元素
-      createStarField();
       createEnergyCore();
       createZodiacRing();
       createHouseRing();
+      createEquatorRing();
+      createHorizonRing();
+      createCelestialSphere();
       createPlanets();
       createAspectLines();
       
@@ -360,95 +309,6 @@ export default {
       window.addEventListener('resize', onWindowResize);
     };
 
-    // 创建星空背景 - 使用3D微型几何体 (LOD优化)
-    const createStarField = () => {
-      starField = new THREE.Group();
-      const lod = getCurrentLOD();
-      const starCount = Math.min(particleDensity.value, lod.starCount);
-      
-      // 根据性能模式选择几何体复杂度
-      let starGeometries;
-      if (performanceMode.value === 'low') {
-        // 低性能模式使用简单几何体
-        starGeometries = [
-          new THREE.BoxGeometry(0.01, 0.01, 0.01),
-          new THREE.SphereGeometry(0.01, 3, 3)
-        ];
-      } else if (performanceMode.value === 'medium') {
-        starGeometries = [
-          new THREE.TetrahedronGeometry(0.015, 0),
-          new THREE.SphereGeometry(0.01, 4, 4),
-          new THREE.BoxGeometry(0.01, 0.01, 0.01)
-        ];
-      } else {
-        // 高性能模式使用完整几何体
-        starGeometries = [
-          new THREE.TetrahedronGeometry(0.02, 0),
-          new THREE.OctahedronGeometry(0.015),
-          new THREE.SphereGeometry(0.01, 4, 4),
-          new THREE.BoxGeometry(0.01, 0.01, 0.01)
-        ];
-      }
-
-      for (let i = 0; i < starCount; i++) {
-        // 随机选择几何体类型
-        const geometry = starGeometries[Math.floor(Math.random() * starGeometries.length)];
-        
-        // 创建材质
-        const color = new THREE.Color();
-        color.setHSL(
-          Math.random() * 0.3 + 0.5, // 偏向蓝白色
-          0.7, 
-          Math.random() * 0.5 + 0.5
-        );
-        
-        const material = new THREE.MeshBasicMaterial({
-          color: color,
-          transparent: true,
-          opacity: Math.random() * 0.7 + 0.3
-        });
-
-        const star = new THREE.Mesh(geometry, material);
-        
-        // 更广泛的随机位置分布
-        const distance = Math.random() * 150 + 50; // 距离50-200之间
-        const phi = Math.random() * Math.PI * 2; // 方位角
-        const theta = Math.random() * Math.PI; // 极角
-        
-        star.position.set(
-          distance * Math.sin(theta) * Math.cos(phi),
-          distance * Math.sin(theta) * Math.sin(phi),
-          distance * Math.cos(theta)
-        );
-        
-        // 随机旋转
-        star.rotation.set(
-          Math.random() * Math.PI * 2,
-          Math.random() * Math.PI * 2,
-          Math.random() * Math.PI * 2
-        );
-        
-        // 随机缩放
-        const scale = Math.random() * 0.8 + 0.2;
-        star.scale.setScalar(scale);
-        
-        // 添加动画数据
-        star.userData = {
-          rotationSpeed: {
-            x: (Math.random() - 0.5) * 0.02,
-            y: (Math.random() - 0.5) * 0.02,
-            z: (Math.random() - 0.5) * 0.02
-          },
-          twinkleSpeed: Math.random() * 0.05 + 0.01,
-          twinklePhase: Math.random() * Math.PI * 2,
-          originalOpacity: material.opacity
-        };
-        
-        starField.add(star);
-      }
-      
-      scene.add(starField);
-    };
 
     // 创建能量核心
     const createEnergyCore = () => {
@@ -1954,6 +1814,11 @@ export default {
 
     // 动画循环 (性能优化)
     const animate = () => {
+      // 安全检查：如果renderer已被清理，停止动画循环
+      if (!renderer || !scene || !camera) {
+        return;
+      }
+      
       animationId = requestAnimationFrame(animate);
       
       // 性能监控
@@ -1975,41 +1840,20 @@ export default {
         energyCore.children[0].material.uniforms.time.value = time;
       }
       
-      // 更新星空 - 3D星星动画
-      if (starField) {
-        starField.rotation.y += 0.0005;
-        
-        // 更新每个星星的动画
-        starField.children.forEach((star) => {
-          if (star.userData.rotationSpeed) {
-            // 旋转动画
-            star.rotation.x += star.userData.rotationSpeed.x;
-            star.rotation.y += star.userData.rotationSpeed.y;
-            star.rotation.z += star.userData.rotationSpeed.z;
-            
-            // 闪烁动画
-            star.userData.twinklePhase += star.userData.twinkleSpeed;
-            const twinkle = Math.sin(star.userData.twinklePhase) * 0.3 + 0.7;
-            star.material.opacity = star.userData.originalOpacity * twinkle;
-          }
-        });
-      }
       
       // 更新行星轨道动画（包含太阳和月亮特殊效果）
       planetSpheres.forEach((planetData, planetIndex) => {
         const { mesh, originalAngle } = planetData;
-        const orbitSpeed = 0.1 + planetIndex * 0.02;
-        const newAngle = originalAngle + time * orbitSpeed * 0.1;
+        // 出生盘中所有行星位置固定在出生时刻的星座位置
         const radius = 3.8;
         
         // 根据行星类型设置不同的动画
         if (mesh.userData.planetType === 'sun') {
-          // 太阳的特殊动画：更慢的移动，更强的脉冲
-          const sunAngle = originalAngle + time * 0.05;
+          // 太阳位置固定在其星座位置（用户的太阳星座），只有自转和光效动画
           mesh.position.set(
-            Math.cos(sunAngle) * radius,
-            Math.sin(time * 0.5) * 0.05, // 轻微的上下浮动
-            Math.sin(sunAngle) * radius
+            Math.cos(originalAngle) * radius,
+            Math.sin(time * 0.5) * 0.02, // 轻微的上下浮动
+            Math.sin(originalAngle) * radius
           );
           
           // 太阳自转
@@ -2021,12 +1865,11 @@ export default {
           }
           
         } else if (mesh.userData.planetType === 'moon') {
-          // 月亮的特殊动画：较快的轨道运动
-          const moonAngle = originalAngle + time * 0.3;
+          // 月亮位置固定在其星座位置（用户的月亮星座），只有自转和光效动画
           mesh.position.set(
-            Math.cos(moonAngle) * radius,
-            Math.sin(time * 2.0 + planetIndex) * 0.08, // 轻微的波浪运动
-            Math.sin(moonAngle) * radius
+            Math.cos(originalAngle) * radius,
+            Math.sin(time * 2.0) * 0.03, // 轻微的波浪运动
+            Math.sin(originalAngle) * radius
           );
           
           // 月亮自转（展现月相变化）
@@ -2039,11 +1882,11 @@ export default {
           }
           
         } else {
-          // 其他行星的标准动画
+          // 其他行星位置固定在其出生时的星座位置，只有自转动画
           mesh.position.set(
-            Math.cos(newAngle) * radius,
-            Math.sin(time + planetIndex) * 0.1,
-            Math.sin(newAngle) * radius
+            Math.cos(originalAngle) * radius,
+            Math.sin(time + planetIndex) * 0.05, // 轻微的上下浮动
+            Math.sin(originalAngle) * radius
           );
           
           mesh.rotation.y += 0.02;
@@ -2197,8 +2040,10 @@ export default {
         controls.update();
       }
       
-      // 渲染
-      renderer.render(scene, camera);
+      // 渲染 - 添加安全检查
+      if (renderer && scene && camera) {
+        renderer.render(scene, camera);
+      }
       
       // 更新性能信息
       updatePerformanceInfo();
@@ -2320,11 +2165,6 @@ export default {
       // 降低像素比
       renderer.setPixelRatio(0.8);
       
-      // 减少粒子数量
-      if (starField && starField.children.length > 300) {
-        const toRemove = starField.children.slice(300);
-        toRemove.forEach(star => starField.remove(star));
-      }
       
       // 禁用一些动画
       if (controls) {
@@ -2366,14 +2206,6 @@ export default {
     };
 
     // 控制函数
-    const toggle3DMode = () => {
-      is3DMode.value = !is3DMode.value;
-      if (is3DMode.value) {
-        setTimeout(init3D, 100);
-      } else {
-        cleanup3D();
-      }
-    };
 
     const toggleAspects = () => {
       showAspects.value = !showAspects.value;
@@ -2388,6 +2220,26 @@ export default {
 
     const toggleAnimation = () => {
       animationEnabled.value = !animationEnabled.value;
+    };
+
+    const toggleFullscreen = () => {
+      if (!threejsContainer.value) return;
+      
+      if (!isFullscreen.value) {
+        // 进入全屏
+        if (threejsContainer.value.requestFullscreen) {
+          threejsContainer.value.requestFullscreen();
+        } else if (threejsContainer.value.webkitRequestFullscreen) {
+          threejsContainer.value.webkitRequestFullscreen();
+        }
+      } else {
+        // 退出全屏
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) {
+          document.webkitExitFullscreen();
+        }
+      }
     };
 
     const toggleZodiacLabels = () => {
@@ -2410,24 +2262,7 @@ export default {
       }
     };
 
-    const updateAutoRotation = () => {
-      if (controls) {
-        controls.autoRotateSpeed = autoRotateSpeed.value;
-      }
-    };
 
-    const updateZoom = () => {
-      if (camera) {
-        camera.position.setLength(10 / zoomLevel.value);
-      }
-    };
-
-    const updateParticles = () => {
-      if (starField) {
-        scene.remove(starField);
-        createStarField();
-      }
-    };
     
     // 切换性能模式
     const setPerformanceMode = (mode) => {
@@ -2439,11 +2274,6 @@ export default {
         // 更新像素比
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, lod.pixelRatio));
         
-        // 重建星空
-        if (starField) {
-          scene.remove(starField);
-          createStarField();
-        }
         
         // 重建行星
         planetSpheres.forEach(p => scene.remove(p.mesh));
@@ -2503,37 +2333,42 @@ export default {
       }
     };
 
-    const updateGlowIntensity = () => {
-      planetSpheres.forEach(({ mesh }) => {
-        if (mesh.userData.glows) {
-          mesh.userData.glows.forEach((glow) => {
-            // 直接应用光晕强度
-            glow.material.uniforms.color.value.multiplyScalar(glowIntensity.value);
-          });
-        }
-      });
-    };
-
-    const updateAspectIntensity = () => {
-      if (aspectLines) {
-        aspectLines.children.forEach((tube) => {
-          tube.material.opacity = tube.userData.originalOpacity * aspectIntensity.value;
-          tube.material.emissiveIntensity = tube.userData.originalEmissive * aspectIntensity.value;
-        });
-      }
-    };
 
     const cleanup3D = () => {
       if (animationId) {
         cancelAnimationFrame(animationId);
       }
       
+      // 清理天文参考环
+      if (equatorRing && scene) {
+        scene.remove(equatorRing);
+        equatorRing = null;
+      }
+      if (horizonRing && scene) {
+        scene.remove(horizonRing);
+        horizonRing = null;
+      }
+      
+      // 安全地清理渲染器DOM元素
       if (renderer && threejsContainer.value) {
-        threejsContainer.value.removeChild(renderer.domElement);
+        try {
+          // 检查DOM元素是否确实是容器的子元素
+          if (renderer.domElement && renderer.domElement.parentNode === threejsContainer.value) {
+            threejsContainer.value.removeChild(renderer.domElement);
+          }
+        } catch (error) {
+          console.warn('DOM cleanup warning:', error.message);
+        }
         renderer.dispose();
+        renderer = null;
       }
       
       window.removeEventListener('resize', onWindowResize);
+    };
+
+    // 全屏状态监听
+    const handleFullscreenChange = () => {
+      isFullscreen.value = !!(document.fullscreenElement || document.webkitFullscreenElement);
     };
 
     // 生命周期
@@ -2544,10 +2379,17 @@ export default {
       
       // 开发模式显示调试信息
       showDebugInfo.value = process.env.NODE_ENV === 'development';
+
+      // 添加全屏监听器
+      document.addEventListener('fullscreenchange', handleFullscreenChange);
+      document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
     });
 
     onUnmounted(() => {
       cleanup3D();
+      // 移除全屏监听器
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+      document.removeEventListener('webkitfullscreenchange', handleFullscreenChange);
     });
 
     // 监听数据变化
@@ -2557,11 +2399,16 @@ export default {
         planetSpheres.forEach(p => scene.remove(p.mesh));
         if (zodiacRing) scene.remove(zodiacRing);
         if (houseRing) scene.remove(houseRing);
+        if (equatorRing) scene.remove(equatorRing);
+        if (horizonRing) scene.remove(horizonRing);
         if (aspectLines) scene.remove(aspectLines);
         
         // 重新创建
         createZodiacRing();
         createHouseRing();
+        createEquatorRing();
+        createHorizonRing();
+        createCelestialSphere();
         createPlanets();
         createAspectLines();
       }
@@ -2577,19 +2424,208 @@ export default {
       }
     });
 
+    // ================== 天文级参考环功能 ==================
+    
+    // 工具函数：将旋转矩阵转换为Three.js Matrix4
+    const toMatrix4 = (rot) => {
+      const m = new THREE.Matrix4()
+      const r = rot.rot
+      m.set(
+        r[0][0], r[0][1], r[0][2], 0,
+        r[1][0], r[1][1], r[1][2], 0,
+        r[2][0], r[2][1], r[2][2], 0,
+        0, 0, 0, 1
+      )
+      return m
+    };
+
+    // 创建圆环
+    const makeCircle = (radius, segments = 360) => {
+      const geom = new THREE.BufferGeometry()
+      const positions = []
+      for (let i = 0; i <= segments; i++) {
+        const a = (i / segments) * Math.PI * 2
+        positions.push(Math.cos(a) * radius, Math.sin(a) * radius, 0)
+      }
+      geom.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3))
+      const mat = new THREE.LineBasicMaterial({ 
+        transparent: true, 
+        opacity: 0.6,
+        color: 0x4a90e2
+      })
+      return new THREE.Line(geom, mat)
+    };
+
+    // 创建刻度标记
+    const makeTickMarks = (radius, everyDeg = 30) => {
+      const g = new THREE.Group()
+      for (let d = 0; d < 360; d += everyDeg) {
+        const a = d * (Math.PI / 180)
+        const x = Math.cos(a) * radius
+        const y = Math.sin(a) * radius
+        const geom = new THREE.BufferGeometry().setFromPoints([
+          new THREE.Vector3(x, y, 0),
+          new THREE.Vector3(x * 0.95, y * 0.95, 0),
+        ])
+        const line = new THREE.Line(geom, new THREE.LineBasicMaterial({ 
+          color: 0x6699ff, 
+          transparent: true, 
+          opacity: 0.4 
+        }))
+        g.add(line)
+      }
+      return g
+    };
+
+    // 创建赤道环
+    const createEquatorRing = () => {
+      if (!showEquatorRing.value) return;
+      
+      equatorRing = new THREE.Group();
+      
+      const radius = 4.95; // 内切于天球 (5.0)
+      const circle = makeCircle(radius);
+      circle.material.color.setHex(0x44ff44); // 绿色赤道环
+      equatorRing.add(circle);
+      equatorRing.add(makeTickMarks(radius, 30));
+      
+      // 应用天文计算的旋转
+      const currentDate = new Date();
+      const R_EQD_ECT = Astronomy.Rotation_EQD_ECT(currentDate);
+      equatorRing.applyMatrix4(toMatrix4(R_EQD_ECT));
+      
+      scene.add(equatorRing);
+    };
+
+    // 创建地平环  
+    const createHorizonRing = () => {
+      if (!showHorizonRing.value) return;
+      
+      horizonRing = new THREE.Group();
+      
+      const radius = 4.95; // 内切于天球 (5.0) - 天文学准确性
+      const circle = makeCircle(radius);
+      circle.material.color.setHex(0xff6644); // 橙色地平环
+      horizonRing.add(circle);
+      horizonRing.add(makeTickMarks(radius, 30));
+      
+      // 使用默认观察者位置（东京）或用户数据
+      const currentDate = new Date();
+      const observer = new Astronomy.Observer(35.6812, 139.7671, 0); // 默认东京
+      
+      const R_HOR_EQD = Astronomy.Rotation_HOR_EQD(currentDate, observer);
+      const R_EQD_ECT = Astronomy.Rotation_EQD_ECT(currentDate);
+      const R_HOR_ECT = Astronomy.CombineRotation(R_EQD_ECT, R_HOR_EQD);
+      horizonRing.applyMatrix4(toMatrix4(R_HOR_ECT));
+      
+      // 添加方位标签
+      const azLabels = [['N', 0], ['E', 90], ['S', 180], ['W', 270]];
+      azLabels.forEach(([text, az]) => {
+        const sph = new Astronomy.Spherical(0, az, 1);
+        const hv = Astronomy.VectorFromHorizon(sph, currentDate, false);
+        const v = Astronomy.RotateVector(R_HOR_ECT, hv);
+        const len = Math.hypot(v.x, v.y, v.z) || 1;
+        const p = new THREE.Vector3(v.x / len, v.y / len, v.z / len).multiplyScalar(radius + 0.3);
+        
+        // 创建方位标签
+        const canvas = document.createElement('canvas');
+        const context = canvas.getContext('2d');
+        canvas.width = canvas.height = 64;
+        context.fillStyle = '#fff';
+        context.font = 'bold 24px Arial';
+        context.textAlign = 'center';
+        context.textBaseline = 'middle';
+        context.fillText(text, 32, 32);
+        
+        const texture = new THREE.CanvasTexture(canvas);
+        const spriteMaterial = new THREE.SpriteMaterial({ map: texture, transparent: true });
+        const sprite = new THREE.Sprite(spriteMaterial);
+        sprite.position.copy(p);
+        sprite.scale.set(0.4, 0.4, 1);
+        horizonRing.add(sprite);
+      });
+      
+      scene.add(horizonRing);
+    };
+
+    // 创建天文级天球
+    const createCelestialSphere = () => {
+      if (!showCelestialSphere.value) return;
+      
+      // 根据设备性能调整几何体复杂度
+      const segments = isMobile.value ? 16 : 32; // 移动端降低复杂度
+      
+      celestialSphere = new THREE.Mesh(
+        new THREE.SphereGeometry(5.0, segments, segments),
+        new THREE.MeshBasicMaterial({ 
+          wireframe: true, 
+          transparent: true, 
+          opacity: isMobile.value ? 0.08 : 0.05, // 移动端稍微提高可见度
+          color: 0x6699ff // 淡蓝色天球
+        })
+      );
+      
+      scene.add(celestialSphere);
+    };
+
+    // 切换赤道环显示
+    const toggleEquatorRing = () => {
+      showEquatorRing.value = !showEquatorRing.value;
+      
+      if (is3DMode.value && scene) {
+        if (equatorRing) {
+          scene.remove(equatorRing);
+        }
+        if (showEquatorRing.value) {
+          createEquatorRing();
+        }
+      }
+    };
+
+    // 切换地平环显示
+    const toggleHorizonRing = () => {
+      showHorizonRing.value = !showHorizonRing.value;
+      
+      if (is3DMode.value && scene) {
+        if (horizonRing) {
+          scene.remove(horizonRing);
+        }
+        if (showHorizonRing.value) {
+          createHorizonRing();
+        }
+      }
+    };
+
+    // 切换天文级天球显示
+    const toggleCelestialSphere = () => {
+      showCelestialSphere.value = !showCelestialSphere.value;
+      
+      if (is3DMode.value && scene) {
+        if (celestialSphere) {
+          scene.remove(celestialSphere);
+        }
+        if (showCelestialSphere.value) {
+          createCelestialSphere();
+        }
+      }
+    };
+
     return {
       // 模板引用
       threejsContainer,
       
       // 响应式数据
       is3DMode,
+      isFullscreen,
       showAspects,
       animationEnabled,
       showZodiacLabels,
       showHouseRing,
+      showEquatorRing,
+      showHorizonRing,
+      showCelestialSphere,
       autoRotateSpeed,
       zoomLevel,
-      particleDensity,
       glowIntensity,
       aspectIntensity,
       showDebugInfo,
@@ -2606,17 +2642,15 @@ export default {
       averageFPS,
       
       // 方法
-      toggle3DMode,
       toggleAspects,
       toggleAnimation,
+      toggleFullscreen,
       toggleZodiacLabels,
       toggleHouseRing,
+      toggleEquatorRing,
+      toggleHorizonRing,
+      toggleCelestialSphere,
       resetCamera,
-      updateAutoRotation,
-      updateZoom,
-      updateParticles,
-      updateGlowIntensity,
-      updateAspectIntensity,
       setPerformanceMode,
       getLocalizedText
     };
@@ -2683,6 +2717,22 @@ export default {
   background: rgba(255, 107, 107, 0.8);
   border-color: #ff6b6b;
   box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+}
+
+.fullscreen-btn {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+}
+
+.fullscreen-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
 }
 
 .chart-wrapper {

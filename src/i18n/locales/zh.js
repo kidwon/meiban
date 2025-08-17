@@ -452,11 +452,39 @@ export default {
 
   starChart: {
     title: '星盘图',
+    viewMode: {
+      title: '星盘显示模式',
+      description: '选择您偏好的星盘显示方式'
+    },
     controls: {
       showAspects: '显示相位',
       hideAspects: '隐藏相位',
       showHouses: '显示宫位',
-      hideHouses: '隐藏宫位'
+      hideHouses: '隐藏宫位',
+      fullscreen: '全屏显示',
+      reset: '重置视图',
+      title: '显示控制',
+      animation: '启用动画',
+      zodiacLabels: '星座标签',
+      rotationSpeed: '旋转速度',
+      showEquator: '显示赤道环',
+      showHorizon: '显示地平环',
+      latitude: '纬度',
+      longitude: '经度'
+    },
+    astro3d: {
+      title: '天文级3D可视化',
+      timeLocation: '时间与位置',
+      dateTime: '日期时间（本地时区）',
+      altitude: '海拔高度',
+      altitudePlaceholder: '海拔（米）',
+      latitudePlaceholder: '纬度（度）',
+      longitudePlaceholder: '经度（度）',
+      displayOptions: '显示选项',
+      testResults: '测试结果',
+      selfCheck: '运行自检',
+      runTests: '运行一组内置测试验证天文计算准确性',
+      description: '基于天文引擎的精确3D星体位置可视化。世界坐标系：ECT（真黄道-当日）。你可以旋转/缩放查看3D空间关系。'
     },
     legends: {
       planets: '行星',

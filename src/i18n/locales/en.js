@@ -454,11 +454,25 @@ export default {
 
   starChart: {
     title: 'Star Chart',
+    viewMode: {
+      title: 'Chart Display Mode',
+      description: 'Choose your preferred star chart display method'
+    },
     controls: {
       showAspects: 'Show Aspects',
       hideAspects: 'Hide Aspects',
       showHouses: 'Show Houses',
-      hideHouses: 'Hide Houses'
+      hideHouses: 'Hide Houses',
+      fullscreen: 'Fullscreen',
+      reset: 'Reset View',
+      title: 'Display Controls',
+      animation: 'Enable Animation',
+      zodiacLabels: 'Zodiac Labels',
+      rotationSpeed: 'Rotation Speed',
+      showEquator: 'Show Equator Ring',
+      showHorizon: 'Show Horizon Ring',
+      latitude: 'Latitude',
+      longitude: 'Longitude'
     },
     legends: {
       planets: 'Planets',
@@ -521,6 +535,22 @@ export default {
       ascendant: 'Ascendant',
       midheaven: 'Midheaven',
       chiron: 'Chiron'
+    },
+    astro3d: {
+      title: 'Astronomical 3D Visualization',
+      timeLocation: 'Time & Location',
+      dateTime: 'Date & Time',
+      latitude: 'Latitude',
+      longitude: 'Longitude',
+      altitude: 'Altitude (meters)',
+      latitudePlaceholder: 'e.g. 35.6812',
+      longitudePlaceholder: 'e.g. 139.7671',
+      altitudePlaceholder: 'e.g. 0',
+      displayOptions: 'Display Options',
+      runTests: 'Run System Tests',
+      selfCheck: 'Self Check',
+      testResults: 'Test Results',
+      description: 'Astro3D provides astronomical-grade 3D visualization based on real celestial mechanics. Use the controls above to adjust time, location, and display options to explore the celestial sphere from your perspective.'
     }
   },
 
