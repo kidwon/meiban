@@ -327,6 +327,11 @@ export default {
     birthplaceRequired: 'Please enter birth place',
     genderRequired: 'Please select gender'
   },
+
+  notFound: {
+    transitRequiresData: 'Please enter basic information first to use transit analysis.',
+    issueReported: 'Issue reported. Thank you for your cooperation.'
+  },
   
   languageSwitcher: {
     title: 'Select Language',

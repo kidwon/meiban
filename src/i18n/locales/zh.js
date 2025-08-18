@@ -325,6 +325,11 @@ export default {
     birthplaceRequired: '请输入出生地',
     genderRequired: '请选择性别'
   },
+
+  notFound: {
+    transitRequiresData: '使用行运分析需要先输入基本信息。',
+    issueReported: '问题已报告。感谢您的合作。'
+  },
   
   languageSwitcher: {
     title: '选择语言',

@@ -123,13 +123,13 @@ export default {
     fortuneLabels: {
       career: '事業運',
       wealth: '金運',
-      love: '戀愛運',
+      love: '恋愛運',
       health: '健康運'
     },
     planetNames: {
       sun: '太陽',
-      moon: '月亮',
-      ascendant: '上升星座'
+      moon: '月',
+      ascendant: 'アセンダント'
     },
     actions: {
       back: 'トップに戻る',
@@ -326,6 +326,11 @@ export default {
     birthMinuteRequired: '出生分を選択してください',
     birthplaceRequired: '出生地を入力してください',
     genderRequired: '性別を選択してください'
+  },
+
+  notFound: {
+    transitRequiresData: '行運分析を利用するには、まず基本情報を入力してください。',
+    issueReported: '問題を報告しました。ご協力ありがとうございます。'
   },
   
   languageSwitcher: {
