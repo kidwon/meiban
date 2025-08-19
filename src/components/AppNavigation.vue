@@ -139,7 +139,7 @@ export default {
   backdrop-filter: blur(10px);
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   z-index: 10000;
-  padding: 10px 20px;
+  padding: 6px 20px;
 }
 
 /* Desktop Navigation */
@@ -160,7 +160,7 @@ export default {
   color: #333;
   font-weight: 500;
   font-size: 0.95rem;
-  padding: 8px 15px;
+  padding: 5px 10px;
   border-radius: 20px;
   transition: all 0.3s ease;
   position: relative;
@@ -201,7 +201,7 @@ export default {
 /* Mobile Navigation */
 @media (max-width: 768px) {
   .app-navigation {
-    padding: 15px 20px;
+    padding: 8px 20px;
   }
   
   .menu-toggle {

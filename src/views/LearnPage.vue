@@ -272,7 +272,7 @@ export default {
 .learn-container {
   max-width: 1000px;
   margin: 0 auto;
-  padding: 90px 20px 20px 20px;
+  padding: 80px 20px 20px 20px;
   font-family: 'Noto Sans JP', sans-serif;
   color: #333;
   min-height: 100vh;
@@ -632,7 +632,7 @@ export default {
 /* Responsive Design */
 @media (max-width: 768px) {
   .learn-container {
-    padding: 80px 15px 15px 15px;
+    padding: 70px 15px 15px 15px;
   }
   
   .title {
