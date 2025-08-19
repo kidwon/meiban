@@ -72,10 +72,14 @@ export default {
   },
   
   mounted() {
+    // Ensure menu starts closed
+    this.isMenuOpen = false
+    document.body.style.overflow = ''
+    
     // Monitor resize for responsive design
     this.handleResize = () => {
       if (!this.isMobile && this.isMenuOpen) {
-        this.isMenuOpen = false
+        this.closeMenu()
       }
       this.$forceUpdate()
     }
@@ -85,10 +89,24 @@ export default {
     this.$router.afterEach(() => {
       this.closeMenu()
     })
+    
+    // Close menu when clicking outside (fallback)
+    this.handleOutsideClick = (event) => {
+      const nav = this.$el
+      const isClickInsideNav = nav && nav.contains(event.target)
+      
+      if (!isClickInsideNav && this.isMenuOpen && this.isMobile) {
+        this.closeMenu()
+      }
+    }
+    document.addEventListener('click', this.handleOutsideClick)
   },
   
   beforeUnmount() {
     window.removeEventListener('resize', this.handleResize)
+    document.removeEventListener('click', this.handleOutsideClick)
+    // Ensure body scroll is restored
+    document.body.style.overflow = ''
   },
   
   methods: {
@@ -120,8 +138,8 @@ export default {
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  z-index: 1000;
-  padding: 10px 20px;
+  z-index: 10000;
+  padding: 6px 20px;
 }
 
 /* Desktop Navigation */
@@ -142,7 +160,7 @@ export default {
   color: #333;
   font-weight: 500;
   font-size: 0.95rem;
-  padding: 8px 15px;
+  padding: 5px 10px;
   border-radius: 20px;
   transition: all 0.3s ease;
   position: relative;
@@ -183,7 +201,7 @@ export default {
 /* Mobile Navigation */
 @media (max-width: 768px) {
   .app-navigation {
-    padding: 15px 20px;
+    padding: 8px 20px;
   }
   
   .menu-toggle {
@@ -193,7 +211,7 @@ export default {
     cursor: pointer;
     padding: 5px;
     position: relative;
-    z-index: 1001;
+    z-index: 10002;
   }
   
   .hamburger {
@@ -253,6 +271,7 @@ export default {
     transform: translateX(-100%);
     transition: transform 0.3s ease;
     box-shadow: 2px 0 20px rgba(0, 0, 0, 0.1);
+    z-index: 10002;
   }
   
   .links-open {
@@ -302,7 +321,7 @@ export default {
     width: 100vw;
     height: 100vh;
     background: rgba(0, 0, 0, 0.5);
-    z-index: 999;
+    z-index: 10001;
   }
 }
 

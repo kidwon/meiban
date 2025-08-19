@@ -84,7 +84,7 @@ export default {
     // 自定义偏移量
     offset: {
       type: Object,
-      default: () => ({ top: 20, right: 20, bottom: 20, left: 20 })
+      default: () => ({ top: 15, right: 15, bottom: 20, left: 20 })
     }
   },
   
@@ -103,7 +103,7 @@ export default {
     
     positionStyle() {
       const [vPos, hPos] = this.position.split('-')
-      const style = { position: 'fixed', zIndex: 9999 }
+      const style = { position: 'fixed', zIndex: 10003 }
       
       if (vPos === 'top') {
         style.top = `${this.offset.top}px`
@@ -185,11 +185,11 @@ export default {
 /* 普通模式 */
 .lang-buttons {
   display: flex;
-  gap: 4px;
+  gap: 3px;
   background: rgba(255, 255, 255, 0.95);
-  border-radius: 12px;
-  padding: 6px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 4px;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
@@ -197,13 +197,13 @@ export default {
   display: flex;
   align-items: center;
   gap: 6px;
-  padding: 8px 12px;
+  padding: 6px 10px;
   border: none;
   background: transparent;
-  border-radius: 8px;
+  border-radius: 6px;
   cursor: pointer;
   transition: all 0.2s ease;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-weight: 500;
   color: #6c757d;
   white-space: nowrap;
@@ -225,7 +225,7 @@ export default {
 }
 
 .lang-flag {
-  font-size: 1rem;
+  font-size: 0.9rem;
   line-height: 1;
 }
 
@@ -242,13 +242,13 @@ export default {
   display: flex;
   align-items: center;
   gap: 4px;
-  padding: 8px 10px;
+  padding: 6px 8px;
   background: rgba(255, 255, 255, 0.95);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 10px;
+  border-radius: 8px;
   cursor: pointer;
   transition: all 0.2s ease;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
   color: #6c757d;
 }
 
@@ -263,7 +263,7 @@ export default {
 }
 
 .current-flag {
-  font-size: 1.1rem;
+  font-size: 1rem;
   line-height: 1;
 }
 
@@ -357,13 +357,13 @@ export default {
 /* 响应式调整 */
 @media (max-width: 768px) {
   .lang-buttons {
-    padding: 4px;
+    padding: 3px;
     gap: 2px;
   }
   
   .lang-btn {
-    padding: 6px 8px;
-    font-size: 0.75rem;
+    padding: 5px 7px;
+    font-size: 0.7rem;
   }
   
   .lang-name {
@@ -371,7 +371,7 @@ export default {
   }
   
   .compact-btn {
-    padding: 6px 8px;
+    padding: 5px 7px;
   }
   
   .dropdown-item {
@@ -397,7 +397,11 @@ export default {
 /* 安全区域支持 */
 @media (max-width: 768px) {
   .language-switcher[style*="top:"] {
-    top: calc(env(safe-area-inset-top, 10px) + 10px) !important;
+    top: calc(env(safe-area-inset-top, 8px) + 8px) !important;
+  }
+  
+  .language-switcher[style*="right:"] {
+    right: calc(env(safe-area-inset-right, 10px) + 10px) !important;
   }
 }
 </style>
