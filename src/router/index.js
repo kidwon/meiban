@@ -76,6 +76,72 @@ const routes = [
       title: '行運盤分析'
     }
   },
+  // Essential Pages
+  {
+    path: '/about',
+    name: 'about',
+    component: () => import('../views/AboutPage.vue'),
+    meta: {
+      allowAds: true,  // About页面允许显示广告
+      title: 'About Us - 命盤について'
+    }
+  },
+  {
+    path: '/privacy',
+    name: 'privacy',
+    component: () => import('../views/PrivacyPage.vue'),
+    meta: {
+      allowAds: true,  // Privacy页面允许显示广告
+      title: 'Privacy Policy - プライバシーポリシー'
+    }
+  },
+  {
+    path: '/contact',
+    name: 'contact',
+    component: () => import('../views/ContactPage.vue'),
+    meta: {
+      allowAds: true,  // Contact页面允许显示广告
+      title: 'Contact Us - お問い合わせ'
+    }
+  },
+  {
+    path: '/terms',
+    name: 'terms',
+    component: () => import('../views/TermsPage.vue'),
+    meta: {
+      allowAds: true,  // Terms页面允许显示广告
+      title: 'Terms of Service - 利用規約'
+    }
+  },
+  // Educational Content Hub
+  {
+    path: '/learn',
+    name: 'learn',
+    component: () => import('../views/LearnPage.vue'),
+    meta: {
+      allowAds: true,  // Learn页面允许显示广告
+      title: 'Learning Center - 命理学習センター'
+    }
+  },
+  // Educational Articles
+  {
+    path: '/learn/article/understanding-birth-chart',
+    name: 'understanding-birth-chart',
+    component: () => import('../views/articles/UnderstandingBirthChartArticle.vue'),
+    meta: {
+      allowAds: true,
+      title: 'Understanding Your Birth Chart - 出生図の理解'
+    }
+  },
+  {
+    path: '/learn/article/five-elements-theory',
+    name: 'five-elements-theory', 
+    component: () => import('../views/articles/FiveElementsTheoryArticle.vue'),
+    meta: {
+      allowAds: true,
+      title: 'Five Elements Theory - 五行理論'
+    }
+  },
   // 新增：错误页面
   {
     path: '/error',

@@ -1,5 +1,8 @@
 <template>
   <div class="meiban-container">
+    <!-- Navigation -->
+    <AppNavigation />
+    
     <!-- 浮动语言切换器 -->
     <LanguageSwitcher 
       :compact="isMobile"
@@ -156,6 +159,7 @@
 import { getCityList } from '../utils/calculator.js'
 import { mapGetters } from 'vuex'
 import LanguageSwitcher from '../components/LanguageSwitcher.vue'
+import AppNavigation from '../components/AppNavigation.vue'
 import i18nMixin from '../mixins/i18n.js'
 
 export default {
@@ -163,7 +167,8 @@ export default {
   mixins: [i18nMixin],
   
   components: {
-    LanguageSwitcher
+    LanguageSwitcher,
+    AppNavigation
   },
   
   data() {

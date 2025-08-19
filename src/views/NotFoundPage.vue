@@ -211,7 +211,7 @@ export default {
       if (this.hasUserData) {
         this.$router.push('/transit-analysis');
       } else {
-        alert('行運分析を利用するには、まず基本情報を入力してください。');
+        alert(this.$t('notFound.transitRequiresData'));
         this.goHome();
       }
     },
@@ -228,7 +228,7 @@ export default {
       console.log('Issue Report:', issueData);
       
       // 这里可以实现实际的问题报告功能
-      alert('問題を報告しました。ご協力ありがとうございます。');
+      alert(this.$t('notFound.issueReported'));
     },
     
     addStarAnimation() {

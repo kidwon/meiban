@@ -123,13 +123,13 @@ export default {
     fortuneLabels: {
       career: '事業運',
       wealth: '金運',
-      love: '戀愛運',
+      love: '恋愛運',
       health: '健康運'
     },
     planetNames: {
       sun: '太陽',
-      moon: '月亮',
-      ascendant: '上升星座'
+      moon: '月',
+      ascendant: 'アセンダント'
     },
     actions: {
       back: 'トップに戻る',
@@ -316,6 +316,804 @@ export default {
     }
   },
   
+  // Navigation
+  nav: {
+    menuToggle: 'メニュー切り替え',
+    home: 'ホーム',
+    learn: '学習センター',
+    about: '私たちについて',
+    contact: 'お問い合わせ',
+    privacy: 'プライバシーポリシー',
+    terms: '利用規約'
+  },
+
+  // About Page
+  about: {
+    pageTitle: '私たちについて',
+    title: '命盤について',
+    subtitle: '古代の知恵と現代の技術の融合',
+    metaDescription: '命盤は生辰八字と西洋占星術の専門的な分析サービスを提供します。私たちのミッション、サービス、技術について詳しくご紹介します。',
+    mission: {
+      title: '私たちのミッション',
+      description1: '命盤は、古代の占術の知恵を現代の技術と融合させ、誰もが簡単にアクセスできる高品質な命理分析サービスを提供することを使命としています。',
+      description2: '私たちは、東洋の生辰八字（四柱推命）と西洋占星術の両方の伝統的な知識を深く研究し、精密な天文計算と組み合わせて、正確で洞察力に富んだ分析結果をお届けします。',
+      description3: '私たちの目標は、占術を通じて人々が自分自身をより深く理解し、人生の方向性を見つけるお手伝いをすることです。'
+    },
+    services: {
+      title: '提供サービス',
+      bazi: {
+        title: '生辰八字分析',
+        description: '中国古代の四柱推命理論に基づき、あなたの生年月日時から運命を詳細に分析します。五行配置、大運流年、性格特質などを総合的に判断します。'
+      },
+      western: {
+        title: '西洋占星術',
+        description: '現代占星学の理論を用いて、あなたの出生図を詳細に解釈します。惑星配置、星座特性、宮位影響などから性格と運勢を分析します。'
+      },
+      transit: {
+        title: '行運分析',
+        description: '現在および未来の天体運行があなたに与える影響を分析し、重要な時期と機会をお知らせします。'
+      }
+    },
+    methodology: {
+      title: '私たちの手法',
+      description1: '私たちは伝統的な占術理論と現代の天文学計算を組み合わせ、最も正確な分析結果を提供します：',
+      point1: '精密な天文計算：VSOP87アルゴリズムを使用し、惑星位置を正確に計算',
+      point2: '伝統理論の応用：古典的な占術文献に基づく解釈システム',
+      point3: '多言語対応：日本語、中国語、英語でサービスを提供',
+      point4: '個人情報保護：すべてのデータはローカルに保存され、プライバシーを厳格に保護',
+      description2: 'すべての分析結果は厳格な品質管理を経て、正確性と信頼性を確保しています。'
+    },
+    accuracy: {
+      title: '精度と信頼性',
+      description1: '私たちは技術的な精度と占術の伝統的知識の両方を重視しています。',
+      description2: '以下の技術的特徴により、業界最高水準の分析精度を実現しています：',
+      tech1: {
+        title: '高精度天文計算',
+        description: 'ユリウス日変換とVSOP87アルゴリズムによる惑星位置計算'
+      },
+      tech2: {
+        title: '地域最適化',
+        description: '中国地域に特化したアセンダント計算アルゴリズム'
+      },
+      tech3: {
+        title: '伝統理論の統合',
+        description: '古典占術文献に基づく包括的な解釈システム'
+      }
+    },
+    accessibility: {
+      title: '言語とアクセシビリティ',
+      description1: '私たちのサービスは日本語、中国語、英語の3つの言語で提供されており、世界中のユーザーが利用できます。',
+      description2: 'また、レスポンシブデザインを採用し、スマートフォン、タブレット、パソコンなど、あらゆるデバイスで快適にご利用いただけます。'
+    },
+    privacy: {
+      title: 'プライバシーとセキュリティ',
+      description1: '私たちはユーザーのプライバシーを最優先に考えています。すべての個人データはローカルブラウザに保存され、サーバーには送信されません。',
+      description2: 'また、最新のセキュリティ技術を採用し、お客様の情報を保護しています。'
+    },
+    cta: '今すぐ分析を始める'
+  },
+
+  // Privacy Page
+  privacy: {
+    pageTitle: 'プライバシーポリシー',
+    title: 'プライバシーポリシー',
+    lastUpdated: '最終更新日',
+    metaDescription: '命盤のプライバシーポリシー。個人情報の収集、使用、保護について詳しく説明します。GoogleAdSense対応のプライバシー方針です。',
+    introduction: {
+      title: 'はじめに',
+      description1: '命盤（https://meiban.info）では、ユーザーのプライバシーを最優先に考えています。このプライバシーポリシーでは、私たちがどのような情報を収集し、どのように使用・保護するかについて説明します。',
+      description2: '当サービスをご利用いただくことで、このプライバシーポリシーに同意したものとみなされます。'
+    },
+    collection: {
+      title: '収集する情報',
+      personal: {
+        title: '個人情報',
+        name: 'お名前（任意）',
+        birthdate: '生年月日',
+        birthtime: '出生時間',
+        birthplace: '出生地',
+        gender: '性別'
+      },
+      automatic: {
+        title: '自動的に収集される情報',
+        ip: 'IPアドレス',
+        browser: 'ブラウザ情報',
+        device: 'デバイス情報',
+        usage: '使用統計',
+        cookies: 'Cookieデータ'
+      }
+    },
+    usage: {
+      title: '情報の使用目的',
+      calculate: '占術分析の計算と結果の生成',
+      provide: 'サービスの提供と向上',
+      improve: 'ユーザー体験の改善',
+      communicate: 'お客様とのコミュニケーション',
+      analytics: 'サイト分析とパフォーマンス向上',
+      ads: '関連広告の表示'
+    },
+    adsense: {
+      title: 'Google AdSense',
+      description1: '当サイトではGoogle AdSenseを使用して広告を表示しています。AdSenseはユーザーの興味に基づいた広告を配信するため、Cookieを使用します。',
+      description2: 'Google AdSenseによって以下の情報が収集される場合があります：',
+      cookies: {
+        title: 'AdSense Cookies',
+        doubleclick: 'DoubleClick DART Cookie',
+        personalization: '個人向け広告のためのCookie',
+        analytics: '分析のためのCookie'
+      },
+      optout: 'Google広告設定ページで個人向け広告をオプトアウトできます。',
+      learnmore: '詳細については、',
+      googlePrivacy: 'Googleプライバシーポリシー'
+    },
+    analytics: {
+      title: 'Google Analytics',
+      description1: '当サイトではGoogle Analyticsを使用してサイトの使用状況を分析しています。',
+      description2: 'Google Analyticsは匿名化されたデータを収集し、個人を特定する情報は含まれません。',
+      optout: 'Google Analyticsオプトアウトアドオンをインストールすることで、データ収集を無効にできます：',
+      optoutLink: 'オプトアウトアドオン'
+    },
+    cookies: {
+      title: 'Cookieについて',
+      description1: '当サイトでは、サービスの向上とユーザー体験の改善のためにCookieを使用しています。',
+      types: {
+        title: 'Cookieの種類',
+        essential: {
+          title: '必須Cookie',
+          description: 'サイトの基本機能に必要'
+        },
+        analytics: {
+          title: '分析Cookie',
+          description: 'サイト使用状況の分析'
+        },
+        advertising: {
+          title: '広告Cookie',
+          description: '関連広告の表示'
+        },
+        functional: {
+          title: '機能Cookie',
+          description: 'ユーザー設定の保存'
+        }
+      },
+      control: 'ブラウザの設定でCookieを管理できます。'
+    },
+    storage: {
+      title: 'データの保存',
+      description1: 'お客様の占術分析データは主にローカルブラウザに保存され、当社のサーバーには送信されません。',
+      description2: 'これにより、お客様のプライバシーを最大限に保護しています。',
+      retention: 'ブラウザのローカルストレージをクリアすることで、いつでもデータを削除できます。'
+    },
+    sharing: {
+      title: 'データの共有',
+      description1: '私たちは、法的要求がある場合を除き、お客様の個人情報を第三者と共有することはありません。ただし、以下の場合は例外とします：',
+      google: 'Google AdSenseやGoogle Analyticsなどのサービスプロバイダーとの共有',
+      legal: '法的要求や法執行機関からの要請',
+      protection: 'サイトのセキュリティと運営の保護',
+      consent: 'お客様の明示的な同意がある場合'
+    },
+    rights: {
+      title: 'お客様の権利',
+      access: '個人情報へのアクセス権',
+      correct: '情報の訂正権',
+      delete: '情報の削除権',
+      portability: 'データポータビリティの権利',
+      object: '処理への異議申し立て権',
+      restrict: '処理の制限権',
+      contact: 'これらの権利を行使される場合は、お問い合わせください。'
+    },
+    security: {
+      title: 'セキュリティ',
+      description1: '私たちは適切な技術的・組織的措置を講じて、お客様の個人情報を不正アクセス、紛失、破壊から保護しています。',
+      description2: 'ただし、インターネット上での情報伝送は100%安全ではないことをご理解ください。'
+    },
+    international: {
+      title: '国際転送',
+      description1: 'お客様の情報は、サービスプロバイダーの所在地に応じて国境を越えて転送される場合があります。',
+      description2: '私たちは、転送先の国でも適切なレベルの保護が確保されるよう努めています。'
+    },
+    children: {
+      title: '児童のプライバシー',
+      description1: '当サービスは13歳未満の児童を対象としていません。',
+      description2: '13歳未満の児童から意図的に個人情報を収集することはありません。'
+    },
+    changes: {
+      title: 'ポリシーの変更',
+      description1: '私たちは必要に応じてこのプライバシーポリシーを更新する場合があります。',
+      description2: '重要な変更がある場合は、サイト上で通知いたします。'
+    },
+    contact: {
+      title: 'お問い合わせ',
+      description: 'このプライバシーポリシーに関するご質問やご不明な点がございましたら、以下の方法でお問い合わせください：',
+      email: {
+        label: 'メールアドレス'
+      },
+      website: {
+        label: 'ウェブサイト',
+        link: 'お問い合わせページ'
+      }
+    }
+  },
+
+  // Contact Page
+  contact: {
+    pageTitle: 'お問い合わせ',
+    title: 'お問い合わせ',
+    subtitle: 'ご質問やご提案がございましたら、お気軽にお問い合わせください',
+    metaDescription: '命盤へのお問い合わせページ。サポート、プライバシー、技術的な質問など、様々なお問い合わせに対応いたします。',
+    info: {
+      title: 'お問い合わせ情報',
+      email: {
+        title: '一般的なお問い合わせ',
+        description: 'サービスに関するご質問やご提案'
+      },
+      privacy: {
+        title: 'プライバシーに関するお問い合わせ',
+        description: 'データ保護とプライバシーに関するご質問'
+      },
+      website: {
+        title: '公式ウェブサイト',
+        description: '最新情報とサービス詳細'
+      }
+    },
+    form: {
+      title: 'お問い合わせフォーム',
+      name: {
+        label: 'お名前',
+        placeholder: 'お名前をご記入ください'
+      },
+      email: {
+        label: 'メールアドレス',
+        placeholder: 'your.email@example.com'
+      },
+      subject: {
+        label: 'お問い合わせ内容',
+        placeholder: 'お問い合わせ内容を選択してください',
+        options: {
+          general: '一般的なお問い合わせ',
+          technical: '技術的な問題',
+          privacy: 'プライバシーに関する質問',
+          feedback: 'フィードバック',
+          partnership: 'パートナーシップ'
+        }
+      },
+      message: {
+        label: 'メッセージ',
+        placeholder: '詳細なメッセージをご記入ください...'
+      },
+      consent: {
+        text: 'プライバシーポリシーに同意します',
+        link: 'プライバシーポリシー'
+      },
+      submit: '送信',
+      submitting: '送信中...',
+      success: 'メッセージが正常に送信されました。お返事までしばらくお待ちください。',
+      error: '送信中にエラーが発生しました。しばらくしてから再試行してください。'
+    },
+    faq: {
+      title: 'よくある質問',
+      items: {
+        accuracy: {
+          question: '占術分析の精度はどの程度ですか？',
+          answer: '私たちは精密な天文計算と伝統的な占術理論を組み合わせ、最高水準の精度を提供しています。ただし、占術は参考として活用することをお勧めします。'
+        },
+        privacy: {
+          question: '個人情報は安全に保護されますか？',
+          answer: 'はい。お客様のデータは主にローカルブラウザに保存され、当社サーバーには送信されません。詳細はプライバシーポリシーをご確認ください。'
+        },
+        technical: {
+          question: '技術的な問題が発生した場合はどうすればよいですか？',
+          answer: 'ブラウザを最新版に更新し、キャッシュをクリアしてから再試行してください。問題が続く場合は、技術サポートまでお問い合わせください。'
+        },
+        languages: {
+          question: 'どの言語でサービスを利用できますか？',
+          answer: '現在、日本語、中国語、英語でサービスを提供しています。言語切り替えは画面右上のボタンから行えます。'
+        },
+        mobile: {
+          question: 'モバイルデバイスでも利用できますか？',
+          answer: 'はい。当サイトはレスポンシブデザインを採用しており、スマートフォンやタブレットでも快適にご利用いただけます。'
+        }
+      }
+    },
+    response: {
+      title: '対応時間',
+      urgent: {
+        title: '緊急のお問い合わせ',
+        description: '24時間以内に対応'
+      },
+      general: {
+        title: '一般的なお問い合わせ',
+        description: '1-3営業日以内に対応'
+      },
+      complex: {
+        title: '複雑な技術的問題',
+        description: '3-7営業日以内に対応'
+      }
+    }
+  },
+
+  // Terms Page
+  terms: {
+    pageTitle: '利用規約',
+    title: '利用規約',
+    lastUpdated: '最終更新日',
+    metaDescription: '命盤の利用規約。サービスの利用条件、ユーザーの責任、免責事項について詳しく説明します。',
+    introduction: {
+      title: 'はじめに',
+      description1: 'この利用規約（以下「本規約」）は、命盤（https://meiban.info）が提供するサービス（以下「本サービス」）の利用条件を定めるものです。',
+      description2: '本サービスをご利用いただく前に、本規約をよくお読みください。',
+      description3: '本サービスをご利用いただくことで、本規約に同意したものとみなされます。'
+    },
+    acceptance: {
+      title: '規約の同意',
+      description1: '本サービスにアクセスまたは利用することにより、お客様は本規約のすべての条項に拘束されることに同意したものとみなされます。',
+      description2: '本規約に同意されない場合は、本サービスの利用をお控えください。'
+    },
+    service: {
+      title: 'サービスの説明',
+      description1: '本サービスは以下の機能を提供します：',
+      feature1: '生辰八字（四柱推命）の分析と解釈',
+      feature2: '西洋占星術の分析と解釈',
+      feature3: '行運分析と未来予測',
+      feature4: '多言語対応（日本語、中国語、英語）',
+      description2: '本サービスは娯楽と教育目的で提供されており、専門的なアドバイスではありません。'
+    },
+    responsibilities: {
+      title: 'ユーザーの責任',
+      description1: '本サービスをご利用いただく際は、以下の責任を負っていただきます：',
+      accurate: '正確な情報の提供',
+      legal: '法律および規制の遵守',
+      respectful: '他のユーザーへの敬意',
+      security: 'アカウントのセキュリティ維持',
+      compliance: '本規約の遵守'
+    },
+    prohibited: {
+      title: '禁止行為',
+      description1: '以下の行為は禁止されています：',
+      illegal: '違法行為または規制違反',
+      harmful: '有害、脅迫的、または中傷的なコンテンツ',
+      spam: 'スパムまたは迷惑メール',
+      unauthorized: '不正アクセス',
+      interference: 'サービスの妨害',
+      violate: '知的財産権の侵害',
+      impersonate: '他者へのなりすまし'
+    },
+    intellectual: {
+      title: '知的財産権',
+      description1: '本サービスのすべてのコンテンツ、機能、特徴は命盤およびそのライセンサーの独占的財産です。',
+      description2: 'これには、テキスト、グラフィック、ロゴ、アイコン、画像、音声クリップ、ソフトウェアが含まれます。',
+      description3: '著作権、商標権、その他の知的財産法により保護されています。'
+    },
+    privacy: {
+      title: 'プライバシーとデータ',
+      description1: 'お客様のプライバシーは私たちにとって重要です。',
+      description2: 'データの収集と使用については、私たちの',
+      link: 'プライバシーポリシー'
+    },
+    disclaimers: {
+      title: '免責事項',
+      entertainment: {
+        title: '娯楽目的',
+        description: '本サービスは娯楽と教育目的で提供されており、専門的なアドバイス、医療、法律、財務相談の代替ではありません。'
+      },
+      accuracy: {
+        title: '精度について',
+        description: '占術分析の結果は参考程度にとどめ、重要な人生の決断には専門家にご相談することをお勧めします。'
+      },
+      decisions: {
+        title: '決定責任',
+        description: '本サービスの結果に基づく決定はすべてお客様の責任で行ってください。'
+      },
+      professional: {
+        title: '専門的アドバイス',
+        description: '本サービスは医療、法律、財務、心理的な専門アドバイスの代替ではありません。'
+      }
+    },
+    liability: {
+      title: '責任の制限',
+      description1: '法律で許可される最大限において、命盤は本サービスの利用から生じる直接的、間接的、付随的、結果的損害について責任を負いません。',
+      description2: 'これには、利益の損失、データの損失、営業の中断などが含まれますが、これらに限定されません。',
+      description3: '一部の法域では損害の除外や制限が認められていない場合があります。'
+    },
+    availability: {
+      title: 'サービスの可用性',
+      description1: '私たちは本サービスが常に利用可能であることを保証するものではありません。',
+      description2: 'メンテナンス、アップデート、その他の理由でサービスが一時的に中断される場合があります。',
+      description3: '事前通知なしにサービスを変更、停止、または終了する権利を留保します。'
+    },
+    modifications: {
+      title: '規約の変更',
+      description1: '私たちは必要に応じて本規約を変更する権利を留保します。',
+      description2: '重要な変更がある場合は、サイト上で通知いたします。変更後の利用は変更された規約への同意とみなされます。'
+    },
+    termination: {
+      title: 'サービスの終了',
+      description1: '私たちは理由の如何を問わず、いつでもお客様のサービス利用を終了または停止する権利を留保します。',
+      description2: 'サービス終了後も、該当する規約の条項は効力を維持します。'
+    },
+    governing: {
+      title: '準拠法',
+      description1: '本規約は日本法に準拠し、日本法に従って解釈されます。',
+      description2: '本規約に関する紛争は日本の管轄裁判所で解決されます。'
+    },
+    contact: {
+      title: 'お問い合わせ',
+      description: '本規約に関するご質問がございましたら、以下の方法でお問い合わせください：',
+      email: {
+        label: 'メールアドレス'
+      },
+      website: {
+        label: 'ウェブサイト',
+        link: 'お問い合わせページ'
+      }
+    }
+  },
+
+  // Learn Page
+  learn: {
+    pageTitle: '学習センター',
+    title: '命理学習センター',
+    subtitle: '古代の知恵を学び、自分の運命を理解する',
+    metaDescription: '生辰八字と西洋占星術を学ぶための包括的な学習センター。初心者から上級者まで対応した教育コンテンツを提供します。',
+    intro: {
+      title: '占術の世界へようこそ',
+      description1: '当学習センターでは、生辰八字（四柱推命）と西洋占星術の基礎から応用まで、体系的に学ぶことができます。',
+      description2: '古代から伝わる知恵を現代的な視点で理解し、日常生活に活かすための実践的な知識を身につけましょう。'
+    },
+    paths: {
+      title: '学習コース',
+      bazi: {
+        title: '生辰八字コース',
+        description: '中国古代の四柱推命理論を基礎から学びます',
+        lessons: {
+          basics: '基礎理論',
+          'heavenly-stems': '天干の理解',
+          'earthly-branches': '地支の理解',
+          'five-elements': '五行理論',
+          'reading-pillars': '四柱の読み方',
+          'interpreting-chart': '命盤の解釈'
+        }
+      },
+      astrology: {
+        title: '西洋占星術コース',
+        description: '現代占星学の基本概念から実践まで',
+        lessons: {
+          introduction: '占星術入門',
+          'zodiac-signs': '十二星座',
+          planets: '惑星の意味',
+          houses: 'ハウスシステム',
+          aspects: 'アスペクト理論',
+          'birth-chart': '出生図の読み方'
+        }
+      },
+      reading: {
+        title: 'チャート読解コース',
+        description: '実際の命盤を読み解く実践的なスキル',
+        lessons: {
+          preparation: '読解の準備',
+          'analysis-method': '分析手法',
+          interpretation: '解釈テクニック',
+          timing: 'タイミング分析',
+          synthesis: '総合判断',
+          practice: '実践練習'
+        }
+      }
+    },
+    lessons: 'レッスン',
+    difficulty: {
+      beginner: '初級',
+      intermediate: '中級',
+      advanced: '上級'
+    },
+    featured: {
+      title: '注目記事'
+    },
+    articles: {
+      'understanding-birth-chart': {
+        title: '出生図の理解',
+        excerpt: '西洋占星術の基礎となる出生図の読み方を詳しく解説します'
+      },
+      'five-elements-theory': {
+        title: '五行理論の基礎',
+        excerpt: '中国古代から伝わる五行理論の基本概念と実践的応用'
+      },
+      'career-astrology': {
+        title: 'キャリア占星術',
+        excerpt: '占星術を使ったキャリア選択と職業適性の分析方法'
+      },
+      'relationship-compatibility': {
+        title: '相性診断の方法',
+        excerpt: '二人の相性を占星術で分析する実践的な手法'
+      }
+    },
+    categories: {
+      title: 'カテゴリー',
+      fundamentals: '基礎知識',
+      astrology: '西洋占星術',
+      bazi: '生辰八字',
+      practical: '実践応用',
+      relationships: '人間関係',
+      career: 'キャリア'
+    },
+    categoryDescriptions: {
+      fundamentals: '占術の基本概念と歴史的背景',
+      astrology: '西洋占星術の理論と実践',
+      bazi: '中国の四柱推命理論',
+      practical: '日常生活での活用方法',
+      relationships: '人間関係と相性の分析',
+      career: 'キャリアと職業選択'
+    },
+    exploreCategory: 'カテゴリーを探索',
+    quickStart: {
+      title: 'クイックスタートガイド',
+      description: '占術を始めたばかりの方向けの簡単なガイドです：',
+      step1: '基礎理論を学ぶ',
+      step2: '実際の分析を試す',
+      step3: '結果を解釈する',
+      step4: '日常生活に活用する',
+      cta: '分析を始める'
+    },
+    readTime: '{minutes}分で読了'
+  },
+
+  // Article Common
+  article: {
+    publishedOn: '公開日',
+    nextReading: '関連記事',
+    breadcrumb: {
+      learn: '学習センター'
+    },
+    relatedArticles: {
+      zodiacSigns: '十二星座の意味',
+      planetMeanings: '惑星の象意',
+      astrologyHouses: '占星術のハウス',
+      baziBasics: '生辰八字の基礎',
+      heavenlyStems: '天干の理解',
+      earthlyBranches: '地支の理解'
+    },
+    understandingBirthChart: {
+      pageTitle: '出生図の理解',
+      title: '出生図の理解：占星術の基礎',
+      metaDescription: '西洋占星術の基礎となる出生図の読み方を詳しく解説。惑星、星座、ハウスの基本的な意味と解釈方法を学びます。',
+      introduction: '出生図は、あなたが生まれた瞬間の天体配置を記録した宇宙の設計図です。この記事では、出生図の基本的な読み方と解釈方法について詳しく説明します。',
+      description1: '出生図は西洋占星術の最も重要な要素の一つです。生年月日、出生時刻、出生地から作成され、その人の性格、才能、人生の課題や機会を示しています。',
+      description2: '正しく理解することで、自分自身をより深く知り、人生の方向性を見つける手がかりを得ることができます。',
+      sections: {
+        whatIs: {
+          title: '出生図とは何か',
+          description1: '出生図（ネイタルチャート）は、あなたが生まれた正確な瞬間における天体の位置を記録した図表です。',
+          keyElements: {
+            title: '出生図作成に必要な要素',
+            birthDate: '生年月日',
+            birthDateDesc: '正確な日付が必要',
+            birthTime: '出生時刻',
+            birthTimeDesc: '分単位での正確な時刻',
+            birthPlace: '出生地',
+            birthPlaceDesc: '経度・緯度情報'
+          },
+          description2: 'これらの情報から、太陽、月、惑星がどの星座にあり、どのハウスに位置していたかを正確に計算できます。'
+        },
+        components: {
+          title: '出生図の主要要素',
+          planets: {
+            title: '惑星',
+            description: '出生図には10の主要な天体が含まれ、それぞれ異なる人生の側面を表しています：',
+            personal: {
+              title: '個人天体',
+              sun: '太陽 - コア・アイデンティティ',
+              moon: '月 - 感情と本能',
+              mercury: '水星 - コミュニケーションと思考',
+              venus: '金星 - 愛と美的感覚',
+              mars: '火星 - 行動力とエネルギー'
+            },
+            social: {
+              title: '社会天体',
+              jupiter: '木星 - 拡大と成長',
+              saturn: '土星 - 制限と責任'
+            },
+            generational: {
+              title: '世代天体',
+              uranus: '天王星 - 革新と変化',
+              neptune: '海王星 - 夢想と直感',
+              pluto: '冥王星 - 変容と再生'
+            }
+          },
+          zodiac: {
+            title: '十二星座',
+            description: '各惑星がどの星座にあるかによって、その惑星のエネルギーの表現方法が決まります。'
+          },
+          houses: {
+            title: 'ハウス',
+            description: 'ハウスは人生の12の分野を表し、惑星のエネルギーがどの生活領域で発揮されるかを示します。',
+            tip: {
+              title: 'ヒント',
+              description: 'アセンダント（上昇星座）は第1ハウスの始まりで、あなたの外見的印象や人生へのアプローチを表します。'
+            }
+          }
+        },
+        howToRead: {
+          title: '出生図の読み方',
+          description: '出生図を読み解くには、以下の段階的なアプローチが効果的です：',
+          steps: {
+            step1: {
+              title: 'ビッグスリーを確認',
+              description: '太陽星座、月星座、上昇星座を最初に確認し、基本的な性格の枠組みを理解します。'
+            },
+            step2: {
+              title: '惑星の配置を分析',
+              description: '各惑星がどの星座・ハウスにあるかを確認し、人生の各分野での傾向を読み取ります。'
+            },
+            step3: {
+              title: 'アスペクトを観察',
+              description: '惑星同士の角度関係（アスペクト）を見て、エネルギーの相互作用を理解します。'
+            },
+            step4: {
+              title: '全体的なパターンを統合',
+              description: '個別の要素を統合して、全体的な性格傾向と人生テーマを読み取ります。'
+            }
+          }
+        },
+        bigThree: {
+          title: 'ビッグスリー',
+          description: '占星術で最も重要とされる3つの要素があります：',
+          sun: {
+            title: '太陽星座',
+            description: 'あなたの核となる性格、人生の目的、創造的エネルギーを表します。'
+          },
+          moon: {
+            title: '月星座',
+            description: 'あなたの感情的な性質、無意識の反応、内面的なニーズを表します。'
+          },
+          ascendant: {
+            title: '上昇星座（アセンダント）',
+            description: '外界に対するあなたの印象、人生へのアプローチ方法を表します。'
+          }
+        },
+        gettingStarted: {
+          title: '始めてみましょう',
+          description: '理論を学んだら、実際にあなた自身の出生図を作成して分析してみることが大切です。私たちのサービスを使って、今すぐあなたの出生図を作成してみませんか？',
+          cta: '私の出生図を作成する'
+        }
+      }
+    },
+    fiveElements: {
+      pageTitle: '五行理論の基礎',
+      title: '五行理論の基礎：中国古代の知恵',
+      metaDescription: '中国古代から伝わる五行理論の基本概念と実践的応用。木・火・土・金・水の特性と相互関係を詳しく解説します。',
+      introduction: '五行理論は中国古代から伝わる根本的な哲学思想であり、宇宙のすべてが木・火・土・金・水の五つの要素で構成されていると考えます。',
+      description1: '五行理論は、生辰八字（四柱推命）の基礎となる重要な概念です。この理論を理解することで、自然界の循環と人生の流れをより深く理解できるようになります。',
+      description2: 'それぞれの要素は独特の性質を持ち、相互に影響し合いながら宇宙の調和を保っています。',
+      sections: {
+        elements: {
+          title: '五つの要素',
+          description: '五行はそれぞれ独特の特性と象意を持っています：',
+          attributes: {
+            direction: '方位',
+            season: '季節',
+            color: '色',
+            emotion: '感情'
+          },
+          wood: {
+            title: '木',
+            direction: '東',
+            season: '春',
+            color: '青・緑',
+            emotion: '怒り',
+            description: '成長、発展、創造性を象徴します。春の新緑のように生命力に満ち、上向きのエネルギーを持ちます。'
+          },
+          fire: {
+            title: '火',
+            direction: '南',
+            season: '夏',
+            color: '赤',
+            emotion: '喜び',
+            description: '情熱、活動、光明を表します。太陽のように明るく、拡散的なエネルギーを持ちます。'
+          },
+          earth: {
+            title: '土',
+            direction: '中央',
+            season: '土用',
+            color: '黄',
+            emotion: '思慮',
+            description: '安定、養育、包容を象徴します。大地のように安定し、すべてを受け入れる包容力を持ちます。'
+          },
+          metal: {
+            title: '金',
+            direction: '西',
+            season: '秋',
+            color: '白',
+            emotion: '悲しみ',
+            description: '収束、精錬、正義を表します。鋭利で純粋な性質を持ち、不純物を取り除く力があります。'
+          },
+          water: {
+            title: '水',
+            direction: '北',
+            season: '冬',
+            color: '黒・青',
+            emotion: '恐れ',
+            description: '知恵、流動性、貯蔵を象徴します。水のように柔軟で、低い所に流れ、万物を潤します。'
+          }
+        },
+        interactions: {
+          title: '五行の相互関係',
+          description: '五行同士には相生（そうしょう）と相克（そうこく）という二つの基本的な関係があります。',
+          generative: {
+            title: '相生関係（生成の循環）',
+            description: '一つの要素が次の要素を生み出し、育てる関係です：',
+            woodFire: '木は燃えて火を生む',
+            fireEarth: '火は灰となって土を生む',
+            earthMetal: '土は金属を生み出す',
+            metalWater: '金属は水滴を生む',
+            waterWood: '水は木を育てる'
+          },
+          destructive: {
+            title: '相克関係（制御の循環）',
+            description: '一つの要素が別の要素を制御・抑制する関係です：',
+            examples: {
+              title: '相克の例',
+              woodEarth: '木は土の養分を吸収する',
+              earthWater: '土は水を吸収する',
+              waterFire: '水は火を消す',
+              fireMetal: '火は金属を溶かす',
+              metalWood: '金属（斧）は木を切る'
+            }
+          }
+        },
+        bazi: {
+          title: '生辰八字における五行',
+          description: '生辰八字では、生年月日時から導き出される八つの文字（天干地支）がそれぞれ五行に対応しています。',
+          pillars: {
+            title: '四柱と五行',
+            description: '年柱、月柱、日柱、時柱の各柱が五行のバランスを表します：',
+            year: '年柱',
+            yearDesc: '先祖からの影響、基本的な性格',
+            month: '月柱',
+            monthDesc: '成長期、社会性',
+            day: '日柱',
+            dayDesc: '本人の性格、配偶者との関係',
+            hour: '時柱',
+            hourDesc: '晩年、子供との関係'
+          },
+          balance: {
+            title: '五行のバランス',
+            description: '理想的な命盤では五行がバランス良く配置されています。不足や過多がある場合は、それを補う方法を考えます。',
+            tips: {
+              title: 'バランス調整のヒント',
+              tip1: '不足している要素の色を身につける',
+              tip2: '相応する方位を意識する',
+              tip3: '対応する季節の特性を活かす',
+              tip4: '相生関係を利用して補強する'
+            }
+          }
+        },
+        practical: {
+          title: '実践的な応用',
+          description: '五行理論は日常生活の様々な場面で活用できます：',
+          personality: {
+            title: '性格分析',
+            description: 'どの要素が強いかによって、その人の基本的な性格傾向を理解できます。'
+          },
+          career: {
+            title: 'キャリア選択',
+            description: '自分の五行バランスに適した職業や働き方を見つけることができます。'
+          },
+          health: {
+            title: '健康管理',
+            description: '各要素は身体の特定の部位と関連しており、健康管理の指針として活用できます。'
+          },
+          success: {
+            title: '成功への鍵',
+            description: '五行のバランスを理解し、調和を保つことで、より充実した人生を送ることができます。'
+          }
+        },
+        gettingStarted: {
+          title: 'あなたの五行を知る',
+          description: '理論を学んだら、実際にあなた自身の五行バランスを分析してみましょう。生辰八字分析を通じて、あなたの五行配置を確認できます。',
+          cta: '私の五行を分析する'
+        }
+      }
+    }
+  },
+
   footer: {
     copyright: '© 2025 命盤 - 生辰八字・四柱推命・命盤占い・占星分析'
   },
@@ -326,6 +1124,11 @@ export default {
     birthMinuteRequired: '出生分を選択してください',
     birthplaceRequired: '出生地を入力してください',
     genderRequired: '性別を選択してください'
+  },
+
+  notFound: {
+    transitRequiresData: '行運分析を利用するには、まず基本情報を入力してください。',
+    issueReported: '問題を報告しました。ご協力ありがとうございます。'
   },
   
   languageSwitcher: {
