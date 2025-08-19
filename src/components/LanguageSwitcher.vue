@@ -103,7 +103,7 @@ export default {
     
     positionStyle() {
       const [vPos, hPos] = this.position.split('-')
-      const style = { position: 'fixed', zIndex: 9999 }
+      const style = { position: 'fixed', zIndex: 9998 }
       
       if (vPos === 'top') {
         style.top = `${this.offset.top}px`
