@@ -314,6 +314,804 @@ export default {
     }
   },
   
+  // Navigation
+  nav: {
+    menuToggle: '菜单切换',
+    home: '首页',
+    learn: '学习中心',
+    about: '关于我们',
+    contact: '联系我们',
+    privacy: '隐私政策',
+    terms: '使用条款'
+  },
+
+  // About Page
+  about: {
+    pageTitle: '关于我们',
+    title: '关于命盘',
+    subtitle: '古代智慧与现代技术的融合',
+    metaDescription: '命盘提供专业的生辰八字和西方占星术分析服务。了解我们的使命、服务和技术。',
+    mission: {
+      title: '我们的使命',
+      description1: '命盘致力于将古代命理智慧与现代技术相结合，为每个人提供易于访问的高质量命理分析服务。',
+      description2: '我们深入研究东方生辰八字（四柱推命）和西方占星术的传统知识，结合精密的天文计算，为您提供准确而富有洞察力的分析结果。',
+      description3: '我们的目标是通过命理帮助人们更深入地了解自己，找到人生的方向。'
+    },
+    services: {
+      title: '提供服务',
+      bazi: {
+        title: '生辰八字分析',
+        description: '基于中国古代四柱推命理论，从您的出生年月日时详细分析命运。综合判断五行配置、大运流年、性格特质等。'
+      },
+      western: {
+        title: '西方占星术',
+        description: '运用现代占星学理论，详细解读您的出生图。从行星配置、星座特性、宫位影响等角度分析性格和运势。'
+      },
+      transit: {
+        title: '行运分析',
+        description: '分析当前和未来天体运行对您的影响，告知重要时期和机会。'
+      }
+    },
+    methodology: {
+      title: '我们的方法',
+      description1: '我们结合传统命理理论和现代天文学计算，提供最准确的分析结果：',
+      point1: '精密天文计算：使用VSOP87算法精确计算行星位置',
+      point2: '传统理论应用：基于古典命理文献的解释系统',
+      point3: '多语言支持：提供中文、日语、英语服务',
+      point4: '隐私保护：所有数据本地存储，严格保护隐私',
+      description2: '所有分析结果都经过严格的质量控制，确保准确性和可靠性。'
+    },
+    accuracy: {
+      title: '精度与可靠性',
+      description1: '我们既重视技术精度，也重视命理传统知识。',
+      description2: '通过以下技术特点，实现业界最高水准的分析精度：',
+      tech1: {
+        title: '高精度天文计算',
+        description: '儒略日转换和VSOP87算法的行星位置计算'
+      },
+      tech2: {
+        title: '地区优化',
+        description: '针对中国地区优化的上升星座计算算法'
+      },
+      tech3: {
+        title: '传统理论整合',
+        description: '基于古典命理文献的综合解释系统'
+      }
+    },
+    accessibility: {
+      title: '语言与可访问性',
+      description1: '我们的服务提供中文、日语、英语三种语言，世界各地的用户都可以使用。',
+      description2: '同时采用响应式设计，在智能手机、平板电脑、个人电脑等各种设备上都能舒适使用。'
+    },
+    privacy: {
+      title: '隐私与安全',
+      description1: '我们将用户隐私放在首位。所有个人数据都存储在本地浏览器中，不会发送到服务器。',
+      description2: '同时采用最新的安全技术，保护客户信息。'
+    },
+    cta: '立即开始分析'
+  },
+
+  // Privacy Page
+  privacy: {
+    pageTitle: '隐私政策',
+    title: '隐私政策',
+    lastUpdated: '最后更新日期',
+    metaDescription: '命盘的隐私政策。详细说明个人信息的收集、使用和保护。符合Google AdSense要求的隐私方针。',
+    introduction: {
+      title: '介绍',
+      description1: '命盘（https://meiban.info）将用户隐私放在首位。本隐私政策说明我们收集哪些信息，如何使用和保护这些信息。',
+      description2: '使用我们的服务即表示您同意本隐私政策。'
+    },
+    collection: {
+      title: '收集的信息',
+      personal: {
+        title: '个人信息',
+        name: '姓名（可选）',
+        birthdate: '出生日期',
+        birthtime: '出生时间',
+        birthplace: '出生地',
+        gender: '性别'
+      },
+      automatic: {
+        title: '自动收集的信息',
+        ip: 'IP地址',
+        browser: '浏览器信息',
+        device: '设备信息',
+        usage: '使用统计',
+        cookies: 'Cookie数据'
+      }
+    },
+    usage: {
+      title: '信息使用目的',
+      calculate: '命理分析的计算和结果生成',
+      provide: '服务提供和改进',
+      improve: '用户体验改善',
+      communicate: '与客户沟通',
+      analytics: '网站分析和性能改进',
+      ads: '相关广告显示'
+    },
+    adsense: {
+      title: 'Google AdSense',
+      description1: '本网站使用Google AdSense显示广告。AdSense使用Cookie来基于用户兴趣投放广告。',
+      description2: 'Google AdSense可能收集以下信息：',
+      cookies: {
+        title: 'AdSense Cookies',
+        doubleclick: 'DoubleClick DART Cookie',
+        personalization: '个性化广告Cookie',
+        analytics: '分析Cookie'
+      },
+      optout: '您可以在Google广告设置页面选择退出个性化广告。',
+      learnmore: '详情请参阅',
+      googlePrivacy: 'Google隐私政策'
+    },
+    analytics: {
+      title: 'Google Analytics',
+      description1: '本网站使用Google Analytics分析网站使用情况。',
+      description2: 'Google Analytics收集匿名数据，不包含个人身份信息。',
+      optout: '您可以安装Google Analytics退出插件来禁用数据收集：',
+      optoutLink: '退出插件'
+    },
+    cookies: {
+      title: '关于Cookie',
+      description1: '本网站使用Cookie来改进服务和用户体验。',
+      types: {
+        title: 'Cookie类型',
+        essential: {
+          title: '必需Cookie',
+          description: '网站基本功能所需'
+        },
+        analytics: {
+          title: '分析Cookie',
+          description: '网站使用情况分析'
+        },
+        advertising: {
+          title: '广告Cookie',
+          description: '相关广告显示'
+        },
+        functional: {
+          title: '功能Cookie',
+          description: '用户设置保存'
+        }
+      },
+      control: '您可以在浏览器设置中管理Cookie。'
+    },
+    storage: {
+      title: '数据存储',
+      description1: '您的命理分析数据主要存储在本地浏览器中，不会发送到我们的服务器。',
+      description2: '这样可以最大程度地保护您的隐私。',
+      retention: '您可以随时清除浏览器的本地存储来删除数据。'
+    },
+    sharing: {
+      title: '数据共享',
+      description1: '除法律要求外，我们不会与第三方共享您的个人信息。但以下情况除外：',
+      google: '与Google AdSense和Google Analytics等服务提供商共享',
+      legal: '法律要求或执法部门请求',
+      protection: '网站安全和运营保护',
+      consent: '获得您明确同意的情况'
+    },
+    rights: {
+      title: '您的权利',
+      access: '个人信息访问权',
+      correct: '信息更正权',
+      delete: '信息删除权',
+      portability: '数据可移植性权利',
+      object: '处理异议权',
+      restrict: '处理限制权',
+      contact: '如需行使这些权利，请联系我们。'
+    },
+    security: {
+      title: '安全',
+      description1: '我们采取适当的技术和组织措施，保护您的个人信息免受未授权访问、丢失、破坏。',
+      description2: '但请理解，互联网上的信息传输并非100%安全。'
+    },
+    international: {
+      title: '国际传输',
+      description1: '根据服务提供商所在地，您的信息可能会跨境传输。',
+      description2: '我们努力确保传输目的地国家也能提供适当的保护水平。'
+    },
+    children: {
+      title: '儿童隐私',
+      description1: '本服务不面向13岁以下儿童。',
+      description2: '我们不会故意收集13岁以下儿童的个人信息。'
+    },
+    changes: {
+      title: '政策变更',
+      description1: '我们可能会根据需要更新本隐私政策。',
+      description2: '如有重要变更，我们会在网站上通知。'
+    },
+    contact: {
+      title: '联系我们',
+      description: '如对本隐私政策有任何疑问，请通过以下方式联系我们：',
+      email: {
+        label: '邮箱地址'
+      },
+      website: {
+        label: '网站',
+        link: '联系我们页面'
+      }
+    }
+  },
+
+  // Contact Page
+  contact: {
+    pageTitle: '联系我们',
+    title: '联系我们',
+    subtitle: '如有任何问题或建议，请随时联系我们',
+    metaDescription: '命盘联系我们页面。我们为各种咨询提供支持，包括技术问题、隐私问题等。',
+    info: {
+      title: '联系信息',
+      email: {
+        title: '一般咨询',
+        description: '关于服务的问题和建议'
+      },
+      privacy: {
+        title: '隐私相关咨询',
+        description: '数据保护和隐私相关问题'
+      },
+      website: {
+        title: '官方网站',
+        description: '最新信息和服务详情'
+      }
+    },
+    form: {
+      title: '联系表单',
+      name: {
+        label: '姓名',
+        placeholder: '请输入您的姓名'
+      },
+      email: {
+        label: '邮箱地址',
+        placeholder: 'your.email@example.com'
+      },
+      subject: {
+        label: '咨询内容',
+        placeholder: '请选择咨询内容',
+        options: {
+          general: '一般咨询',
+          technical: '技术问题',
+          privacy: '隐私相关问题',
+          feedback: '意见反馈',
+          partnership: '合作伙伴关系'
+        }
+      },
+      message: {
+        label: '留言',
+        placeholder: '请输入详细留言...'
+      },
+      consent: {
+        text: '我同意隐私政策',
+        link: '隐私政策'
+      },
+      submit: '发送',
+      submitting: '发送中...',
+      success: '消息发送成功。我们会尽快回复您。',
+      error: '发送过程中出现错误。请稍后重试。'
+    },
+    faq: {
+      title: '常见问题',
+      items: {
+        accuracy: {
+          question: '命理分析的准确度如何？',
+          answer: '我们结合精密的天文计算和传统命理理论，提供最高水准的准确度。但建议将命理作为参考使用。'
+        },
+        privacy: {
+          question: '个人信息是否安全保护？',
+          answer: '是的。您的数据主要存储在本地浏览器中，不会发送到我们的服务器。详情请查看隐私政策。'
+        },
+        technical: {
+          question: '遇到技术问题怎么办？',
+          answer: '请更新浏览器到最新版本，清除缓存后重试。如问题持续，请联系技术支持。'
+        },
+        languages: {
+          question: '支持哪些语言？',
+          answer: '目前提供中文、日语、英语服务。您可以通过右上角的按钮切换语言。'
+        },
+        mobile: {
+          question: '移动设备可以使用吗？',
+          answer: '是的。本网站采用响应式设计，在智能手机和平板电脑上都能舒适使用。'
+        }
+      }
+    },
+    response: {
+      title: '响应时间',
+      urgent: {
+        title: '紧急咨询',
+        description: '24小时内回复'
+      },
+      general: {
+        title: '一般咨询',
+        description: '1-3个工作日内回复'
+      },
+      complex: {
+        title: '复杂技术问题',
+        description: '3-7个工作日内回复'
+      }
+    }
+  },
+
+  // Terms Page
+  terms: {
+    pageTitle: '使用条款',
+    title: '使用条款',
+    lastUpdated: '最后更新日期',
+    metaDescription: '命盘的使用条款。详细说明服务使用条件、用户责任、免责声明等。',
+    introduction: {
+      title: '介绍',
+      description1: '本使用条款（以下称"本条款"）规定了命盘（https://meiban.info）提供的服务（以下称"本服务"）的使用条件。',
+      description2: '使用本服务前，请仔细阅读本条款。',
+      description3: '使用本服务即表示您同意本条款。'
+    },
+    acceptance: {
+      title: '条款同意',
+      description1: '访问或使用本服务即表示您同意受本条款所有条款的约束。',
+      description2: '如不同意本条款，请不要使用本服务。'
+    },
+    service: {
+      title: '服务说明',
+      description1: '本服务提供以下功能：',
+      feature1: '生辰八字（四柱推命）分析和解释',
+      feature2: '西方占星术分析和解释',
+      feature3: '行运分析和未来预测',
+      feature4: '多语言支持（中文、日语、英语）',
+      description2: '本服务仅供娱乐和教育目的，不是专业建议。'
+    },
+    responsibilities: {
+      title: '用户责任',
+      description1: '使用本服务时，您需要承担以下责任：',
+      accurate: '提供准确信息',
+      legal: '遵守法律法规',
+      respectful: '尊重其他用户',
+      security: '维护账户安全',
+      compliance: '遵守本条款'
+    },
+    prohibited: {
+      title: '禁止行为',
+      description1: '以下行为被禁止：',
+      illegal: '违法行为或违规行为',
+      harmful: '有害、威胁性或诽谤性内容',
+      spam: '垃圾邮件或骚扰邮件',
+      unauthorized: '未授权访问',
+      interference: '干扰服务',
+      violate: '侵犯知识产权',
+      impersonate: '冒充他人'
+    },
+    intellectual: {
+      title: '知识产权',
+      description1: '本服务的所有内容、功能、特征均为命盘及其许可方的专有财产。',
+      description2: '包括文本、图形、标志、图标、图像、音频剪辑、软件等。',
+      description3: '受版权、商标权和其他知识产权法保护。'
+    },
+    privacy: {
+      title: '隐私和数据',
+      description1: '您的隐私对我们很重要。',
+      description2: '关于数据收集和使用，请查看我们的',
+      link: '隐私政策'
+    },
+    disclaimers: {
+      title: '免责声明',
+      entertainment: {
+        title: '娱乐目的',
+        description: '本服务仅供娱乐和教育目的，不是专业建议、医疗、法律、财务咨询的替代。'
+      },
+      accuracy: {
+        title: '关于准确性',
+        description: '命理分析结果仅供参考，重要人生决定建议咨询专业人士。'
+      },
+      decisions: {
+        title: '决定责任',
+        description: '基于本服务结果的所有决定均由您自行承担责任。'
+      },
+      professional: {
+        title: '专业建议',
+        description: '本服务不是医疗、法律、财务、心理专业建议的替代。'
+      }
+    },
+    liability: {
+      title: '责任限制',
+      description1: '在法律允许的最大范围内，命盘不对因使用本服务而产生的直接、间接、附带、后果性损害承担责任。',
+      description2: '包括但不限于利润损失、数据损失、业务中断等。',
+      description3: '某些司法管辖区可能不允许排除或限制损害。'
+    },
+    availability: {
+      title: '服务可用性',
+      description1: '我们不保证本服务始终可用。',
+      description2: '由于维护、更新或其他原因，服务可能暂时中断。',
+      description3: '我们保留随时更改、暂停或终止服务的权利，恕不另行通知。'
+    },
+    modifications: {
+      title: '条款变更',
+      description1: '我们保留根据需要修改本条款的权利。',
+      description2: '如有重要变更，我们会在网站上通知。变更后的使用视为对修改条款的同意。'
+    },
+    termination: {
+      title: '服务终止',
+      description1: '我们保留因任何原因随时终止或暂停您使用服务的权利。',
+      description2: '服务终止后，相关条款条文仍将保持有效。'
+    },
+    governing: {
+      title: '适用法律',
+      description1: '本条款受中华人民共和国法律管辖并按其解释。',
+      description2: '与本条款相关的争议将在中华人民共和国管辖法院解决。'
+    },
+    contact: {
+      title: '联系我们',
+      description: '如对本条款有任何疑问，请通过以下方式联系我们：',
+      email: {
+        label: '邮箱地址'
+      },
+      website: {
+        label: '网站',
+        link: '联系我们页面'
+      }
+    }
+  },
+
+  // Learn Page
+  learn: {
+    pageTitle: '学习中心',
+    title: '命理学习中心',
+    subtitle: '学习古代智慧，理解自己的命运',
+    metaDescription: '学习生辰八字和西方占星术的综合学习中心。提供从初学者到高级用户的教育内容。',
+    intro: {
+      title: '欢迎来到命理世界',
+      description1: '在我们的学习中心，您可以系统地学习生辰八字（四柱推命）和西方占星术的基础到应用。',
+      description2: '以现代视角理解古代智慧，掌握在日常生活中应用的实用知识。'
+    },
+    paths: {
+      title: '学习课程',
+      bazi: {
+        title: '生辰八字课程',
+        description: '从基础学习中国古代四柱推命理论',
+        lessons: {
+          basics: '基础理论',
+          'heavenly-stems': '天干理解',
+          'earthly-branches': '地支理解',
+          'five-elements': '五行理论',
+          'reading-pillars': '四柱读法',
+          'interpreting-chart': '命盘解释'
+        }
+      },
+      astrology: {
+        title: '西方占星术课程',
+        description: '从现代占星学基本概念到实践',
+        lessons: {
+          introduction: '占星术入门',
+          'zodiac-signs': '十二星座',
+          planets: '行星意义',
+          houses: '宫位系统',
+          aspects: '相位理论',
+          'birth-chart': '出生图读法'
+        }
+      },
+      reading: {
+        title: '图表解读课程',
+        description: '解读实际命盘的实用技能',
+        lessons: {
+          preparation: '解读准备',
+          'analysis-method': '分析方法',
+          interpretation: '解释技巧',
+          timing: '时机分析',
+          synthesis: '综合判断',
+          practice: '实践练习'
+        }
+      }
+    },
+    lessons: '课程',
+    difficulty: {
+      beginner: '初级',
+      intermediate: '中级',
+      advanced: '高级'
+    },
+    featured: {
+      title: '精选文章'
+    },
+    articles: {
+      'understanding-birth-chart': {
+        title: '理解出生图',
+        excerpt: '详细解释西方占星术基础的出生图读法'
+      },
+      'five-elements-theory': {
+        title: '五行理论基础',
+        excerpt: '中国古代传承的五行理论基本概念和实际应用'
+      },
+      'career-astrology': {
+        title: '职业占星术',
+        excerpt: '使用占星术进行职业选择和职业适性分析的方法'
+      },
+      'relationship-compatibility': {
+        title: '相性诊断方法',
+        excerpt: '用占星术分析两人相性的实用手法'
+      }
+    },
+    categories: {
+      title: '分类',
+      fundamentals: '基础知识',
+      astrology: '西方占星术',
+      bazi: '生辰八字',
+      practical: '实践应用',
+      relationships: '人际关系',
+      career: '职业'
+    },
+    categoryDescriptions: {
+      fundamentals: '命理的基本概念和历史背景',
+      astrology: '西方占星术的理论和实践',
+      bazi: '中国的四柱推命理论',
+      practical: '日常生活中的运用方法',
+      relationships: '人际关系和相性分析',
+      career: '职业和职业选择'
+    },
+    exploreCategory: '探索分类',
+    quickStart: {
+      title: '快速开始指南',
+      description: '为刚开始命理的人提供的简单指南：',
+      step1: '学习基础理论',
+      step2: '尝试实际分析',
+      step3: '解释结果',
+      step4: '应用到日常生活',
+      cta: '开始分析'
+    },
+    readTime: '{minutes}分钟阅读'
+  },
+
+  // Article Common
+  article: {
+    publishedOn: '发布日期',
+    nextReading: '相关文章',
+    breadcrumb: {
+      learn: '学习中心'
+    },
+    relatedArticles: {
+      zodiacSigns: '十二星座的意义',
+      planetMeanings: '行星象征',
+      astrologyHouses: '占星术的宫位',
+      baziBasics: '生辰八字基础',
+      heavenlyStems: '天干理解',
+      earthlyBranches: '地支理解'
+    },
+    understandingBirthChart: {
+      pageTitle: '理解出生图',
+      title: '理解出生图：占星术基础',
+      metaDescription: '详细解释西方占星术基础的出生图读法。学习行星、星座、宫位的基本意义和解释方法。',
+      introduction: '出生图是记录您出生瞬间天体配置的宇宙设计图。本文详细说明出生图的基本读法和解释方法。',
+      description1: '出生图是西方占星术最重要的要素之一。从出生年月日、出生时刻、出生地制作，显示人的性格、才能、人生课题和机会。',
+      description2: '正确理解后，能更深入地了解自己，获得找到人生方向的线索。',
+      sections: {
+        whatIs: {
+          title: '什么是出生图',
+          description1: '出生图（本命盘）是记录您出生准确瞬间天体位置的图表。',
+          keyElements: {
+            title: '制作出生图需要的要素',
+            birthDate: '出生年月日',
+            birthDateDesc: '需要准确日期',
+            birthTime: '出生时刻',
+            birthTimeDesc: '精确到分钟的时刻',
+            birthPlace: '出生地',
+            birthPlaceDesc: '经纬度信息'
+          },
+          description2: '从这些信息可以准确计算太阳、月亮、行星位于哪个星座，位于哪个宫位。'
+        },
+        components: {
+          title: '出生图的主要要素',
+          planets: {
+            title: '行星',
+            description: '出生图包含10个主要天体，各自表示人生的不同方面：',
+            personal: {
+              title: '个人天体',
+              sun: '太阳 - 核心身份',
+              moon: '月亮 - 情感和本能',
+              mercury: '水星 - 沟通和思考',
+              venus: '金星 - 爱和美感',
+              mars: '火星 - 行动力和能量'
+            },
+            social: {
+              title: '社会天体',
+              jupiter: '木星 - 扩展和成长',
+              saturn: '土星 - 限制和责任'
+            },
+            generational: {
+              title: '世代天体',
+              uranus: '天王星 - 革新和变化',
+              neptune: '海王星 - 梦想和直觉',
+              pluto: '冥王星 - 变容和再生'
+            }
+          },
+          zodiac: {
+            title: '十二星座',
+            description: '各行星位于哪个星座决定该行星能量的表达方式。'
+          },
+          houses: {
+            title: '宫位',
+            description: '宫位表示人生的12个分野，显示行星能量在哪个生活领域发挥。',
+            tip: {
+              title: '提示',
+              description: '上升星座（Ascendant）是第1宫的开始，表示您的外在印象和人生态度。'
+            }
+          }
+        },
+        howToRead: {
+          title: '出生图的读法',
+          description: '解读出生图时，以下分阶段的方法很有效：',
+          steps: {
+            step1: {
+              title: '确认Big Three',
+              description: '首先确认太阳星座、月亮星座、上升星座，理解基本性格框架。'
+            },
+            step2: {
+              title: '分析行星配置',
+              description: '确认各行星位于哪个星座·宫位，读取人生各分野的倾向。'
+            },
+            step3: {
+              title: '观察相位',
+              description: '观察行星之间的角度关系（相位），理解能量的相互作用。'
+            },
+            step4: {
+              title: '整合整体模式',
+              description: '整合个别要素，读取整体性格倾向和人生主题。'
+            }
+          }
+        },
+        bigThree: {
+          title: 'Big Three',
+          description: '占星术中最重要的3个要素：',
+          sun: {
+            title: '太阳星座',
+            description: '表示您的核心性格、人生目的、创造性能量。'
+          },
+          moon: {
+            title: '月亮星座',
+            description: '表示您的情感性质、无意识反应、内在需求。'
+          },
+          ascendant: {
+            title: '上升星座（Ascendant）',
+            description: '表示对外界的印象、人生态度方法。'
+          }
+        },
+        gettingStarted: {
+          title: '开始尝试',
+          description: '学习理论后，实际制作和分析自己的出生图很重要。使用我们的服务，现在就制作您的出生图试试吧？',
+          cta: '制作我的出生图'
+        }
+      }
+    },
+    fiveElements: {
+      pageTitle: '五行理论基础',
+      title: '五行理论基础：中国古代智慧',
+      metaDescription: '中国古代传承的五行理论基本概念和实际应用。详细解释木·火·土·金·水的特性和相互关系。',
+      introduction: '五行理论是中国古代传承的根本哲学思想，认为宇宙万物由木·火·土·金·水五个要素构成。',
+      description1: '五行理论是生辰八字（四柱推命）基础的重要概念。理解这个理论，能更深入地理解自然界的循环和人生流程。',
+      description2: '各要素都有独特的性质，相互影响维持宇宙的和谐。',
+      sections: {
+        elements: {
+          title: '五个要素',
+          description: '五行各自有独特的特性和象征：',
+          attributes: {
+            direction: '方位',
+            season: '季节',
+            color: '颜色',
+            emotion: '情感'
+          },
+          wood: {
+            title: '木',
+            direction: '东',
+            season: '春',
+            color: '青·绿',
+            emotion: '怒',
+            description: '象征成长、发展、创造性。如春天的新绿充满生命力，有向上的能量。'
+          },
+          fire: {
+            title: '火',
+            direction: '南',
+            season: '夏',
+            color: '红',
+            emotion: '喜',
+            description: '表示热情、活动、光明。如太阳般明亮，有扩散性能量。'
+          },
+          earth: {
+            title: '土',
+            direction: '中央',
+            season: '土用',
+            color: '黄',
+            emotion: '思',
+            description: '象征稳定、养育、包容。如大地般稳定，有接纳一切的包容力。'
+          },
+          metal: {
+            title: '金',
+            direction: '西',
+            season: '秋',
+            color: '白',
+            emotion: '悲',
+            description: '表示收敛、精炼、正义。有锐利纯粹的性质，有去除杂质的力量。'
+          },
+          water: {
+            title: '水',
+            direction: '北',
+            season: '冬',
+            color: '黑·蓝',
+            emotion: '恐',
+            description: '象征智慧、流动性、储藏。如水般柔软，流向低处，滋润万物。'
+          }
+        },
+        interactions: {
+          title: '五行的相互关系',
+          description: '五行之间有相生和相克两种基本关系。',
+          generative: {
+            title: '相生关系（生成循环）',
+            description: '一个要素生成、培育下一个要素的关系：',
+            woodFire: '木燃烧生火',
+            fireEarth: '火化为灰生土',
+            earthMetal: '土生出金属',
+            metalWater: '金属生水滴',
+            waterWood: '水培育木'
+          },
+          destructive: {
+            title: '相克关系（控制循环）',
+            description: '一个要素控制、抑制另一个要素的关系：',
+            examples: {
+              title: '相克的例子',
+              woodEarth: '木吸收土的养分',
+              earthWater: '土吸收水',
+              waterFire: '水灭火',
+              fireMetal: '火熔化金属',
+              metalWood: '金属（斧）砍木'
+            }
+          }
+        },
+        bazi: {
+          title: '生辰八字中的五行',
+          description: '在生辰八字中，从出生年月日时导出的八个字（天干地支）各自对应五行。',
+          pillars: {
+            title: '四柱和五行',
+            description: '年柱、月柱、日柱、时柱各柱表示五行的平衡：',
+            year: '年柱',
+            yearDesc: '祖先影响、基本性格',
+            month: '月柱',
+            monthDesc: '成长期、社会性',
+            day: '日柱',
+            dayDesc: '本人性格、配偶关系',
+            hour: '时柱',
+            hourDesc: '晚年、子女关系'
+          },
+          balance: {
+            title: '五行平衡',
+            description: '理想的命盘中五行平衡配置。如有不足或过多，考虑补充方法。',
+            tips: {
+              title: '平衡调整提示',
+              tip1: '佩戴不足要素的颜色',
+              tip2: '注意相应方位',
+              tip3: '活用对应季节的特性',
+              tip4: '利用相生关系补强'
+            }
+          }
+        },
+        practical: {
+          title: '实际应用',
+          description: '五行理论可以在日常生活的各种场面中运用：',
+          personality: {
+            title: '性格分析',
+            description: '根据哪个要素强可以理解人的基本性格倾向。'
+          },
+          career: {
+            title: '职业选择',
+            description: '可以找到适合自己五行平衡的职业和工作方式。'
+          },
+          health: {
+            title: '健康管理',
+            description: '各要素与身体特定部位相关，可作为健康管理的指针。'
+          },
+          success: {
+            title: '成功的关键',
+            description: '理解五行平衡，保持和谐，能过上更充实的人生。'
+          }
+        },
+        gettingStarted: {
+          title: '了解您的五行',
+          description: '学习理论后，实际分析自己的五行平衡吧。通过生辰八字分析，可以确认您的五行配置。',
+          cta: '分析我的五行'
+        }
+      }
+    }
+  },
+
   footer: {
     copyright: '© 2025 命盘 - 生辰八字・紫微斗数・西方占星分析'
   },
