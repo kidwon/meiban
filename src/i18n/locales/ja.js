@@ -1693,5 +1693,938 @@ export default {
     email: 'メールでシェア',
     wechatTip: '右上の「…」ボタンをタップしてシェアしてください',
     error: 'シェアに失敗しました。後でもう一度お試しください'
+  },
+
+  // レッスン翻译
+  lesson: {
+    overview: 'コース概要',
+    objectives: '学習目標',
+    objective1: '基本概念と原理の習得',
+    objective2: '実際の応用方法の理解',
+    objective3: '独立した分析能力の獲得',
+    content: 'コース内容',
+    example: '例',
+    practice: '練習',
+    previous: '前のレッスン',
+    next: '次のレッスン',
+    notFound: 'レッスンが見つかりません',
+    placeholder1: 'これはコースの主要な内容です。関連概念を深く探求し、包括的な理解を提供します。',
+    placeholder2: '実際のケースと詳細な説明を通じて、理論知識を実際の分析に応用する方法を学びます。',
+    placeholder3: 'これらの知識を習得すれば、独立して関連する占星学分析を行うことができるようになります。',
+    exampleText: 'これは具体的な例であり、学習した内容をより良く理解するのに役立ちます。',
+    practiceInstruction: '下のボタンをクリックして実践練習を始め、学習した知識を実際の命盤分析に応用してください。',
+    startPractice: '練習開始',
+    
+    lessons: {
+      bazi: {
+        basics: '八字基礎',
+        'heavenly-stems': '天干詳解',
+        'earthly-branches': '地支詳解',
+        'five-elements': '五行理論',
+        'reading-pillars': '四柱解読'
+      },
+      astrology: {
+        introduction: '占星入門',
+        'zodiac-signs': '十二星座',
+        planets: '行星詳解',
+        houses: '宮位詳解',
+        aspects: '相位詳解'
+      },
+      reading: {
+        preparation: '解読準備',
+        'analysis-method': '分析方法'
+      }
+    },
+    
+    // 詳細なレッスン内容
+    lessonContent: {
+      common: {
+        overview: 'コース概要',
+        objectives: '学習目標',
+        practice: '練習思考',
+        navigation: 'コースナビゲーション',
+        previous: '前のレッスン',
+        next: '次のレッスン',
+        startPractice: '練習開始',
+        testMyAttributes: '私の属性をテスト'
+      },
+      
+      baziHeavenlyStems: {
+        title: '天干詳解',
+        breadcrumb: '天干詳解',
+        intro: '天干は八字命理学の核心要素の一つであり、十個の記号から成り、異なるエネルギー属性と特質を表します。天干の意味を深く理解することは、八字を正確に分析するために極めて重要です。',
+        objectives: {
+          obj1: '十天干の基本的な意味と属性を習得',
+          obj2: '天干の陰陽ペア関係を理解',
+          obj3: '天干の五行分類と特性を学習',
+          obj4: '天干の命理分析における役割を理解'
+        },
+        overview: {
+          title: '十天干概覧',
+          description: '天干は全部で十個：甲、乙、丙、丁、戊、己、庚、辛、壬、癸。二つの天干が一組となり、それぞれ陽性と陰性のエネルギーを表します。',
+          stems: {
+            wood: '甲乙 - 木',
+            fire: '丙丁 - 火',
+            earth: '戊己 - 土',
+            metal: '庚辛 - 金',
+            water: '壬癸 - 水'
+          }
+        },
+        detailed: {
+          title: '天干詳解',
+          jia: {
+            name: '甲 - 陽木',
+            element: '木',
+            symbolLabel: '象徴',
+            symbol: '聳え立つ大樹、棟梁の材',
+            traitsLabel: '特質',
+            traits: '剛直、原則性、指導力強、曲がりにくい',
+            personalityLabel: '性格',
+            personality: '積極的、正義感富む、単刀直入を好む',
+            careerLabel: '職業傾向',
+            career: '管理者、企業家、裁判官、教師'
+          },
+          yi: {
+            name: '乙 - 陰木',
+            element: '木',
+            symbolLabel: '象徴',
+            symbol: '花草蔦蔓、柔靭なもの',
+            traitsLabel: '特質',
+            traits: '柔軟、適応性強、変通に長けている',
+            personalityLabel: '性格',
+            personality: '温和細やか、同情心豊か、コミュニケーション上手',
+            careerLabel: '職業傾向',
+            career: 'アーティスト、カウンセラー、看護師、庭師'
+          },
+          bing: {
+            name: '丙 - 陽火',
+            element: '火',
+            symbolLabel: '象徴',
+            symbol: '太陽、燃え盛る炎',
+            traitsLabel: '特質',
+            traits: '熱情的、明るく正直、影響力強',
+            personalityLabel: '性格',
+            personality: '楽観的、感染力がある、注目されることを好む',
+            careerLabel: '職業傾向',
+            career: '俳優、司会者、営業、政治家'
+          },
+          ding: {
+            name: '丁 - 陰火',
+            element: '火',
+            symbolLabel: '象徴',
+            symbol: 'ろうそくの光、炉火',
+            traitsLabel: '特質',
+            traits: '温かく細やか、持続的安定、他者を照らす',
+            personalityLabel: '性格',
+            personality: '心遣いが細やか、忍耐強い、他者の世話が上手',
+            careerLabel: '職業傾向',
+            career: '医師、料理人、デザイナー、心理カウンセラー'
+          },
+          wu: {
+            name: '戊 - 陽土',
+            element: '土',
+            symbolLabel: '象徴',
+            symbol: '高山、城壁',
+            traitsLabel: '特質',
+            traits: '安定信頼、包容力強、防御力良好',
+            personalityLabel: '性格',
+            personality: '着実安定、責任感強、信頼できる',
+            careerLabel: '職業傾向',
+            career: '建築士、エンジニア、銀行員、警備員'
+          },
+          ji: {
+            name: '己 - 陰土',
+            element: '土',
+            symbolLabel: '象徴',
+            symbol: '田園、肥沃な土',
+            traitsLabel: '特質',
+            traits: '万物を滋養、黙々と奉仕、包容寛大',
+            personalityLabel: '性格',
+            personality: '温和包容、人助けを楽しむ、家庭重視',
+            careerLabel: '職業傾向',
+            career: '農業、サービス業、ソーシャルワーカー、会計士'
+          },
+          geng: {
+            name: '庚 - 陽金',
+            element: '金',
+            symbolLabel: '象徴',
+            symbol: '刀剣、鋼鉄',
+            traitsLabel: '特質',
+            traits: '堅硬鋭利、決断力ある、正義凛然',
+            personalityLabel: '性格',
+            personality: '剛毅果断、困難を恐れず、正義感がある',
+            careerLabel: '職業傾向',
+            career: '軍人、警察官、外科医、弁護士'
+          },
+          xin: {
+            name: '辛 - 陰金',
+            element: '金',
+            symbolLabel: '象徴',
+            symbol: '宝石、精金',
+            traitsLabel: '特質',
+            traits: '精緻優雅、品質高貴、完璧を追求',
+            personalityLabel: '性格',
+            personality: '精緻細やか、美的センス高、精工細作を追求',
+            careerLabel: '職業傾向',
+            career: 'ジュエリーデザイナー、芸術品鑑定、精密機器'
+          },
+          ren: {
+            name: '壬 - 陽水',
+            element: '水',
+            symbolLabel: '象徴',
+            symbol: '江河湖海、荒波',
+            traitsLabel: '特質',
+            traits: '流動変化、万物包容、適応性強',
+            personalityLabel: '性格',
+            personality: '柔軟機知、変通善く、冒険精神あり',
+            careerLabel: '職業傾向',
+            career: '貿易、観光、航海、メディア'
+          },
+          gui: {
+            name: '癸 - 陰水',
+            element: '水',
+            symbolLabel: '象徴',
+            symbol: '雨露、甘泉',
+            traitsLabel: '特質',
+            traits: '万物を潤す、細やかで緻密、黙々と奉仕',
+            personalityLabel: '性格',
+            personality: '細心で思いやりあり、直感鋭い、同情心豊か',
+            careerLabel: '職業傾向',
+            career: '研究者、心理学者、看護、文学創作'
+          }
+        },
+        application: {
+          title: '実際応用',
+          subtitle: '八字分析での運用',
+          points: {
+            dayMaster: {
+              title: '日主分析',
+              description: '日干は本人を表し、日干の属性分析により基本性格を理解'
+            },
+            tenGods: {
+              title: '十神関係',
+              description: '他の天干と日干の関係が十神を形成し、人生の各方面を反映'
+            },
+            pattern: {
+              title: '格局判断',
+              description: '天干の組み合わせが八字格局の高低に影響'
+            },
+            luck: {
+              title: '大運流年',
+              description: '大運と流年の天干と命局天干の作用関係'
+            }
+          }
+        },
+        metaDescription: '十天干の詳細な意味、属性、特質を学習し、八字命理学の核心要素を習得する。',
+        combinations: {
+          title: '天干相合',
+          description: '天干間には相合関係が存在し、相合は調和、協力、矛盾解決を表します。',
+          list: {
+            jiaji: {combo: '甲己合', result: '化土', meaning: '仁義の結合、剛柔並済を表す'},
+            yigeng: {combo: '乙庚合', result: '化金', meaning: '仁義と威厳の結合を表す'},
+            bingxin: {combo: '丙辛合', result: '化水', meaning: '礼儀と正義の結合を表す'},
+            dingren: {combo: '丁壬合', result: '化木', meaning: '礼儀と智慧の結合を表す'},
+            wugui: {combo: '戊癸合', result: '化火', meaning: '信義と智慧の結合を表す'}
+          }
+        },
+        practice: {
+          title: '実際応用',
+          subtitle: '八字分析での運用',
+          points: {
+            dayMaster: {
+              title: '日主分析',
+              description: '日干は本人を表し、日干の属性分析により基本性格を理解'
+            },
+            tenGods: {
+              title: '十神関係',
+              description: '他の天干と日干の関係が十神を形成し、人生の各方面を反映'
+            },
+            pattern: {
+              title: '格局判断',
+              description: '天干の組み合わせが八字格局の高低に影響'
+            },
+            luck: {
+              title: '大運流年',
+              description: '大運と流年の天干と命局天干の作用関係'
+            }
+          }
+        },
+        exercise: {
+          question: '周りの人を観察し、彼らの性格特徴から日干が何である可能性があるかを推測してみてください。',
+          button: '私の天干属性をテスト'
+        }
+      },
+
+      // 八字レッスン内容
+      baziBasics: {
+        title: '八字基礎入門',
+        breadcrumb: '八字基礎',
+        intro: '八字命理学は中華伝統文化の重要な構成要素であり、個人の出生時の年月日時を分析して、生命の基本法則と発展傾向を明らかにします。',
+        metaDescription: '八字命理学の基礎知識を学習し、天干地支システムと五行理論を理解し、八字学習の旅を始めましょう。',
+        objectives: {
+          obj1: '八字命理学の基本概念と歴史的起源を理解',
+          obj2: '年月日時四柱の構成と意味を習得',
+          obj3: '天干地支の基本概念を理解',
+          obj4: '八字排盤の基本方法を学習'
+        },
+        sections: {
+          whatIsBazi: {
+            title: '八字とは何か？',
+            description: '八字、別名「四柱八字」は、個人の出生年月日時に基づき、それぞれ天干地支の組み合わせで表し、合計八文字であることから「八字」と称されます。',
+            composition: {
+              title: '八字の構成',
+              year: '年柱',
+              yearDesc: '出生年の天干地支',
+              month: '月柱',
+              monthDesc: '出生月の天干地支',
+              day: '日柱',
+              dayDesc: '出生日の天干地支',
+              hour: '時柱',
+              hourDesc: '出生時刻の天干地支'
+            }
+          },
+          stemsBranches: {
+            title: '天干地支システム',
+            description: '天干地支は中国古代の紀年・紀月・紀日・紀時システムであり、八字命理学の基礎でもあります。',
+            heavenlyStems: {
+              title: '十天干',
+              sequence: '甲、乙、丙、丁、戊、己、庚、辛、壬、癸',
+              wood: '甲乙は木に属する（甲は陽木、乙は陰木）',
+              fire: '丙丁は火に属する（丙は陽火、丁は陰火）',
+              earth: '戊己は土に属する（戊は陽土、己は陰土）',
+              metal: '庚辛は金に属する（庚は陽金、辛は陰金）',
+              water: '壬癸は水に属する（壬は陽水、癸は陰水）'
+            },
+            earthlyBranches: {
+              title: '十二地支',
+              sequence: '子、丑、寅、卯、辰、巳、午、未、申、酉、戌、亥',
+              water: '子、亥は水に属する',
+              wood: '寅、卯は木に属する',
+              fire: '巳、午は火に属する',
+              metal: '申、酉は金に属する',
+              earth: '辰、戌、丑、未は土に属する'
+            }
+          },
+          fiveElements: {
+            title: '五行理論',
+            description: '五行（木、火、土、金、水）は八字分析の核心理論であり、事物間の相互関係を描写します。',
+            elements: {
+              wood: {
+                name: '木',
+                traits: '成長、上向、仁慈を表す',
+                associations: '春季、東方、青色'
+              },
+              fire: {
+                name: '火',
+                traits: '温熱、上向、礼智を表す',
+                associations: '夏季、南方、赤色'
+              },
+              earth: {
+                name: '土',
+                traits: '包容、安定、誠信を表す',
+                associations: '長夏、中央、黄色'
+              },
+              metal: {
+                name: '金',
+                traits: '収斂、粛殺、義気を表す',
+                associations: '秋季、西方、白色'
+              },
+              water: {
+                name: '水',
+                traits: '寒冷、下向、知恵を表す',
+                associations: '冬季、北方、黒色'
+              }
+            },
+            relationships: {
+              title: '五行関係',
+              generating: '相生',
+              generatingCycle: '木生火、火生土、土生金、金生水、水生木',
+              overcoming: '相克',
+              overcomingCycle: '木克土、土克水、水克火、火克金、金克木'
+            }
+          },
+          example: {
+            title: '実例分析',
+            caseTitle: '例：1990年3月15日午前10時生まれ',
+            table: {
+              year: '年柱',
+              month: '月柱',
+              day: '日柱',
+              hour: '時柱'
+            },
+            analysisTitle: '簡単分析',
+            analysisContent: '日主甲木は卯月に生まれ時令の気を得ますが、年柱庚金、時干己土が甲木に圧力を形成し、詳細な分析を通じて八字の強弱と用神を判断する必要があります。'
+          }
+        },
+        practice: {
+          question: '自分の生辰八字を排盤し、四柱への理解度を確認してみてください。',
+          button: '八字分析を開始'
+        }
+      },
+
+      baziEarthlyBranches: {
+        title: '地支詳解',
+        breadcrumb: '地支詳解',
+        metaDescription: '十二地支の意味、干支対応、相互関係を深く学び、地支蔵干などの重要概念を習得。',
+        intro: '地支は八字命理学において天干と組み合わせる別の記号体系で、十二個あり、十二支と対応し、異なる時間周期とエネルギー特質を表します。',
+        objectives: {
+          obj1: '十二地支の基本的な意味と属性を習得',
+          obj2: '地支と生肖の対応関係を理解',
+          obj3: '地支の刑沖害合関係を学習',
+          obj4: '地支の命理分析における役割を理解'
+        },
+        overview: {
+          title: '地支概覧',
+          intro: '十二地支は時計回りに配列され、十二時辰と十二支に対応し、完全な時間と空間体系を形成します。'
+        },
+        classification: {
+          title: '地支五行分類',
+          water: {
+            title: '水：子、亥',
+            desc: '子は陽水、亥は陰水で、冬季と北方を表す'
+          },
+          wood: {
+            title: '木：寅、卯',
+            desc: '寅は陽木、卯は陰木で、春季と東方を表す'
+          },
+          fire: {
+            title: '火：巳、午',
+            desc: '巳は陰火、午は陽火で、夏季と南方を表す'
+          },
+          metal: {
+            title: '金：申、酉',
+            desc: '申は陽金、酉は陰金で、秋季と西方を表す'
+          },
+          earth: {
+            title: '土：辰、戌、丑、未',
+            desc: '四つの土支はそれぞれ四季末月を表し、収蔵と転換の作用を持つ'
+          }
+        },
+        detailed: {
+          title: '十二地支詳解',
+          common: {
+            timeLabel: '時間',
+            seasonLabel: '季節',
+            traitsLabel: '特質',
+            hiddenLabel: '蔵干'
+          },
+          zi: {
+            title: '子 - 鼠 (水)',
+            time: '子時（23:00-1:00）',
+            season: '冬季中期、水旺の時',
+            traits: '機敏で柔軟、機転が利く、適応力が強い',
+            hidden: '癸水'
+          },
+          chou: {
+            title: '丑 - 牛 (土)',
+            time: '丑時（1:00-3:00）',
+            season: '冬季末期、土庫の地',
+            traits: '勤勉で堅実、忍耐強く、包容力がある',
+            hidden: '己土、癸水、辛金'
+          },
+          yin: {
+            title: '寅 - 虎 (木)',
+            time: '寅時（3:00-5:00）',
+            season: '春季初期、木気萌動',
+            traits: '勇猛果敢、指導力がある、正義感が強い',
+            hidden: '甲木、丙火、戊土'
+          },
+          mao: {
+            title: '卯 - 兎 (木)',
+            time: '卯時（5:00-7:00）',
+            season: '春季中期、木気最盛',
+            traits: '温和で繊細、社交上手、美的センスが優れている',
+            hidden: '乙木'
+          },
+          chen: {
+            title: '辰 - 龍 (土)',
+            time: '辰時（7:00-9:00）',
+            season: '春季末期、水庫の地',
+            traits: '聡明で賢い、変化に富む、威厳がある',
+            hidden: '戊土、乙木、癸水'
+          },
+          si: {
+            title: '巳 - 蛇 (火)',
+            time: '巳時（9:00-11:00）',
+            season: '夏季初期、火気漸旺',
+            traits: '知恵深い、神秘的、直感が鋭い',
+            hidden: '丙火、戊土、庚金'
+          },
+          wu: {
+            title: '午 - 馬 (火)',
+            time: '午時（11:00-13:00）',
+            season: '夏季中期、火気最盛',
+            traits: '情熱的、行動が迅速、こだわりがない',
+            hidden: '丁火、己土'
+          },
+          wei: {
+            title: '未 - 羊 (土)',
+            time: '未時（13:00-15:00）',
+            season: '夏季末期、木庫の地',
+            traits: '温和で善良、同情心豊か、芸術的才能がある',
+            hidden: '己土、丁火、乙木'
+          },
+          shen: {
+            title: '申 - 猿 (金)',
+            time: '申時（15:00-17:00）',
+            season: '秋季初期、金気漸旺',
+            traits: '聡明で機敏、多才多芸、変通に長ける',
+            hidden: '庚金、壬水、戊土'
+          },
+          you: {
+            title: '酉 - 鶏 (金)',
+            time: '酉時（17:00-19:00）',
+            season: '秋季中期、金気最盛',
+            traits: '勤勉で時間厳守、細部重視、完璧主義',
+            hidden: '辛金'
+          },
+          xu: {
+            title: '戌 - 犬 (土)',
+            time: '戌時（19:00-21:00）',
+            season: '秋季末期、火庫の地',
+            traits: '忠実で信頼できる、正義感が強い、責任感が重い',
+            hidden: '戊土、辛金、丁火'
+          },
+          hai: {
+            title: '亥 - 猪 (水)',
+            time: '亥時（21:00-23:00）',
+            season: '冬季初期、水気漸旺',
+            traits: '純朴で善良、寛容で度量が大きい、知恵に富む',
+            hidden: '壬水、甲木'
+          }
+        },
+        relationships: {
+          title: '地支関係',
+          sixHarmony: {
+            title: '六合',
+            desc: '六合は調和相合の関係を表し、互いの力を増強する助けとなります。',
+            combinations: {
+              zichou: '子丑合土',
+              yinhai: '寅亥合木',
+              maoxu: '卯戌合火',
+              chenyou: '辰酉合金',
+              sishen: '巳申合水',
+              wuwei: '午未合土'
+            }
+          },
+          triad: {
+            title: '三合',
+            desc: '三合局は三つの地支からなる強力な組み合わせで、特定五行の強化を形成します。',
+            combinations: {
+              shuiju: {
+                name: '申子辰',
+                result: '合水局'
+              },
+              huoju: {
+                name: '寅午戌',
+                result: '合火局'
+              },
+              jinju: {
+                name: '巳酉丑',
+                result: '合金局'
+              },
+              muju: {
+                name: '亥卯未',
+                result: '合木局'
+              }
+            }
+          },
+          clash: {
+            title: '相沖',
+            desc: '相沖は対立衝突の関係を表し、動揺と変化を生み出します。',
+            combinations: {
+              ziwu: '子午沖',
+              chouwei: '丑未沖',
+              yinshen: '寅申沖',
+              maoyou: '卯酉沖',
+              chenxu: '辰戌沖',
+              sihai: '巳亥沖'
+            }
+          },
+          punishment: {
+            title: '相刑',
+            desc: '相刑は相互制約と懲罰の関係を表し、特に注意が必要です。',
+            types: {
+              wuli: '子卯刑 - 無礼の刑',
+              wuen: '寅巳申刑 - 無恩の刑',
+              shishi: '丑戌未刑 - 恃勢の刑',
+              zixing: '辰午酉亥自刑 - 自刑'
+            }
+          }
+        },
+        hiddenStems: {
+          title: '地支蔵干',
+          intro: '各地支の内部には天干が蔵されており、これらの蔵干は八字分析において重要な役割を果たします。',
+          table: {
+            branch: '地支',
+            primary: '本気',
+            middle: '中気',
+            residue: '余気'
+          }
+        },
+        practice: {
+          question: '十二支の特徴を観察し、対応する地支のエネルギー特質との関連性を考えてみてください。',
+          button: '私の地支属性をテスト'
+        }
+      },
+
+      baziFiveElements: {
+        title: '五行理論深度解析',
+        breadcrumb: '五行理論',
+        metaDescription: '五行理論の核心概念、相生相克の法則、旺衰強弱の判断方法を深く学び、八字命理分析の理論基礎を習得。',
+        intro: '五行理論は八字命理学の理論基礎であり、金木水火土五つの基本元素の相互作用を通じて、万物運行の法則を明らかにします。',
+        objectives: {
+          obj1: '五行の基本的な意味と属性を深く理解',
+          obj2: '五行相生相克の法則を習得',
+          obj3: '五行の旺衰強弱の判断方法を学習',
+          obj4: '五行の命理分析における核心的役割を理解'
+        },
+        philosophy: {
+          title: '五行哲学思想',
+          cosmic: {
+            title: '宇宙観',
+            content: '五行は古代中国人の宇宙観を体現し、万物が基本的な五つの元素によって構成され、これらの元素が絶えず運動し変化することで、宇宙の万象を形成するとされています。'
+          },
+          balance: {
+            title: 'バランスの智慧',
+            content: '五行理論の核心は調和とバランスです。五つの元素は相互依存し、制約し合い、動的平衡状態を保つことで、生命と宇宙の調和的発展を維持します。'
+          },
+          unity: {
+            title: '天人合一',
+            content: '五行理論は人間と自然の統一性を強調します。人間の体質、性格、運命は皆五行の影響を受け、自然界の変化法則と相応し、天人合一の理想状態を実現します。'
+          }
+        },
+        detailed: {
+          title: '五行詳解',
+          wood: {
+            title: '木：生長と創造',
+            characteristics: {
+              title: '特徴',
+              content: '木は生長、拡張、上昇の特性を持ち、春の生機勃発を象徴します。柔軟で韧性があり、向上心に富み、常に光に向かって成長します。'
+            },
+            correspondences: {
+              title: '対応関係',
+              season: '季節：春',
+              direction: '方位：東',
+              emotion: '感情：怒',
+              organ: '臓器：肝胆',
+              color: '色彩：青、緑'
+            },
+            states: {
+              title: '状態',
+              prosperous: '旺相：春季（寅卯月）に最も強い',
+              resting: '休囚：秋季（申酉月）に最も弱い',
+              dead: '死絶：四季末月（辰戌丑未月）に制約を受ける'
+            }
+          },
+          fire: {
+            title: '火：光明と熱情',
+            characteristics: {
+              title: '特徴',
+              content: '火は光明、温暖、向上の特性を持ち、夏の熱烈さを象徴します。積極的で熱情的、人を温めることを喜び、光明をもたらします。'
+            },
+            correspondences: {
+              title: '対応関係',
+              season: '季節：夏',
+              direction: '方位：南',
+              emotion: '感情：喜',
+              organ: '臓器：心小腸',
+              color: '色彩：赤、紫'
+            },
+            states: {
+              title: '状態',
+              prosperous: '旺相：夏季（巳午月）に最も強い',
+              resting: '休囚：冬季（亥子月）に最も弱い',
+              dead: '死絶：四季末月（辰戌丑未月）に制約を受ける'
+            }
+          },
+          earth: {
+            title: '土：安定と包容',
+            characteristics: {
+              title: '特徴',
+              content: '土は包容、載物、生育の特性を持ち、大地の厚徳を象徴します。安定で誠実、すべてを包容し、生命を育みます。'
+            },
+            correspondences: {
+              title: '対応関係',
+              season: '季節：長夏（四季末月）',
+              direction: '方位：中央',
+              emotion: '感情：思',
+              organ: '臓器：脾胃',
+              color: '色彩：黄、茶'
+            },
+            states: {
+              title: '状態',
+              prosperous: '旺相：四季末月（辰戌丑未月）に最も強い',
+              resting: '休囚：冬季（亥子月）に最も弱い',
+              dead: '死絶：春季（寅卯月）に制約を受ける'
+            }
+          },
+          metal: {
+            title: '金：収斂と果断',
+            characteristics: {
+              title: '特徴',
+              content: '金は収斂、粛殺、堅固の特性を持ち、秋の萧瑟を象徴します。堅硬で果断、規則を重んじ、事物を整理する能力があります。'
+            },
+            correspondences: {
+              title: '対応関係',
+              season: '季節：秋',
+              direction: '方位：西',
+              emotion: '感情：悲',
+              organ: '臓器：肺大腸',
+              color: '色彩：白、金'
+            },
+            states: {
+              title: '状態',
+              prosperous: '旺相：秋季（申酉月）に最も強い',
+              resting: '休囚：春季（寅卯月）に最も弱い',
+              dead: '死絶：夏季（巳午月）に制約を受ける'
+            }
+          },
+          water: {
+            title: '水：智慧と流動',
+            characteristics: {
+              title: '特徴',
+              content: '水は流動、下降、潤下の特性を持ち、冬の深沈を象徴します。柔軟で智慧に富み、すべてを潤し、最も低いところに流れる智慧があります。'
+            },
+            correspondences: {
+              title: '対応関係',
+              season: '季節：冬',
+              direction: '方位：北',
+              emotion: '感情：恐',
+              organ: '臓器：腎膀胱',
+              color: '色彩：黒、藍'
+            },
+            states: {
+              title: '状態',
+              prosperous: '旺相：冬季（亥子月）に最も強い',
+              resting: '休囚：夏季（巳午月）に最も弱い',
+              dead: '死絶：四季末月（辰戌丑未月）に制約を受ける'
+            }
+          }
+        },
+        relationships: {
+          title: '五行関係ネットワーク',
+          generation: {
+            title: '相生関係',
+            subtitle: '互いを生み出し支援する',
+            cycles: {
+              waterWood: '水生木：水が木を育む',
+              woodFire: '木生火：木が火を燃やす',
+              fireEarth: '火生土：火が土を生む',
+              earthMetal: '土生金：土が金を産む',
+              metalWater: '金生水：金が水を生む'
+            }
+          },
+          destruction: {
+            title: '相克関係',
+            subtitle: '互いを抑制し制約する',
+            cycles: {
+              waterFire: '水克火：水が火を消す',
+              fireEarth: '火克金：火が金を溶かす',
+              metalWood: '金克木：金が木を切る',
+              woodEarth: '木克土：木が土を消耗する',
+              earthWater: '土克水：土が水を吸収する'
+            }
+          }
+        },
+        strength: {
+          title: '五行旺衰強弱分析',
+          factors: {
+            title: '影響要因',
+            seasonal: {
+              title: '季節要因',
+              content: '各五行にはそれぞれ旺相休囚死の季節があり、同じ属性の月令に最も強く、相克される月令に最も弱くなります。'
+            },
+            support: {
+              title: '扶助要因',
+              content: '同類五行と相生五行の数量と強度が多いほど、その五行は強くなります。逆に相克五行が多いと弱くなります。'
+            },
+            position: {
+              title: '位置要因',
+              content: '天干地支の位置によっても強弱が影響され、根の深い五行はより安定し、浮いている五行はより変化しやすくなります。'
+            }
+          },
+          balance: {
+            title: 'バランス類型',
+            balanced: {
+              title: '中和バランス型',
+              desc: '五行力量が相対的に均衡し、相互制約し支援し合う理想状態'
+            },
+            strong: {
+              title: '偏強型',
+              desc: 'ある五行が過度に強く、全体のバランスを破壊し、適当な消耗が必要'
+            },
+            weak: {
+              title: '偏弱型',
+              desc: 'ある五行が過度に弱く、適当な扶助と強化が必要'
+            },
+            specialized: {
+              title: '専旺型',
+              desc: 'ある五行が極めて旺盛で、他の五行を圧倒し、特殊な処理が必要'
+            }
+          }
+        },
+        application: {
+          title: '実践応用技巧',
+          analysis: {
+            title: '分析手順',
+            step1: '1. 日主五行を確定し、命主の核心属性を明確にする',
+            step2: '2. 月令の影響を分析し、日主の基本的な旺衰を判断する',
+            step3: '3. 他の干支の扶助克制作用を総合的に考慮する',
+            step4: '4. 全局五行の力量対比を分析し、用神忌神を確定する',
+            step5: '5. 大運流年との作用関係を結び付けて総合判断する'
+          },
+          harmony: {
+            title: '調和方法',
+            deficiency: {
+              title: '不足補充法',
+              content: '不足する五行に対して、対応する五行属性の事物を通じて補強できます'
+            },
+            excess: {
+              title: '過剰疏通法',
+              content: '過度に強い五行に対して、相克または消耗の方法で調和できます'
+            },
+            circulation: {
+              title: '通関流通法',
+              content: '対立する五行の間で、中間五行を通じて化解し流通させることができます'
+            }
+          }
+        },
+        practice: {
+          question: '自然界の現象を観察し、五行相生相克が現実生活にどう現れているか考えてみてください。',
+          button: '私の五行配置を分析'
+        }
+      },
+
+      baziReadingPillars: {
+        title: '四柱解読技巧',
+        breadcrumb: '四柱解読',
+        intro: '四柱解読は八字命理分析の核心技能であり、天干地支、五行理論、各種格局を総合的に運用して命局を体系的に分析する必要があります。',
+        objectives: {
+          obj1: '年月日時四柱の分析方法を習得',
+          obj2: '命局の格局高低の判断方法を学習',
+          obj3: '大運流年の作用メカニズムを理解',
+          obj4: '体系的な命理分析ができるようになる'
+        },
+        practice: {
+          question: '一つの命例を選び、四柱解読の方法で体系的分析を試してみてください。',
+          button: '四柱解読を練習'
+        }
+      },
+
+      // 占星学レッスン内容
+      astrologyIntroduction: {
+        title: '占星学入門',
+        breadcrumb: '占星入門',
+        intro: '西洋占星学は天体の運動が人間の生活にどう影響するかを研究する古い学問です。個人の出生時刻の星体位置を分析することで、性格特質、天賦才能、人生発展方向を深く理解できます。',
+        objectives: {
+          obj1: '西洋占星学の歴史と基本原理を理解',
+          obj2: '占星学の核心要素：星座、惑星、ハウスを認識',
+          obj3: '出生図の基本構成を理解',
+          obj4: '占星学の分析思路を習得'
+        },
+        practice: {
+          question: '夜空の星座を観察し、古人がどのように星象と人生を結びつけたかを考えてみてください。',
+          button: '私の星盤を確認'
+        }
+      },
+
+      astrologyZodiacSigns: {
+        title: '十二星座詳解',
+        breadcrumb: '十二星座',
+        intro: '十二星座は占星学の基礎要素であり、各星座は独特な性格特質、元素属性、主宰惑星を持ちます。星座を深く理解することは個人特質を正確に解読するのに役立ちます。',
+        objectives: {
+          obj1: '十二星座の基本特質と象徴的意味を習得',
+          obj2: '星座の四元素分類と三態分類を理解',
+          obj3: '星座間の相互関係の分析方法を学習',
+          obj4: '星座の命盤分析における役割を理解'
+        },
+        practice: {
+          question: '周りの異なる星座の友人を観察し、対応する星座特質を持っているか確認してみてください。',
+          button: '私の星座を深く分析'
+        }
+      },
+
+      astrologyPlanets: {
+        title: '惑星詳解',
+        breadcrumb: '惑星詳解',
+        intro: '惑星は占星学の核心要素であり、各惑星は人格の異なる側面と生命の各領域を表します。惑星の意味、特質、エネルギー表現を理解することは、占星分析を習得する重要な基礎です。',
+        objectives: {
+          obj1: '十大惑星の基本的意味と象徴を習得',
+          obj2: '惑星の分類と階層構造を理解',
+          obj3: '異なる星座における惑星の表現の分析方法を学習',
+          obj4: '惑星逆行と相位の基本概念を理解'
+        },
+        practice: {
+          question: '自分の行動パターンを観察し、どの惑星の影響があなたに最も明確に現れているか考えてみてください。',
+          button: '私の惑星配置を分析'
+        }
+      },
+
+      astrologyHouses: {
+        title: 'ハウス詳解',
+        breadcrumb: 'ハウス詳解',
+        intro: '十二ハウスは人生の十二の重要領域を表し、個人アイデンティティから人間関係、キャリア発展から精神成長まで。ハウスの意味を理解することは完全な星盤解読の鍵です。',
+        objectives: {
+          obj1: '十二ハウスの基本的意味と生活領域を習得',
+          obj2: 'ハウスのアンギュラー、サクシーデント、ケーデントの分類を理解',
+          obj3: '異なるハウスにおける惑星の表現の分析方法を学習',
+          obj4: 'ハウス支配星とハウス関係の重要性を理解'
+        },
+        practice: {
+          question: '人生の重要な瞬間を振り返り、それらがどのハウスのテーマに属するか考えてみてください。',
+          button: '私のハウス重点を探索'
+        }
+      },
+
+      astrologyAspects: {
+        title: 'アスペクト詳解',
+        breadcrumb: 'アスペクト詳解',
+        intro: 'アスペクトは惑星間の角度関係であり、異なる惑星エネルギーの相互作用方式を明らかにします。アスペクト分析を習得することは星盤のダイナミクスを深く理解する重要な技能です。',
+        objectives: {
+          obj1: '主要アスペクトの意味と影響を習得',
+          obj2: 'ハーモニアスアスペクトとハードアスペクトの違いを理解',
+          obj3: '星盤におけるアスペクトの計算と識別方法を学習',
+          obj4: 'アスペクトの個性分析における役割を理解'
+        },
+        practice: {
+          question: '自分の内在する葛藤と調和面を観察し、どのような惑星アスペクトに対応する可能性があるか考えてみてください。',
+          button: '私のアスペクトパターンを分析'
+        }
+      },
+
+      // 解読技術レッスン
+      readingPreparation: {
+        title: '解読前の準備',
+        breadcrumb: '解読準備',
+        intro: '正確な命理分析を行うには十分な準備作業が必要で、資料収集、基礎知識の習得、正しい分析心構えが含まれます。',
+        objectives: {
+          obj1: '正確な出生情報収集方法を習得',
+          obj2: '各種命理分析ツールの使用方法を理解',
+          obj3: '客観公正な分析態度を養成',
+          obj4: '体系的な分析計画の立て方を学習'
+        },
+        practice: {
+          question: '一つの命例を分析する準備をし、準備作業が十分かチェックしてみてください。',
+          button: '分析準備を開始'
+        }
+      },
+
+      readingAnalysisMethod: {
+        title: '分析方法',
+        breadcrumb: '分析方法',
+        intro: '体系化された分析方法は命盤を正確に解読する保証です。科学的な手順と方法により、主観的推測を避け、客観的で正確な分析結果を得ることができます。',
+        objectives: {
+          obj1: '体系化された分析手順を習得',
+          obj2: '多様な分析ツールの運用方法を学習',
+          obj3: '総合分析の重要性を理解',
+          obj4: '論理的推理能力を養成'
+        },
+        practice: {
+          question: '学習した分析方法を運用し、完全な命例に対して体系的分析を試してみてください。',
+          button: '分析方法を応用'
+        }
+      }
+    }
   }
-}
+};

@@ -1695,5 +1695,1129 @@ export default {
     email: 'Share via Email',
     wechatTip: 'Please tap the "..." button in the top right corner to share',
     error: 'Share failed, please try again later'
-  }
-}
+  },
+
+  // Lesson translations
+  lesson: {
+    overview: 'Course Overview',
+    objectives: 'Learning Objectives',
+    objective1: 'Master basic concepts and principles',
+    objective2: 'Understand practical application methods',
+    objective3: 'Acquire independent analysis abilities',
+    content: 'Course Content',
+    example: 'Example',
+    practice: 'Practice',
+    previous: 'Previous Lesson',
+    next: 'Next Lesson',
+    notFound: 'Lesson not found',
+    placeholder1: 'This is the main content of the course. We will explore relevant concepts in depth to provide you with comprehensive understanding.',
+    placeholder2: 'Through practical cases and detailed explanations, you will learn how to apply theoretical knowledge to actual analysis.',
+    placeholder3: 'After mastering this knowledge, you will be able to independently perform related astrological analysis.',
+    exampleText: 'This is a specific example to help you better understand the content you have learned.',
+    practiceInstruction: 'Click the button below to start practical exercises and apply your learned knowledge to real birth chart analysis.',
+    startPractice: 'Start Practice',
+    
+    lessons: {
+      bazi: {
+        basics: 'Bazi Basics',
+        'heavenly-stems': 'Heavenly Stems Detailed',
+        'earthly-branches': 'Earthly Branches Detailed',
+        'five-elements': 'Five Elements Theory',
+        'reading-pillars': 'Reading Four Pillars'
+      },
+      astrology: {
+        introduction: 'Astrology Introduction',
+        'zodiac-signs': 'Twelve Zodiac Signs',
+        planets: 'Planets Detailed',
+        houses: 'Houses Detailed',
+        aspects: 'Aspects Detailed'
+      },
+      reading: {
+        preparation: 'Reading Preparation',
+        'analysis-method': 'Analysis Method'
+      }
+    },
+    
+    // Detailed lesson content
+    lessonContent: {
+      common: {
+        overview: 'Course Overview',
+        objectives: 'Learning Objectives',
+        practice: 'Practice Thinking',
+        navigation: 'Course Navigation',
+        previous: 'Previous Lesson',
+        next: 'Next Lesson',
+        startPractice: 'Start Practice',
+        testMyAttributes: 'Test My Attributes'
+      },
+      
+      baziHeavenlyStems: {
+        title: 'Heavenly Stems Detailed Explanation',
+        breadcrumb: 'Heavenly Stems Detailed',
+        intro: 'The Heavenly Stems are one of the core elements of Bazi astrology, consisting of ten symbols that represent different energy attributes and characteristics. Understanding the meaning of the Heavenly Stems deeply is crucial for accurate Bazi analysis.',
+        objectives: {
+          obj1: 'Master the basic meanings and attributes of the ten Heavenly Stems',
+          obj2: 'Understand the yin-yang pairing relationships of the Heavenly Stems',
+          obj3: 'Learn the Five Element classification and characteristics of the Heavenly Stems',
+          obj4: 'Understand the role of Heavenly Stems in fortune-telling analysis'
+        },
+        overview: {
+          title: 'Overview of the Ten Heavenly Stems',
+          description: 'There are ten Heavenly Stems in total: Jia, Yi, Bing, Ding, Wu, Ji, Geng, Xin, Ren, Gui. Every two Heavenly Stems form a group, representing yang and yin energies respectively.',
+          stems: {
+            wood: 'Jia-Yi - Wood',
+            fire: 'Bing-Ding - Fire',
+            earth: 'Wu-Ji - Earth',
+            metal: 'Geng-Xin - Metal',
+            water: 'Ren-Gui - Water'
+          }
+        },
+        detailed: {
+          title: 'Detailed Explanation of Heavenly Stems',
+          jia: {
+            name: 'Jia - Yang Wood',
+            element: 'Wood',
+            symbolLabel: 'Symbol',
+            symbol: 'Towering trees, pillar materials',
+            traitsLabel: 'Traits',
+            traits: 'Upright, principled, strong leadership, inflexible',
+            personalityLabel: 'Personality',
+            personality: 'Proactive, strong sense of justice, likes straightforward approach',
+            careerLabel: 'Career Tendencies',
+            career: 'Managers, entrepreneurs, judges, teachers'
+          },
+          yi: {
+            name: 'Yi - Yin Wood',
+            element: 'Wood',
+            symbolLabel: 'Symbol',
+            symbol: 'Flowers, grass, vines, flexible things',
+            traitsLabel: 'Traits',
+            traits: 'Gentle, highly adaptable, good at flexibility',
+            personalityLabel: 'Personality',
+            personality: 'Gentle and delicate, compassionate, good at communication',
+            careerLabel: 'Career Tendencies',
+            career: 'Artists, counselors, nurses, gardeners'
+          },
+          bing: {
+            name: 'Bing - Yang Fire',
+            element: 'Fire',
+            symbolLabel: 'Symbol',
+            symbol: 'Sun, blazing fire',
+            traitsLabel: 'Traits',
+            traits: 'Passionate, bright and honest, strong influence',
+            personalityLabel: 'Personality',
+            personality: 'Optimistic, infectious, likes to be the center of attention',
+            careerLabel: 'Career Tendencies',
+            career: 'Actors, hosts, sales, politicians'
+          },
+          ding: {
+            name: 'Ding - Yin Fire',
+            element: 'Fire',
+            symbolLabel: 'Symbol',
+            symbol: 'Candle light, hearth fire',
+            traitsLabel: 'Traits',
+            traits: 'Warm and delicate, persistently stable, illuminating others',
+            personalityLabel: 'Personality',
+            personality: 'Thoughtful, patient, good at caring for others',
+            careerLabel: 'Career Tendencies',
+            career: 'Doctors, chefs, designers, psychologists'
+          },
+          wu: {
+            name: 'Wu - Yang Earth',
+            element: 'Earth',
+            symbolLabel: 'Symbol',
+            symbol: 'High mountains, city walls',
+            traitsLabel: 'Traits',
+            traits: 'Stable and reliable, highly tolerant, good defense',
+            personalityLabel: 'Personality',
+            personality: 'Steady and stable, strong sense of responsibility, trustworthy',
+            careerLabel: 'Career Tendencies',
+            career: 'Architects, engineers, bankers, security guards'
+          },
+          ji: {
+            name: 'Ji - Yin Earth',
+            element: 'Earth',
+            symbolLabel: 'Symbol',
+            symbol: 'Fields, fertile soil',
+            traitsLabel: 'Traits',
+            traits: 'Nourishes all things, silently dedicated, tolerant and generous',
+            personalityLabel: 'Personality',
+            personality: 'Gentle and tolerant, enjoys helping others, values family',
+            careerLabel: 'Career Tendencies',
+            career: 'Agriculture, service industry, social work, accountants'
+          },
+          geng: {
+            name: 'Geng - Yang Metal',
+            element: 'Metal',
+            symbolLabel: 'Symbol',
+            symbol: 'Swords, steel',
+            traitsLabel: 'Traits',
+            traits: 'Hard and sharp, decisive and powerful, righteous',
+            personalityLabel: 'Personality',
+            personality: 'Firm and decisive, not afraid of difficulties, has sense of justice',
+            careerLabel: 'Career Tendencies',
+            career: 'Military personnel, police officers, surgeons, lawyers'
+          },
+          xin: {
+            name: 'Xin - Yin Metal',
+            element: 'Metal',
+            symbolLabel: 'Symbol',
+            symbol: 'Jewelry, refined gold',
+            traitsLabel: 'Traits',
+            traits: 'Exquisite and elegant, high quality, pursuing perfection',
+            personalityLabel: 'Personality',
+            personality: 'Meticulous, high aesthetic taste, pursuing fine craftsmanship',
+            careerLabel: 'Career Tendencies',
+            career: 'Jewelry designers, art appraisers, precision instruments'
+          },
+          ren: {
+            name: 'Ren - Yang Water',
+            element: 'Water',
+            symbolLabel: 'Symbol',
+            symbol: 'Rivers, lakes, seas, surging waves',
+            traitsLabel: 'Traits',
+            traits: 'Flowing and changing, embracing all things, highly adaptable',
+            personalityLabel: 'Personality',
+            personality: 'Flexible and witty, good at adaptation, adventurous spirit',
+            careerLabel: 'Career Tendencies',
+            career: 'Trading, tourism, navigation, media'
+          },
+          gui: {
+            name: 'Gui - Yin Water',
+            element: 'Water',
+            symbolLabel: 'Symbol',
+            symbol: 'Rain and dew, sweet spring',
+            traitsLabel: 'Traits',
+            traits: 'Moistens all things, delicate and meticulous, silently dedicated',
+            personalityLabel: 'Personality',
+            personality: 'Careful and considerate, sharp intuition, compassionate',
+            careerLabel: 'Career Tendencies',
+            career: 'Researchers, psychologists, nursing, literary creation'
+          }
+        },
+        combinations: {
+          title: 'Heavenly Stem Combinations',
+          description: 'There are combination relationships between Heavenly Stems, which represent harmony, cooperation, and conflict resolution.',
+          list: {
+            jiaji: {combo: 'Jia-Ji Combination', result: 'Transform to Earth', meaning: 'Represents the combination of benevolence and righteousness, balancing firmness and flexibility'},
+            yigeng: {combo: 'Yi-Geng Combination', result: 'Transform to Metal', meaning: 'Represents the combination of benevolence and authority'},
+            bingxin: {combo: 'Bing-Xin Combination', result: 'Transform to Water', meaning: 'Represents the combination of propriety and justice'},
+            dingren: {combo: 'Ding-Ren Combination', result: 'Transform to Wood', meaning: 'Represents the combination of propriety and wisdom'},
+            wugui: {combo: 'Wu-Gui Combination', result: 'Transform to Fire', meaning: 'Represents the combination of trustworthiness and wisdom'}
+          }
+        },
+        application: {
+          title: 'Practical Application',
+          subtitle: 'Application in Bazi Analysis',
+          points: {
+            dayMaster: {
+              title: 'Day Master Analysis',
+              description: 'The Day Stem represents the person, understand basic personality through analyzing Day Stem attributes'
+            },
+            tenGods: {
+              title: 'Ten Gods Relationship',
+              description: 'The relationship between other Heavenly Stems and Day Stem forms Ten Gods, reflecting various aspects of life'
+            },
+            pattern: {
+              title: 'Pattern Judgment',
+              description: 'Heavenly Stem combinations influence the level of Bazi patterns'
+            },
+            luck: {
+              title: 'Major Luck and Yearly Fortune',
+              description: 'The interaction between Major Luck and Yearly Fortune Heavenly Stems with natal chart Heavenly Stems'
+            }
+          }
+        },
+        metaDescription: 'Learn the detailed meanings, attributes, and characteristics of the ten Heavenly Stems, master the core elements of Bazi astrology.',
+        practice: {
+          title: 'Practical Application',
+          subtitle: 'Application in Bazi Analysis',
+          points: {
+            dayMaster: {
+              title: 'Day Master Analysis',
+              description: 'The Day Stem represents the person, understand basic personality through analyzing Day Stem attributes'
+            },
+            tenGods: {
+              title: 'Ten Gods Relationship',
+              description: 'The relationship between other Heavenly Stems and Day Stem forms Ten Gods, reflecting various aspects of life'
+            },
+            pattern: {
+              title: 'Pattern Judgment',
+              description: 'Heavenly Stem combinations influence the level of Bazi patterns'
+            },
+            luck: {
+              title: 'Major Luck and Yearly Fortune',
+              description: 'The interaction between Major Luck and Yearly Fortune Heavenly Stems with natal chart Heavenly Stems'
+            }
+          }
+        },
+        exercise: {
+          question: 'Observe the people around you and try to guess what their Day Stem might be based on their personality traits.',
+          button: 'Test My Heavenly Stem Attributes'
+        }
+      },
+
+      // Bazi lesson content
+      baziBasics: {
+        title: 'Bazi Fundamentals',
+        breadcrumb: 'Bazi Basics',
+        intro: 'Bazi astrology is an important component of Chinese traditional culture, revealing the fundamental laws and development trends of life by analyzing an individual\'s birth year, month, day, and hour.',
+        metaDescription: 'Learn the fundamentals of Bazi astrology, understand the Heavenly Stems and Earthly Branches system and Five Element theory, and begin your Bazi learning journey.',
+        objectives: {
+          obj1: 'Understand the basic concepts and historical origins of Bazi astrology',
+          obj2: 'Master the composition and meaning of the Four Pillars (year, month, day, hour)',
+          obj3: 'Understand the basic concepts of Heavenly Stems and Earthly Branches',
+          obj4: 'Learn the basic methods of Bazi chart construction'
+        },
+        sections: {
+          whatIsBazi: {
+            title: 'What is Bazi?',
+            description: 'Bazi, also known as "Four Pillars Bazi," is based on a person\'s birth year, month, day, and hour, each represented by a combination of Heavenly Stems and Earthly Branches, totaling eight characters, hence called "Bazi."',
+            composition: {
+              title: 'Components of Bazi',
+              year: 'Year Pillar',
+              yearDesc: 'Heavenly Stem and Earthly Branch of birth year',
+              month: 'Month Pillar',
+              monthDesc: 'Heavenly Stem and Earthly Branch of birth month',
+              day: 'Day Pillar',
+              dayDesc: 'Heavenly Stem and Earthly Branch of birth day',
+              hour: 'Hour Pillar',
+              hourDesc: 'Heavenly Stem and Earthly Branch of birth hour'
+            }
+          },
+          stemsBranches: {
+            title: 'Heavenly Stems and Earthly Branches System',
+            description: 'The Heavenly Stems and Earthly Branches is an ancient Chinese system for recording years, months, days, and hours, and also the foundation of Bazi astrology.',
+            heavenlyStems: {
+              title: 'Ten Heavenly Stems',
+              sequence: 'Jia, Yi, Bing, Ding, Wu, Ji, Geng, Xin, Ren, Gui',
+              wood: 'Jia and Yi belong to Wood (Jia is Yang Wood, Yi is Yin Wood)',
+              fire: 'Bing and Ding belong to Fire (Bing is Yang Fire, Ding is Yin Fire)',
+              earth: 'Wu and Ji belong to Earth (Wu is Yang Earth, Ji is Yin Earth)',
+              metal: 'Geng and Xin belong to Metal (Geng is Yang Metal, Xin is Yin Metal)',
+              water: 'Ren and Gui belong to Water (Ren is Yang Water, Gui is Yin Water)'
+            },
+            earthlyBranches: {
+              title: 'Twelve Earthly Branches',
+              sequence: 'Zi, Chou, Yin, Mao, Chen, Si, Wu, Wei, Shen, You, Xu, Hai',
+              water: 'Zi and Hai belong to Water',
+              wood: 'Yin and Mao belong to Wood',
+              fire: 'Si and Wu belong to Fire',
+              metal: 'Shen and You belong to Metal',
+              earth: 'Chen, Xu, Chou, and Wei belong to Earth'
+            }
+          },
+          fiveElements: {
+            title: 'Five Element Theory',
+            description: 'The Five Elements (Wood, Fire, Earth, Metal, Water) are the core theory of Bazi analysis, describing the interrelationships between things.',
+            elements: {
+              wood: {
+                name: 'Wood',
+                traits: 'Represents growth, upward movement, benevolence',
+                associations: 'Spring, East, Green'
+              },
+              fire: {
+                name: 'Fire',
+                traits: 'Represents warmth, upward movement, propriety and wisdom',
+                associations: 'Summer, South, Red'
+              },
+              earth: {
+                name: 'Earth',
+                traits: 'Represents tolerance, stability, trustworthiness',
+                associations: 'Late Summer, Center, Yellow'
+              },
+              metal: {
+                name: 'Metal',
+                traits: 'Represents contraction, cutting, righteousness',
+                associations: 'Autumn, West, White'
+              },
+              water: {
+                name: 'Water',
+                traits: 'Represents coldness, downward movement, wisdom',
+                associations: 'Winter, North, Black'
+              }
+            },
+            relationships: {
+              title: 'Five Element Relationships',
+              generating: 'Generating Cycle',
+              generatingCycle: 'Wood feeds Fire, Fire creates Earth, Earth produces Metal, Metal collects Water, Water nourishes Wood',
+              overcoming: 'Overcoming Cycle',
+              overcomingCycle: 'Wood depletes Earth, Earth absorbs Water, Water extinguishes Fire, Fire melts Metal, Metal cuts Wood'
+            }
+          },
+          example: {
+            title: 'Example Analysis',
+            caseTitle: 'Example: Born March 15, 1990 at 10:00 AM',
+            table: {
+              year: 'Year Pillar',
+              month: 'Month Pillar',
+              day: 'Day Pillar',
+              hour: 'Hour Pillar'
+            },
+            analysisTitle: 'Simple Analysis',
+            analysisContent: 'The Day Master Jia Wood is born in Mao month, gaining seasonal energy, but Year Pillar Geng Metal and Hour Stem Ji Earth create pressure on Jia Wood. Detailed analysis is needed to determine the strength and weakness of the Bazi and the favorable elements.'
+          }
+        },
+        practice: {
+          question: 'Try to construct your own Bazi chart and see how well you understand the Four Pillars?',
+          button: 'Start Bazi Analysis'
+        }
+      },
+        overview: {
+          title: 'Heavenly Stems Overview',
+          description: 'The Ten Heavenly Stems are: Jia, Yi, Bing, Ding, Wu, Ji, Geng, Xin, Ren, Gui. They are classified by the Five Elements, with each element containing two Heavenly Stems of Yin and Yang.',
+          stems: {
+            wood: 'Wood',
+            fire: 'Fire',
+            earth: 'Earth',
+            metal: 'Metal',
+            water: 'Water'
+          }
+        },
+        detailed: {
+          title: 'Heavenly Stems Detailed',
+          jia: {
+            name: 'Jia Wood',
+            element: 'Yang Wood',
+            symbolLabel: 'Symbolism',
+            symbol: 'Large Tree, Pillar',
+            traitsLabel: 'Traits',
+            traits: 'Upright, growth-oriented, responsible',
+            personalityLabel: 'Personality',
+            personality: 'Jia Wood is like a towering tree with a strong will to grow upward. Personality is upright and unyielding, with leadership ability and pioneering spirit.',
+            careerLabel: 'Suitable Career',
+            career: 'Suitable for management, entrepreneurship, education and other work requiring authority and leadership'
+          },
+          yi: {
+            name: 'Yi Wood',
+            element: 'Yin Wood',
+            symbolLabel: 'Symbolism',
+            symbol: 'Flowers, Vines',
+            traitsLabel: 'Traits',
+            traits: 'Flexible, adaptable, harmonious',
+            personalityLabel: 'Personality',
+            personality: 'Yi Wood is like flexible vines with the ability to adapt flexibly. Personality is gentle, good at flexibility, and harmonious in relationships.',
+            careerLabel: 'Suitable Career',
+            career: 'Suitable for art, design, service, diplomacy and other work requiring delicacy and flexibility'
+          },
+          bing: {
+            name: 'Bing Fire',
+            element: 'Yang Fire',
+            symbolLabel: 'Symbolism',
+            symbol: 'Sun, Sunlight',
+            traitsLabel: 'Traits',
+            traits: 'Enthusiastic, bright, charismatic',
+            personalityLabel: 'Personality',
+            personality: 'Bing Fire is like the sun, bright and open, with the ability to warm others. Personality is cheerful and lively, with great charisma.',
+            careerLabel: 'Suitable Career',
+            career: 'Suitable for entertainment, sales, public relations, speaking and other work requiring passion and expressiveness'
+          },
+          ding: {
+            name: 'Ding Fire',
+            element: 'Yin Fire',
+            symbolLabel: 'Symbolism',
+            symbol: 'Lamplight, Candlelight',
+            traitsLabel: 'Traits',
+            traits: 'Gentle, lasting, compassionate',
+            personalityLabel: 'Personality',
+            personality: 'Ding Fire is like warm candlelight, though not as intense as Bing Fire, but more lasting and stable. Personality is delicate and compassionate.',
+            careerLabel: 'Suitable Career',
+            career: 'Suitable for medical, nursing, counseling, literature and other work requiring care and empathy'
+          },
+          wu: {
+            name: 'Wu Earth',
+            element: 'Yang Earth',
+            symbolLabel: 'Symbolism',
+            symbol: 'High Mountain, City Wall',
+            traitsLabel: 'Traits',
+            traits: 'Steady, supportive, responsible',
+            personalityLabel: 'Personality',
+            personality: 'Wu Earth is like a steady mountain with the ability to support all things. Personality is practical and reliable with a strong sense of responsibility.',
+            careerLabel: 'Suitable Career',
+            career: 'Suitable for construction, real estate, agriculture, finance and other work requiring stability and accumulation'
+          },
+          ji: {
+            name: 'Ji Earth',
+            element: 'Yin Earth',
+            symbolLabel: 'Symbolism',
+            symbol: 'Farmland, Fertile Soil',
+            traitsLabel: 'Traits',
+            traits: 'Inclusive, nurturing, coordinating',
+            personalityLabel: 'Personality',
+            personality: 'Ji Earth is like fertile farmland with the ability to nourish all things. Personality is gentle and inclusive, good at coordination.',
+            careerLabel: 'Suitable Career',
+            career: 'Suitable for education, training, service, agriculture and other work requiring nurturing and service'
+          },
+          geng: {
+            name: 'Geng Metal',
+            element: 'Yang Metal',
+            symbolLabel: 'Symbolism',
+            symbol: 'Steel, Sword',
+            traitsLabel: 'Traits',
+            traits: 'Decisive, resolute, action-oriented',
+            personalityLabel: 'Personality',
+            personality: 'Geng Metal is like a sharp sword with strong decisive and cutting ability. Personality is resolute and decisive with strong action ability.',
+            careerLabel: 'Suitable Career',
+            career: 'Suitable for military, police, law, surgery, machinery and other work requiring decisiveness and precision'
+          },
+          xin: {
+            name: 'Xin Metal',
+            element: 'Yin Metal',
+            symbolLabel: 'Symbolism',
+            symbol: 'Jewelry, Accessories',
+            traitsLabel: 'Traits',
+            traits: 'Refined, aesthetic, detail-oriented',
+            personalityLabel: 'Personality',
+            personality: 'Xin Metal is like exquisite jewelry with refinement and beauty. Personality is delicate, focusing on quality and aesthetics.',
+            careerLabel: 'Suitable Career',
+            career: 'Suitable for jewelry, beauty, design, precision manufacturing and other work requiring refinement and beauty'
+          },
+          ren: {
+            name: 'Ren Water',
+            element: 'Yang Water',
+            symbolLabel: 'Symbolism',
+            symbol: 'Rivers, Ocean',
+            traitsLabel: 'Traits',
+            traits: 'Broad-minded, flowing, adaptable',
+            personalityLabel: 'Personality',
+            personality: 'Ren Water is like rushing rivers with strong fluidity and inclusiveness. Personality is broad-minded with strong adaptability.',
+            careerLabel: 'Suitable Career',
+            career: 'Suitable for trade, transportation, tourism, media and other work requiring flow and communication'
+          },
+          gui: {
+            name: 'Gui Water',
+            element: 'Yin Water',
+            symbolLabel: 'Symbolism',
+            symbol: 'Rain, Spring Water',
+            traitsLabel: 'Traits',
+            traits: 'Introverted, wise, intuitive',
+            personalityLabel: 'Personality',
+            personality: 'Gui Water is like gentle rain and dew with the ability to moisten all things. Personality is introverted, rich in wisdom and intuition.',
+            careerLabel: 'Suitable Career',
+            career: 'Suitable for research, consulting, writing, psychology and other work requiring thinking and insight'
+          }
+        },
+        combinations: {
+          title: 'Heavenly Stem Combinations',
+          description: 'There are special combination relationships between Heavenly Stems, called "Five Heavenly Stem Combinations," which have important significance in fortune-telling analysis.',
+          list: {
+            jiaji: {
+              combo: 'Jia-Ji Combination',
+              result: 'Forms Earth',
+              meaning: 'Represents the union of honesty and steadiness'
+            },
+            yigeng: {
+              combo: 'Yi-Geng Combination',
+              result: 'Forms Metal',
+              meaning: 'Represents the union of benevolence and righteousness, combining soft and hard'
+            },
+            bingxin: {
+              combo: 'Bing-Xin Combination',
+              result: 'Forms Water',
+              meaning: 'Represents the union of dignity and wisdom'
+            },
+            dingren: {
+              combo: 'Ding-Ren Combination',
+              result: 'Forms Wood',
+              meaning: 'Represents the union of kindness and gentleness'
+            },
+            wugui: {
+              combo: 'Wu-Gui Combination',
+              result: 'Forms Fire',
+              meaning: 'Represents the union of propriety and wisdom, brightness'
+            }
+          }
+        },
+        application: {
+          title: 'Practical Application',
+          subtitle: 'Application in Bazi Analysis',
+          points: {
+            dayMaster: {
+              title: 'Day Master Analysis',
+              description: 'The Day Stem represents the person; analyze Day Stem attributes to understand basic personality'
+            },
+            tenGods: {
+              title: 'Ten Gods Relations',
+              description: 'Relationships between other Heavenly Stems and Day Stem form Ten Gods, reflecting all aspects of life'
+            },
+            pattern: {
+              title: 'Pattern Assessment',
+              description: 'Heavenly Stem combinations affect the quality of Bazi patterns'
+            },
+            luck: {
+              title: 'Luck Periods',
+              description: 'Interaction between Luck Period and Annual Heavenly Stems with natal chart Heavenly Stems'
+            }
+          }
+        },
+        practice: {
+          question: 'Please observe the Heavenly Stem configuration in your Bazi and think about how the characteristics of each stem influence your personality?',
+          button: 'Analyze My Heavenly Stem Configuration'
+        }
+      },
+
+      baziEarthlyBranches: {
+        title: 'Earthly Branches Detailed',
+        breadcrumb: 'Earthly Branches',
+        metaDescription: 'Learn the meanings, zodiac correspondences, and relationships of the twelve Earthly Branches, master important concepts like hidden stems.',
+        intro: 'The Earthly Branches are another symbol system that pairs with Heavenly Stems in Bazi astrology, consisting of twelve symbols corresponding to the twelve zodiac animals, representing different time cycles and energy characteristics.',
+        objectives: {
+          obj1: 'Master the basic meanings and attributes of the twelve Earthly Branches',
+          obj2: 'Understand the correspondence between Earthly Branches and zodiac animals',
+          obj3: 'Learn the punishment, clash, harm, and combination relationships of Earthly Branches',
+          obj4: 'Understand the role of Earthly Branches in fortune-telling analysis'
+        },
+        overview: {
+          title: 'Earthly Branches Overview',
+          intro: 'The twelve Earthly Branches are arranged clockwise, corresponding to twelve time periods and twelve zodiac animals, forming a complete temporal and spatial system.'
+        },
+        classification: {
+          title: 'Five Elements Classification of Earthly Branches',
+          water: {
+            title: 'Water: Zi, Hai',
+            desc: 'Zi is Yang Water, Hai is Yin Water, representing winter and north direction'
+          },
+          wood: {
+            title: 'Wood: Yin, Mao',
+            desc: 'Yin is Yang Wood, Mao is Yin Wood, representing spring and east direction'
+          },
+          fire: {
+            title: 'Fire: Si, Wu',
+            desc: 'Si is Yin Fire, Wu is Yang Fire, representing summer and south direction'
+          },
+          metal: {
+            title: 'Metal: Shen, You',
+            desc: 'Shen is Yang Metal, You is Yin Metal, representing autumn and west direction'
+          },
+          earth: {
+            title: 'Earth: Chen, Xu, Chou, Wei',
+            desc: 'The four Earth branches represent the end months of four seasons, with storage and transformation functions'
+          }
+        },
+        detailed: {
+          title: 'Detailed Analysis of Twelve Earthly Branches',
+          common: {
+            timeLabel: 'Time',
+            seasonLabel: 'Season',
+            traitsLabel: 'Traits',
+            hiddenLabel: 'Hidden Stems'
+          },
+          zi: {
+            title: 'Zi - Rat (Water)',
+            time: 'Zi hour (23:00-1:00)',
+            season: 'Mid-winter, peak water energy',
+            traits: 'Clever and flexible, resourceful, highly adaptable',
+            hidden: 'Gui Water'
+          },
+          chou: {
+            title: 'Chou - Ox (Earth)',
+            time: 'Chou hour (1:00-3:00)',
+            season: 'Late winter, earth storage',
+            traits: 'Hardworking and steadfast, persistent, inclusive',
+            hidden: 'Ji Earth, Gui Water, Xin Metal'
+          },
+          yin: {
+            title: 'Yin - Tiger (Wood)',
+            time: 'Yin hour (3:00-5:00)',
+            season: 'Early spring, wood energy emerging',
+            traits: 'Brave and decisive, strong leadership, high sense of justice',
+            hidden: 'Jia Wood, Bing Fire, Wu Earth'
+          },
+          mao: {
+            title: 'Mao - Rabbit (Wood)',
+            time: 'Mao hour (5:00-7:00)',
+            season: 'Mid-spring, peak wood energy',
+            traits: 'Gentle and refined, socially adept, strong aesthetic sense',
+            hidden: 'Yi Wood'
+          },
+          chen: {
+            title: 'Chen - Dragon (Earth)',
+            time: 'Chen hour (7:00-9:00)',
+            season: 'Late spring, water storage',
+            traits: 'Intelligent and wise, versatile, authoritative',
+            hidden: 'Wu Earth, Yi Wood, Gui Water'
+          },
+          si: {
+            title: 'Si - Snake (Fire)',
+            time: 'Si hour (9:00-11:00)',
+            season: 'Early summer, fire energy growing',
+            traits: 'Profound wisdom, mysterious, sharp intuition',
+            hidden: 'Bing Fire, Wu Earth, Geng Metal'
+          },
+          wu: {
+            title: 'Wu - Horse (Fire)',
+            time: 'Wu hour (11:00-13:00)',
+            season: 'Mid-summer, peak fire energy',
+            traits: 'Passionate and energetic, quick action, carefree',
+            hidden: 'Ding Fire, Ji Earth'
+          },
+          wei: {
+            title: 'Wei - Sheep (Earth)',
+            time: 'Wei hour (13:00-15:00)',
+            season: 'Late summer, wood storage',
+            traits: 'Gentle and kind, compassionate, artistic talent',
+            hidden: 'Ji Earth, Ding Fire, Yi Wood'
+          },
+          shen: {
+            title: 'Shen - Monkey (Metal)',
+            time: 'Shen hour (15:00-17:00)',
+            season: 'Early autumn, metal energy growing',
+            traits: 'Clever and witty, versatile, adaptable',
+            hidden: 'Geng Metal, Ren Water, Wu Earth'
+          },
+          you: {
+            title: 'You - Rooster (Metal)',
+            time: 'You hour (17:00-19:00)',
+            season: 'Mid-autumn, peak metal energy',
+            traits: 'Diligent and punctual, detail-oriented, perfectionist',
+            hidden: 'Xin Metal'
+          },
+          xu: {
+            title: 'Xu - Dog (Earth)',
+            time: 'Xu hour (19:00-21:00)',
+            season: 'Late autumn, fire storage',
+            traits: 'Loyal and reliable, strong sense of justice, responsible',
+            hidden: 'Wu Earth, Xin Metal, Ding Fire'
+          },
+          hai: {
+            title: 'Hai - Pig (Water)',
+            time: 'Hai hour (21:00-23:00)',
+            season: 'Early winter, water energy growing',
+            traits: 'Simple and kind, tolerant and generous, wise',
+            hidden: 'Ren Water, Jia Wood'
+          }
+        },
+        relationships: {
+          title: 'Earthly Branch Relationships',
+          sixHarmony: {
+            title: 'Six Harmonies',
+            desc: 'Six Harmonies represent harmonious combination relationships that help strengthen each other\'s power.',
+            combinations: {
+              zichou: 'Zi-Chou combine to Earth',
+              yinhai: 'Yin-Hai combine to Wood',
+              maoxu: 'Mao-Xu combine to Fire',
+              chenyou: 'Chen-You combine to Metal',
+              sishen: 'Si-Shen combine to Water',
+              wuwei: 'Wu-Wei combine to Earth'
+            }
+          },
+          triad: {
+            title: 'Three Harmonies',
+            desc: 'Three Harmony formations are powerful combinations of three Earthly Branches forming specific Five Element reinforcements.',
+            combinations: {
+              shuiju: {
+                name: 'Shen-Zi-Chen',
+                result: 'Water Formation'
+              },
+              huoju: {
+                name: 'Yin-Wu-Xu',
+                result: 'Fire Formation'
+              },
+              jinju: {
+                name: 'Si-You-Chou',
+                result: 'Metal Formation'
+              },
+              muju: {
+                name: 'Hai-Mao-Wei',
+                result: 'Wood Formation'
+              }
+            }
+          },
+          clash: {
+            title: 'Clashes',
+            desc: 'Clashes represent opposing conflict relationships that create turbulence and change.',
+            combinations: {
+              ziwu: 'Zi-Wu clash',
+              chouwei: 'Chou-Wei clash',
+              yinshen: 'Yin-Shen clash',
+              maoyou: 'Mao-You clash',
+              chenxu: 'Chen-Xu clash',
+              sihai: 'Si-Hai clash'
+            }
+          },
+          punishment: {
+            title: 'Punishments',
+            desc: 'Punishments represent mutual restraint and penalty relationships that require special attention.',
+            types: {
+              wuli: 'Zi-Mao punishment - Rudeness punishment',
+              wuen: 'Yin-Si-Shen punishment - Ingratitude punishment',
+              shishi: 'Chou-Xu-Wei punishment - Bullying punishment',
+              zixing: 'Chen-Wu-You-Hai self-punishment - Self punishment'
+            }
+          }
+        },
+        hiddenStems: {
+          title: 'Hidden Stems in Earthly Branches',
+          intro: 'Each Earthly Branch contains hidden Heavenly Stems within, and these hidden stems play important roles in Bazi analysis.',
+          table: {
+            branch: 'Branch',
+            primary: 'Primary Qi',
+            middle: 'Middle Qi',
+            residue: 'Residual Qi'
+          }
+        },
+        practice: {
+          question: 'Observe the characteristics of the twelve zodiac animals and think about their connection with the energy traits of corresponding Earthly Branches?',
+          button: 'Test My Earthly Branch Attributes'
+        }
+      },
+
+      baziFiveElements: {
+        title: 'Five Elements Theory In-Depth Analysis',
+        breadcrumb: 'Five Elements Theory',
+        metaDescription: 'Deeply learn the core concepts of Five Elements theory, generation and destruction cycles, and methods for judging strength and weakness to master the theoretical foundation of Bazi fortune-telling analysis.',
+        intro: 'Five Elements theory is the theoretical foundation of Bazi astrology, revealing the laws of universal operation through the interaction of five basic elements: Metal, Wood, Water, Fire, and Earth.',
+        objectives: {
+          obj1: 'Deeply understand the basic meanings and attributes of the Five Elements',
+          obj2: 'Master the laws of Five Elements generation and destruction cycles',
+          obj3: 'Learn to judge the strength and weakness of Five Elements',
+          obj4: 'Understand the core role of Five Elements in fortune-telling analysis'
+        },
+        philosophy: {
+          title: 'Five Elements Philosophical Thought',
+          cosmic: {
+            title: 'Cosmic View',
+            content: 'The Five Elements embody the ancient Chinese cosmic view, where all things are composed of five basic elements, and these elements are in constant motion and change, forming the myriad phenomena of the universe.'
+          },
+          balance: {
+            title: 'Wisdom of Balance',
+            content: 'The core of Five Elements theory is harmony and balance. The five elements are interdependent and mutually constraining, maintaining a dynamic equilibrium that sustains the harmonious development of life and the universe.'
+          },
+          unity: {
+            title: 'Unity of Heaven and Human',
+            content: 'Five Elements theory emphasizes the unity of humans and nature. Human constitution, personality, and destiny are all influenced by the Five Elements, corresponding to natural change patterns and achieving the ideal state of harmony between heaven and humanity.'
+          }
+        },
+        detailed: {
+          title: 'Five Elements Detailed Analysis',
+          wood: {
+            title: 'Wood: Growth and Creation',
+            characteristics: {
+              title: 'Characteristics',
+              content: 'Wood has the properties of growth, expansion, and ascension, symbolizing the vitality of spring. It is flexible and resilient, full of upward motivation, always growing toward the light.'
+            },
+            correspondences: {
+              title: 'Correspondences',
+              season: 'Season: Spring',
+              direction: 'Direction: East',
+              emotion: 'Emotion: Anger',
+              organ: 'Organs: Liver and Gallbladder',
+              color: 'Colors: Green, Blue'
+            },
+            states: {
+              title: 'States',
+              prosperous: 'Prosperous: Strongest in spring (Yin-Mao months)',
+              resting: 'Resting: Weakest in autumn (Shen-You months)',
+              dead: 'Dead: Constrained in seasonal transitions (Chen-Xu-Chou-Wei months)'
+            }
+          },
+          fire: {
+            title: 'Fire: Light and Passion',
+            characteristics: {
+              title: 'Characteristics',
+              content: 'Fire has the properties of brightness, warmth, and upward movement, symbolizing the intensity of summer. It is active and passionate, delighting in warming others and bringing light.'
+            },
+            correspondences: {
+              title: 'Correspondences',
+              season: 'Season: Summer',
+              direction: 'Direction: South',
+              emotion: 'Emotion: Joy',
+              organ: 'Organs: Heart and Small Intestine',
+              color: 'Colors: Red, Purple'
+            },
+            states: {
+              title: 'States',
+              prosperous: 'Prosperous: Strongest in summer (Si-Wu months)',
+              resting: 'Resting: Weakest in winter (Hai-Zi months)',
+              dead: 'Dead: Constrained in seasonal transitions (Chen-Xu-Chou-Wei months)'
+            }
+          },
+          earth: {
+            title: 'Earth: Stability and Tolerance',
+            characteristics: {
+              title: 'Characteristics',
+              content: 'Earth has the properties of tolerance, carrying, and nurturing, symbolizing the virtue of the earth. It is stable and honest, embracing all things and nurturing life.'
+            },
+            correspondences: {
+              title: 'Correspondences',
+              season: 'Season: Late Summer (seasonal transitions)',
+              direction: 'Direction: Center',
+              emotion: 'Emotion: Pensiveness',
+              organ: 'Organs: Spleen and Stomach',
+              color: 'Colors: Yellow, Brown'
+            },
+            states: {
+              title: 'States',
+              prosperous: 'Prosperous: Strongest in seasonal transitions (Chen-Xu-Chou-Wei months)',
+              resting: 'Resting: Weakest in winter (Hai-Zi months)',
+              dead: 'Dead: Constrained in spring (Yin-Mao months)'
+            }
+          },
+          metal: {
+            title: 'Metal: Restraint and Decisiveness',
+            characteristics: {
+              title: 'Characteristics',
+              content: 'Metal has the properties of restraint, cutting, and firmness, symbolizing the bleakness of autumn. It is hard and decisive, values rules, and has the ability to organize things.'
+            },
+            correspondences: {
+              title: 'Correspondences',
+              season: 'Season: Autumn',
+              direction: 'Direction: West',
+              emotion: 'Emotion: Grief',
+              organ: 'Organs: Lungs and Large Intestine',
+              color: 'Colors: White, Gold'
+            },
+            states: {
+              title: 'States',
+              prosperous: 'Prosperous: Strongest in autumn (Shen-You months)',
+              resting: 'Resting: Weakest in spring (Yin-Mao months)',
+              dead: 'Dead: Constrained in summer (Si-Wu months)'
+            }
+          },
+          water: {
+            title: 'Water: Wisdom and Flow',
+            characteristics: {
+              title: 'Characteristics',
+              content: 'Water has the properties of flow, downward movement, and moistening, symbolizing the depth of winter. It is flexible and wise, nourishing all things, and has the wisdom to flow to the lowest places.'
+            },
+            correspondences: {
+              title: 'Correspondences',
+              season: 'Season: Winter',
+              direction: 'Direction: North',
+              emotion: 'Emotion: Fear',
+              organ: 'Organs: Kidneys and Bladder',
+              color: 'Colors: Black, Blue'
+            },
+            states: {
+              title: 'States',
+              prosperous: 'Prosperous: Strongest in winter (Hai-Zi months)',
+              resting: 'Resting: Weakest in summer (Si-Wu months)',
+              dead: 'Dead: Constrained in seasonal transitions (Chen-Xu-Chou-Wei months)'
+            }
+          }
+        },
+        relationships: {
+          title: 'Five Elements Relationship Network',
+          generation: {
+            title: 'Generation Cycle',
+            subtitle: 'Mutually generating and supporting',
+            cycles: {
+              waterWood: 'Water generates Wood: Water nourishes wood',
+              woodFire: 'Wood generates Fire: Wood fuels fire',
+              fireEarth: 'Fire generates Earth: Fire creates earth (ash)',
+              earthMetal: 'Earth generates Metal: Earth produces metal',
+              metalWater: 'Metal generates Water: Metal collects water'
+            }
+          },
+          destruction: {
+            title: 'Destruction Cycle',
+            subtitle: 'Mutually restraining and controlling',
+            cycles: {
+              waterFire: 'Water destroys Fire: Water extinguishes fire',
+              fireEarth: 'Fire destroys Metal: Fire melts metal',
+              metalWood: 'Metal destroys Wood: Metal cuts wood',
+              woodEarth: 'Wood destroys Earth: Wood depletes earth',
+              earthWater: 'Earth destroys Water: Earth absorbs water'
+            }
+          }
+        },
+        strength: {
+          title: 'Five Elements Strength and Weakness Analysis',
+          factors: {
+            title: 'Influencing Factors',
+            seasonal: {
+              title: 'Seasonal Factors',
+              content: 'Each of the Five Elements has its seasons of prosperity and decline. They are strongest during their corresponding seasonal rule and weakest when restrained by opposing seasons.'
+            },
+            support: {
+              title: 'Support Factors',
+              content: 'The more elements of the same type and generating elements there are, the stronger that element becomes. Conversely, many restraining elements make it weaker.'
+            },
+            position: {
+              title: 'Positional Factors',
+              content: 'The position of Heavenly Stems and Earthly Branches also affects strength. Deeply rooted elements are more stable, while floating elements are more changeable.'
+            }
+          },
+          balance: {
+            title: 'Balance Types',
+            balanced: {
+              title: 'Balanced Harmony Type',
+              desc: 'Five Elements forces are relatively balanced, mutually restraining and supporting in an ideal state'
+            },
+            strong: {
+              title: 'Excessively Strong Type',
+              desc: 'One element is too strong, disrupting overall balance and requiring appropriate consumption'
+            },
+            weak: {
+              title: 'Excessively Weak Type',
+              desc: 'One element is too weak, requiring appropriate support and strengthening'
+            },
+            specialized: {
+              title: 'Specialized Prosperity Type',
+              desc: 'One element is extremely prosperous, overwhelming others and requiring special treatment'
+            }
+          }
+        },
+        application: {
+          title: 'Practical Application Techniques',
+          analysis: {
+            title: 'Analysis Steps',
+            step1: '1. Determine the Day Master\'s Five Element to clarify the core attribute of the person',
+            step2: '2. Analyze monthly branch influence to judge the Day Master\'s basic prosperity',
+            step3: '3. Comprehensively consider the support and restraint from other stems and branches',
+            step4: '4. Analyze the overall Five Elements force comparison to determine favorable and unfavorable elements',
+            step5: '5. Combine with major luck periods and yearly influences for comprehensive judgment'
+          },
+          harmony: {
+            title: 'Harmony Methods',
+            deficiency: {
+              title: 'Deficiency Supplementation Method',
+              content: 'For deficient elements, strengthening can be achieved through corresponding Five Element properties'
+            },
+            excess: {
+              title: 'Excess Drainage Method',
+              content: 'For overly strong elements, harmony can be achieved through restraining or consuming methods'
+            },
+            circulation: {
+              title: 'Connecting Flow Method',
+              content: 'Between opposing elements, intermediate elements can be used to resolve conflicts and create flow'
+            }
+          }
+        },
+        practice: {
+          question: 'Observe natural phenomena and think about how Five Elements generation and destruction cycles manifest in real life?',
+          button: 'Analyze My Five Elements Configuration'
+        }
+      },
+
+      baziReadingPillars: {
+        title: 'Four Pillars Reading Techniques',
+        breadcrumb: 'Four Pillars Reading',
+        intro: 'Four Pillars reading is the core skill of Bazi fortune-telling analysis, requiring comprehensive application of Heavenly Stems and Earthly Branches, Five Elements theory, and various patterns for systematic chart analysis.',
+        objectives: {
+          obj1: 'Master the analysis methods for year, month, day, and hour pillars',
+          obj2: 'Learn to judge the level and quality of chart patterns',
+          obj3: 'Understand the operating mechanism of Major Luck and yearly fortune',
+          obj4: 'Be able to perform systematic fortune-telling analysis'
+        },
+        practice: {
+          question: 'Choose a chart example and try systematic analysis using Four Pillars reading methods?',
+          button: 'Practice Four Pillars Reading'
+        }
+      },
+
+      // Astrology lesson content
+      astrologyIntroduction: {
+        title: 'Introduction to Astrology',
+        breadcrumb: 'Astrology Intro',
+        intro: 'Western astrology is an ancient discipline that studies how celestial movements influence human life. By analyzing the positions of celestial bodies at an individual\'s birth moment, we can deeply understand personality traits, natural talents, and life development directions.',
+        objectives: {
+          obj1: 'Understand the history and basic principles of Western astrology',
+          obj2: 'Recognize the core elements of astrology: signs, planets, houses',
+          obj3: 'Understand the basic composition of a birth chart',
+          obj4: 'Master the analytical approach of astrology'
+        },
+        practice: {
+          question: 'Observe the constellations in the night sky and think about how ancient people connected celestial phenomena with human life?',
+          button: 'View My Birth Chart'
+        }
+      },
+
+      astrologyZodiacSigns: {
+        title: 'Twelve Zodiac Signs Detailed',
+        breadcrumb: 'Zodiac Signs',
+        intro: 'The twelve zodiac signs are fundamental elements of astrology, each with unique personality traits, elemental attributes, and ruling planets. Deep understanding of the signs helps accurately interpret individual characteristics.',
+        objectives: {
+          obj1: 'Master the basic traits and symbolic meanings of the twelve zodiac signs',
+          obj2: 'Understand the four element classification and three modality classification of signs',
+          obj3: 'Learn to analyze the interrelationships between signs',
+          obj4: 'Understand the role of signs in chart analysis'
+        },
+        practice: {
+          question: 'Observe friends of different zodiac signs around you and verify whether they possess corresponding sign traits?',
+          button: 'Deep Analyze My Zodiac Sign'
+        }
+      },
+
+      astrologyPlanets: {
+        title: 'Planets Detailed Explanation',
+        breadcrumb: 'Planets Detailed',
+        intro: 'Planets are the core elements of astrology, each representing different aspects of personality and various domains of life. Understanding the meanings, traits, and energy expressions of planets is the key foundation for mastering astrological analysis.',
+        objectives: {
+          obj1: 'Master the basic meanings and symbols of the ten major planets',
+          obj2: 'Understand the classification and hierarchical structure of planets',
+          obj3: 'Learn to analyze planetary expressions in different signs',
+          obj4: 'Understand the basic concepts of planetary retrograde and aspects'
+        },
+        practice: {
+          question: 'Observe your own behavioral patterns and think about which planetary influences are most evident in you?',
+          button: 'Analyze My Planetary Configuration'
+        }
+      },
+
+      astrologyHouses: {
+        title: 'Houses Detailed Explanation',
+        breadcrumb: 'Houses Detailed',
+        intro: 'The twelve houses represent twelve important areas of life, from personal identity to relationships, from career development to spiritual growth. Understanding the meanings of houses is key to interpreting a complete birth chart.',
+        objectives: {
+          obj1: 'Master the basic meanings and life areas of the twelve houses',
+          obj2: 'Understand the angular, succedent, and cadent house classifications',
+          obj3: 'Learn to analyze planetary expressions in different houses',
+          obj4: 'Understand the importance of house rulers and house relationships'
+        },
+        practice: {
+          question: 'Reflect on important moments in your life and think about which house themes they belong to?',
+          button: 'Explore My House Emphasis'
+        }
+      },
+
+      astrologyAspects: {
+        title: 'Aspects Detailed Explanation',
+        breadcrumb: 'Aspects Detailed',
+        intro: 'Aspects are angular relationships between planets, revealing how different planetary energies interact. Mastering aspect analysis is a key skill for deeply understanding chart dynamics.',
+        objectives: {
+          obj1: 'Master the meanings and influences of major aspects',
+          obj2: 'Understand the difference between harmonious and challenging aspects',
+          obj3: 'Learn to calculate and identify aspects in birth charts',
+          obj4: 'Understand the role of aspects in personality analysis'
+        },
+        practice: {
+          question: 'Observe your internal conflicts and harmonious aspects, and think about what kind of planetary aspects they might correspond to?',
+          button: 'Analyze My Aspect Patterns'
+        }
+      },
+
+      // Reading technique lessons
+      readingPreparation: {
+        title: 'Preparation for Reading',
+        breadcrumb: 'Reading Preparation',
+        intro: 'Accurate fortune-telling analysis requires thorough preparation work, including data collection, mastery of fundamental knowledge, and the correct analytical mindset.',
+        objectives: {
+          obj1: 'Master methods for accurately collecting birth information',
+          obj2: 'Understand the use of various fortune-telling analysis tools',
+          obj3: 'Cultivate an objective and impartial analytical attitude',
+          obj4: 'Learn to formulate systematic analysis plans'
+        },
+        practice: {
+          question: 'Prepare to analyze a chart case and check whether your preparation work is sufficient?',
+          button: 'Begin Analysis Preparation'
+        }
+      },
+
+      readingAnalysisMethod: {
+        title: 'Analysis Methods',
+        breadcrumb: 'Analysis Methods',
+        intro: 'Systematic analysis methods are the guarantee for accurate chart interpretation. Through scientific procedures and methods, subjective speculation can be avoided to obtain objective and accurate analysis results.',
+        objectives: {
+          obj1: 'Master systematic analysis procedures',
+          obj2: 'Learn to apply various analysis tools',
+          obj3: 'Understand the importance of comprehensive analysis',
+          obj4: 'Develop logical reasoning abilities'
+        },
+        practice: {
+          question: 'Apply the learned analysis methods and try systematic analysis of a complete chart case?',
+          button: 'Apply Analysis Methods'
+        }
+      }
+    }
+  };
