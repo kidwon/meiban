@@ -70,14 +70,15 @@ export default {
     functionNav: {
       basicAnalysis: '基礎分析',
       transitAnalysis: '行運分析',
-      compatibilityAnalysis: '合盤分析'
+      aiExpert: 'AI専門家'
     },
     recommendationsTitle: 'あなたにおすすめの機能',
     recommendations: {
       transitDescription: '未来の運勢を詳しく確認',
-      compatibilityDescription: '相性診断で関係性を深める',
+      aiExpertDescription: 'インテリジェントAIがあなたの疑問にお答えします',
       recommended: 'おすすめ',
-      popular: '人気'
+      popular: '人気',
+      new: '新機能'
     },
     exploreMoreTitle: 'さらに詳しく占いたい方へ',
     exploreMoreSubtitle: 'より深い洞察とパーソナライズされた分析をご体験ください',
@@ -96,7 +97,7 @@ export default {
       },
       navigation: {
         title: '機能ナビゲーション',
-        content: 'こちらのナビゲーションバーで基礎分析、行運分析、合盤分析を簡単に切り替えることができます。'
+        content: 'こちらのナビゲーションバーで基礎分析、行運分析、AI専門家を簡単に切り替えることができます。'
       },
       chartInteraction: {
         title: 'インタラクティブ星盤',
@@ -108,7 +109,7 @@ export default {
       },
       advancedFeatures: {
         title: '高度な機能',
-        content: 'より深い洞察を得るために、行運分析や合盤分析などの高度な機能をぜひお試しください。'
+        content: 'より深い洞察を得るために、行運分析やAI専門家などの高度な機能をぜひお試しください。'
       },
       next: '次へ',
       previous: '前へ',
@@ -136,7 +137,7 @@ export default {
       download: 'レポートダウンロード',
       share: 'シェア',
       transitAnalysis: '行運分析',
-      compatibility: '合盤分析'
+      aiExpert: 'AI専門家'
     },
     advancedFeatures: {
       title: '高級分析機能',
@@ -146,15 +147,15 @@ export default {
         transitPlanets: '• 重要な天体トランジット',
         timingDiagnosis: '• 最適なタイミング診断'
       },
-      compatibilityDescription: 'パートナーとの相性や関係性の深層分析',
-      compatibilityFeatures: {
-        loveCompatibility: '• 恋愛・結婚相性度',
-        communicationTrends: '• コミュニケーション傾向',
-        relationshipAdvice: '• 関係改善のアドバイス'
+      aiExpertDescription: 'あなたの星盤に基づくインテリジェントAI専門家Q&Aサービス',
+      aiExpertFeatures: {
+        personalizedQA: '• パーソナライズされた占星術Q&A',
+        deepAnalysis: '• 深い解読とガイダンス',
+        instantResponse: '• 24時間即座の回答'
       }
     },
     alerts: {
-      compatibilityInDevelopment: '合盤分析機能は開発中です',
+      aiExpertInDevelopment: 'AI専門家機能は開発中です。お楽しみに！',
       reportTitle: '私の占星分析レポート',
       reportDescription: 'の個人星盤分析',
       linkCopied: 'リンクがクリップボードにコピーされました',
@@ -820,9 +821,9 @@ export default {
         title: 'キャリア占星術',
         excerpt: '占星術を使ったキャリア選択と職業適性の分析方法'
       },
-      'relationship-compatibility': {
-        title: '相性診断の方法',
-        excerpt: '二人の相性を占星術で分析する実践的な手法'
+      'ai-expert': {
+        title: 'AI専門家の活用',
+        excerpt: 'インテリジェントAIがあなたの占星術に関する疑問にお答えします'
       }
     },
     categories: {
@@ -2625,6 +2626,39 @@ export default {
           button: '分析方法を応用'
         }
       }
+    }
+  },
+
+  // AI Chat related texts
+  aiChat: {
+    welcome: {
+      title: 'AI占星術専門家へようこそ',
+      description: 'あなたの詳細な星盤情報に基づいて個別的な占星術アドバイスと回答を提供する専属AI占星術師です。星盤に関する質問をお気軽にどうぞ。'
+    },
+    suggestedQuestions: {
+      title: '提案された質問'
+    },
+    input: {
+      placeholder: '質問を入力してください...',
+      send: '送信',
+      enterToSend: 'Enterで送信',
+      shiftEnterForNewLine: 'Shift+Enterで改行'
+    },
+    streaming: {
+      thinking: 'AIが考えています...'
+    },
+    loading: {
+      title: 'あなた専用のAI占星術師を準備中',
+      description: '個別サービスには完全な星盤データが必要です',
+      refresh: 'データを再読み込み'
+    },
+    errors: {
+      networkError: 'ネットワーク接続エラーです。ネットワーク設定をご確認ください',
+      apiKeyError: 'DeepSeek APIキーの設定エラーです。キーが正しいかご確認ください',
+      rateLimitError: 'リクエストが頻繁すぎます。しばらくお待ちください',
+      quotaError: 'APIクオータが上限に達しました。DeepSeekアカウントの残高をご確認ください',
+      serverError: 'DeepSeekサービスが一時的に利用できません。しばらくしてからお試しください',
+      defaultError: 'AIサービスが一時的に利用できません。しばらくしてからお試しください'
     }
   }
 };

@@ -70,14 +70,15 @@ export default {
     functionNav: {
       basicAnalysis: '基础分析',
       transitAnalysis: '行运分析',
-      compatibilityAnalysis: '合盘分析'
+      aiExpert: 'AI专家'
     },
     recommendationsTitle: '为您推荐的功能',
     recommendations: {
       transitDescription: '深入了解未来运势',
-      compatibilityDescription: '通过合盘分析深化关系',
+      aiExpertDescription: '智能AI为您答疑解惑',
       recommended: '推荐',
-      popular: '热门'
+      popular: '热门',
+      new: '新功能'
     },
     exploreMoreTitle: '想要更深入的分析？',
     exploreMoreSubtitle: '体验更深层的洞察和个性化分析',
@@ -136,7 +137,7 @@ export default {
       download: '下载报告',
       share: '分享',
       transitAnalysis: '流年分析',
-      compatibility: '合盘分析'
+      aiExpert: 'AI专家'
     },
     advancedFeatures: {
       title: '高级分析功能',
@@ -146,15 +147,15 @@ export default {
         transitPlanets: '• 重要的天体行运',
         timingDiagnosis: '• 最佳时机诊断'
       },
-      compatibilityDescription: '伴侣间的相性和关系性的深层分析',
-      compatibilityFeatures: {
-        loveCompatibility: '• 恋爱・结婚相性度',
-        communicationTrends: '• 沟通倾向',
-        relationshipAdvice: '• 关系改善的建议'
+      aiExpertDescription: '基于您的星盘的智能AI专家问答服务',
+      aiExpertFeatures: {
+        personalizedQA: '• 个性化占星问答',
+        deepAnalysis: '• 深度解读与指导',
+        instantResponse: '• 24小时即时回复'
       }
     },
     alerts: {
-      compatibilityInDevelopment: '合盘分析功能开发中',
+      aiExpertInDevelopment: 'AI专家功能开发中，敬请期待！',
       reportTitle: '我的占星分析报告',
       reportDescription: '的个人星盘分析',
       linkCopied: '链接已复制到剪贴板',
@@ -3268,5 +3269,38 @@ export default {
   // Article meta
   articleMeta: {
     publishDate: '2024年发布'
+  },
+
+  // AI聊天相关文本
+  aiChat: {
+    welcome: {
+      title: '欢迎使用AI占星专家',
+      description: '我是您的专属AI占星师，基于您的详细星盘信息为您提供个性化的占星建议和解答。您可以询问任何关于您星盘的问题。'
+    },
+    suggestedQuestions: {
+      title: '建议问题'
+    },
+    input: {
+      placeholder: '请输入您的问题...',
+      send: '发送',
+      enterToSend: 'Enter发送',
+      shiftEnterForNewLine: 'Shift+Enter换行'
+    },
+    streaming: {
+      thinking: 'AI正在思考中...'
+    },
+    loading: {
+      title: '正在准备您的专属AI占星师',
+      description: '需要您的完整星盘数据来提供个性化服务',
+      refresh: '重新加载数据'
+    },
+    errors: {
+      networkError: '网络连接错误，请检查网络设置',
+      apiKeyError: 'DeepSeek API密钥配置错误，请检查密钥是否正确',
+      rateLimitError: '请求过于频繁，请稍后再试',
+      quotaError: 'API配额已用完，请检查DeepSeek账户余额',
+      serverError: 'DeepSeek服务暂时不可用，请稍后重试',
+      defaultError: 'AI服务暂时不可用，请稍后重试'
+    }
   }
 };

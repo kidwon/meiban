@@ -97,140 +97,248 @@
         </div>
       </section>
 
-      <!-- 占星分析标签页 -->
+      <!-- 占星分析内容 -->
       <section class="section" v-show="activeFunctionTab === 'basic'">
         <h2 class="section-title">{{ $t('astrology.detailedAnalysis') }}</h2>
-        <div class="tabs">
-          <div class="tab-list">
-            <button 
-              v-for="tab in analysisTabs" 
-              :key="tab.id"
-              @click="activeTab = tab.id"
-              :class="{ active: activeTab === tab.id }"
-              class="tab-button"
-            >
-              {{ $t('astrology.' + tab.nameKey) }}
-            </button>
+        
+        <!-- 分析内容区域 -->
+        <div class="analysis-content">
+          <!-- 太阳天蝎｜核心人格 -->
+          <div class="analysis-card">
+            <div class="card-header">
+              <h3 class="card-title">太阳天蝎｜核心人格</h3>
+            </div>
+            <div class="card-content">
+              <div class="highlight-section">
+                <h4>优势：</h4>
+                <p>专注、韧性强、洞察隐情、擅长处理复杂与敏感主题。</p>
+              </div>
+              <div class="risk-section">
+                <h4>风险：</h4>
+                <p>过度保密、占有或"全或无"的判断。</p>
+              </div>
+              <div class="action-section">
+                <h4>做法：</h4>
+                <p>把"深挖"变成结构化研究与清晰输出。</p>
+              </div>
+            </div>
           </div>
-          
-          <div class="tab-content">
-            <div v-show="activeTab === 'personality'" class="tab-panel">
-              <h3>{{ $t('astrology.personalityAnalysis') }}</h3>
-              <div class="personality-analysis">
-                <div class="trait-section">
-                  <h4>{{ $t('astrology.corePersonality') }}</h4>
-                  <p>{{ getSunDescription() }}</p>
+
+          <!-- 月亮狮子｜情绪与依恋 -->
+          <div class="analysis-card">
+            <div class="card-header">
+              <h3 class="card-title">月亮狮子｜情绪与依恋</h3>
+            </div>
+            <div class="card-content">
+              <p>需要被认可与尊重；对朋友讲义气、表达戏剧化。</p>
+              <div class="trigger-section">
+                <h4>触发点：</h4>
+                <p>面子/尊严受挑战时易防御或爆发。</p>
+              </div>
+              <div class="action-section">
+                <h4>做法：</h4>
+                <p>建立安全的展示舞台（固定的汇报/分享场景），把关注从"被赞"转为"被理解"。</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 上升处女｜第一印象与人设 -->
+          <div class="analysis-card">
+            <div class="card-header">
+              <h3 class="card-title">上升处女｜第一印象与人设</h3>
+            </div>
+            <div class="card-content">
+              <div class="impression-section">
+                <h4>他人看到的你：</h4>
+                <p>细致、讲究流程、讲理性与秩序。</p>
+              </div>
+              <div class="risk-section">
+                <h4>风险：</h4>
+                <p>挑剔感、过度纠错。</p>
+              </div>
+              <div class="action-section">
+                <h4>做法：</h4>
+                <p>把"挑错"升级为流程优化建议（给替代方案+影响评估）。</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 水星天蝎 × MC双子｜思考与沟通 -->
+          <div class="analysis-card">
+            <div class="card-header">
+              <h3 class="card-title">水星天蝎 × MC双子｜思考与沟通</h3>
+            </div>
+            <div class="card-content">
+              <p>内容风格"深潜"，表达渠道"多元"；适合调查研究、产品/策略、教育/媒体等把复杂讲清楚的角色。</p>
+              <div class="risk-section">
+                <h4>风险：</h4>
+                <p>语气过锋利、信息不透明。</p>
+              </div>
+              <div class="technique-section">
+                <h4>技巧：</h4>
+                <p>先提问—再复述对方要点—最后给结论；结论附证据与边界条件。</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 金星摩羯 × Juno天蝎 × 下降双鱼｜关系与价值观 -->
+          <div class="analysis-card">
+            <div class="card-header">
+              <h3 class="card-title">金星摩羯 × Juno天蝎 × 下降双鱼｜关系与价值观</h3>
+            </div>
+            <div class="card-content">
+              <div class="venus-section">
+                <h4>金星摩羯：</h4>
+                <p>慢热、重承诺与长期价值，标准高。</p>
+              </div>
+              <div class="juno-section">
+                <h4>婚神天蝎：</h4>
+                <p>渴望强度、忠诚、深度绑定。</p>
+              </div>
+              <div class="descendant-section">
+                <h4>下降双鱼：</h4>
+                <p>被共情/浪漫/富想象的伴侣吸引。</p>
+              </div>
+              <div class="tension-section">
+                <h4>张力：</h4>
+                <p>理性（处女/摩羯）vs 沉浸（双鱼/天蝎）。</p>
+              </div>
+              <div class="action-section">
+                <h4>做法：</h4>
+                <p>边界+透明并重（稳定节奏的情绪沟通；避免用试探/吃醋来验证亲密）。</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 火星处女｜行动风格 -->
+          <div class="analysis-card">
+            <div class="card-header">
+              <h3 class="card-title">火星处女｜行动风格</h3>
+            </div>
+            <div class="card-content">
+              <div class="strength-section">
+                <h4>优势：</h4>
+                <p>拆解任务、建立标准、持续优化；适合工程/医疗/运营与精密工艺。</p>
+              </div>
+              <div class="risk-section">
+                <h4>风险：</h4>
+                <p>完美主义、过劳、对他人效率不耐。</p>
+              </div>
+              <div class="action-section">
+                <h4>做法：</h4>
+                <p>定义"足够好"的完成线（如80%即发布），留出复盘改进迭代。</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 中天双子 + 天秤群星｜事业走向 -->
+          <div class="analysis-card">
+            <div class="card-header">
+              <h3 class="card-title">中天双子 + 天秤群星（木/土/冥）｜事业走向</h3>
+            </div>
+            <div class="card-content">
+              <div class="direction-section">
+                <h4>方向：</h4>
+                <p>信息/写作/教育/媒体/产品运营/跨部门协调。</p>
+              </div>
+              <div class="libra-section">
+                <h4>天秤（木土冥）加成：</h4>
+                <p>谈判、公关、法律与"规则/公平感"的建立；审美与评审能力。</p>
+              </div>
+              <div class="position-section">
+                <h4>位形主张：</h4>
+                <p>成为把复杂问题讲清楚的人（研究→洞察→可执行决策）。</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 北交巨蟹｜成长课题 -->
+          <div class="analysis-card">
+            <div class="card-header">
+              <h3 class="card-title">北交巨蟹（对宫南交摩羯）｜成长课题</h3>
+            </div>
+            <div class="card-content">
+              <p>从"计划/控制/成就"转向"情感/照料/连接"。</p>
+              <div class="practice-section">
+                <h4>练习：</h4>
+                <p>表达需求与脆弱；把家庭/私域纳入与事业同等优先级的KPI。</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Eros金牛｜原型补充 -->
+          <div class="analysis-card">
+            <div class="card-header">
+              <h3 class="card-title">Eros金牛｜原型补充</h3>
+            </div>
+            <div class="card-content">
+              <p>对稳定、安全与感官体验有高度敏感；亲密偏节奏感与可预期的仪式。</p>
+              <div class="action-section">
+                <h4>做法：</h4>
+                <p>经营空间与仪式（固定约会/共同爱好/居家布置），提升信任与放松。</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 盲点与提醒 -->
+          <div class="analysis-card warning-card">
+            <div class="card-header">
+              <h3 class="card-title">盲点与提醒</h3>
+            </div>
+            <div class="card-content">
+              <p>嫉妒/占有（天蝎）、自尊过强（月狮）、完美主义（处女/摩羯）、关系中的控制议题（天蝎×天秤）。</p>
+              <div class="strategy-section">
+                <h4>对策：</h4>
+                <p>定期情绪—事实—需求三栏复盘；把重要分歧写成"协作规则"。</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 三条落地建议 -->
+          <div class="analysis-card highlight-card">
+            <div class="card-header">
+              <h3 class="card-title">三条落地建议</h3>
+            </div>
+            <div class="card-content">
+              <div class="suggestion-list">
+                <div class="suggestion-item">
+                  <div class="suggestion-number">1</div>
+                  <p>每周一次情绪周报（本周触发点/我需要/我能给）。</p>
                 </div>
-                <div class="trait-section">
-                  <h4>{{ $t('astrology.emotionalNeeds') }}</h4>
-                  <p>{{ getMoonDescription() }}</p>
+                <div class="suggestion-item">
+                  <div class="suggestion-number">2</div>
+                  <p>关键沟通用"探询—复述—结论"结构，减少误解与防御。</p>
                 </div>
-                <div class="trait-section">
-                  <h4>{{ $t('astrology.externalImpression') }}</h4>
-                  <p>{{ getAscendantDescription() }}</p>
+                <div class="suggestion-item">
+                  <div class="suggestion-number">3</div>
+                  <p>给自己设发布阈值（80%上线，20%迭代），避免因完美拖延。</p>
                 </div>
               </div>
             </div>
+          </div>
 
-            <div v-show="activeTab === 'career'" class="tab-panel">
-              <h3>{{ $t('astrology.careerAnalysis') }}</h3>
-              <div class="career-analysis">
-                <div class="career-section">
-                  <h4>{{ $t('astrology.careerStrengths') }}</h4>
-                  <p>{{ getCareerStrengths() }}</p>
+          <!-- 个性化推荐卡片 -->
+          <div class="recommendation-cards">
+            <h4 class="recommendations-title">{{ $t('astrology.recommendationsTitle') }}</h4>
+            <div class="cards-grid">
+              <div class="recommendation-card recommendation-card--transit" @click="goToTransitAnalysis">
+                <div class="card-icon">🌟</div>
+                <div class="card-content">
+                  <h5>{{ $t('astrology.actions.transitAnalysis') }}</h5>
+                  <p>{{ $t('astrology.recommendations.transitDescription') }}</p>
+                  <div class="card-badge">{{ $t('astrology.recommendations.recommended') }}</div>
                 </div>
-                <div class="career-section">
-                  <h4>{{ $t('astrology.suitableCareers') }}</h4>
-                  <div class="tag-cloud">
-                    <span 
-                      v-for="career in getSuggestedCareers()" 
-                      :key="career"
-                      class="tag tag--success"
-                    >
-                      {{ career }}
-                    </span>
-                  </div>
-                </div>
+                <div class="card-arrow">→</div>
               </div>
-            </div>
-
-            <div v-show="activeTab === 'relationships'" class="tab-panel">
-              <h3>{{ $t('astrology.relationshipAnalysis') }}</h3>
-              <div class="relationships-analysis">
-                <div class="relationship-section">
-                  <h4>{{ $t('astrology.loveExpression') }}</h4>
-                  <p>{{ getLoveDescription() }}</p>
+              
+              <div class="recommendation-card recommendation-card--ai-expert" @click="showAiExpertTab">
+                <div class="card-icon">🤖</div>
+                <div class="card-content">
+                  <h5>{{ $t('astrology.actions.aiExpert') }}</h5>
+                  <p>{{ $t('astrology.recommendations.aiExpertDescription') }}</p>
+                  <div class="card-badge">{{ $t('astrology.recommendations.new') }}</div>
                 </div>
-                <div class="relationship-section">
-                  <h4>{{ $t('astrology.friendshipTraits') }}</h4>
-                  <p>{{ getFriendshipDescription() }}</p>
-                </div>
-                <div class="relationship-section">
-                  <h4>{{ $t('astrology.compatibleSigns') }}</h4>
-                  <div class="tag-cloud">
-                    <span 
-                      v-for="sign in getCompatibleSigns()" 
-                      :key="sign"
-                      class="tag tag--secondary"
-                    >
-                      {{ sign }}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div v-show="activeTab === 'fortune'" class="tab-panel">
-              <h3>{{ $t('astrology.fortuneAnalysis') }}</h3>
-              <div class="fortune-analysis">
-                <div class="fortune-overview">
-                  <div class="fortune-badge">{{ calculationResults.fortune.overview }}</div>
-                </div>
-                <p>{{ getOverallFortuneDescription() }}</p>
-                <div class="fortune-grid">
-                  <div class="fortune-item">
-                    <div class="fortune-label">{{ $t('astrology.fortuneLabels.career') }}</div>
-                    <div class="fortune-stars">{{ calculationResults.fortune.career }}</div>
-                  </div>
-                  <div class="fortune-item">
-                    <div class="fortune-label">{{ $t('astrology.fortuneLabels.wealth') }}</div>
-                    <div class="fortune-stars">{{ calculationResults.fortune.wealth }}</div>
-                  </div>
-                  <div class="fortune-item">
-                    <div class="fortune-label">{{ $t('astrology.fortuneLabels.love') }}</div>
-                    <div class="fortune-stars">{{ calculationResults.fortune.love }}</div>
-                  </div>
-                  <div class="fortune-item">
-                    <div class="fortune-label">{{ $t('astrology.fortuneLabels.health') }}</div>
-                    <div class="fortune-stars">{{ calculationResults.fortune.health }}</div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- 个性化推荐卡片 -->
-              <div class="recommendation-cards">
-                <h4 class="recommendations-title">{{ $t('astrology.recommendationsTitle') }}</h4>
-                <div class="cards-grid">
-                  <div class="recommendation-card recommendation-card--transit" @click="goToTransitAnalysis">
-                    <div class="card-icon">🌟</div>
-                    <div class="card-content">
-                      <h5>{{ $t('astrology.actions.transitAnalysis') }}</h5>
-                      <p>{{ $t('astrology.recommendations.transitDescription') }}</p>
-                      <div class="card-badge">{{ $t('astrology.recommendations.recommended') }}</div>
-                    </div>
-                    <div class="card-arrow">→</div>
-                  </div>
-                  
-                  <div class="recommendation-card recommendation-card--compatibility" @click="goToCompatibilityAnalysis">
-                    <div class="card-icon">💕</div>
-                    <div class="card-content">
-                      <h5>{{ $t('astrology.actions.compatibility') }}</h5>
-                      <p>{{ $t('astrology.recommendations.compatibilityDescription') }}</p>
-                      <div class="card-badge card-badge--hot">{{ $t('astrology.recommendations.popular') }}</div>
-                    </div>
-                    <div class="card-arrow">→</div>
-                  </div>
-                </div>
+                <div class="card-arrow">→</div>
               </div>
             </div>
           </div>
@@ -274,38 +382,30 @@
         </div>
       </section>
 
-      <!-- 合盘分析内容 -->
+      <!-- AI专家内容 -->
       <section 
         class="section function-tab-content" 
-        v-show="activeFunctionTab === 'compatibility'"
+        v-show="activeFunctionTab === 'ai-expert'"
         :class="{ 
           'content-transitioning': isTransitioning,
           'content-direction-forward': tabSwitchDirection === 'forward',
           'content-direction-backward': tabSwitchDirection === 'backward'
         }"
       >
-        <h2 class="section-title">💕 {{ $t('astrology.functionNav.compatibilityAnalysis') }}</h2>
-        <div class="compatibility-content">
-          <div class="feature-preview">
-            <div class="preview-icon">💕</div>
-            <h3>{{ $t('astrology.actions.compatibility') }}</h3>
-            <p>{{ $t('astrology.advancedFeatures.compatibilityDescription') }}</p>
-            <div class="feature-highlights">
-              <div class="highlight-item">
-                <span class="highlight-icon">❤️</span>
-                <span>{{ $t('astrology.advancedFeatures.compatibilityFeatures.loveCompatibility') }}</span>
-              </div>
-              <div class="highlight-item">
-                <span class="highlight-icon">💬</span>
-                <span>{{ $t('astrology.advancedFeatures.compatibilityFeatures.communicationTrends') }}</span>
-              </div>
-              <div class="highlight-item">
-                <span class="highlight-icon">💡</span>
-                <span>{{ $t('astrology.advancedFeatures.compatibilityFeatures.relationshipAdvice') }}</span>
-              </div>
-            </div>
-            <button @click="goToCompatibilityAnalysis" class="btn btn--primary btn--large">
-              {{ $t('astrology.actions.compatibility') }}
+        <h2 class="section-title">🤖 {{ $t('astrology.functionNav.aiExpert') }}</h2>
+        <div class="ai-expert-content">
+          <AiChatInterface 
+            v-if="isDataReady"
+            ref="aiChatInterface"
+          />
+          
+          <!-- 数据未准备好的提示 -->
+          <div v-else class="ai-expert-loading">
+            <div class="loading-icon">🤖</div>
+            <h3>{{ $t('aiChat.loading.title') }}</h3>
+            <p>{{ $t('aiChat.loading.description') }}</p>
+            <button @click="initializeUserData" class="btn btn--primary">
+              {{ $t('aiChat.loading.refresh') }}
             </button>
           </div>
         </div>
@@ -347,7 +447,7 @@
             <span>{{ guideStep + 1 }} / {{ userGuideSteps.length }}</span>
             <div class="progress-dots">
               <span 
-                v-for="(step, index) in userGuideSteps" 
+                v-for="(_, index) in userGuideSteps" 
                 :key="index"
                 :class="{ active: index === guideStep, completed: index < guideStep }"
                 class="progress-dot"
@@ -391,16 +491,10 @@ import { mapGetters } from 'vuex'
 import LanguageSwitcher from '../components/LanguageSwitcher.vue'
 import ShareButton from '../components/ShareButton.vue'
 import AdSenseAd from '../components/AdSenseAd.vue'
+import AiChatInterface from '../components/AiChat/AiChatInterface.vue'
 import i18nMixin from '../mixins/i18n.js'
 import ChartViewSelector from '../components/StarChart/ChartViewSelector.vue'
 import {
-  getSignDescription,
-  getCareerStrengths,
-  getSuggestedCareers,
-  getLoveDescription,
-  getFriendshipDescription,
-  getCompatibleSigns,
-  getFortuneDescription,
   getPlanetKeywords,
   formatBirthInfo
 } from '../services/astrologyDataService.js'
@@ -419,12 +513,12 @@ export default {
     LanguageSwitcher,
     ShareButton,
     AdSenseAd,
+    AiChatInterface,
     ChartViewSelector
   },
   
   data() {
     return {
-      activeTab: 'personality',
       activeFunctionTab: 'basic', // 当前激活的功能标签
       isTransitioning: false, // 控制切换动画状态
       lastActiveTab: 'basic', // 记录上一个激活的标签
@@ -435,12 +529,6 @@ export default {
       showTooltip: null, // 当前显示的提示
       interactionCount: 0, // 用户交互计数
       selectedPlanet: null,
-      analysisTabs: [
-        { id: 'personality', nameKey: 'personalityAnalysis' },
-        { id: 'career', nameKey: 'careerAnalysis' },
-        { id: 'relationships', nameKey: 'relationshipAnalysis' },
-        { id: 'fortune', nameKey: 'fortuneAnalysis' }
-      ],
       functionNavs: [
         { 
           id: 'basic', 
@@ -457,11 +545,11 @@ export default {
           badge: 'NEW' 
         },
         { 
-          id: 'compatibility', 
-          nameKey: 'compatibilityAnalysis', 
-          icon: '💕', 
+          id: 'ai-expert', 
+          nameKey: 'aiExpert', 
+          icon: '🤖', 
           completed: false,
-          badge: 'HOT' 
+          badge: 'NEW' 
         }
       ],
       userGuideSteps: [
@@ -498,7 +586,7 @@ export default {
   },
   
   computed: {
-    ...mapGetters(['getUserData', 'getCalculationResults']),
+    ...mapGetters(['getUserData', 'getCalculationResults', 'getSettings']),
     
     userData() {
       return this.getUserData
@@ -507,7 +595,17 @@ export default {
     calculationResults() {
       return this.getCalculationResults
     },
-
+    
+    // AI聊天数据就绪检查
+    isDataReady() {
+      return this.userData && 
+             this.calculationResults && 
+             this.userData.birthdate && 
+             this.userData.birthHour !== null && 
+             this.userData.birthMinute !== null &&
+             this.calculationResults.eightCharacters &&
+             this.calculationResults.astrologyPositions
+    },
     
     formattedBirthInfo() {
       return formatBirthInfo(this.userData)
@@ -553,7 +651,7 @@ export default {
       }
 
       // 确定切换方向
-      const tabOrder = ['basic', 'transit', 'compatibility']
+      const tabOrder = ['basic', 'transit', 'ai-expert']
       const currentIndex = tabOrder.indexOf(this.activeFunctionTab)
       const newIndex = tabOrder.indexOf(newTabId)
       this.tabSwitchDirection = newIndex > currentIndex ? 'forward' : 'backward'
@@ -639,7 +737,7 @@ export default {
     handleKeyNavigation(event) {
       if (!event.ctrlKey && !event.metaKey) return
       
-      const tabOrder = ['basic', 'transit', 'compatibility']
+      const tabOrder = ['basic', 'transit', 'ai-expert']
       const currentIndex = tabOrder.indexOf(this.activeFunctionTab)
       
       switch(event.key) {
@@ -665,7 +763,7 @@ export default {
           break
         case '3':
           event.preventDefault()
-          this.switchFunctionTab('compatibility')
+          this.switchFunctionTab('ai-expert')
           break
       }
     },
@@ -830,70 +928,35 @@ export default {
     getPlanetDescription(planetType) {
       if (!planetType) return ''
       const sign = this.getPlanetSign(planetType)
-      return getSignDescription(planetType, sign, this.currentLanguage)
+      // 返回基本的星座位置信息，不再使用详细描述
+      return `${this.getPlanetDisplayName(planetType)} 位于 ${sign}`
     },
     
     getPlanetKeywords(planetType) {
       return getPlanetKeywords(planetType, this.currentLanguage)
     },
     
-    // 使用数据服务的方法
-    getSunDescription() {
-      if (!this.calculationResults) return ''
-      const sunSign = this.calculationResults.astrologyPositions.sun.sign
-      return getSignDescription('sun', sunSign, this.currentLanguage)
-    },
-    
-    getMoonDescription() {
-      if (!this.calculationResults) return ''
-      const moonSign = this.calculationResults.astrologyPositions.moon.sign
-      return getSignDescription('moon', moonSign, this.currentLanguage)
-    },
-    
-    getAscendantDescription() {
-      if (!this.calculationResults) return ''
-      const ascendantSign = this.calculationResults.astrologyPositions.ascendant.sign
-      return getSignDescription('ascendant', ascendantSign, this.currentLanguage)
-    },
-    
-    getCareerStrengths() {
-      if (!this.calculationResults) return ''
-      return getCareerStrengths(this.calculationResults.astrologyPositions, this.currentLanguage)
-    },
-    
-    getSuggestedCareers() {
-      if (!this.calculationResults) return []
-      return getSuggestedCareers(this.calculationResults.astrologyPositions, this.currentLanguage)
-    },
-    
-    getLoveDescription() {
-      if (!this.calculationResults) return ''
-      return getLoveDescription(this.calculationResults.astrologyPositions, this.currentLanguage)
-    },
-    
-    getFriendshipDescription() {
-      if (!this.calculationResults) return ''
-      return getFriendshipDescription(this.calculationResults.astrologyPositions, this.currentLanguage)
-    },
-    
-    getCompatibleSigns() {
-      if (!this.calculationResults) return []
-      return getCompatibleSigns(this.calculationResults.astrologyPositions.sun.sign, this.currentLanguage)
-    },
-    
-    getOverallFortuneDescription() {
-      if (!this.calculationResults) return ''
-      return getFortuneDescription(this.calculationResults.fortune, this.currentLanguage)
-    },
     
     // 导航方法
     goToTransitAnalysis() {
       this.$router.push({ name: 'transit-analysis' })
     },
     
-    goToCompatibilityAnalysis() {
-      // 暂时显示提示，实际需要实现合盘分析页面
-      alert(this.$t('astrology.alerts.compatibilityInDevelopment'))
+    // 显示AI专家标签页
+    showAiExpertTab() {
+      this.switchFunctionTab('ai-expert')
+    },
+    
+    // 初始化用户数据
+    async initializeUserData() {
+      try {
+        if (!this.userData || !this.calculationResults) {
+          // 尝试重新加载数据
+          await this.$store.dispatch('initializeApp')
+        }
+      } catch (error) {
+        console.error('Failed to initialize user data:', error)
+      }
     },
     
     async downloadReport() {
@@ -910,36 +973,21 @@ export default {
             elements: this.calculationResults?.elements || {},
             personality: this.calculationResults?.personality || ''
           },
-          // 添加详细的占星分析数据
+          // 添加新的占星分析数据结构
           astrology: {
             sun: {
-              sign: this.calculationResults?.astrologyPositions?.sun?.sign,
-              description: this.getSunDescription()
+              sign: this.calculationResults?.astrologyPositions?.sun?.sign
             },
             moon: {
-              sign: this.calculationResults?.astrologyPositions?.moon?.sign,
-              description: this.getMoonDescription()
+              sign: this.calculationResults?.astrologyPositions?.moon?.sign
             },
             ascendant: {
-              sign: this.calculationResults?.astrologyPositions?.ascendant?.sign,
-              description: this.getAscendantDescription()
-            },
-            // 事业分析
-            career: {
-              strengths: this.getCareerStrengths(),
-              suggestions: this.getSuggestedCareers()
-            },
-            // 感情分析
-            relationships: {
-              love: this.getLoveDescription(),
-              friendship: this.getFriendshipDescription(),
-              compatibility: this.getCompatibleSigns()
+              sign: this.calculationResults?.astrologyPositions?.ascendant?.sign
             },
             // 性格关键词
             planetKeywords: this.calculationResults?.planetKeywords || {},
             // 运势概览
             fortune: {
-              overall: this.getOverallFortuneDescription(),
               ...this.calculationResults?.fortune
             }
           }
@@ -1079,7 +1127,7 @@ export default {
     // 处理URL查询参数中的tab切换
     if (this.$route.query.tab) {
       const targetTab = this.$route.query.tab
-      if (['basic', 'transit', 'compatibility'].includes(targetTab)) {
+      if (['basic', 'transit', 'ai-expert'].includes(targetTab)) {
         this.activeFunctionTab = targetTab
         // 清除查询参数以保持URL整洁
         this.$router.replace({ query: {} })
@@ -1327,6 +1375,53 @@ export default {
 .transit-content .highlight-item:hover {
   background: rgba(255, 255, 255, 0.35);
   transform: translateY(-2px);
+}
+
+/* AI专家内容样式 */
+.ai-expert-content {
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 20px;
+  margin: 20px 0;
+}
+
+.ai-expert-loading {
+  text-align: center;
+  padding: 60px 40px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 16px;
+  color: white;
+}
+
+.ai-expert-loading .loading-icon {
+  font-size: 4rem;
+  margin-bottom: 20px;
+  opacity: 0.8;
+  animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+}
+
+.ai-expert-loading h3 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.ai-expert-loading p {
+  opacity: 0.9;
+  margin-bottom: 30px;
+  line-height: 1.6;
 }
 
 .preview-icon {
@@ -1717,6 +1812,425 @@ export default {
 .tag--secondary {
   background: rgba(108, 117, 125, 0.1);
   color: #6c757d;
+}
+
+/* =============================================================================
+   新的分析内容样式
+   ============================================================================= */
+
+/* 分析内容容器 */
+.analysis-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* 分析卡片样式 */
+.analysis-card {
+  background: #fff;
+  border: 1px solid #e9ecef;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.analysis-card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+/* 卡片头部 */
+.card-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 16px 20px;
+}
+
+.card-title {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  font-family: 'Shippori Mincho', serif;
+  letter-spacing: 0.5px;
+}
+
+/* 卡片内容 */
+.card-content {
+  padding: 20px;
+}
+
+/* 内容子区域样式 */
+.highlight-section,
+.risk-section,
+.action-section,
+.trigger-section,
+.impression-section,
+.technique-section,
+.venus-section,
+.juno-section,
+.descendant-section,
+.tension-section,
+.strength-section,
+.direction-section,
+.libra-section,
+.position-section,
+.practice-section,
+.strategy-section {
+  margin-bottom: 16px;
+}
+
+.highlight-section:last-child,
+.risk-section:last-child,
+.action-section:last-child,
+.trigger-section:last-child,
+.impression-section:last-child,
+.technique-section:last-child,
+.venus-section:last-child,
+.juno-section:last-child,
+.descendant-section:last-child,
+.tension-section:last-child,
+.strength-section:last-child,
+.direction-section:last-child,
+.libra-section:last-child,
+.position-section:last-child,
+.practice-section:last-child,
+.strategy-section:last-child {
+  margin-bottom: 0;
+}
+
+/* 子区域标题 */
+.card-content h4 {
+  color: #495057;
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+  display: inline-block;
+}
+
+.card-content p {
+  color: #6c757d;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* 优势区域 - 绿色主题 */
+.highlight-section h4,
+.strength-section h4 {
+  color: #28a745;
+}
+
+.highlight-section,
+.strength-section {
+  background: rgba(40, 167, 69, 0.05);
+  padding: 12px;
+  border-radius: 8px;
+  border-left: 4px solid #28a745;
+}
+
+/* 风险区域 - 橙色主题 */
+.risk-section h4 {
+  color: #fd7e14;
+}
+
+.risk-section {
+  background: rgba(253, 126, 20, 0.05);
+  padding: 12px;
+  border-radius: 8px;
+  border-left: 4px solid #fd7e14;
+}
+
+/* 行动区域 - 蓝色主题 */
+.action-section h4,
+.technique-section h4,
+.practice-section h4,
+.strategy-section h4 {
+  color: #007bff;
+}
+
+.action-section,
+.technique-section,
+.practice-section,
+.strategy-section {
+  background: rgba(0, 123, 255, 0.05);
+  padding: 12px;
+  border-radius: 8px;
+  border-left: 4px solid #007bff;
+}
+
+/* 触发点区域 - 红色主题 */
+.trigger-section h4 {
+  color: #dc3545;
+}
+
+.trigger-section {
+  background: rgba(220, 53, 69, 0.05);
+  padding: 12px;
+  border-radius: 8px;
+  border-left: 4px solid #dc3545;
+}
+
+/* 特殊卡片样式 */
+.warning-card .card-header {
+  background: linear-gradient(135deg, #fd7e14 0%, #dc3545 100%);
+}
+
+.highlight-card .card-header {
+  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+}
+
+/* 建议列表样式 */
+.suggestion-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.suggestion-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 16px;
+  background: rgba(40, 167, 69, 0.05);
+  border-radius: 12px;
+  border: 1px solid rgba(40, 167, 69, 0.2);
+}
+
+.suggestion-number {
+  background: #28a745;
+  color: white;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.suggestion-item p {
+  margin: 0;
+  color: #495057;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* 推荐卡片样式 */
+.recommendation-cards {
+  margin-top: 30px;
+  padding-top: 30px;
+  border-top: 2px solid #f0f0f0;
+}
+
+.recommendations-title {
+  text-align: center;
+  color: #34495e;
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  font-family: 'Shippori Mincho', serif;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.recommendation-card {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 16px;
+  padding: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.recommendation-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+.recommendation-card--transit {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.recommendation-card--ai-expert {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.card-icon {
+  font-size: 2.5rem;
+  flex-shrink: 0;
+}
+
+.recommendation-card .card-content {
+  flex: 1;
+  padding: 0;
+}
+
+.recommendation-card h5 {
+  margin: 0 0 8px 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: white;
+}
+
+.recommendation-card p {
+  margin: 0 0 12px 0;
+  font-size: 0.9rem;
+  opacity: 0.9;
+  line-height: 1.4;
+  color: white;
+}
+
+.card-badge {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.25);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.card-badge--hot {
+  background: rgba(255, 107, 107, 0.8);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.card-arrow {
+  font-size: 1.5rem;
+  font-weight: bold;
+  opacity: 0.8;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.recommendation-card:hover .card-arrow {
+  transform: translateX(4px);
+  opacity: 1;
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  .analysis-content {
+    gap: 16px;
+  }
+  
+  .analysis-card {
+    border-radius: 8px;
+  }
+  
+  .card-header {
+    padding: 12px 16px;
+  }
+  
+  .card-title {
+    font-size: 1rem;
+  }
+  
+  .card-content {
+    padding: 16px;
+  }
+  
+  .card-content h4 {
+    font-size: 0.9rem;
+  }
+  
+  .card-content p {
+    font-size: 0.85rem;
+  }
+  
+  .suggestion-item {
+    flex-direction: column;
+    text-align: center;
+    gap: 12px;
+  }
+  
+  .suggestion-number {
+    align-self: center;
+  }
+  
+  /* 推荐卡片移动端样式 */
+  .cards-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .recommendation-card {
+    padding: 16px;
+    flex-direction: column;
+    text-align: center;
+    gap: 12px;
+  }
+  
+  .card-icon {
+    font-size: 2rem;
+  }
+  
+  .recommendation-card h5 {
+    font-size: 1rem;
+  }
+  
+  .recommendation-card p {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .card-header {
+    padding: 10px 12px;
+  }
+  
+  .card-title {
+    font-size: 0.95rem;
+    line-height: 1.4;
+  }
+  
+  .card-content {
+    padding: 12px;
+  }
+  
+  .highlight-section,
+  .risk-section,
+  .action-section,
+  .trigger-section,
+  .impression-section,
+  .technique-section,
+  .venus-section,
+  .juno-section,
+  .descendant-section,
+  .tension-section,
+  .strength-section,
+  .direction-section,
+  .libra-section,
+  .position-section,
+  .practice-section,
+  .strategy-section {
+    padding: 10px;
+    margin-bottom: 12px;
+  }
 }
 
 /* 运势网格 */

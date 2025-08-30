@@ -2818,6 +2818,7 @@ export default {
         practice: {
           question: 'Apply the learned analysis methods and try systematic analysis of a complete chart case?',
           button: 'Apply Analysis Methods'
+        }
       }
     }
   },
@@ -2826,7 +2827,7 @@ export default {
   aiChat: {
     welcome: {
       title: 'Welcome to AI Astrology Expert',
-      description: 'I am your personal AI astrologer, providing personalized astrological advice and answers based on your detailed birth chart information. Feel free to ask me any questions about your chart.'
+      description: 'I am your personal AI astrologer, providing personalized astrological advice and answers based on your detailed birth chart information. Feel free to ask any questions about your chart.'
     },
     suggestedQuestions: {
       title: 'Suggested Questions'
@@ -2842,16 +2843,14 @@ export default {
     },
     loading: {
       title: 'Preparing Your Personal AI Astrologer',
-      description: 'Complete birth chart data is needed to provide personalized service',
+      description: 'Complete birth chart data required for personalized service',
       refresh: 'Reload Data'
     },
     errors: {
-      networkError: 'Network connection error, please check your network settings',
-      apiKeyError: 'DeepSeek API key configuration error, please verify your API key',
-      rateLimitError: 'Too many requests, please try again later',
-      quotaError: 'API quota exceeded, please check your DeepSeek account balance',
-      serverError: 'DeepSeek service is temporarily unavailable, please try again later',
-      defaultError: 'AI service is temporarily unavailable, please retry later'
+      networkError: 'Network connection error. Please check your network settings',
+      apiKeyError: 'API configuration error. Please contact the administrator',
+      rateLimitError: 'Too many requests. Please try again later',
+      defaultError: 'AI service is temporarily unavailable. Please try again later'
     }
   }
 };

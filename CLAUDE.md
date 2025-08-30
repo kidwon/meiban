@@ -73,6 +73,11 @@ Multi-language support through `src/i18n/`:
 - Performance optimizations with code splitting
 - PWA settings for mobile app-like experience
 
+### AI Integration Framework
+- **Future AI Features**: The application is prepared for AI Q&A functionality implementation
+- **Vercel AI SDK Integration**: For any work involving AI features, chatbots, streaming responses, or integrating AI models into the application, **MUST CONSULT** the `vercel-ai-sdk-5-expert` sub-agent before proceeding
+- **AI Expert Functionality**: Currently exists as UI placeholder, will be converted to actual AI Q&A service using Vercel AI SDK v5
+
 ### Important Notes
 - The application contains extensive astronomical calculation algorithms in `doc/algo.md`
 - User data persists in localStorage through Vuex store
