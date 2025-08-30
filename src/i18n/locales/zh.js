@@ -1693,7 +1693,7 @@ export default {
     error: '分享失败，请稍后重试'
   },
 
-  // 课程翻译
+  // Lesson Page
   lesson: {
     overview: '课程概述',
     objectives: '学习目标',
@@ -1760,7 +1760,7 @@ export default {
       }
     },
 
-    // 详细课程内容
+    // Detailed lesson content
     lessonContent: {
       common: {
         overview: '课程概述',
@@ -1772,7 +1772,192 @@ export default {
         startPractice: '开始练习',
         testMyAttributes: '测试我的属性'
       },
+      
+      baziHeavenlyStems: {
+        title: '天干详解',
+        breadcrumb: '天干详解',
+        intro: '天干是八字命理学的核心要素之一，由十个符号组成，代表着不同的能量属性和特质。深入理解天干的含义对于准确分析八字至关重要。',
+        objectives: {
+          obj1: '掌握十天干的基本含义和属性',
+          obj2: '理解天干的阴阳配对关系',
+          obj3: '学会天干的五行分类和特性',
+          obj4: '了解天干在命理分析中的作用'
+        },
+        overview: {
+          title: '十天干概览',
+          description: '天干共有十个：甲、乙、丙、丁、戊、己、庚、辛、壬、癸。每两个天干为一组，分别代表阳性和阴性能量。',
+          stems: {
+            wood: '甲乙 - 木',
+            fire: '丙丁 - 火',
+            earth: '戊己 - 土',
+            metal: '庚辛 - 金',
+            water: '壬癸 - 水'
+          }
+        },
+        detailed: {
+          title: '天干详解',
+          jia: {
+            name: '甲 - 阳木',
+            element: '木',
+            symbolLabel: '象征',
+            symbol: '参天大树、栋梁之材',
+            traitsLabel: '特质',
+            traits: '刚直、有原则、领导力强、不易弯曲',
+            personalityLabel: '性格',
+            personality: '积极主动、富有正义感、喜欢直来直往',
+            careerLabel: '职业倾向',
+            career: '管理者、企业家、法官、教师'
+          },
+          yi: {
+            name: '乙 - 阴木',
+            element: '木',
+            symbolLabel: '象征',
+            symbol: '花草藤蔓、柔韧之物',
+            traitsLabel: '特质',
+            traits: '柔韧、适应性强、善于变通',
+            personalityLabel: '性格',
+            personality: '温和细腻、富有同情心、擅长沟通',
+            careerLabel: '职业倾向',
+            career: '艺术家、咨询师、护士、园艺师'
+          },
+          bing: {
+            name: '丙 - 阳火',
+            element: '火',
+            symbolLabel: '象征',
+            symbol: '太阳、熊熊烈火',
+            traitsLabel: '特质',
+            traits: '热情奔放、光明磊落、影响力强',
+            personalityLabel: '性格',
+            personality: '乐观开朗、具有感染力、喜欢成为焦点',
+            careerLabel: '职业倾向',
+            career: '演员、主持人、销售、政治家'
+          },
+          ding: {
+            name: '丁 - 阴火',
+            element: '火',
+            symbolLabel: '象征',
+            symbol: '烛光、炉火',
+            traitsLabel: '特质',
+            traits: '温暖细致、持续稳定、照亮他人',
+            personalityLabel: '性格',
+            personality: '体贴入微、富有耐心、善于照顾他人',
+            careerLabel: '职业倾向',
+            career: '医生、厨师、设计师、心理咨询师'
+          },
+          wu: {
+            name: '戊 - 阳土',
+            element: '土',
+            symbolLabel: '象征',
+            symbol: '高山、城墙',
+            traitsLabel: '特质',
+            traits: '稳重可靠、包容性强、防御力佳',
+            personalityLabel: '性格',
+            personality: '踏实稳重、责任感强、值得信赖',
+            careerLabel: '职业倾向',
+            career: '建筑师、工程师、银行家、保安'
+          },
+          ji: {
+            name: '己 - 阴土',
+            element: '土',
+            symbolLabel: '象征',
+            symbol: '田园、沃土',
+            traitsLabel: '特质',
+            traits: '滋养万物、默默奉献、包容宽厚',
+            personalityLabel: '性格',
+            personality: '温和包容、乐于助人、重视家庭',
+            careerLabel: '职业倾向',
+            career: '农业、服务业、社工、会计'
+          },
+          geng: {
+            name: '庚 - 阳金',
+            element: '金',
+            symbolLabel: '象征',
+            symbol: '刀剑、钢铁',
+            traitsLabel: '特质',
+            traits: '坚硬锋利、杀伐决断、正义凛然',
+            personalityLabel: '性格',
+            personality: '刚毅果断、不畏艰难、具有正义感',
+            careerLabel: '职业倾向',
+            career: '军人、警察、外科医生、律师'
+          },
+          xin: {
+            name: '辛 - 阴金',
+            element: '金',
+            symbolLabel: '象征',
+            symbol: '珠宝、精金',
+            traitsLabel: '特质',
+            traits: '精致优雅、品质高贵、追求完美',
+            personalityLabel: '性格',
+            personality: '精致细腻、审美品味高、追求精工细作',
+            careerLabel: '职业倾向',
+            career: '珠宝设计师、艺术品鉴定、精密仪器'
+          },
+          ren: {
+            name: '壬 - 阳水',
+            element: '水',
+            symbolLabel: '象征',
+            symbol: '江河湖海、汹涌波涛',
+            traitsLabel: '特质',
+            traits: '流动变化、包容万物、适应性强',
+            personalityLabel: '性格',
+            personality: '灵活机智、善于变通、具有冒险精神',
+            careerLabel: '职业倾向',
+            career: '外贸、旅游、航海、媒体'
+          },
+          gui: {
+            name: '癸 - 阴水',
+            element: '水',
+            symbolLabel: '象征',
+            symbol: '雨露、甘泉',
+            traitsLabel: '特质',
+            traits: '滋润万物、细致入微、默默奉献',
+            personalityLabel: '性格',
+            personality: '细心体贴、直觉敏锐、富有同情心',
+            careerLabel: '职业倾向',
+            career: '研究员、心理学家、护理、文学创作'
+          }
+        },
+        combinations: {
+          title: '天干相合',
+          description: '天干之间存在相合关系，相合代表和谐、合作、化解矛盾。',
+          list: {
+            jiaji: {combo: '甲己合', result: '化土', meaning: '代表仁义结合，刚柔并济'},
+            yigeng: {combo: '乙庚合', result: '化金', meaning: '代表仁义与威严的结合'},
+            bingxin: {combo: '丙辛合', result: '化水', meaning: '代表礼仪与正义的结合'},
+            dingren: {combo: '丁壬合', result: '化木', meaning: '代表礼仪与智慧的结合'},
+            wugui: {combo: '戊癸合', result: '化火', meaning: '代表信义与智慧的结合'}
+          }
+        },
+        application: {
+          title: '实际应用',
+          subtitle: '在八字分析中的运用',
+          points: {
+            dayMaster: {
+              title: '日主分析',
+              description: '日干代表本人，通过分析日干属性了解基本性格'
+            },
+            tenGods: {
+              title: '十神关系',
+              description: '其他天干与日干的关系形成十神，反映人生各个方面'
+            },
+            pattern: {
+              title: '格局判断',
+              description: '天干组合影响八字格局的高低'
+            },
+            luck: {
+              title: '大运流年',
+              description: '大运和流年的天干与命局天干的作用关系'
+            }
+          }
+        },
+        metaDescription: '深入学习十天干的含义、属性和特质，掌握八字命理学的核心要素。',
+        practice: {
+          question: '观察您身边的人，尝试根据他们的性格特质猜测其日干可能是什么？',
+          button: '测试我的天干属性'
+        }
+      },
 
+      // Bazi lesson content
       baziBasics: {
         title: '八字基础入门',
         breadcrumb: '八字基础',
@@ -1878,154 +2063,174 @@ export default {
           button: '开始八字分析'
         }
       },
-
-      baziHeavenlyStems: {
-        title: '天干详解',
-        breadcrumb: '天干详解',
-        intro: '天干是八字命理学的核心要素之一，由十个符号组成，代表着不同的能量属性和特质。深入理解天干的含义，对于准确分析八字极为重要。',
-        objectives: {
-          obj1: '掌握十天干的基本含义和属性',
-          obj2: '理解天干的阴阳配对关系',
-          obj3: '学习天干的五行分类和特性',
-          obj4: '了解天干在命理分析中的作用'
-        },
         overview: {
-          title: '十天干概览',
-          description: '天干共有十个：甲、乙、丙、丁、戊、己、庚、辛、壬、癸。每两个天干为一组，分别代表阳性和阴性的能量。',
+          title: '天干概述',
+          description: '十天干是：甲、乙、丙、丁、戊、己、庚、辛、壬、癸。它们按照五行分类，每个五行包含阴阳两个天干。',
           stems: {
-            wood: '甲乙 - 木',
-            fire: '丙丁 - 火',
-            earth: '戊己 - 土',
-            metal: '庚辛 - 金',
-            water: '壬癸 - 水'
+            wood: '木',
+            fire: '火',
+            earth: '土',
+            metal: '金',
+            water: '水'
           }
         },
         detailed: {
           title: '天干详解',
           jia: {
-            name: '甲 - 阳木',
-            element: '木',
+            name: '甲木',
+            element: '阳木',
             symbolLabel: '象征',
-            symbol: '参天大树、栋梁之材',
+            symbol: '大树、栋梁',
             traitsLabel: '特质',
-            traits: '刚直、有原则、领导力强、不易弯曲',
-            personalityLabel: '性格',
-            personality: '积极主动、正义感强、喜欢直言不讳',
-            careerLabel: '职业倾向',
-            career: '管理者、企业家、法官、教师'
+            traits: '刚直、向上、有担当',
+            personalityLabel: '性格特点',
+            personality: '甲木如参天大树，具有向上生长的强烈意志。性格刚直不阿，有领导能力和开拓精神。',
+            careerLabel: '适合职业',
+            career: '适合从事管理、创业、教育等需要权威和领导力的工作'
           },
           yi: {
-            name: '乙 - 阴木',
-            element: '木',
+            name: '乙木',
+            element: '阴木',
             symbolLabel: '象征',
-            symbol: '花草藤蔓、柔韧之物',
+            symbol: '花草、藤蔓',
             traitsLabel: '特质',
-            traits: '柔和、适应性强、善于变通',
-            personalityLabel: '性格',
-            personality: '温和细腻、富有同情心、善于沟通',
-            careerLabel: '职业倾向',
-            career: '艺术家、心理咨询师、护士、园艺师'
+            traits: '柔韧、灵活、适应性强',
+            personalityLabel: '性格特点',
+            personality: '乙木如柔韧的藤蔓，具有灵活适应的能力。性格温和，善于变通，人际关系和谐。',
+            careerLabel: '适合职业',
+            career: '适合从事艺术、设计、服务、外交等需要细腻和灵活性的工作'
           },
           bing: {
-            name: '丙 - 阳火',
-            element: '火',
+            name: '丙火',
+            element: '阳火',
             symbolLabel: '象征',
-            symbol: '太阳、熊熊烈火',
+            symbol: '太阳、阳光',
             traitsLabel: '特质',
-            traits: '热情、光明正大、影响力强',
-            personalityLabel: '性格',
-            personality: '乐观开朗、具有感染力、喜欢成为焦点',
-            careerLabel: '职业倾向',
-            career: '演员、主持人、销售、政治家'
+            traits: '热情、光明、有感染力',
+            personalityLabel: '性格特点',
+            personality: '丙火如太阳般光明磊落，具有温暖他人的能力。性格开朗活泼，富有感染力。',
+            careerLabel: '适合职业',
+            career: '适合从事娱乐、销售、公关、演讲等需要热情和表现力的工作'
           },
           ding: {
-            name: '丁 - 阴火',
-            element: '火',
+            name: '丁火',
+            element: '阴火',
             symbolLabel: '象征',
-            symbol: '烛火、炉火',
+            symbol: '灯火、烛光',
             traitsLabel: '特质',
-            traits: '温暖细腻、持续稳定、照亮他人',
-            personalityLabel: '性格',
-            personality: '体贴入微、有耐心、善于照顾他人',
-            careerLabel: '职业倾向',
-            career: '医生、厨师、设计师、心理治疗师'
+            traits: '温和、持久、细腻',
+            personalityLabel: '性格特点',
+            personality: '丁火如温暖的烛光，虽然不如丙火炽热，但更持久稳定。性格细腻，富有同情心。',
+            careerLabel: '适合职业',
+            career: '适合从事医疗、护理、咨询、文学等需要细心和同理心的工作'
           },
           wu: {
-            name: '戊 - 阳土',
-            element: '土',
+            name: '戊土',
+            element: '阳土',
             symbolLabel: '象征',
             symbol: '高山、城墙',
             traitsLabel: '特质',
-            traits: '稳定可靠、包容性强、防御力好',
-            personalityLabel: '性格',
-            personality: '踏实稳重、责任感强、值得信赖',
-            careerLabel: '职业倾向',
-            career: '建筑师、工程师、银行家、保安'
+            traits: '稳重、承载、责任感强',
+            personalityLabel: '性格特点',
+            personality: '戊土如稳重的高山，具有承载万物的能力。性格踏实可靠，有强烈的责任感。',
+            careerLabel: '适合职业',
+            career: '适合从事建筑、房地产、农业、金融等需要稳定和积累的工作'
           },
           ji: {
-            name: '己 - 阴土',
-            element: '土',
+            name: '己土',
+            element: '阴土',
             symbolLabel: '象征',
             symbol: '田园、沃土',
             traitsLabel: '特质',
-            traits: '滋养万物、默默奉献、包容宽厚',
-            personalityLabel: '性格',
-            personality: '温和包容、乐于助人、重视家庭',
-            careerLabel: '职业倾向',
-            career: '农业、服务业、社工、会计师'
+            traits: '包容、滋养、协调能力强',
+            personalityLabel: '性格特点',
+            personality: '己土如肥沃的田园，具有滋养万物的能力。性格温和包容，善于协调。',
+            careerLabel: '适合职业',
+            career: '适合从事教育、培训、服务、农业等需要培育和服务的工作'
           },
           geng: {
-            name: '庚 - 阳金',
-            element: '金',
+            name: '庚金',
+            element: '阳金',
             symbolLabel: '象征',
-            symbol: '刀剑、钢铁',
+            symbol: '钢铁、刀剑',
             traitsLabel: '特质',
-            traits: '坚硬锐利、果断有力、正义凛然',
-            personalityLabel: '性格',
-            personality: '刚毅果断、不畏困难、具有正义感',
-            careerLabel: '职业倾向',
-            career: '军人、警察、外科医生、律师'
+            traits: '果断、刚毅、行动力强',
+            personalityLabel: '性格特点',
+            personality: '庚金如锋利的刀剑，具有强烈的杀伐决断能力。性格刚毅果断，行动力强。',
+            careerLabel: '适合职业',
+            career: '适合从事军警、法律、外科、机械等需要果断和精准的工作'
           },
           xin: {
-            name: '辛 - 阴金',
-            element: '金',
+            name: '辛金',
+            element: '阴金',
             symbolLabel: '象征',
-            symbol: '珠宝、精金',
+            symbol: '珠宝、首饰',
             traitsLabel: '特质',
-            traits: '精致优雅、品质高贵、追求完美',
-            personalityLabel: '性格',
-            personality: '精细入微、审美品味高、追求精工细作',
-            careerLabel: '职业倾向',
-            career: '珠宝设计师、艺术品鉴定、精密仪器'
+            traits: '精致、美感、注重细节',
+            personalityLabel: '性格特点',
+            personality: '辛金如精美的珠宝，具有精致和美感。性格细腻，注重品质和美观。',
+            careerLabel: '适合职业',
+            career: '适合从事珠宝、美容、设计、精密制造等需要精致和美感的工作'
           },
           ren: {
-            name: '壬 - 阳水',
-            element: '水',
+            name: '壬水',
+            element: '阳水',
             symbolLabel: '象征',
-            symbol: '江河湖海、惊涛骇浪',
+            symbol: '江河、大海',
             traitsLabel: '特质',
-            traits: '流动变化、包容万物、适应性强',
-            personalityLabel: '性格',
-            personality: '灵活机智、善于变通、有冒险精神',
-            careerLabel: '职业倾向',
-            career: '贸易、旅游、航海、媒体'
+            traits: '豁达、流动、适应性强',
+            personalityLabel: '性格特点',
+            personality: '壬水如奔腾的江河，具有强大的流动性和包容性。性格豁达，适应能力强。',
+            careerLabel: '适合职业',
+            career: '适合从事贸易、运输、旅游、媒体等需要流动和沟通的工作'
           },
           gui: {
-            name: '癸 - 阴水',
-            element: '水',
+            name: '癸水',
+            element: '阴水',
             symbolLabel: '象征',
             symbol: '雨露、甘泉',
             traitsLabel: '特质',
-            traits: '润泽万物、细腻入微、默默奉献',
-            personalityLabel: '性格',
-            personality: '细心体贴、直觉敏锐、富有同情心',
-            careerLabel: '职业倾向',
-            career: '研究员、心理学家、护理、文学创作'
+            traits: '内敛、智慧、直觉敏锐',
+            personalityLabel: '性格特点',
+            personality: '癸水如温润的雨露，具有滋润万物的能力。性格内敛，富有智慧和直觉。',
+            careerLabel: '适合职业',
+            career: '适合从事研究、咨询、写作、心理等需要思考和洞察的工作'
+          }
+        },
+        combinations: {
+          title: '天干合化',
+          description: '天干之间存在特殊的组合关系，称为"天干五合"，这些组合在命理分析中具有重要意义。',
+          list: {
+            jiaji: {
+              combo: '甲己合',
+              result: '化土',
+              meaning: '代表诚信、稳重的结合'
+            },
+            yigeng: {
+              combo: '乙庚合',
+              result: '化金',
+              meaning: '代表仁义、刚柔并济的结合'
+            },
+            bingxin: {
+              combo: '丙辛合',
+              result: '化水',
+              meaning: '代表威严、智慧的结合'
+            },
+            dingren: {
+              combo: '丁壬合',
+              result: '化木',
+              meaning: '代表仁慈、温和的结合'
+            },
+            wugui: {
+              combo: '戊癸合',
+              result: '化火',
+              meaning: '代表礼智、光明的结合'
+            }
           }
         },
         application: {
           title: '实际应用',
-          subtitle: '在八字分析中的运用',
+          subtitle: '八字分析中的运用',
           points: {
             dayMaster: {
               title: '日主分析',
@@ -2041,82 +2246,48 @@ export default {
             },
             luck: {
               title: '大运流年',
-              description: '大运和流年天干与命局天干的作用关系'
+              description: '大运和流年的天干与命局天干的作用关系'
             }
-          }
-        },
-        metaDescription: '学习十天干的详细含义、属性和特质，掌握八字命理学的核心要素。',
-        combinations: {
-          title: '天干相合',
-          description: '天干之间存在相合关系，相合代表和谐、合作、化解矛盾。',
-          list: {
-            jiaji: {combo: '甲己合', result: '化土', meaning: '代表仁义的结合，刚柔并济'},
-            yigeng: {combo: '乙庚合', result: '化金', meaning: '代表仁义与威严的结合'},
-            bingxin: {combo: '丙辛合', result: '化水', meaning: '代表礼仪与正义的结合'},
-            dingren: {combo: '丁壬合', result: '化木', meaning: '代表礼仪与智慧的结合'},
-            wugui: {combo: '戊癸合', result: '化火', meaning: '代表信义与智慧的结合'}
           }
         },
         practice: {
-          title: '实际应用',
-          subtitle: '在八字分析中的运用',
-          points: {
-            dayMaster: {
-              title: '日主分析',
-              description: '日干代表本人，通过分析日干的属性来了解基本性格'
-            },
-            tenGods: {
-              title: '十神关系',
-              description: '其他天干与日干的关系形成十神，反映人生各个方面'
-            },
-            pattern: {
-              title: '格局判断',
-              description: '天干的组合影响八字格局的高低'
-            },
-            luck: {
-              title: '大运流年',
-              description: '大运和流年天干与命局天干的作用关系'
-            }
-          }
-        },
-        exercise: {
-          question: '观察身边的人，尝试从他们的性格特点推测可能是什么日干。',
-          button: '测试我的天干属性'
+          question: '请观察您的八字中的天干配置，思考每个天干的特质如何影响您的性格？',
+          button: '分析我的天干配置'
         }
       },
 
       baziEarthlyBranches: {
         title: '地支详解',
-        breadcrumb: '地支详解',
-        metaDescription: '深入学习十二地支的含义、干支对应、相互关系，掌握地支藏干等重要概念。',
-        intro: '地支是八字命理学中与天干配合的另一套符号体系，共有十二个，与十二生肖对应，代表着不同的时间周期和能量特质。',
+        breadcrumb: '地支详解', 
+        metaDescription: '深入学习十二地支的含义、生肖对应和相互关系，掌握地支藏干等重要概念。',
+        intro: '地支是八字命理学中与天干相配的另一套符号系统，共十二个，与十二生肖对应，代表着不同的时间周期和能量特质。',
         objectives: {
           obj1: '掌握十二地支的基本含义和属性',
           obj2: '理解地支与生肖的对应关系',
-          obj3: '学习地支的刑冲害合关系',
+          obj3: '学会地支的刑冲害合关系',
           obj4: '了解地支在命理分析中的作用'
         },
         overview: {
-          title: '地支概览',
-          intro: '十二地支按顺时针方向排列，与十二时辰和十二生肖对应，形成完整的时间和空间体系。'
+          title: '地支总览',
+          intro: '十二地支按照顺时针方向排列，对应十二个时辰和十二生肖，形成完整的时间和空间体系。'
         },
         classification: {
           title: '地支五行分类',
           water: {
             title: '水：子、亥',
-            desc: '子为阳水，亥为阴水，代表冬季和北方'
+            desc: '子为阳水，亥为阴水，代表冬季和北方方位'
           },
           wood: {
             title: '木：寅、卯',
-            desc: '寅为阳木，卯为阴木，代表春季和东方'
+            desc: '寅为阳木，卯为阴木，代表春季和东方方位'
           },
           fire: {
             title: '火：巳、午',
-            desc: '巳为阴火，午为阳火，代表夏季和南方'
+            desc: '巳为阴火，午为阳火，代表夏季和南方方位'
           },
           metal: {
             title: '金：申、酉',
-            desc: '申为阳金，酉为阴金，代表秋季和西方'
+            desc: '申为阳金，酉为阴金，代表秋季和西方方位'
           },
           earth: {
             title: '土：辰、戌、丑、未',
@@ -2127,7 +2298,7 @@ export default {
           title: '十二地支详解',
           common: {
             timeLabel: '时间',
-            seasonLabel: '季节',
+            seasonLabel: '季节', 
             traitsLabel: '特质',
             hiddenLabel: '藏干'
           },
@@ -2135,84 +2306,84 @@ export default {
             title: '子 - 鼠 (水)',
             time: '子时（23:00-1:00）',
             season: '冬季中期，水旺之时',
-            traits: '机敏灵活，善于变通，适应力强',
+            traits: '机智灵活、善于钻营、适应性强',
             hidden: '癸水'
           },
           chou: {
             title: '丑 - 牛 (土)',
             time: '丑时（1:00-3:00）',
-            season: '冬季末期，土库之地',
-            traits: '勤劳踏实，有耐心，包容性强',
+            season: '冬季末期，土库之地', 
+            traits: '勤劳踏实、坚韧不拔、包容性强',
             hidden: '己土、癸水、辛金'
           },
           yin: {
             title: '寅 - 虎 (木)',
             time: '寅时（3:00-5:00）',
             season: '春季初期，木气萌动',
-            traits: '勇猛果敢，有领导力，正义感强',
+            traits: '勇猛果敢、领导力强、正义感强',
             hidden: '甲木、丙火、戊土'
           },
           mao: {
             title: '卯 - 兔 (木)',
             time: '卯时（5:00-7:00）',
-            season: '春季中期，木气最盛',
-            traits: '温和细腻，善于交际，审美能力强',
+            season: '春季中期，木气最旺',
+            traits: '温和细腻、善于交际、审美能力强',
             hidden: '乙木'
           },
           chen: {
             title: '辰 - 龙 (土)',
             time: '辰时（7:00-9:00）',
             season: '春季末期，水库之地',
-            traits: '聪明睿智，变化多端，有威严',
+            traits: '聪明睿智、变化多端、具有权威',
             hidden: '戊土、乙木、癸水'
           },
           si: {
             title: '巳 - 蛇 (火)',
             time: '巳时（9:00-11:00）',
             season: '夏季初期，火气渐旺',
-            traits: '智慧深邃，神秘莫测，直觉敏锐',
+            traits: '智慧深邃、神秘莫测、直觉敏锐',
             hidden: '丙火、戊土、庚金'
           },
           wu: {
             title: '午 - 马 (火)',
             time: '午时（11:00-13:00）',
-            season: '夏季中期，火气最盛',
-            traits: '热情奔放，行动迅速，不拘小节',
+            season: '夏季中期，火气最旺',
+            traits: '热情奔放、行动迅速、不拘小节',
             hidden: '丁火、己土'
           },
           wei: {
             title: '未 - 羊 (土)',
             time: '未时（13:00-15:00）',
             season: '夏季末期，木库之地',
-            traits: '温和善良，富有同情心，有艺术天赋',
+            traits: '温和善良、富有同情心、艺术天赋',
             hidden: '己土、丁火、乙木'
           },
           shen: {
             title: '申 - 猴 (金)',
             time: '申时（15:00-17:00）',
             season: '秋季初期，金气渐旺',
-            traits: '聪明机敏，多才多艺，善于变通',
+            traits: '聪明机智、多才多艺、善于变通',
             hidden: '庚金、壬水、戊土'
           },
           you: {
             title: '酉 - 鸡 (金)',
             time: '酉时（17:00-19:00）',
-            season: '秋季中期，金气最盛',
-            traits: '勤奋守时，注重细节，有完美主义倾向',
+            season: '秋季中期，金气最旺',
+            traits: '勤奋守时、注重细节、完美主义',
             hidden: '辛金'
           },
           xu: {
             title: '戌 - 狗 (土)',
             time: '戌时（19:00-21:00）',
             season: '秋季末期，火库之地',
-            traits: '忠诚可靠，正义感强，责任心重',
+            traits: '忠诚可靠、正义感强、责任心重',
             hidden: '戊土、辛金、丁火'
           },
           hai: {
             title: '亥 - 猪 (水)',
             time: '亥时（21:00-23:00）',
             season: '冬季初期，水气渐旺',
-            traits: '纯朴善良，宽容大度，智慧丰富',
+            traits: '纯朴善良、宽容大度、富有智慧',
             hidden: '壬水、甲木'
           }
         },
@@ -2220,7 +2391,7 @@ export default {
           title: '地支关系',
           sixHarmony: {
             title: '六合',
-            desc: '六合代表和谐相合的关系，能够相互增强力量。',
+            desc: '六合代表和谐相合的关系，有助于增强彼此的力量。',
             combinations: {
               zichou: '子丑合土',
               yinhai: '寅亥合木',
@@ -2232,14 +2403,14 @@ export default {
           },
           triad: {
             title: '三合',
-            desc: '三合局是由三个地支组成的强有力的组合，形成特定五行的加强。',
+            desc: '三合局是三个地支组成的强力组合，形成特定五行的强化。',
             combinations: {
               shuiju: {
                 name: '申子辰',
                 result: '合水局'
               },
               huoju: {
-                name: '寅午戌',
+                name: '寅午戌', 
                 result: '合火局'
               },
               jinju: {
@@ -2254,7 +2425,7 @@ export default {
           },
           clash: {
             title: '相冲',
-            desc: '相冲代表对立冲突的关系，会带来动荡和变化。',
+            desc: '相冲表示对立冲突的关系，会产生动荡和变化。',
             combinations: {
               ziwu: '子午冲',
               chouwei: '丑未冲',
@@ -2266,7 +2437,7 @@ export default {
           },
           punishment: {
             title: '相刑',
-            desc: '相刑代表相互制约和惩罚的关系，需要特别注意。',
+            desc: '相刑表示相互制约和惩罚的关系，需要特别注意。',
             types: {
               wuli: '子卯刑 - 无礼之刑',
               wuen: '寅巳申刑 - 无恩之刑',
@@ -2286,15 +2457,16 @@ export default {
           }
         },
         practice: {
-          question: '观察十二生肖的特点，思考它们与对应地支的能量特质有什么关联。',
+          question: '观察十二生肖的特点，思考它们与对应地支的能量特质有什么联系？',
           button: '测试我的地支属性'
         }
       },
 
       baziFiveElements: {
-        title: 'Five Elements Theory',
-        breadcrumb: 'Five Elements',
-        intro: 'Five Elements Theory is the foundation of Chinese astrology.',
+        title: '五行理论深度解析',
+        breadcrumb: '五行理论',
+        metaDescription: '五行理论的核心概念、相生相克规律、旺衰强弱判断方法深度学习，掌握八字命理分析的理论基础。',
+        intro: '五行理论是八字命理学的理论基础，通过金木水火土五个基本元素的相互作用，揭示万物运行的规律。',
         objectives: {
           obj1: '深入理解五行的基本含义和属性',
           obj2: '掌握五行相生相克的规律',
@@ -2321,6 +2493,7 @@ export default {
         },
         detailed: {
           title: '五行详解',
+          elements: {
             wood: {
               title: '木 - 生长之力',
               season: '春季 | 东方 | 青色',
@@ -2556,7 +2729,7 @@ export default {
                 }
               }
             }
-          
+          }
         },
         relationships: {
           title: '五行关系网络',
@@ -2762,6 +2935,7 @@ export default {
           button: '练习四柱解读'
         }
       },
+
       // Astrology lesson content  
       astrologyIntroduction: {
         title: '占星学入门',
@@ -2842,6 +3016,7 @@ export default {
           button: '分析我的相位模式'
         }
       },
+
       // Reading technique lessons
       readingPreparation: {
         title: '解读前的准备',
@@ -2874,11 +3049,9 @@ export default {
           button: '应用分析方法'
         }
       }
+    },
 
-    }
-  },
-
-  // 分类页面翻译
+  // Category Page
   category: {
     articles: '相关文章',
     relatedLessons: '相关课程',
@@ -2934,7 +3107,7 @@ export default {
     }
   },
 
-  // 职业占星文章翻译
+  // Career Astrology Article
   careerAstrology: {
     introduction: {
       title: '占星学与职业选择',
@@ -3013,7 +3186,7 @@ export default {
     }
   },
 
-  // 感情相性文章翻译
+  // Relationship Compatibility Article
   relationshipCompatibility: {
     introduction: {
       title: '占星学与关系相性',
@@ -3092,8 +3265,8 @@ export default {
     }
   },
 
-  // 文章元数据
+  // Article meta
   articleMeta: {
     publishDate: '2024年发布'
   }
-}
+};
