@@ -1,6 +1,6 @@
-// DeepSeek API 配置
-const DEEPSEEK_API_URL = 'https://api.deepseek.com/chat/completions';
-const API_KEY = process.env.VUE_APP_OPENAI_API_KEY;
+// Cloudflare Worker 代理配置 (安全的 API 调用)
+const DEEPSEEK_API_URL = 'https://meiban-deepseek-proxy.kidyuan.workers.dev';
+// API key 已安全地存储在 Cloudflare Secrets Store 中，前端无需配置
 
 // 构建占星分析上下文
 function buildAstrologyContext(userData, calculationResults, language = 'zh') {
@@ -73,12 +73,9 @@ function buildAstrologyContext(userData, calculationResults, language = 'zh') {
   return context;
 }
 
-// 处理聊天请求 (使用原生 fetch API 调用 DeepSeek)
+// 处理聊天请求 (通过 Cloudflare Worker 代理调用 DeepSeek)
 export async function handleChatRequest(messages, userContext) {
   try {
-    if (!API_KEY) {
-      throw new Error('DeepSeek API key is not configured. Please check your .env file.');
-    }
 
     const { userData, calculationResults, language = 'zh' } = userContext;
     
@@ -94,14 +91,13 @@ export async function handleChatRequest(messages, userContext) {
       ...messages
     ];
     
-    // 调用 DeepSeek API
-    console.log('Calling DeepSeek API with messages:', fullMessages);
+    // 调用 Cloudflare Worker 代理
+    console.log('Calling DeepSeek API via Cloudflare Worker with messages:', fullMessages);
     
     const response = await fetch(DEEPSEEK_API_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${API_KEY}`,
       },
       body: JSON.stringify({
         model: 'deepseek-chat',
@@ -113,19 +109,19 @@ export async function handleChatRequest(messages, userContext) {
       }),
     });
 
-    console.log('DeepSeek API Response status:', response.status);
-    console.log('DeepSeek API Response headers:', response.headers);
+    console.log('Cloudflare Worker Response status:', response.status);
+    console.log('Cloudflare Worker Response headers:', response.headers);
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error('DeepSeek API Error response:', errorText);
+      console.error('Cloudflare Worker Error response:', errorText);
       let errorData;
       try {
         errorData = JSON.parse(errorText);
       } catch {
         errorData = { error: { message: errorText } };
       }
-      throw new Error(`DeepSeek API Error: ${response.status} - ${errorData.error?.message || response.statusText}`);
+      throw new Error(`API Proxy Error: ${response.status} - ${errorData.error?.message || response.statusText}`);
     }
 
     // 返回一个模拟 Vercel AI SDK 格式的流式响应
@@ -271,31 +267,31 @@ export function generateSuggestedQuestions(userData, calculationResults, languag
   return suggestions[language] || suggestions.zh;
 }
 
-// 错误处理函数 (针对 DeepSeek API 优化)
+// 错误处理函数 (针对 Cloudflare Worker 代理优化)
 export function handleAPIError(error, language = 'zh') {
   const errorMessages = {
     zh: {
       network: "网络连接错误，请检查网络设置",
-      apiKey: "DeepSeek API密钥配置错误，请检查密钥是否正确",
+      apiKey: "API服务配置错误，请稍后重试",
       rateLimit: "请求过于频繁，请稍后再试",
-      quota: "API配额已用完，请检查DeepSeek账户余额",
-      serverError: "DeepSeek服务暂时不可用，请稍后重试",
+      quota: "API配额已用完，请稍后重试",
+      serverError: "AI服务暂时不可用，请稍后重试",
       default: "AI服务暂时不可用，请稍后重试"
     },
     ja: {
       network: "ネットワーク接続エラーです。ネットワーク設定をご確認ください",
-      apiKey: "DeepSeek APIキーの設定エラーです。キーが正しいかご確認ください",
+      apiKey: "APIサービスの設定エラーです。しばらくしてからお試しください",
       rateLimit: "リクエストが頻繁すぎます。しばらくお待ちください",
-      quota: "APIクオータが上限に達しました。DeepSeekアカウントの残高をご確認ください",
-      serverError: "DeepSeekサービスが一時的に利用できません。しばらくしてからお試しください",
+      quota: "APIクオータが上限に達しました。しばらくしてからお試しください",
+      serverError: "AIサービスが一時的に利用できません。しばらくしてからお試しください",
       default: "AIサービスが一時的に利用できません。しばらくしてからお試しください"
     },
     en: {
       network: "Network connection error. Please check your network settings",
-      apiKey: "DeepSeek API key configuration error. Please verify your API key",
+      apiKey: "API service configuration error. Please try again later",
       rateLimit: "Too many requests. Please try again later",
-      quota: "API quota exceeded. Please check your DeepSeek account balance",
-      serverError: "DeepSeek service is temporarily unavailable. Please try again later",
+      quota: "API quota exceeded. Please try again later",
+      serverError: "AI service is temporarily unavailable. Please try again later",
       default: "AI service is temporarily unavailable. Please try again later"
     }
   };
@@ -319,6 +315,6 @@ export function handleAPIError(error, language = 'zh') {
     return messages.serverError;
   }
   
-  console.error('DeepSeek API Error Details:', error);
+  console.error('AI API Error Details:', error);
   return messages.default;
 }
