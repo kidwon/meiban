@@ -70,7 +70,7 @@ export default {
     functionNav: {
       basicAnalysis: 'Basic Analysis',
       transitAnalysis: 'Transit Analysis',
-      aiExpert: 'AI Expert'
+      aiExpert: 'Ask Meimei'
     },
     recommendationsTitle: 'Recommended Features for You',
     recommendations: {
@@ -137,7 +137,7 @@ export default {
       download: 'Download Report',
       share: 'Share',
       transitAnalysis: 'Transit Analysis',
-      aiExpert: 'AI Expert'
+      aiExpert: 'Ask Meimei'
     },
     advancedFeatures: {
       title: 'Advanced Analysis Features',
@@ -155,7 +155,7 @@ export default {
       }
     },
     alerts: {
-      aiExpertInDevelopment: 'AI Expert feature coming soon! Stay tuned.',
+      aiExpertInDevelopment: 'Meimei is learning! Stay tuned.',
       reportTitle: 'My Astrology Analysis Report',
       reportDescription: '\'s Personal Birth Chart Analysis',
       linkCopied: 'Link copied to clipboard',

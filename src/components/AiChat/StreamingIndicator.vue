@@ -1,7 +1,7 @@
 <template>
   <div class="streaming-indicator">
     <div class="message-avatar">
-      <span>🤖</span>
+      <img src="/images/meimei.png" alt="冥冥" class="avatar-image" />
     </div>
     
     <div class="message-content">
@@ -41,6 +41,13 @@ export default {
   justify-content: center;
   font-size: 1.2rem;
   flex-shrink: 0;
+}
+
+.avatar-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
 }
 
 .message-content {

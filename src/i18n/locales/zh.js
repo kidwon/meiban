@@ -70,7 +70,7 @@ export default {
     functionNav: {
       basicAnalysis: '基础分析',
       transitAnalysis: '行运分析',
-      aiExpert: 'AI专家'
+      aiExpert: '问问冥冥'
     },
     recommendationsTitle: '为您推荐的功能',
     recommendations: {
@@ -137,7 +137,7 @@ export default {
       download: '下载报告',
       share: '分享',
       transitAnalysis: '流年分析',
-      aiExpert: 'AI专家'
+      aiExpert: '问问冥冥'
     },
     advancedFeatures: {
       title: '高级分析功能',
@@ -147,7 +147,7 @@ export default {
         transitPlanets: '• 重要的天体行运',
         timingDiagnosis: '• 最佳时机诊断'
       },
-      aiExpertDescription: '基于您的星盘的智能AI专家问答服务',
+      aiExpertDescription: '基于您的星盘的智能问答服务，冥冥为您答疑解惑',
       aiExpertFeatures: {
         personalizedQA: '• 个性化占星问答',
         deepAnalysis: '• 深度解读与指导',
@@ -155,7 +155,7 @@ export default {
       }
     },
     alerts: {
-      aiExpertInDevelopment: 'AI专家功能开发中，敬请期待！',
+      aiExpertInDevelopment: '冥冥正在学习中，敬请期待！',
       reportTitle: '我的占星分析报告',
       reportDescription: '的个人星盘分析',
       linkCopied: '链接已复制到剪贴板',

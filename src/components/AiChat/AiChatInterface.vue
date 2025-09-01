@@ -3,7 +3,7 @@
     <!-- 聊天历史区域 -->
     <div class="chat-messages" ref="messagesContainer">
       <div v-if="messages.length === 0" class="welcome-message">
-        <div class="welcome-icon">🤖</div>
+        <img src="/images/meimei.png" alt="冥冥" class="welcome-icon" />
         <h3>{{ $t('aiChat.welcome.title') }}</h3>
         <p>{{ $t('aiChat.welcome.description') }}</p>
         
@@ -322,9 +322,12 @@ export default {
 }
 
 .welcome-icon {
-  font-size: 4rem;
+  width: 4rem;
+  height: 4rem;
   margin-bottom: 20px;
   opacity: 0.8;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
 .welcome-message h3 {
@@ -430,7 +433,8 @@ export default {
   }
   
   .welcome-icon {
-    font-size: 3rem;
+    width: 3rem;
+    height: 3rem;
   }
   
   .question-button {

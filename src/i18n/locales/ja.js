@@ -70,7 +70,7 @@ export default {
     functionNav: {
       basicAnalysis: '基礎分析',
       transitAnalysis: '行運分析',
-      aiExpert: 'AI専門家'
+      aiExpert: '冥冥に相談'
     },
     recommendationsTitle: 'あなたにおすすめの機能',
     recommendations: {
@@ -97,7 +97,7 @@ export default {
       },
       navigation: {
         title: '機能ナビゲーション',
-        content: 'こちらのナビゲーションバーで基礎分析、行運分析、AI専門家を簡単に切り替えることができます。'
+        content: 'こちらのナビゲーションバーで基礎分析、行運分析、冥冥への相談を簡単に切り替えることができます。'
       },
       chartInteraction: {
         title: 'インタラクティブ星盤',
@@ -109,7 +109,7 @@ export default {
       },
       advancedFeatures: {
         title: '高度な機能',
-        content: 'より深い洞察を得るために、行運分析やAI専門家などの高度な機能をぜひお試しください。'
+        content: 'より深い洞察を得るために、行運分析や冥冥への相談などの高度な機能をぜひお試しください。'
       },
       next: '次へ',
       previous: '前へ',
@@ -137,7 +137,7 @@ export default {
       download: 'レポートダウンロード',
       share: 'シェア',
       transitAnalysis: '行運分析',
-      aiExpert: 'AI専門家'
+      aiExpert: '冥冥に相談'
     },
     advancedFeatures: {
       title: '高級分析機能',
@@ -147,7 +147,7 @@ export default {
         transitPlanets: '• 重要な天体トランジット',
         timingDiagnosis: '• 最適なタイミング診断'
       },
-      aiExpertDescription: 'あなたの星盤に基づくインテリジェントAI専門家Q&Aサービス',
+      aiExpertDescription: 'あなたの星盤に基づくインテリジェント質問応答サービス、冥冥があなたの疑問にお答えします',
       aiExpertFeatures: {
         personalizedQA: '• パーソナライズされた占星術Q&A',
         deepAnalysis: '• 深い解読とガイダンス',
@@ -155,7 +155,7 @@ export default {
       }
     },
     alerts: {
-      aiExpertInDevelopment: 'AI専門家機能は開発中です。お楽しみに！',
+      aiExpertInDevelopment: '冥冥は学習中です。お楽しみに！',
       reportTitle: '私の占星分析レポート',
       reportDescription: 'の個人星盤分析',
       linkCopied: 'リンクがクリップボードにコピーされました',
@@ -822,7 +822,7 @@ export default {
         excerpt: '占星術を使ったキャリア選択と職業適性の分析方法'
       },
       'ai-expert': {
-        title: 'AI専門家の活用',
+        title: '冥冥への相談の活用',
         excerpt: 'インテリジェントAIがあなたの占星術に関する疑問にお答えします'
       }
     },

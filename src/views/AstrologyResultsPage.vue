@@ -34,11 +34,14 @@
             }"
             :disabled="isTransitioning"
           >
-            <div class="nav-icon">{{ nav.icon }}</div>
+            <div class="nav-icon" v-if="!nav.isImage">
+              {{ nav.icon }}
+            </div>
             <div class="nav-content">
               <span class="nav-title">{{ $t('astrology.functionNav.' + nav.nameKey) }}</span>
               <span class="nav-status" v-if="nav.completed">✓</span>
-              <span class="nav-badge" v-if="nav.badge">{{ nav.badge }}</span>
+              <img v-if="nav.isImage" :src="nav.icon" :alt="$t('astrology.functionNav.' + nav.nameKey)" class="nav-badge-image" />
+              <span class="nav-badge" v-else-if="nav.badge">{{ nav.badge }}</span>
             </div>
           </button>
         </div>
@@ -332,7 +335,9 @@
               </div>
               
               <div class="recommendation-card recommendation-card--ai-expert" @click="showAiExpertTab">
-                <div class="card-icon">🤖</div>
+                <div class="card-icon">
+                  <img src="/images/meimei.png" alt="冥冥" class="card-icon-image card-icon-image--large" />
+                </div>
                 <div class="card-content">
                   <h5>{{ $t('astrology.actions.aiExpert') }}</h5>
                   <p>{{ $t('astrology.recommendations.aiExpertDescription') }}</p>
@@ -547,9 +552,10 @@ export default {
         { 
           id: 'ai-expert', 
           nameKey: 'aiExpert', 
-          icon: '🤖', 
+          icon: '/images/meimei2.png', 
+          isImage: true,
           completed: false,
-          badge: 'NEW' 
+          badge: null 
         }
       ],
       userGuideSteps: [
@@ -1217,6 +1223,44 @@ export default {
 /* 导航图标和内容 */
 .nav-icon {
   font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+/* Badge位置的冥冥图标样式 */
+.nav-badge-image {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  object-fit: cover;
+  position: absolute;
+  top: -20px;
+  right: -35px;
+  background: transparent;
+  transition: all 0.3s ease;
+  z-index: 10;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
+}
+
+/* 悬停效果 */
+.nav-button:hover .nav-badge-image {
+  width: 80px;
+  height: 80px;
+  top: -24px;
+  right: -40px;
+  filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.4));
+  transform: rotate(5deg) scale(1.05);
+}
+
+/* 激活状态 */
+.nav-button--active .nav-badge-image {
+  filter: drop-shadow(0 3px 10px rgba(102, 126, 234, 0.4));
+}
+
+.nav-button--active:hover .nav-badge-image {
+  filter: drop-shadow(0 5px 15px rgba(102, 126, 234, 0.5));
 }
 
 .nav-content {
@@ -1514,6 +1558,22 @@ export default {
   
   .nav-icon {
     font-size: 14px;
+  }
+  
+  /* 移动端Badge图标适配 */
+  .nav-badge-image {
+    width: 60px;
+    height: 60px;
+    top: -15px;
+    right: -25px;
+  }
+  
+  .nav-button:hover .nav-badge-image {
+    width: 66px;
+    height: 66px;
+    top: -18px;
+    right: -28px;
+    transform: rotate(3deg) scale(1.03);
   }
   
   .nav-content {
@@ -2071,6 +2131,21 @@ export default {
 .card-icon {
   font-size: 2.5rem;
   flex-shrink: 0;
+}
+
+.card-icon-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.card-icon-image--large {
+  width: 80px;
+  height: 80px;
+  position: relative;
+  z-index: 5;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.2));
 }
 
 .recommendation-card .card-content {

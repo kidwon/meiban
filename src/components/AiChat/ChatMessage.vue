@@ -2,7 +2,7 @@
   <div class="chat-message" :class="{ 'user-message': isUser, 'assistant-message': !isUser }">
     <div class="message-avatar">
       <span v-if="isUser">👤</span>
-      <span v-else>🤖</span>
+      <img v-else src="/images/meimei.png" alt="冥冥" class="avatar-image" />
     </div>
     
     <div class="message-content">
@@ -117,6 +117,13 @@ export default {
 
 .assistant-message .message-avatar {
   background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+}
+
+.avatar-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
 }
 
 .message-content {
