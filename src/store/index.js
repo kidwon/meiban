@@ -1,5 +1,6 @@
 import { createStore } from 'vuex'
 import { calculateFullFortune } from '../utils/calculator.js'
+import aiChat from './modules/aiChat.js'
 
 // 从 localStorage 恢复状态
 function loadState() {
@@ -592,7 +593,7 @@ export default createStore({
   },
   
   modules: {
-    // 可以添加模块化的 store
-    // 例如：用户模块、计算模块、设置模块等
+    // AI聊天模块
+    aiChat
   }
 })

@@ -1,16 +1,15 @@
 // plugins/i18n.js - Vue i18n plugin
+import { ref } from 'vue'
 import { getCurrentLanguage, getTranslation } from '../i18n/index.js'
 
 export default {
   install(app) {
     // Create reactive language state
-    const state = {
-      currentLanguage: getCurrentLanguage()
-    }
+    const currentLanguage = ref(getCurrentLanguage())
 
-    // Translation method
+    // Create reactive translation method
     const $t = (key) => {
-      return getTranslation(key, state.currentLanguage)
+      return getTranslation(key, currentLanguage.value)
     }
 
     // Make $t globally available
@@ -19,14 +18,12 @@ export default {
 
     // Listen for language changes
     window.addEventListener('languageChanged', (event) => {
-      state.currentLanguage = event.detail.language
-      // Force re-render by updating all component instances
-      app._instance?.proxy?.$forceUpdate?.()
+      currentLanguage.value = event.detail.language
     })
 
     // Provide language state
     app.provide('i18n', {
-      currentLanguage: state.currentLanguage,
+      currentLanguage: currentLanguage,
       t: $t
     })
   }

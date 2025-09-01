@@ -142,6 +142,153 @@ const routes = [
       title: 'Five Elements Theory - 五行理論'
     }
   },
+  {
+    path: '/learn/article/career-astrology',
+    name: 'career-astrology',
+    component: () => import('../views/articles/CareerAstrologyArticle.vue'),
+    meta: {
+      allowAds: true,
+      title: 'Career Astrology Guide - キャリア占星術ガイド'
+    }
+  },
+  {
+    path: '/learn/article/relationship-compatibility',
+    name: 'relationship-compatibility',
+    component: () => import('../views/articles/RelationshipCompatibilityArticle.vue'),
+    meta: {
+      allowAds: true,
+      title: 'Relationship Compatibility - 相性占星術'
+    }
+  },
+  // Learning Paths - Specific Lessons
+  {
+    path: '/learn/bazi/basics',
+    name: 'bazi-basics',
+    component: () => import('../views/lessons/BaziBasicsLesson.vue'),
+    meta: {
+      allowAds: true,
+      title: '八字基础入门 - 学習コンテンツ'
+    }
+  },
+  {
+    path: '/learn/bazi/heavenly-stems',
+    name: 'bazi-heavenly-stems',
+    component: () => import('../views/lessons/BaziHeavenlyStems.vue'),
+    meta: {
+      allowAds: true,
+      title: '天干详解 - 学習コンテンツ'
+    }
+  },
+  {
+    path: '/learn/bazi/earthly-branches',
+    name: 'bazi-earthly-branches',
+    component: () => import('../views/lessons/BaziEarthlyBranches.vue'),
+    meta: {
+      allowAds: true,
+      title: '地支详解 - 学習コンテンツ'
+    }
+  },
+  {
+    path: '/learn/astrology/introduction',
+    name: 'astrology-introduction',
+    component: () => import('../views/lessons/AstrologyIntroductionLesson.vue'),
+    meta: {
+      allowAds: true,
+      title: '占星学入门 - 学習コンテンツ'
+    }
+  },
+  {
+    path: '/learn/astrology/zodiac-signs',
+    name: 'astrology-zodiac-signs',
+    component: () => import('../views/lessons/AstrologyZodiacSigns.vue'),
+    meta: {
+      allowAds: true,
+      title: '十二星座详解 - 学習コンテンツ'
+    }
+  },
+  {
+    path: '/learn/bazi/five-elements',
+    name: 'bazi-five-elements',
+    component: () => import('../views/lessons/BaziFiveElements.vue'),
+    meta: {
+      allowAds: true,
+      title: '五行理论深度解析 - 学習コンテンツ'
+    }
+  },
+  {
+    path: '/learn/bazi/reading-pillars',
+    name: 'bazi-reading-pillars',
+    component: () => import('../views/lessons/BaziReadingPillars.vue'),
+    meta: {
+      allowAds: true,
+      title: '四柱解读技巧 - 学習コンテンツ'
+    }
+  },
+  {
+    path: '/learn/astrology/planets',
+    name: 'astrology-planets',
+    component: () => import('../views/lessons/AstrologyPlanets.vue'),
+    meta: {
+      allowAds: true,
+      title: '行星详解 - 学習コンテンツ'
+    }
+  },
+  {
+    path: '/learn/astrology/houses',
+    name: 'astrology-houses',
+    component: () => import('../views/lessons/AstrologyHouses.vue'),
+    meta: {
+      allowAds: true,
+      title: '宫位详解 - 学習コンテンツ'
+    }
+  },
+  {
+    path: '/learn/astrology/aspects',
+    name: 'astrology-aspects',
+    component: () => import('../views/lessons/AstrologyAspects.vue'),
+    meta: {
+      allowAds: true,
+      title: '相位详解 - 学習コンテンツ'
+    }
+  },
+  {
+    path: '/learn/reading/preparation',
+    name: 'reading-preparation',
+    component: () => import('../views/lessons/ReadingPreparation.vue'),
+    meta: {
+      allowAds: true,
+      title: '解读前的准备 - 学習コンテンツ'
+    }
+  },
+  {
+    path: '/learn/reading/analysis-method',
+    name: 'reading-analysis-method',
+    component: () => import('../views/lessons/ReadingAnalysisMethod.vue'),
+    meta: {
+      allowAds: true,
+      title: '分析方法 - 学習コンテンツ'
+    }
+  },
+  // Learning Paths - Generic Lessons (fallback)
+  {
+    path: '/learn/:type/:lesson',
+    name: 'lesson',
+    component: () => import('../views/LessonPage.vue'),
+    meta: {
+      allowAds: true,
+      title: 'Learning - 学習コンテンツ'
+    }
+  },
+  // Learning Categories
+  {
+    path: '/learn/category/:category',
+    name: 'category',
+    component: () => import('../views/CategoryPage.vue'),
+    meta: {
+      allowAds: true,
+      title: 'Learning Category - 学習カテゴリ'
+    }
+  },
   // 新增：错误页面
   {
     path: '/error',

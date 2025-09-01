@@ -73,6 +73,19 @@ Multi-language support through `src/i18n/`:
 - Performance optimizations with code splitting
 - PWA settings for mobile app-like experience
 
+### Deployment Configuration
+- **Production Domain**: `meiban.info` (custom domain bound to GitHub Pages)
+- **GitHub Pages**: Backup domain at `kid.github.io/meiban`
+- **API Proxy**: Cloudflare Worker at `meiban-deepseek-proxy.kidyuan.workers.dev`
+- **Security**: API keys secured through Cloudflare Secrets Store, not committed to repository
+
+### AI Integration Framework
+- **DeepSeek API Integration**: AI chat functionality using DeepSeek API for astrology Q&A
+- **Cloudflare Worker Proxy**: `meiban-deepseek-proxy.kidyuan.workers.dev` - Secure API proxy for DeepSeek calls
+- **Security**: API keys managed through Cloudflare Secrets Store, not exposed in frontend code
+- **Streaming Support**: Real-time streaming responses for interactive chat experience
+- **Context Awareness**: AI responses include user's birth chart data and astrological calculations
+
 ### Important Notes
 - The application contains extensive astronomical calculation algorithms in `doc/algo.md`
 - User data persists in localStorage through Vuex store

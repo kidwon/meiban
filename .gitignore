@@ -3,9 +3,13 @@ node_modules
 /dist
 
 
-# local env files
+# local env files (excluding public configs)
+# .env - now contains only non-sensitive configs, safe to commit
+.env.production
 .env.local
 .env.*.local
+.env.secret*
+.env.*key*
 
 # Log files
 npm-debug.log*

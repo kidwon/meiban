@@ -9,6 +9,9 @@
     "deploy": "npm run build && gh-pages -d dist"
   },
   "dependencies": {
+    "@ai-sdk/openai": "^2.0.23",
+    "@ai-sdk/vue": "^2.0.28",
+    "ai": "^5.0.28",
     "astronomy-engine": "^2.1.19",
     "core-js": "^3.8.3",
     "dayjs": "^1.11.9",
