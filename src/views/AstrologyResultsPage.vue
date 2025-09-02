@@ -106,217 +106,124 @@
         
         <!-- 分析内容区域 -->
         <div class="analysis-content">
-          <!-- 太阳天蝎｜核心人格 -->
-          <div class="analysis-card">
+          <!-- 动态生成的分析卡片 -->
+          <div 
+            v-for="analysis in dynamicAnalysisCards" 
+            :key="analysis.type" 
+            class="analysis-card"
+            :class="{
+              'warning-card': analysis.type === 'warning',
+              'highlight-card': analysis.type === 'suggestions'
+            }"
+          >
             <div class="card-header">
-              <h3 class="card-title">太阳天蝎｜核心人格</h3>
+              <h3 class="card-title">{{ analysis.title }}</h3>
             </div>
             <div class="card-content">
-              <div class="highlight-section">
-                <h4>优势：</h4>
-                <p>专注、韧性强、洞察隐情、擅长处理复杂与敏感主题。</p>
-              </div>
-              <div class="risk-section">
-                <h4>风险：</h4>
-                <p>过度保密、占有或"全或无"的判断。</p>
-              </div>
-              <div class="action-section">
-                <h4>做法：</h4>
-                <p>把"深挖"变成结构化研究与清晰输出。</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- 月亮狮子｜情绪与依恋 -->
-          <div class="analysis-card">
-            <div class="card-header">
-              <h3 class="card-title">月亮狮子｜情绪与依恋</h3>
-            </div>
-            <div class="card-content">
-              <p>需要被认可与尊重；对朋友讲义气、表达戏剧化。</p>
-              <div class="trigger-section">
-                <h4>触发点：</h4>
-                <p>面子/尊严受挑战时易防御或爆发。</p>
-              </div>
-              <div class="action-section">
-                <h4>做法：</h4>
-                <p>建立安全的展示舞台（固定的汇报/分享场景），把关注从"被赞"转为"被理解"。</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- 上升处女｜第一印象与人设 -->
-          <div class="analysis-card">
-            <div class="card-header">
-              <h3 class="card-title">上升处女｜第一印象与人设</h3>
-            </div>
-            <div class="card-content">
-              <div class="impression-section">
-                <h4>他人看到的你：</h4>
-                <p>细致、讲究流程、讲理性与秩序。</p>
-              </div>
-              <div class="risk-section">
-                <h4>风险：</h4>
-                <p>挑剔感、过度纠错。</p>
-              </div>
-              <div class="action-section">
-                <h4>做法：</h4>
-                <p>把"挑错"升级为流程优化建议（给替代方案+影响评估）。</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- 水星天蝎 × MC双子｜思考与沟通 -->
-          <div class="analysis-card">
-            <div class="card-header">
-              <h3 class="card-title">水星天蝎 × MC双子｜思考与沟通</h3>
-            </div>
-            <div class="card-content">
-              <p>内容风格"深潜"，表达渠道"多元"；适合调查研究、产品/策略、教育/媒体等把复杂讲清楚的角色。</p>
-              <div class="risk-section">
-                <h4>风险：</h4>
-                <p>语气过锋利、信息不透明。</p>
-              </div>
-              <div class="technique-section">
-                <h4>技巧：</h4>
-                <p>先提问—再复述对方要点—最后给结论；结论附证据与边界条件。</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- 金星摩羯 × Juno天蝎 × 下降双鱼｜关系与价值观 -->
-          <div class="analysis-card">
-            <div class="card-header">
-              <h3 class="card-title">金星摩羯 × Juno天蝎 × 下降双鱼｜关系与价值观</h3>
-            </div>
-            <div class="card-content">
-              <div class="venus-section">
-                <h4>金星摩羯：</h4>
-                <p>慢热、重承诺与长期价值，标准高。</p>
-              </div>
-              <div class="juno-section">
-                <h4>婚神天蝎：</h4>
-                <p>渴望强度、忠诚、深度绑定。</p>
-              </div>
-              <div class="descendant-section">
-                <h4>下降双鱼：</h4>
-                <p>被共情/浪漫/富想象的伴侣吸引。</p>
-              </div>
-              <div class="tension-section">
-                <h4>张力：</h4>
-                <p>理性（处女/摩羯）vs 沉浸（双鱼/天蝎）。</p>
-              </div>
-              <div class="action-section">
-                <h4>做法：</h4>
-                <p>边界+透明并重（稳定节奏的情绪沟通；避免用试探/吃醋来验证亲密）。</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- 火星处女｜行动风格 -->
-          <div class="analysis-card">
-            <div class="card-header">
-              <h3 class="card-title">火星处女｜行动风格</h3>
-            </div>
-            <div class="card-content">
-              <div class="strength-section">
-                <h4>优势：</h4>
-                <p>拆解任务、建立标准、持续优化；适合工程/医疗/运营与精密工艺。</p>
-              </div>
-              <div class="risk-section">
-                <h4>风险：</h4>
-                <p>完美主义、过劳、对他人效率不耐。</p>
-              </div>
-              <div class="action-section">
-                <h4>做法：</h4>
-                <p>定义"足够好"的完成线（如80%即发布），留出复盘改进迭代。</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- 中天双子 + 天秤群星｜事业走向 -->
-          <div class="analysis-card">
-            <div class="card-header">
-              <h3 class="card-title">中天双子 + 天秤群星（木/土/冥）｜事业走向</h3>
-            </div>
-            <div class="card-content">
-              <div class="direction-section">
-                <h4>方向：</h4>
-                <p>信息/写作/教育/媒体/产品运营/跨部门协调。</p>
-              </div>
-              <div class="libra-section">
-                <h4>天秤（木土冥）加成：</h4>
-                <p>谈判、公关、法律与"规则/公平感"的建立；审美与评审能力。</p>
-              </div>
-              <div class="position-section">
-                <h4>位形主张：</h4>
-                <p>成为把复杂问题讲清楚的人（研究→洞察→可执行决策）。</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- 北交巨蟹｜成长课题 -->
-          <div class="analysis-card">
-            <div class="card-header">
-              <h3 class="card-title">北交巨蟹（对宫南交摩羯）｜成长课题</h3>
-            </div>
-            <div class="card-content">
-              <p>从"计划/控制/成就"转向"情感/照料/连接"。</p>
-              <div class="practice-section">
-                <h4>练习：</h4>
-                <p>表达需求与脆弱；把家庭/私域纳入与事业同等优先级的KPI。</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Eros金牛｜原型补充 -->
-          <div class="analysis-card">
-            <div class="card-header">
-              <h3 class="card-title">Eros金牛｜原型补充</h3>
-            </div>
-            <div class="card-content">
-              <p>对稳定、安全与感官体验有高度敏感；亲密偏节奏感与可预期的仪式。</p>
-              <div class="action-section">
-                <h4>做法：</h4>
-                <p>经营空间与仪式（固定约会/共同爱好/居家布置），提升信任与放松。</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- 盲点与提醒 -->
-          <div class="analysis-card warning-card">
-            <div class="card-header">
-              <h3 class="card-title">盲点与提醒</h3>
-            </div>
-            <div class="card-content">
-              <p>嫉妒/占有（天蝎）、自尊过强（月狮）、完美主义（处女/摩羯）、关系中的控制议题（天蝎×天秤）。</p>
-              <div class="strategy-section">
-                <h4>对策：</h4>
-                <p>定期情绪—事实—需求三栏复盘；把重要分歧写成"协作规则"。</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- 三条落地建议 -->
-          <div class="analysis-card highlight-card">
-            <div class="card-header">
-              <h3 class="card-title">三条落地建议</h3>
-            </div>
-            <div class="card-content">
-              <div class="suggestion-list">
-                <div class="suggestion-item">
-                  <div class="suggestion-number">1</div>
-                  <p>每周一次情绪周报（本周触发点/我需要/我能给）。</p>
+              <!-- 太阳星座分析 -->
+              <template v-if="analysis.type === 'sun'">
+                <div class="highlight-section" v-if="analysis.advantages">
+                  <h4>{{ $t('astrology.analysisLabels.advantages') }}：</h4>
+                  <p>{{ analysis.advantages }}</p>
                 </div>
-                <div class="suggestion-item">
-                  <div class="suggestion-number">2</div>
-                  <p>关键沟通用"探询—复述—结论"结构，减少误解与防御。</p>
+                <div class="risk-section" v-if="analysis.risks">
+                  <h4>{{ $t('astrology.analysisLabels.risks') }}：</h4>
+                  <p>{{ analysis.risks }}</p>
                 </div>
-                <div class="suggestion-item">
-                  <div class="suggestion-number">3</div>
-                  <p>给自己设发布阈值（80%上线，20%迭代），避免因完美拖延。</p>
+                <div class="action-section" v-if="analysis.actions">
+                  <h4>{{ $t('astrology.analysisLabels.actions') }}：</h4>
+                  <p>{{ analysis.actions }}</p>
                 </div>
-              </div>
+              </template>
+
+              <!-- 月亮星座分析 -->
+              <template v-else-if="analysis.type === 'moon'">
+                <p v-if="analysis.description">{{ analysis.description }}</p>
+                <div class="trigger-section" v-if="analysis.triggers">
+                  <h4>{{ $t('astrology.analysisLabels.triggers') }}：</h4>
+                  <p>{{ analysis.triggers }}</p>
+                </div>
+                <div class="action-section" v-if="analysis.actions">
+                  <h4>{{ $t('astrology.analysisLabels.actions') }}：</h4>
+                  <p>{{ analysis.actions }}</p>
+                </div>
+              </template>
+
+              <!-- 上升星座分析 -->
+              <template v-else-if="analysis.type === 'ascendant'">
+                <div class="impression-section" v-if="analysis.impression">
+                  <h4>{{ $t('astrology.analysisLabels.impression') }}：</h4>
+                  <p>{{ analysis.impression }}</p>
+                </div>
+                <div class="risk-section" v-if="analysis.risks">
+                  <h4>{{ $t('astrology.analysisLabels.risks') }}：</h4>
+                  <p>{{ analysis.risks }}</p>
+                </div>
+                <div class="action-section" v-if="analysis.actions">
+                  <h4>{{ $t('astrology.analysisLabels.actions') }}：</h4>
+                  <p>{{ analysis.actions }}</p>
+                </div>
+              </template>
+
+              <!-- 水星中天分析 -->
+              <template v-else-if="analysis.type === 'mercury-midheaven'">
+                <p v-if="analysis.description">{{ analysis.description }}</p>
+                <div class="risk-section" v-if="analysis.risks">
+                  <h4>{{ $t('astrology.analysisLabels.risks') }}：</h4>
+                  <p>{{ analysis.risks }}</p>
+                </div>
+                <div class="technique-section" v-if="analysis.techniques">
+                  <h4>{{ $t('astrology.analysisLabels.techniques') }}：</h4>
+                  <p>{{ analysis.techniques }}</p>
+                </div>
+              </template>
+
+              <!-- 金星关系分析 -->
+              <template v-else-if="analysis.type === 'venus'">
+                <p v-if="analysis.description">{{ analysis.description }}</p>
+                <div class="action-section" v-if="analysis.approach">
+                  <h4>{{ $t('astrology.analysisLabels.approach') }}：</h4>
+                  <p>{{ analysis.approach }}</p>
+                </div>
+              </template>
+
+              <!-- 火星行动分析 -->
+              <template v-else-if="analysis.type === 'mars'">
+                <div class="strength-section" v-if="analysis.strengths">
+                  <h4>{{ $t('astrology.analysisLabels.strengths') }}：</h4>
+                  <p>{{ analysis.strengths }}</p>
+                </div>
+                <div class="risk-section" v-if="analysis.risks">
+                  <h4>{{ $t('astrology.analysisLabels.risks') }}：</h4>
+                  <p>{{ analysis.risks }}</p>
+                </div>
+                <div class="action-section" v-if="analysis.actions">
+                  <h4>{{ $t('astrology.analysisLabels.actions') }}：</h4>
+                  <p>{{ analysis.actions }}</p>
+                </div>
+              </template>
+
+              <!-- 事业分析 -->
+              <template v-else-if="analysis.type === 'career'">
+                <div class="direction-section" v-if="analysis.direction">
+                  <h4>{{ $t('astrology.analysisLabels.direction') }}：</h4>
+                  <p>{{ analysis.direction }}</p>
+                </div>
+                <div class="advantages-section" v-if="analysis.advantages">
+                  <h4>{{ $t('astrology.analysisLabels.advantages') }}：</h4>
+                  <p>{{ analysis.advantages }}</p>
+                </div>
+                <div class="suggestion-section" v-if="analysis.suggestions">
+                  <h4>{{ $t('astrology.analysisLabels.suggestions') }}：</h4>
+                  <p>{{ analysis.suggestions }}</p>
+                </div>
+              </template>
+
+              <!-- 通用内容显示 -->
+              <template v-else>
+                <p v-if="analysis.description">{{ analysis.description }}</p>
+                <div v-if="analysis.content" v-html="analysis.content"></div>
+              </template>
             </div>
           </div>
 
@@ -503,6 +410,9 @@ import {
   getPlanetKeywords,
   formatBirthInfo
 } from '../services/astrologyDataService.js'
+import {
+  generateDetailedAstrologyAnalysis
+} from '../services/astrologyAnalysisService.js'
 
 export default {
   name: 'AstrologyResultsPage',
@@ -633,6 +543,18 @@ export default {
              this.userData.birthplace &&
              Object.keys(this.calculationResults.astrology.planets).length > 5 &&
              Object.keys(this.calculationResults.astrology.houses).length > 5;
+    },
+
+    // 动态生成的详细分析内容
+    dynamicAnalysisCards() {
+      if (!this.calculationResults?.astrologyPositions) {
+        return [];
+      }
+      
+      return generateDetailedAstrologyAnalysis(
+        this.calculationResults.astrologyPositions,
+        this.currentLanguage
+      );
     }
   },
   

@@ -371,6 +371,26 @@ export default createStore({
               sign: '水瓶座',
               degree: 18,
               minute: 56
+            },
+            midheaven: {
+              sign: '摩羯座',
+              degree: 22,
+              minute: 35
+            },
+            mercury: {
+              sign: '水瓶座',
+              degree: 28,
+              minute: 12
+            },
+            venus: {
+              sign: '白羊座',
+              degree: 15,
+              minute: 43
+            },
+            mars: {
+              sign: '处女座',
+              degree: 9,
+              minute: 28
             }
           },
           fortune: {
