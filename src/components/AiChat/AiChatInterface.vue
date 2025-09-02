@@ -81,6 +81,8 @@ export default {
     const calculationResults = computed(() => store.getters.getCalculationResults)
     const currentLanguage = computed(() => store.getters.getSettings.language)
     
+    // 删除本地$t函数，使用全局$t
+    
     // 建议问题
     const suggestedQuestions = computed(() => {
       return generateSuggestedQuestions(
@@ -276,6 +278,7 @@ export default {
       // 用户数据变化时清除聊天历史
       clearChatHistory()
     }, { deep: true })
+    
     
     // 组件挂载时加载历史记录
     onMounted(() => {

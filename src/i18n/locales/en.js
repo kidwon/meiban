@@ -3295,8 +3295,8 @@ export default {
   // AI Chat related texts
   aiChat: {
     welcome: {
-      title: 'Welcome to AI Astrology Expert',
-      description: 'I am your personal AI astrologer, providing personalized astrological advice and answers based on your detailed birth chart information. Feel free to ask me any questions about your chart.'
+      title: 'Fate Flows Through Mystic Veins, Celestial Stars Connect Our Souls',
+      description: 'I am Meimei, your dedicated destiny reader, providing various advice and answers based on your birth chart information.'
     },
     suggestedQuestions: {
       title: 'Suggested Questions'
