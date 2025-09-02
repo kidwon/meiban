@@ -1899,12 +1899,14 @@ export default {
 
 /* 优势区域 - 绿色主题 */
 .highlight-section h4,
-.strength-section h4 {
+.strength-section h4,
+.advantages-section h4 {
   color: #28a745;
 }
 
 .highlight-section,
-.strength-section {
+.strength-section,
+.advantages-section {
   background: rgba(40, 167, 69, 0.05);
   padding: 12px;
   border-radius: 8px;
@@ -1927,14 +1929,18 @@ export default {
 .action-section h4,
 .technique-section h4,
 .practice-section h4,
-.strategy-section h4 {
+.strategy-section h4,
+.direction-section h4,
+.suggestion-section h4 {
   color: #007bff;
 }
 
 .action-section,
 .technique-section,
 .practice-section,
-.strategy-section {
+.strategy-section,
+.direction-section,
+.suggestion-section {
   background: rgba(0, 123, 255, 0.05);
   padding: 12px;
   border-radius: 8px;

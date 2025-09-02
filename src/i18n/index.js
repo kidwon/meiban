@@ -2,6 +2,7 @@
 import ja from './locales/ja.js'
 import zh from './locales/zh.js'
 import en from './locales/en.js'
+import store from '../store' // 导入 Vuex store
 
 // 支持的语言列表
 export const SUPPORTED_LANGUAGES = [
@@ -78,6 +79,9 @@ export function setLanguage(language) {
   
   localStorage.setItem(LANGUAGE_STORAGE_KEY, language)
   document.documentElement.lang = language
+  
+  // 同步更新 Vuex store
+  store.dispatch('updateAppSettings', { language })
   
   // 触发语言变更事件
   window.dispatchEvent(new CustomEvent('languageChanged', { 

@@ -3744,8 +3744,8 @@ export default {
   // AI聊天相关文本
   aiChat: {
     welcome: {
-      title: '欢迎使用AI占星专家',
-      description: '我是您的专属AI占星师，基于您的详细星盘信息为您提供个性化的占星建议和解答。您可以询问任何关于您星盘的问题。'
+      title: '冥冥之中自有天意，浩瀚星辰牵动你我',
+      description: '我是冥冥，您的专属命盘师，基于您的命盘信息为您提供各种的建议和解答。'
     },
     suggestedQuestions: {
       title: '建议问题'

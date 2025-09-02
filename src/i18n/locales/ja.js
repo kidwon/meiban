@@ -3103,8 +3103,8 @@ export default {
   // AI Chat related texts
   aiChat: {
     welcome: {
-      title: 'AI占星術専門家へようこそ',
-      description: 'あなたの詳細な星盤情報に基づいて個別的な占星術アドバイスと回答を提供する専属AI占星術師です。星盤に関する質問をお気軽にどうぞ。'
+      title: '冥冥の中に天意あり、無限の星辰が君我を結ぶ',
+      description: '私は冥冥、あなた専属の命盤師です。あなたの命盤情報に基づいて様々なアドバイスと回答を提供いたします。'
     },
     suggestedQuestions: {
       title: '提案された質問'

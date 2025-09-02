@@ -230,7 +230,7 @@ async function* createTextStream(response) {
 }
 
 // 生成建议问题 (针对 DeepSeek 优化的占星学问题)
-export function generateSuggestedQuestions(userData, calculationResults, language = 'zh') {
+export function generateSuggestedQuestions(userData, calculationResults, language = 'ja') {
   const suggestions = {
     zh: [
       "根据我的八字和五行配置，分析我的核心性格特质",
@@ -264,11 +264,11 @@ export function generateSuggestedQuestions(userData, calculationResults, languag
     ]
   };
   
-  return suggestions[language] || suggestions.zh;
+  return suggestions[language] || suggestions.ja;
 }
 
 // 错误处理函数 (针对 Cloudflare Worker 代理优化)
-export function handleAPIError(error, language = 'zh') {
+export function handleAPIError(error, language = 'ja') {
   const errorMessages = {
     zh: {
       network: "网络连接错误，请检查网络设置",
@@ -296,7 +296,7 @@ export function handleAPIError(error, language = 'zh') {
     }
   };
   
-  const messages = errorMessages[language] || errorMessages.zh;
+  const messages = errorMessages[language] || errorMessages.ja;
   
   // 检查具体的错误类型
   if (error.message?.includes('network') || error.message?.includes('fetch') || error.name === 'NetworkError') {
