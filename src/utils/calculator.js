@@ -184,10 +184,23 @@ export function calculateAstrologyPositions(userData) {
     const ascendantLongitude = loveAstrolabeAscendant(lst);
     console.log('上升黄经:', ascendantLongitude);
 
+    // 中天计算（简化算法：上升点+90度）
+    const midheavenLongitude = (ascendantLongitude + 90) % 360;
+    console.log('中天黄经:', midheavenLongitude);
+
+    // 其他行星的简化计算（基于太阳位置的相对位置）
+    const mercuryLongitude = (sunLongitude + 15) % 360; // 水星通常靠近太阳
+    const venusLongitude = (sunLongitude + 45) % 360;   // 金星相对偏移
+    const marsLongitude = (sunLongitude + 120) % 360;   // 火星相对偏移
+
     const result = {
       sun: convertToPosition(sunLongitude),
       moon: convertToPosition(moonLongitude),
-      ascendant: convertToPosition(ascendantLongitude)
+      ascendant: convertToPosition(ascendantLongitude),
+      midheaven: convertToPosition(midheavenLongitude),
+      mercury: convertToPosition(mercuryLongitude),
+      venus: convertToPosition(venusLongitude),
+      mars: convertToPosition(marsLongitude)
     };
     
     console.log('最终结果:', result);
@@ -200,7 +213,11 @@ export function calculateAstrologyPositions(userData) {
     return {
       ascendant: { sign: '双子座', degree: 4, minute: 11 },
       sun: { sign: '双鱼座', degree: 13, minute: 49 },
-      moon: { sign: '水瓶座', degree: 18, minute: 56 }
+      moon: { sign: '水瓶座', degree: 18, minute: 56 },
+      midheaven: { sign: '摩羯座', degree: 22, minute: 35 },
+      mercury: { sign: '水瓶座', degree: 28, minute: 12 },
+      venus: { sign: '白羊座', degree: 15, minute: 43 },
+      mars: { sign: '处女座', degree: 9, minute: 28 }
     };
   }
 }

@@ -132,6 +132,476 @@ export default {
       moon: 'Moon',
       ascendant: 'Ascendant'
     },
+    analysisLabels: {
+      advantages: 'Advantages',
+      risks: 'Risks',
+      actions: 'Actions',
+      triggers: 'Triggers',
+      impression: 'How Others See You',
+      techniques: 'Techniques',
+      approach: 'Approach',
+      strengths: 'Strengths',
+      direction: 'Direction',
+      suggestions: 'Suggestions'
+    },
+    signNames: {
+      '白羊座': 'Aries',
+      '金牛座': 'Taurus', 
+      '双子座': 'Gemini',
+      '巨蟹座': 'Cancer',
+      '狮子座': 'Leo',
+      '处女座': 'Virgo',
+      '天秤座': 'Libra',
+      '天蝎座': 'Scorpio',
+      '射手座': 'Sagittarius',
+      '摩羯座': 'Capricorn',
+      '水瓶座': 'Aquarius',
+      '双鱼座': 'Pisces'
+    },
+    titleTemplates: {
+      sun: 'Sun {sign} | Core Personality',
+      moon: 'Moon {sign} | Emotions & Attachment',
+      ascendant: 'Ascendant {sign} | First Impression',
+      venus: 'Venus {sign} | Relationships & Values',
+      mars: 'Mars {sign} | Action Style',
+      mercury: 'Mercury {sign} | Communication',
+      'mercury-midheaven': 'Mercury {mercury} × MC {midheaven} | Thinking & Communication',
+      career: 'Midheaven {sign} | Career Direction',
+      fallback: {
+        sun: 'Sun Sign | Core Personality',
+        moon: 'Moon Sign | Emotions & Attachment', 
+        ascendant: 'Ascendant | First Impression',
+        venus: 'Venus | Relationships & Values',
+        mars: 'Mars | Action Style',
+        mercury: 'Mercury | Communication',
+        'mercury-midheaven': 'Thinking & Communication',
+        career: 'Career Direction'
+      }
+    },
+    detailed: {
+      sun: {
+        gemini: {
+          advantages: 'Curious and quick-learning, excellent communication skills, versatile and adaptable thinking.',
+          risks: 'Tendency to lose interest quickly, difficulty in deep focus, can appear superficial.',
+          actions: 'Develop concentration skills, choose key areas for deep development, transform versatility into strength.'
+        },
+        aries: {
+          advantages: 'Proactive and pioneering, strong action orientation, natural leadership qualities.',
+          risks: 'Impulsive and impatient, sometimes overly self-centered.',
+          actions: 'Learn to think before acting, develop teamwork spirit, channel enthusiasm into lasting motivation.'
+        },
+        taurus: {
+          advantages: 'Steady and reliable, perseverant, practical approach, strong aesthetic sense.',
+          risks: 'Stubborn and resistant to change, sometimes overly conservative.',
+          actions: 'Maintain open-mindedness, appropriately embrace new things, transform stability into reliable strength.'
+        },
+        cancer: {
+          advantages: 'Emotionally rich, intuitive, caring for others, strong protective instincts.',
+          risks: 'Overly emotional, excessive defensiveness, prone to dwelling on the past.',
+          actions: 'Learn emotional management, establish healthy boundaries, transform caring abilities into positive influence.'
+        },
+        leo: {
+          advantages: 'Confident and radiant, strong self-expression, natural charisma and creativity.',
+          risks: 'Overly proud, needs excessive attention, can appear arrogant.',
+          actions: 'Maintain humility, learn to listen to others, use personal charm to inspire and help others.'
+        },
+        virgo: {
+          advantages: 'Detail-oriented, strong analytical skills, pursuit of perfection, strong service spirit.',
+          risks: 'Overly critical, perfectionism leading to procrastination, prone to anxiety.',
+          actions: 'Learn to accept "good enough" standards, use analytical skills to solve practical problems.'
+        },
+        libra: {
+          advantages: 'Harmony-seeking, excellent diplomatic skills, great aesthetic sense, good at balancing interests.',
+          risks: 'Indecisive, excessive conflict avoidance, sometimes lacks principled stance.',
+          actions: 'Develop decision-making skills, learn to maintain principles in harmony, transform balance into leadership advantage.'
+        },
+        scorpio: {
+          advantages: 'Strong willpower, deep insight, intense focus, powerful inner strength.',
+          risks: 'Overly suspicious, vengeful, prone to obsessing over details.',
+          actions: 'Learn forgiveness and letting go, use deep insight for positive exploration and research.'
+        },
+        sagittarius: {
+          advantages: 'Optimistic and cheerful, broad vision, freedom-loving, philosophical thinking and international perspective.',
+          risks: 'Impatient, irresponsible, sometimes appears frivolous.',
+          actions: 'Develop responsibility and persistence, transform broad vision into actual achievements.'
+        },
+        capricorn: {
+          advantages: 'Strong sense of responsibility, clear goals, down-to-earth, strong execution ability.',
+          risks: 'Overly serious, lacks flexibility, sometimes appears cold.',
+          actions: 'Learn to relax and enjoy life, transform pragmatism into sustained success.'
+        },
+        aquarius: {
+          advantages: 'Independent, forward-thinking, humanitarian spirit, innovative mindset.',
+          risks: 'Overly rational, emotionally detached, sometimes appears eccentric.',
+          actions: 'Balance rationality with emotion, transform innovative thinking into socially beneficial contributions.'
+        },
+        pisces: {
+          advantages: 'Rich imagination, strong empathy, outstanding artistic talent, keen intuition.',
+          risks: 'Overly sensitive, lacks realism, prone to indulging in fantasies.',
+          actions: 'Learn to be practical, transform artistic talent and empathy into actual ability to help others.'
+        }
+      },
+      moon: {
+        aries: {
+          description: 'Emotions are direct and impulsive, seeking immediate emotional reactions and stimulating emotional experiences.',
+          triggers: 'When delayed or restricted, anger and frustration can explode.',
+          actions: 'Direct emotional energy toward constructive activities, release through moderate exercise and challenges.'
+        },
+        taurus: {
+          description: 'Emotions are stable and lasting, need security, prefer warm and comfortable environments.',
+          triggers: 'When facing sudden changes or unstable situations, shows strong resistance or stubbornness.',
+          actions: 'Respect your slow pace, take time to create comfortable environments.'
+        },
+        gemini: {
+          description: 'Emotions are diverse and variable, need intellectual stimulation, enjoy communication and sharing.',
+          triggers: 'When feeling bored or lonely, easily lose focus and become scattered.',
+          actions: 'While enjoying diverse interests, also cherish opportunities for deep communication.'
+        },
+        cancer: {
+          description: 'Emotions are deep and delicate, need sense of belonging, value family and kinship relationships.',
+          triggers: 'When rejected or feeling isolated, tend to withdraw into shell.',
+          actions: 'Ensure safe spaces, build deep connections with trustworthy people.'
+        },
+        leo: {
+          description: 'Emotions are passionate and generous, need appreciation, enjoy being center of attention.',
+          triggers: 'When dignity or face is threatened, become defensive or emotionally explosive.',
+          actions: 'Create safe expression spaces, shift focus from "being praised" to "being understood".'
+        },
+        virgo: {
+          description: 'Emotions are delicate and rational, need sense of order, enjoy caring for others.',
+          triggers: 'When in chaotic or disorderly situations, become anxious and critical.',
+          actions: 'Don\'t pursue perfection, value accumulation of small improvements.'
+        },
+        libra: {
+          description: 'Emotions seek harmony, need partnerships, avoid conflicts.',
+          triggers: 'When facing unfair treatment or conflict situations, deeply hurt.',
+          actions: 'Build balanced relationships, learn to appropriately express your feelings.'
+        },
+        scorpio: {
+          description: 'Emotions are deep and intense, need profound connections, have strong possessiveness.',
+          triggers: 'When betrayed or feeling untrusted, generate strong revenge impulses.',
+          actions: 'Learn trust and forgiveness, transform deep emotions into power to heal self and others.'
+        },
+        sagittarius: {
+          description: 'Emotions are optimistic and free, need exploration and growth, hate being bound.',
+          triggers: 'When freedom is restricted or forced to handle trivial details, feel frustrated.',
+          actions: 'While pursuing freedom, also take corresponding responsibilities.'
+        },
+        capricorn: {
+          description: 'Emotions are reserved and practical, need sense of achievement, value social status.',
+          triggers: 'When feeling disrespected or losing control, become cold and distant.',
+          actions: 'Learn to express inner emotions, maintain humanity while pursuing success.'
+        },
+        aquarius: {
+          description: 'Emotions are independent and objective, need autonomy, value friendship and ideals.',
+          triggers: 'When forced to comply or independence is restricted, feel strong resentment.',
+          actions: 'While maintaining independence, also cultivate emotional connections with others.'
+        },
+        pisces: {
+          description: 'Emotions are sensitive and empathetic, need spiritual sustenance, easily influenced by environment.',
+          triggers: 'When in negative environment or feeling misunderstood, easily fall into depression.',
+          actions: 'Protect your sensitivity, transform empathy and intuition into practical actions to help others.'
+        }
+      },
+      ascendant: {
+        aries: {
+          impression: 'Give energetic and proactive first impression, easily become a leader.',
+          risks: 'May appear too hasty or lack patience, sometimes creating pressure.',
+          actions: 'Maintain enthusiasm while learning to listen to others, cultivate patience and empathy.'
+        },
+        taurus: {
+          impression: 'Give stable and reliable, warm and friendly impression, making people feel safe and comfortable.',
+          risks: 'May appear too stubborn or resistant to change, sometimes seeming inflexible.',
+          actions: 'While maintaining stability, appropriately show openness and adaptability.'
+        },
+        gemini: {
+          impression: 'Give intelligent and witty, socially skilled impression, easily attracting attention.',
+          risks: 'May appear superficial or lacking depth, sometimes seeming unreliable.',
+          actions: 'While showing versatility, also demonstrate focus and depth.'
+        },
+        cancer: {
+          impression: 'Give warm and caring, emotionally rich impression, making people feel cared for.',
+          risks: 'May appear overly sensitive or emotional, sometimes feeling oppressive.',
+          actions: 'While expressing care, also show strength and independence.'
+        },
+        leo: {
+          impression: 'Give confident and sunny, charming impression, easily becoming the center of attention.',
+          risks: 'May appear overly self-centered or dramatic, sometimes feeling distant.',
+          actions: 'While showing confidence, also demonstrate humility and care for others.'
+        },
+        virgo: {
+          impression: 'Give careful and thorough, professionally competent impression, feeling trustworthy.',
+          risks: 'May appear overly critical or perfectionist, sometimes creating pressure.',
+          actions: 'While pursuing perfection, also show flexibility and tolerance.'
+        },
+        libra: {
+          impression: 'Give elegant and harmonious, good at coordination impression, feeling comfortable.',
+          risks: 'May appear too indecisive or lack position, sometimes feeling not firm enough.',
+          actions: 'While maintaining harmony, also courageously express your own views.'
+        },
+        scorpio: {
+          impression: 'Give profound and mysterious, charismatic impression, easily making lasting impressions.',
+          risks: 'May appear too mysterious or hard to approach, sometimes feeling uneasy.',
+          actions: 'Moderately show inner depth while maintaining appropriate openness.'
+        },
+        sagittarius: {
+          impression: 'Give optimistic and open, freedom-loving impression, making people feel relaxed and happy.',
+          risks: 'May appear too scattered or lack focus, sometimes feeling not serious enough.',
+          actions: 'While maintaining free spirit, also show responsibility and focus.'
+        },
+        capricorn: {
+          impression: 'Give mature and stable, trustworthy impression, making people feel secure.',
+          risks: 'May appear too serious or distant, sometimes feeling oppressive.',
+          actions: 'While maintaining professionalism, also show warmth and approachability.'
+        },
+        aquarius: {
+          impression: 'Give unique and creative impression, easily attracting like-minded people.',
+          risks: 'May appear too eccentric or aloof, sometimes hard to understand.',
+          actions: 'While maintaining uniqueness, also build emotional connections with others.'
+        },
+        pisces: {
+          impression: 'Give gentle and understanding, artistically inclined impression.',
+          risks: 'May appear too sensitive or not firm enough, sometimes feeling unreliable.',
+          actions: 'While expressing empathy, also show inner strength and decisiveness.'
+        }
+      },
+      mercury: {
+        aries: {
+          communication: 'Direct and fast thinking, frank and honest expression, good at initiating topics.',
+          risks: 'Speaking may be too impulsive or lacking deep thought, easily causing misunderstandings.',
+          techniques: 'Cultivate patience, listen to others\' opinions before expressing your views.'
+        },
+        taurus: {
+          communication: 'Steady and practical expression, warm voice, like to communicate with concrete facts.',
+          risks: 'Sometimes may appear stubborn or refuse to accept new viewpoints.',
+          techniques: 'Keep an open mind, appropriately try to accept different ways of thinking.'
+        },
+        gemini: {
+          communication: 'Active and diverse thinking, lively and interesting expression, good at thinking from multiple perspectives.',
+          risks: 'May lack depth or consistency, easily confusing others.',
+          techniques: 'Keep logic clear, appropriately go deep into topics rather than constantly jumping.'
+        },
+        cancer: {
+          communication: 'Warm and emotional expression, good at understanding others\' emotions, having intuitive insight.',
+          risks: 'May be too subjective or emotional, affecting objective analysis.',
+          techniques: 'Balance rationality and sensibility, consider logic when expressing emotions.'
+        },
+        leo: {
+          communication: 'Confident and lively expression, good at storytelling, can attract audience attention.',
+          risks: 'May be too self-centered or dramatic, ignoring others\' viewpoints.',
+          techniques: 'Give others enough opportunity to express, learn to listen and praise others.'
+        },
+        virgo: {
+          communication: 'Accurate and detailed expression, clear logic, good at analyzing and solving problems.',
+          risks: 'May be too critical or judgmental, making others feel pressured.',
+          techniques: 'When pointing out problems, also give constructive suggestions, pay attention to tone and expression.'
+        },
+        libra: {
+          communication: 'Elegant and balanced expression, good at coordination and finding common ground, avoiding conflicts.',
+          risks: 'May be too indecisive or lack clear position, difficult to make decisions.',
+          techniques: 'Dare to express your true opinions, find appropriate balance between balance and firmness.'
+        },
+        scorpio: {
+          communication: 'Profound and direct expression, good at seeing problem essence, dislike superficial communication.',
+          risks: 'May appear too sharp or aggressive, easily creating confrontation.',
+          techniques: 'Pay attention to tone when expressing views, give others space to express.'
+        },
+        sagittarius: {
+          communication: 'Optimistic and open expression, good at sharing experiences and ideas, having philosophical thinking.',
+          risks: 'May be too general or lack attention to details, easily overlooking specifics.',
+          techniques: 'While sharing big picture, also pay attention to specific implementation details.'
+        },
+        capricorn: {
+          communication: 'Serious and practical expression, good at structured thinking, value efficiency and results.',
+          risks: 'May appear too conservative or rigid, lacking creativity.',
+          techniques: 'Appropriately show flexibility and humor, incorporate friendliness into seriousness.'
+        },
+        aquarius: {
+          communication: 'Unique and forward-thinking expression, good at thinking about future and innovation, having objective rationality.',
+          risks: 'May appear too detached or hard to understand, lacking emotional connection.',
+          techniques: 'Consider audience understanding when sharing ideas, appropriately show human side.'
+        },
+        pisces: {
+          communication: 'Rich emotional expression, having intuitive insight, good at artistic expression.',
+          risks: 'May appear too vague or emotional, lacking clear logic.',
+          techniques: 'Combine rational analysis when expressing feelings, improve clarity of expression.'
+        }
+      },
+      venus: {
+        aries: {
+          relationships: 'Passionate and direct in relationships, like to pursue and take initiative, charm full of vitality.',
+          approach: 'Need to learn patience and consider partner\'s thoughts, maintain rationality in passion.'
+        },
+        taurus: {
+          relationships: 'Pursue stability and comfort in relationships, value material security, enjoy creating romantic atmosphere.',
+          approach: 'Avoid being too stubborn, appropriately accept changes and freshness in relationships.'
+        },
+        gemini: {
+          relationships: 'Need intellectual stimulation and communication in relationships, enjoy diverse experiences and novelty.',
+          approach: 'Learn deep connection, cultivate deep relationships while enjoying diversity.'
+        },
+        cancer: {
+          relationships: 'Gentle and caring in relationships, value emotional security, hope to be loved and protected.',
+          approach: 'Avoid excessive dependency, maintain independence while giving love.'
+        },
+        leo: {
+          relationships: 'Generous and romantic in relationships, need to be praised and appreciated, enjoy creating surprises for partner.',
+          approach: 'Learn to share spotlight, appreciate partner while showing yourself.'
+        },
+        virgo: {
+          relationships: 'Careful and thoughtful in relationships, express love through practical actions, value spiritual compatibility.',
+          approach: 'Appropriately relax perfectionism, learn to accept partner\'s imperfections.'
+        },
+        libra: {
+          relationships: 'Pursue harmony and beauty in relationships, good at coordination and balance, need partnership and beautiful environment.',
+          approach: 'Dare to express true thoughts, maintain personality while pursuing harmony.'
+        },
+        scorpio: {
+          relationships: 'Passionate and profound in relationships, seek soul compatibility, having strong possessiveness and loyalty.',
+          approach: 'Learn to trust and open up, avoid excessive jealousy or suspicion.'
+        },
+        sagittarius: {
+          relationships: 'Optimistic and open in relationships, seek spiritual compatibility and growth partnership, need freedom space.',
+          approach: 'Take responsibility in relationships while enjoying freedom.'
+        },
+        capricorn: {
+          relationships: 'Strong sense of responsibility in relationships, value long-term commitment and stable building, practical way of expressing love.',
+          approach: 'Appropriately show emotional and romantic side, avoid being too serious.'
+        },
+        aquarius: {
+          relationships: 'Value friendship and spiritual communication in relationships, need independent space and freedom of thought.',
+          approach: 'Cultivate deep emotional connection while maintaining independence.'
+        },
+        pisces: {
+          relationships: 'Romantic and imaginative in relationships, having strong empathy and dedication spirit.',
+          approach: 'Learn to set boundaries, protect yourself while giving love.'
+        }
+      },
+      mars: {
+        aries: {
+          strengths: 'Strong and direct action power, having pioneering spirit, able to respond and decide quickly.',
+          risks: 'May be too impulsive or lack patience, easy to give up on challenging projects.',
+          actions: 'Learn to make detailed plans, cultivate persistence and patience.'
+        },
+        taurus: {
+          strengths: 'Steady and lasting action, having strong endurance and execution, able to persist to the end.',
+          risks: 'May be too stubborn or refuse to change, missing better opportunities.',
+          actions: 'Keep open mind, appropriately adjust methods and strategies.'
+        },
+        gemini: {
+          strengths: 'Flexible and diverse action, good at handling multiple tasks simultaneously, strong adaptability.',
+          risks: 'May lack focus or persistence, easy to give up halfway.',
+          actions: 'Learn to set priorities, focus on most important goals.'
+        },
+        cancer: {
+          strengths: 'Action driven by emotion and intuition, showing great strength when protecting loved ones.',
+          risks: 'May be too emotional or defensive, affecting objectivity of decisions.',
+          actions: 'Combine rational thinking when making important decisions, avoid pure emotional reactions.'
+        },
+        leo: {
+          strengths: 'Action full of confidence and leadership, able to inspire and motivate others.',
+          risks: 'May be too self-centered or arrogant, ignoring others\' opinions.',
+          actions: 'Learn to listen to others\' opinions, be humble while showing leadership.'
+        },
+        virgo: {
+          strengths: 'Precise and efficient action, good at analyzing and solving problems, paying attention to details.',
+          risks: 'May be too concerned about details or perfectionist, affecting action efficiency.',
+          actions: 'Learn to broaden perspective, find balance between pursuing perfection and advancing progress.'
+        },
+        libra: {
+          strengths: 'Balanced and coordinated action, good at working in teams, able to consider interests of all parties.',
+          risks: 'May be too indecisive or avoid conflicts, missing important opportunities.',
+          actions: 'Dare to make decisions when necessary, don\'t worry too much about offending others.'
+        },
+        scorpio: {
+          strengths: 'Profound and focused action, having strong willpower and penetration.',
+          risks: 'May be too aggressive or revengeful, affecting interpersonal relationships.',
+          actions: 'Learn forgiveness and letting go, transform passion into positive force for change.'
+        },
+        sagittarius: {
+          strengths: 'Action full of idealism, having exploratory spirit and big picture view.',
+          risks: 'May be too optimistic or lack attention to details, affecting execution results.',
+          actions: 'Make specific feasible plans while maintaining ideals.'
+        },
+        capricorn: {
+          strengths: 'Steady and organized action, having strong organizational ability and sense of responsibility.',
+          risks: 'May be too conservative or rigid, missing innovation opportunities.',
+          actions: 'Appropriately welcome challenges and changes, incorporate flexibility into steadiness.'
+        },
+        aquarius: {
+          strengths: 'Action with innovation and foresight, able to act for collective interests.',
+          risks: 'May be too idealistic or rebellious, ignoring practical situations.',
+          actions: 'Consider practical feasibility while pursuing ideals.'
+        },
+        pisces: {
+          strengths: 'Action rich in empathy and intuition, able to work for others\' welfare.',
+          risks: 'May lack direction or be indecisive due to over-sensitivity.',
+          actions: 'Set clear goals, maintain firm action while keeping empathy.'
+        }
+      },
+      midheaven: {
+        aries: {
+          career: 'Suitable for work requiring leadership and pioneering spirit, such as entrepreneurship, sales, competition, etc.',
+          advantages: 'Having natural leadership talent and pioneering ability, able to stand out in competitive environment.',
+          suggestions: 'Use your initiative and decisiveness, but also learn teamwork.'
+        },
+        taurus: {
+          career: 'Suitable for stable work, such as finance, art, beauty, architecture, etc.',
+          advantages: 'Having patience and persistence, able to steadily build position in your field.',
+          suggestions: 'Use your practical talents, but also stay open to new opportunities.'
+        },
+        gemini: {
+          career: 'Suitable for work requiring communication and information processing, such as media, education, technology, etc.',
+          advantages: 'Having excellent communication and learning abilities, able to adapt to diverse work environments.',
+          suggestions: 'Use your versatility, but also specialize deeply in certain areas.'
+        },
+        cancer: {
+          career: 'Suitable for work requiring care for others, such as healthcare, education, catering, etc.',
+          advantages: 'Having strong empathy and intuitive ability, able to understand and meet others\' needs.',
+          suggestions: 'Use your emotional advantages, but also maintain appropriate professional distance in workplace.'
+        },
+        leo: {
+          career: 'Suitable for work requiring creativity and performance, such as entertainment, art, sales, etc.',
+          advantages: 'Having natural performance ability and charm, able to perform excellently in front of public.',
+          suggestions: 'Use your creative talents, but also learn teamwork and humility.'
+        },
+        virgo: {
+          career: 'Suitable for work requiring precision and analytical ability, such as accounting, research, healthcare, etc.',
+          advantages: 'Having excellent analytical ability and rigorous attitude to details.',
+          suggestions: 'Use your professional abilities, but also learn big picture thinking and flexibility.'
+        },
+        libra: {
+          career: 'Suitable for work requiring aesthetics and interpersonal coordination, such as law, design, diplomacy, etc.',
+          advantages: 'Having excellent interpersonal communication ability and aesthetic taste.',
+          suggestions: 'Use your coordination abilities, but also learn to make decisions at critical moments.'
+        },
+        scorpio: {
+          career: 'Suitable for work requiring deep research and insight, such as psychology, investigation, finance, etc.',
+          advantages: 'Having strong insight and willpower, able to handle complex and challenging problems.',
+          suggestions: 'Use your deep thinking abilities, but also learn to cooperate and trust others.'
+        },
+        sagittarius: {
+          career: 'Suitable for work requiring exploration and education, such as education, travel, publishing, etc.',
+          advantages: 'Having broad vision and philosophical thinking, able to thrive in multicultural environments.',
+          suggestions: 'Use your global perspective, but also stay focused on specific projects.'
+        },
+        capricorn: {
+          career: 'Suitable for work requiring management and execution, such as management, government, enterprise, etc.',
+          advantages: 'Having strong sense of responsibility and organizational ability, able to take important leadership positions.',
+          suggestions: 'Use your management talents, but also incorporate humanity into leadership.'
+        },
+        aquarius: {
+          career: 'Suitable for work requiring innovation and social responsibility, such as technology, public welfare, environmental protection, etc.',
+          advantages: 'Having forward-looking vision and humanitarian spirit, able to contribute to social progress.',
+          suggestions: 'Use your innovative abilities, but also find balance between ideals and reality.'
+        },
+        pisces: {
+          career: 'Suitable for work requiring creativity and service spirit, such as art, healthcare, public welfare, etc.',
+          advantages: 'Having rich imagination and strong empathy, able to make outstanding contributions in creative fields and serving others.',
+          suggestions: 'Use your artistic talents, but also maintain realistic understanding in career development.'
+        }
+      }
+    },
     actions: {
       back: 'Back to Home',
       download: 'Download Report',
@@ -2838,7 +3308,7 @@ export default {
       shiftEnterForNewLine: 'Shift+Enter for new line'
     },
     streaming: {
-      thinking: 'AI is thinking...'
+      thinking: 'Meimei is reading charts...'
     },
     loading: {
       title: 'Preparing Your Personal AI Astrologer',
