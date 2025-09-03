@@ -21,7 +21,9 @@ export default {
       male: 'Male',
       female: 'Female'
     },
-    requiredNote: 'Required fields'
+    requiredNote: 'Required fields',
+    startAnalysis: 'Start',
+    startAnalysisDescription: 'Generate your personalized destiny chart'
   },
   
   regions: {
@@ -68,9 +70,13 @@ export default {
     shareDescription: 'Share {name}\'s astrology analysis results and explore the mysteries of astrology with friends!',
     // Function Navigation
     functionNav: {
-      basicAnalysis: 'Basic Analysis',
-      transitAnalysis: 'Transit Analysis',
+      myChart: 'My Chart',
       aiExpert: 'Ask Meimei'
+    },
+    myChart: {
+      title: 'My Chart',
+      astrologySection: 'Astrology Analysis',
+      baziSection: 'BaZi (Eight Characters)'
     },
     recommendationsTitle: 'Recommended Features for You',
     recommendations: {
@@ -3295,7 +3301,7 @@ export default {
   // AI Chat related texts
   aiChat: {
     welcome: {
-      title: 'Fate Flows Through Mystic Veins, Celestial Stars Connect Our Souls',
+      title: 'Fate Flows Through Mystic Veins<br/>Celestial Stars Connect Our Souls',
       description: 'I am Meimei, your dedicated destiny reader, providing various advice and answers based on your birth chart information.'
     },
     suggestedQuestions: {

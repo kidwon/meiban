@@ -21,7 +21,9 @@ export default {
       male: '男',
       female: '女'
     },
-    requiredNote: '为必填项'
+    requiredNote: '为必填项',
+    startAnalysis: '开始',
+    startAnalysisDescription: '生成您的专属命盘分析'
   },
   
   regions: {
@@ -70,7 +72,14 @@ export default {
     functionNav: {
       basicAnalysis: '基础分析',
       transitAnalysis: '行运分析',
-      aiExpert: '问问冥冥'
+      aiExpert: '问问冥冥',
+      myChart: '我的命盘'
+    },
+    // 我的命盘页面
+    myChart: {
+      title: '我的命盘',
+      astrologySection: '占星分析',
+      baziSection: '生辰八字'
     },
     recommendationsTitle: '为您推荐的功能',
     recommendations: {
@@ -3744,7 +3753,7 @@ export default {
   // AI聊天相关文本
   aiChat: {
     welcome: {
-      title: '冥冥之中自有天意，浩瀚星辰牵动你我',
+      title: '冥冥之中自有天意<br/>浩瀚星辰牵动你我',
       description: '我是冥冥，您的专属命盘师，基于您的命盘信息为您提供各种的建议和解答。'
     },
     suggestedQuestions: {
