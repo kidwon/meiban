@@ -3753,7 +3753,7 @@ export default {
   // AI聊天相关文本
   aiChat: {
     welcome: {
-      title: '冥冥之中自有天意，浩瀚星辰牵动你我',
+      title: '冥冥之中自有天意<br/>浩瀚星辰牵动你我',
       description: '我是冥冥，您的专属命盘师，基于您的命盘信息为您提供各种的建议和解答。'
     },
     suggestedQuestions: {

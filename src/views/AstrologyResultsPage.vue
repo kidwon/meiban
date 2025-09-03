@@ -8,8 +8,7 @@
     />
     
     <header class="page-header">
-      <h1 class="page-title">{{ $t('astrology.resultsTitle') }}</h1>
-      <p class="user-name">{{ userData ? userData.name : $t('astrology.guest') }}{{ $t('astrology.chartSuffix') }}</p>
+      <h1 class="page-title">{{ userData ? userData.name : $t('astrology.guest') }}{{ $t('astrology.chartSuffix') }}</h1>
     </header>
 
     <div class="content-wrapper" v-if="calculationResults">
@@ -57,161 +56,150 @@
           'content-direction-backward': tabSwitchDirection === 'backward'
         }"
       >
-        <h2 class="section-title">{{ $t('astrology.functionNav.myChart') }}</h2>
-        
-        <!-- 我的命盘容器 -->
-        <div class="my-chart-container">
-          <!-- 占星分析部分 -->
-          <div class="chart-section">
-            <div class="section-header" @click="toggleAstrologySection">
-              <h3 class="section-header-title">
-                <span class="section-icon">⭐</span>
-                {{ $t('astrology.myChart.astrologySection') }}
-              </h3>
-              <button class="collapse-btn" :class="{ 'collapsed': !astrologyExpanded }">
-                <span>{{ astrologyExpanded ? '▼' : '▶' }}</span>
-              </button>
-            </div>
+        <!-- 占星分析部分 -->
+        <div class="chart-section">
+          <div class="section-header" @click="toggleAstrologySection">
+            <h3 class="section-header-title">
+              <span class="section-icon">⭐</span>
+              {{ $t('astrology.myChart.astrologySection') }}
+            </h3>
+            <button class="collapse-btn" :class="{ 'collapsed': !astrologyExpanded }">
+              <span>{{ astrologyExpanded ? '▼' : '▶' }}</span>
+            </button>
+          </div>
             
             <div class="section-content" v-show="astrologyExpanded">
               <!-- 交互式星盘图 -->
-              <div class="chart-subsection">
-                <h4 class="subsection-title">{{ $t('astrology.interactiveChart') }}</h4>
-                <ChartViewSelector 
-                  :calculationResults="calculationResults"
-                  :userData="userData"
-                  :initialMode="'2d'"
-                  @modeChange="handleChartModeChange"
-                  @planetClick="handlePlanetClick"
-                  @planetHover="handlePlanetHover"
-                  @resetView="handleResetView"
-                />
-              </div>
+              <ChartViewSelector 
+                :calculationResults="calculationResults"
+                :userData="userData"
+                :initialMode="'2d'"
+                @modeChange="handleChartModeChange"
+                @planetClick="handlePlanetClick"
+                @planetHover="handlePlanetHover"
+                @resetView="handleResetView"
+              />
 
               <!-- 占星分析内容 -->
-              <div class="chart-subsection">
-                <h4 class="subsection-title">{{ $t('astrology.detailedAnalysis') }}</h4>
-                <div class="analysis-content">
-                  <!-- 动态生成的分析卡片 -->
-                  <div 
-                    v-for="analysis in dynamicAnalysisCards" 
-                    :key="analysis.type" 
-                    class="analysis-card"
-                    :class="{
-                      'warning-card': analysis.type === 'warning',
-                      'highlight-card': analysis.type === 'suggestions'
-                    }"
-                  >
-                    <div class="card-header">
-                      <h3 class="card-title">{{ analysis.title }}</h3>
-                    </div>
-                    <div class="card-content">
-                      <!-- 各种分析模板保持不变 -->
-                      <!-- 太阳星座分析 -->
-                      <template v-if="analysis.type === 'sun'">
-                        <div class="highlight-section" v-if="analysis.advantages">
-                          <h4>{{ $t('astrology.analysisLabels.advantages') }}：</h4>
-                          <p>{{ analysis.advantages }}</p>
-                        </div>
-                        <div class="risk-section" v-if="analysis.risks">
-                          <h4>{{ $t('astrology.analysisLabels.risks') }}：</h4>
-                          <p>{{ analysis.risks }}</p>
-                        </div>
-                        <div class="action-section" v-if="analysis.actions">
-                          <h4>{{ $t('astrology.analysisLabels.actions') }}：</h4>
-                          <p>{{ analysis.actions }}</p>
-                        </div>
-                      </template>
+              <div class="analysis-content">
+                <!-- 动态生成的分析卡片 -->
+                <div 
+                  v-for="analysis in dynamicAnalysisCards" 
+                  :key="analysis.type" 
+                  class="analysis-card"
+                  :class="{
+                    'warning-card': analysis.type === 'warning',
+                    'highlight-card': analysis.type === 'suggestions'
+                  }"
+                >
+                  <div class="card-header">
+                    <h3 class="card-title">{{ analysis.title }}</h3>
+                  </div>
+                  <div class="card-content">
+                    <!-- 太阳星座分析 -->
+                    <template v-if="analysis.type === 'sun'">
+                      <div class="highlight-section" v-if="analysis.advantages">
+                        <h4>{{ $t('astrology.analysisLabels.advantages') }}：</h4>
+                        <p>{{ analysis.advantages }}</p>
+                      </div>
+                      <div class="risk-section" v-if="analysis.risks">
+                        <h4>{{ $t('astrology.analysisLabels.risks') }}：</h4>
+                        <p>{{ analysis.risks }}</p>
+                      </div>
+                      <div class="action-section" v-if="analysis.actions">
+                        <h4>{{ $t('astrology.analysisLabels.actions') }}：</h4>
+                        <p>{{ analysis.actions }}</p>
+                      </div>
+                    </template>
 
-                      <!-- 月亮星座分析 -->
-                      <template v-else-if="analysis.type === 'moon'">
-                        <p v-if="analysis.description">{{ analysis.description }}</p>
-                        <div class="trigger-section" v-if="analysis.triggers">
-                          <h4>{{ $t('astrology.analysisLabels.triggers') }}：</h4>
-                          <p>{{ analysis.triggers }}</p>
-                        </div>
-                        <div class="action-section" v-if="analysis.actions">
-                          <h4>{{ $t('astrology.analysisLabels.actions') }}：</h4>
-                          <p>{{ analysis.actions }}</p>
-                        </div>
-                      </template>
+                    <!-- 月亮星座分析 -->
+                    <template v-else-if="analysis.type === 'moon'">
+                      <p v-if="analysis.description">{{ analysis.description }}</p>
+                      <div class="trigger-section" v-if="analysis.triggers">
+                        <h4>{{ $t('astrology.analysisLabels.triggers') }}：</h4>
+                        <p>{{ analysis.triggers }}</p>
+                      </div>
+                      <div class="action-section" v-if="analysis.actions">
+                        <h4>{{ $t('astrology.analysisLabels.actions') }}：</h4>
+                        <p>{{ analysis.actions }}</p>
+                      </div>
+                    </template>
 
-                      <!-- 上升星座分析 -->
-                      <template v-else-if="analysis.type === 'ascendant'">
-                        <div class="impression-section" v-if="analysis.impression">
-                          <h4>{{ $t('astrology.analysisLabels.impression') }}：</h4>
-                          <p>{{ analysis.impression }}</p>
-                        </div>
-                        <div class="risk-section" v-if="analysis.risks">
-                          <h4>{{ $t('astrology.analysisLabels.risks') }}：</h4>
-                          <p>{{ analysis.risks }}</p>
-                        </div>
-                        <div class="action-section" v-if="analysis.actions">
-                          <h4>{{ $t('astrology.analysisLabels.actions') }}：</h4>
-                          <p>{{ analysis.actions }}</p>
-                        </div>
-                      </template>
+                    <!-- 上升星座分析 -->
+                    <template v-else-if="analysis.type === 'ascendant'">
+                      <div class="impression-section" v-if="analysis.impression">
+                        <h4>{{ $t('astrology.analysisLabels.impression') }}：</h4>
+                        <p>{{ analysis.impression }}</p>
+                      </div>
+                      <div class="risk-section" v-if="analysis.risks">
+                        <h4>{{ $t('astrology.analysisLabels.risks') }}：</h4>
+                        <p>{{ analysis.risks }}</p>
+                      </div>
+                      <div class="action-section" v-if="analysis.actions">
+                        <h4>{{ $t('astrology.analysisLabels.actions') }}：</h4>
+                        <p>{{ analysis.actions }}</p>
+                      </div>
+                    </template>
 
-                      <!-- 水星中天分析 -->
-                      <template v-else-if="analysis.type === 'mercury-midheaven'">
-                        <p v-if="analysis.description">{{ analysis.description }}</p>
-                        <div class="risk-section" v-if="analysis.risks">
-                          <h4>{{ $t('astrology.analysisLabels.risks') }}：</h4>
-                          <p>{{ analysis.risks }}</p>
-                        </div>
-                        <div class="technique-section" v-if="analysis.techniques">
-                          <h4>{{ $t('astrology.analysisLabels.techniques') }}：</h4>
-                          <p>{{ analysis.techniques }}</p>
-                        </div>
-                      </template>
+                    <!-- 水星中天分析 -->
+                    <template v-else-if="analysis.type === 'mercury-midheaven'">
+                      <p v-if="analysis.description">{{ analysis.description }}</p>
+                      <div class="risk-section" v-if="analysis.risks">
+                        <h4>{{ $t('astrology.analysisLabels.risks') }}：</h4>
+                        <p>{{ analysis.risks }}</p>
+                      </div>
+                      <div class="technique-section" v-if="analysis.techniques">
+                        <h4>{{ $t('astrology.analysisLabels.techniques') }}：</h4>
+                        <p>{{ analysis.techniques }}</p>
+                      </div>
+                    </template>
 
-                      <!-- 金星关系分析 -->
-                      <template v-else-if="analysis.type === 'venus'">
-                        <p v-if="analysis.description">{{ analysis.description }}</p>
-                        <div class="action-section" v-if="analysis.approach">
-                          <h4>{{ $t('astrology.analysisLabels.approach') }}：</h4>
-                          <p>{{ analysis.approach }}</p>
-                        </div>
-                      </template>
+                    <!-- 金星关系分析 -->
+                    <template v-else-if="analysis.type === 'venus'">
+                      <p v-if="analysis.description">{{ analysis.description }}</p>
+                      <div class="action-section" v-if="analysis.approach">
+                        <h4>{{ $t('astrology.analysisLabels.approach') }}：</h4>
+                        <p>{{ analysis.approach }}</p>
+                      </div>
+                    </template>
 
-                      <!-- 火星行动分析 -->
-                      <template v-else-if="analysis.type === 'mars'">
-                        <div class="strength-section" v-if="analysis.strengths">
-                          <h4>{{ $t('astrology.analysisLabels.strengths') }}：</h4>
-                          <p>{{ analysis.strengths }}</p>
-                        </div>
-                        <div class="risk-section" v-if="analysis.risks">
-                          <h4>{{ $t('astrology.analysisLabels.risks') }}：</h4>
-                          <p>{{ analysis.risks }}</p>
-                        </div>
-                        <div class="action-section" v-if="analysis.actions">
-                          <h4>{{ $t('astrology.analysisLabels.actions') }}：</h4>
-                          <p>{{ analysis.actions }}</p>
-                        </div>
-                      </template>
+                    <!-- 火星行动分析 -->
+                    <template v-else-if="analysis.type === 'mars'">
+                      <div class="strength-section" v-if="analysis.strengths">
+                        <h4>{{ $t('astrology.analysisLabels.strengths') }}：</h4>
+                        <p>{{ analysis.strengths }}</p>
+                      </div>
+                      <div class="risk-section" v-if="analysis.risks">
+                        <h4>{{ $t('astrology.analysisLabels.risks') }}：</h4>
+                        <p>{{ analysis.risks }}</p>
+                      </div>
+                      <div class="action-section" v-if="analysis.actions">
+                        <h4>{{ $t('astrology.analysisLabels.actions') }}：</h4>
+                        <p>{{ analysis.actions }}</p>
+                      </div>
+                    </template>
 
-                      <!-- 事业分析 -->
-                      <template v-else-if="analysis.type === 'career'">
-                        <div class="direction-section" v-if="analysis.direction">
-                          <h4>{{ $t('astrology.analysisLabels.direction') }}：</h4>
-                          <p>{{ analysis.direction }}</p>
-                        </div>
-                        <div class="advantages-section" v-if="analysis.advantages">
-                          <h4>{{ $t('astrology.analysisLabels.advantages') }}：</h4>
-                          <p>{{ analysis.advantages }}</p>
-                        </div>
-                        <div class="suggestion-section" v-if="analysis.suggestions">
-                          <h4>{{ $t('astrology.analysisLabels.suggestions') }}：</h4>
-                          <p>{{ analysis.suggestions }}</p>
-                        </div>
-                      </template>
+                    <!-- 事业分析 -->
+                    <template v-else-if="analysis.type === 'career'">
+                      <div class="direction-section" v-if="analysis.direction">
+                        <h4>{{ $t('astrology.analysisLabels.direction') }}：</h4>
+                        <p>{{ analysis.direction }}</p>
+                      </div>
+                      <div class="advantages-section" v-if="analysis.advantages">
+                        <h4>{{ $t('astrology.analysisLabels.advantages') }}：</h4>
+                        <p>{{ analysis.advantages }}</p>
+                      </div>
+                      <div class="suggestion-section" v-if="analysis.suggestions">
+                        <h4>{{ $t('astrology.analysisLabels.suggestions') }}：</h4>
+                        <p>{{ analysis.suggestions }}</p>
+                      </div>
+                    </template>
 
-                      <!-- 通用内容显示 -->
-                      <template v-else>
-                        <p v-if="analysis.description">{{ analysis.description }}</p>
-                        <div v-if="analysis.content" v-html="analysis.content"></div>
-                      </template>
-                    </div>
+                    <!-- 通用内容显示 -->
+                    <template v-else>
+                      <p v-if="analysis.description">{{ analysis.description }}</p>
+                      <div v-if="analysis.content" v-html="analysis.content"></div>
+                    </template>
                   </div>
                 </div>
               </div>
@@ -264,7 +252,6 @@
                 <div class="card-arrow">→</div>
               </div>
             </div>
-          </div>
         </div>
 
         <!-- 行星详情侧边栏 -->
@@ -309,7 +296,6 @@
           'content-direction-backward': tabSwitchDirection === 'backward'
         }"
       >
-        <h2 class="section-title">🤖 {{ $t('astrology.functionNav.aiExpert') }}</h2>
         <div class="ai-expert-content">
           <AiChatInterface 
             v-if="isDataReady"
@@ -1118,8 +1104,10 @@ export default {
 .nav-container {
   display: flex;
   justify-content: center;
-  gap: 8px;
+  gap: 24px;
   flex-wrap: wrap;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 /* 导航按钮样式 */
@@ -1127,27 +1115,30 @@ export default {
   background: rgba(255, 255, 255, 0.2);
   border: 1px solid rgba(255, 255, 255, 0.3);
   color: white;
-  padding: 12px 20px;
-  border-radius: 25px;
+  padding: 16px 32px;
+  border-radius: 28px;
   cursor: pointer;
   transition: all 0.3s ease;
-  font-weight: 500;
-  font-size: 14px;
-  min-width: 140px;
+  font-weight: 600;
+  font-size: 16px;
+  min-width: 180px;
+  flex: 1;
+  max-width: 240px;
   text-align: center;
   backdrop-filter: blur(10px);
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 10px;
   position: relative;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .nav-button:hover {
   background: rgba(255, 255, 255, 0.3);
   border-color: rgba(255, 255, 255, 0.5);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
 .nav-button--active {
@@ -1484,7 +1475,9 @@ export default {
   }
   
   .nav-container {
-    gap: 6px;
+    gap: 16px;
+    max-width: 100%;
+    padding: 0 8px;
   }
   
   /* 移动端隐藏键盘导航提示 */
@@ -1493,10 +1486,11 @@ export default {
   }
   
   .nav-button {
-    padding: 10px 16px;
-    font-size: 13px;
-    min-width: 110px;
-    flex-direction: column;
+    padding: 14px 24px;
+    font-size: 15px;
+    min-width: 160px;
+    max-width: none;
+    flex-direction: row;
     gap: 4px;
   }
   
@@ -2426,6 +2420,20 @@ export default {
 }
 
 @media (max-width: 480px) {
+  .nav-container {
+    gap: 12px;
+    flex-direction: row;
+    padding: 0 12px;
+  }
+  
+  .nav-button {
+    padding: 12px 16px;
+    font-size: 14px;
+    min-width: 120px;
+    flex: 1;
+    max-width: none;
+  }
+  
   .page-title {
     font-size: 1.7rem;
   }

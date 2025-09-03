@@ -3109,7 +3109,7 @@ export default {
   // AI Chat related texts
   aiChat: {
     welcome: {
-      title: '冥冥の中に天意あり、無限の星辰が君我を結ぶ',
+      title: '冥冥の中に天意あり<br/>無限の星辰が君我を結ぶ',
       description: '私は冥冥、あなた専属の命盤師です。あなたの命盤情報に基づいて様々なアドバイスと回答を提供いたします。'
     },
     suggestedQuestions: {
