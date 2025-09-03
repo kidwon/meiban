@@ -21,7 +21,9 @@ export default {
       male: '男性',
       female: '女性'
     },
-    requiredNote: 'は必須項目です'
+    requiredNote: 'は必須項目です',
+    startAnalysis: 'はじめる',
+    startAnalysisDescription: 'あなた専用の命盤分析を開始'
   },
   
   regions: {
@@ -68,9 +70,13 @@ export default {
     shareDescription: '{name}の星座分析結果をシェアして、友達と一緒に占星の世界を探索しましょう！',
     // 功能导航
     functionNav: {
-      basicAnalysis: '基礎分析',
-      transitAnalysis: '行運分析',
+      myChart: 'マイ命盤',
       aiExpert: '冥冥に相談'
+    },
+    myChart: {
+      title: 'マイ命盤',
+      astrologySection: '占星分析',
+      baziSection: '生辰八字'
     },
     recommendationsTitle: 'あなたにおすすめの機能',
     recommendations: {

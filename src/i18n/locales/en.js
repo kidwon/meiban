@@ -21,7 +21,9 @@ export default {
       male: 'Male',
       female: 'Female'
     },
-    requiredNote: 'Required fields'
+    requiredNote: 'Required fields',
+    startAnalysis: 'Start',
+    startAnalysisDescription: 'Generate your personalized destiny chart'
   },
   
   regions: {

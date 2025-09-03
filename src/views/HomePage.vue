@@ -118,31 +118,18 @@
         </div>
       </form>
       
-      <!-- 分析类型选择 -->
+      <!-- 开始分析按钮 -->
       <div class="section">
-        <h3 class="section-title">{{ $t('analysis.selectType') }}</h3>
-        <div class="analysis-buttons">
+        <div class="start-button-container">
           <button 
             type="button"
-            @click="submitWithAnalysisType('bazi')"
-            class="analysis-btn analysis-btn--bazi"
+            @click="startAnalysis"
+            class="start-btn"
           >
-            <div class="btn-icon">🔮</div>
-            <div class="btn-content">
-              <h4>{{ $t('analysis.bazi.title') }}</h4>
-              <p class="btn-description">{{ $t('analysis.bazi.description') }}</p>
-            </div>
-          </button>
-          
-          <button 
-            type="button"
-            @click="submitWithAnalysisType('astrology')"
-            class="analysis-btn analysis-btn--astrology"
-          >
-            <div class="btn-icon">⭐</div>
-            <div class="btn-content">
-              <h4>{{ $t('analysis.astrology.title') }}</h4>
-              <p class="btn-description">{{ $t('analysis.astrology.description') }}</p>
+            <div class="start-btn-icon">🌟</div>
+            <div class="start-btn-content">
+              <h4>{{ $t('form.startAnalysis') }}</h4>
+              <p class="start-btn-description">{{ $t('form.startAnalysisDescription') }}</p>
             </div>
           </button>
         </div>
@@ -308,13 +295,11 @@ export default {
       }
     },
     
-    submitWithAnalysisType(type) {
+    startAnalysis() {
       // 验证表单数据
       if (!this.validateForm()) {
         return
       }
-      
-      this.analysisType = type
       
       const formattedData = {
         ...this.formData,
@@ -324,15 +309,12 @@ export default {
       }
       
       this.$store.dispatch('saveUserData', formattedData)
-      this.$store.dispatch('setAnalysisType', type)
+      // 设置分析类型为占星，但同时计算八字和占星数据
+      this.$store.dispatch('setAnalysisType', 'astrology')
       this.$store.dispatch('calculateFortune', formattedData)
       
-      // 根据选择的分析类型跳转到不同页面
-      if (type === 'bazi') {
-        this.$router.push({ name: 'bazi-results', params: { id: Date.now() } })
-      } else {
-        this.$router.push({ name: 'astrology-results', params: { id: Date.now() } })
-      }
+      // 直接跳转到占星分析页面
+      this.$router.push({ name: 'astrology-results', params: { id: Date.now() } })
     },
     
     validateForm() {
@@ -548,91 +530,71 @@ input:focus, select:focus {
   cursor: pointer;
 }
 
-/* 分析类型选择样式 */
+/* 开始分析按钮样式 */
 .section {
   margin-bottom: 15px;
 }
 
-.section-title {
-  font-size: 1.2rem;
-  color: #34495e;
-  border-bottom: 2px solid #f0f0f0;
-  padding-bottom: 8px;
-  margin-bottom: 12px;
-  font-family: 'Shippori Mincho', serif;
+.start-button-container {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
 }
 
-.analysis-buttons {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin-bottom: 12px;
-}
-
-.analysis-btn {
+.start-btn {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 14px;
+  gap: 16px;
+  padding: 20px 40px;
   border: none;
-  border-radius: 12px;
+  border-radius: 16px;
   cursor: pointer;
   transition: all 0.3s ease;
   text-align: left;
-  width: 100%;
   font-family: inherit;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+  min-width: 300px;
   position: relative;
   overflow: hidden;
 }
 
-.analysis-btn:hover {
-  transform: translateY(-2px);
+.start-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4);
+  background: linear-gradient(135deg, #5a67d8 0%, #667eea 100%);
 }
 
-.analysis-btn--bazi {
-  background: linear-gradient(135deg, #e8f2ff 0%, #f0f4ff 50%, #fff0f8 100%);
-  border: 1px solid rgba(102, 126, 234, 0.2);
-}
-
-.analysis-btn--bazi:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.15);
-  background: linear-gradient(135deg, #dae8ff 0%, #e6ebff 50%, #ffe8f3 100%);
-}
-
-.analysis-btn--astrology {
-  background: linear-gradient(135deg, #fff0f8 0%, #fef7ff 50%, #f0f9ff 100%);
-  border: 1px solid rgba(240, 147, 251, 0.2);
-}
-
-.analysis-btn--astrology:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(240, 147, 251, 0.15);
-  background: linear-gradient(135deg, #ffe8f3 0%, #fdf2ff 50%, #e6f7ff 100%);
-}
-
-.analysis-btn .btn-icon {
-  font-size: 2.5rem;
-  min-width: 50px;
+.start-btn-icon {
+  font-size: 3rem;
+  min-width: 60px;
   text-align: center;
+  animation: sparkle 2s ease-in-out infinite;
 }
 
-.analysis-btn .btn-content {
+@keyframes sparkle {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.start-btn-content {
   flex: 1;
 }
 
-.analysis-btn .btn-content h4 {
-  margin: 0 0 4px 0;
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #2c3e50;
+.start-btn-content h4 {
+  margin: 0 0 6px 0;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: white;
+  font-family: 'Shippori Mincho', serif;
 }
 
-.analysis-btn .btn-content .btn-description {
+.start-btn-content .start-btn-description {
   margin: 0;
-  font-size: 0.8rem;
-  color: #7f8c8d;
-  line-height: 1.2;
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.3;
 }
 
 
@@ -667,22 +629,23 @@ input:focus, select:focus {
     font-size: 0.85rem;
   }
   
-  .analysis-btn {
-    padding: 12px;
-    gap: 8px;
+  .start-btn {
+    padding: 16px 24px;
+    gap: 12px;
+    min-width: 280px;
   }
   
-  .analysis-btn .btn-icon {
-    font-size: 2rem;
-    min-width: 40px;
+  .start-btn-icon {
+    font-size: 2.5rem;
+    min-width: 50px;
   }
   
-  .analysis-btn .btn-content h4 {
-    font-size: 1rem;
+  .start-btn-content h4 {
+    font-size: 1.2rem;
   }
   
-  .analysis-btn .btn-content .btn-description {
-    font-size: 0.75rem;
+  .start-btn-content .start-btn-description {
+    font-size: 0.85rem;
   }
   
 }
@@ -713,22 +676,23 @@ input:focus, select:focus {
     gap: 6px;
   }
   
-  .analysis-btn {
-    padding: 10px;
-    gap: 6px;
+  .start-btn {
+    padding: 14px 20px;
+    gap: 10px;
+    min-width: 260px;
   }
   
-  .analysis-btn .btn-icon {
-    font-size: 1.8rem;
-    min-width: 36px;
+  .start-btn-icon {
+    font-size: 2.2rem;
+    min-width: 45px;
   }
   
-  .analysis-btn .btn-content h4 {
-    font-size: 0.95rem;
+  .start-btn-content h4 {
+    font-size: 1.1rem;
   }
   
-  .analysis-btn .btn-content .btn-description {
-    font-size: 0.7rem;
+  .start-btn-content .start-btn-description {
+    font-size: 0.8rem;
   }
   
 }
