@@ -4,7 +4,7 @@
     <div class="chat-messages" ref="messagesContainer">
       <div v-if="messages.length === 0" class="welcome-message">
         <img src="/images/meimei.png" alt="冥冥" class="welcome-icon" />
-        <h3>{{ $t('aiChat.welcome.title') }}</h3>
+        <h3 v-html="$t('aiChat.welcome.title')"></h3>
         <p>{{ $t('aiChat.welcome.description') }}</p>
         
         <!-- 建议问题 -->

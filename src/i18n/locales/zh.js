@@ -47,7 +47,7 @@ export default {
   
   astrology: {
     resultsTitle: '占星分析结果',
-    chartSuffix: '的星盘',
+    chartSuffix: '的命盘',
     interactiveChart: '互动星盘图',
     detailedAnalysis: '详细占星分析',
     birthDataSummary: '出生信息',

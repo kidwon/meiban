@@ -47,7 +47,7 @@ export default {
   
   astrology: {
     resultsTitle: '占星分析結果',
-    chartSuffix: '様の星盤',
+    chartSuffix: '様の命盤',
     interactiveChart: 'インタラクティブ星盤図',
     detailedAnalysis: '詳細占星分析',
     birthDataSummary: '出生データ',
