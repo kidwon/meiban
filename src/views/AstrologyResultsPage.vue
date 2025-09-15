@@ -195,6 +195,111 @@
                       </div>
                     </template>
 
+                    <!-- 木星分析 -->
+                    <template v-else-if="analysis.type === 'jupiter'">
+                      <div class="strength-section" v-if="analysis.strengths">
+                        <h4>{{ $t('astrology.analysisLabels.strengths') }}：</h4>
+                        <p>{{ analysis.strengths }}</p>
+                      </div>
+                      <div class="opportunity-section" v-if="analysis.opportunities">
+                        <h4>{{ $t('astrology.analysisLabels.opportunities') }}：</h4>
+                        <p>{{ analysis.opportunities }}</p>
+                      </div>
+                      <div class="guidance-section" v-if="analysis.guidance">
+                        <h4>{{ $t('astrology.analysisLabels.guidance') }}：</h4>
+                        <p>{{ analysis.guidance }}</p>
+                      </div>
+                    </template>
+
+                    <!-- 土星分析 -->
+                    <template v-else-if="analysis.type === 'saturn'">
+                      <div class="challenge-section" v-if="analysis.challenges">
+                        <h4>{{ $t('astrology.analysisLabels.challenges') }}：</h4>
+                        <p>{{ analysis.challenges }}</p>
+                      </div>
+                      <div class="lesson-section" v-if="analysis.lessons">
+                        <h4>{{ $t('astrology.analysisLabels.lessons') }}：</h4>
+                        <p>{{ analysis.lessons }}</p>
+                      </div>
+                      <div class="growth-section" v-if="analysis.growth">
+                        <h4>{{ $t('astrology.analysisLabels.growth') }}：</h4>
+                        <p>{{ analysis.growth }}</p>
+                      </div>
+                    </template>
+
+                    <!-- 天王星分析 -->
+                    <template v-else-if="analysis.type === 'uranus'">
+                      <div class="innovation-section" v-if="analysis.innovations">
+                        <h4>{{ $t('astrology.analysisLabels.innovations') }}：</h4>
+                        <p>{{ analysis.innovations }}</p>
+                      </div>
+                      <div class="independence-section" v-if="analysis.independence">
+                        <h4>{{ $t('astrology.analysisLabels.independence') }}：</h4>
+                        <p>{{ analysis.independence }}</p>
+                      </div>
+                      <div class="guidance-section" v-if="analysis.guidance">
+                        <h4>{{ $t('astrology.analysisLabels.guidance') }}：</h4>
+                        <p>{{ analysis.guidance }}</p>
+                      </div>
+                    </template>
+
+                    <!-- 海王星分析 -->
+                    <template v-else-if="analysis.type === 'neptune'">
+                      <div class="intuition-section" v-if="analysis.intuition">
+                        <h4>{{ $t('astrology.analysisLabels.intuition') }}：</h4>
+                        <p>{{ analysis.intuition }}</p>
+                      </div>
+                      <div class="dream-section" v-if="analysis.dreams">
+                        <h4>{{ $t('astrology.analysisLabels.dreams') }}：</h4>
+                        <p>{{ analysis.dreams }}</p>
+                      </div>
+                      <div class="guidance-section" v-if="analysis.guidance">
+                        <h4>{{ $t('astrology.analysisLabels.guidance') }}：</h4>
+                        <p>{{ analysis.guidance }}</p>
+                      </div>
+                    </template>
+
+                    <!-- 冥王星分析 -->
+                    <template v-else-if="analysis.type === 'pluto'">
+                      <div class="transformation-section" v-if="analysis.transformation">
+                        <h4>{{ $t('astrology.analysisLabels.transformation') }}：</h4>
+                        <p>{{ analysis.transformation }}</p>
+                      </div>
+                      <div class="shadow-section" v-if="analysis.shadow">
+                        <h4>{{ $t('astrology.analysisLabels.shadow') }}：</h4>
+                        <p>{{ analysis.shadow }}</p>
+                      </div>
+                      <div class="guidance-section" v-if="analysis.guidance">
+                        <h4>{{ $t('astrology.analysisLabels.guidance') }}：</h4>
+                        <p>{{ analysis.guidance }}</p>
+                      </div>
+                    </template>
+
+                    <!-- 北交点分析 -->
+                    <template v-else-if="analysis.type === 'northNode'">
+                      <div class="purpose-section" v-if="analysis.purpose">
+                        <h4>{{ $t('astrology.analysisLabels.purpose') }}：</h4>
+                        <p>{{ analysis.purpose }}</p>
+                      </div>
+                      <div class="development-section" v-if="analysis.development">
+                        <h4>{{ $t('astrology.analysisLabels.development') }}：</h4>
+                        <p>{{ analysis.development }}</p>
+                      </div>
+                      <div class="guidance-section" v-if="analysis.guidance">
+                        <h4>{{ $t('astrology.analysisLabels.guidance') }}：</h4>
+                        <p>{{ analysis.guidance }}</p>
+                      </div>
+                    </template>
+
+                    <!-- 水星分析 -->
+                    <template v-else-if="analysis.type === 'mercury'">
+                      <p v-if="analysis.description">{{ analysis.description }}</p>
+                      <div class="thinking-section" v-if="analysis.thinking">
+                        <h4>{{ $t('astrology.analysisLabels.thinking') }}：</h4>
+                        <p>{{ analysis.thinking }}</p>
+                      </div>
+                    </template>
+
                     <!-- 通用内容显示 -->
                     <template v-else>
                       <p v-if="analysis.description">{{ analysis.description }}</p>
@@ -1874,7 +1979,20 @@ export default {
 .libra-section,
 .position-section,
 .practice-section,
-.strategy-section {
+.strategy-section,
+.opportunity-section,
+.guidance-section,
+.challenge-section,
+.lesson-section,
+.growth-section,
+.innovation-section,
+.independence-section,
+.intuition-section,
+.dream-section,
+.transformation-section,
+.shadow-section,
+.purpose-section,
+.development-section {
   margin-bottom: 16px;
 }
 
@@ -1893,7 +2011,20 @@ export default {
 .libra-section:last-child,
 .position-section:last-child,
 .practice-section:last-child,
-.strategy-section:last-child {
+.strategy-section:last-child,
+.opportunity-section:last-child,
+.guidance-section:last-child,
+.challenge-section:last-child,
+.lesson-section:last-child,
+.growth-section:last-child,
+.innovation-section:last-child,
+.independence-section:last-child,
+.intuition-section:last-child,
+.dream-section:last-child,
+.transformation-section:last-child,
+.shadow-section:last-child,
+.purpose-section:last-child,
+.development-section:last-child {
   margin-bottom: 0;
 }
 
@@ -1916,13 +2047,23 @@ export default {
 /* 优势区域 - 绿色主题 */
 .highlight-section h4,
 .strength-section h4,
-.advantages-section h4 {
+.advantages-section h4,
+.opportunity-section h4,
+.guidance-section h4,
+.growth-section h4,
+.development-section h4,
+.purpose-section h4 {
   color: #28a745;
 }
 
 .highlight-section,
 .strength-section,
-.advantages-section {
+.advantages-section,
+.opportunity-section,
+.guidance-section,
+.growth-section,
+.development-section,
+.purpose-section {
   background: rgba(40, 167, 69, 0.05);
   padding: 12px;
   border-radius: 8px;
@@ -1930,11 +2071,17 @@ export default {
 }
 
 /* 风险区域 - 橙色主题 */
-.risk-section h4 {
+.risk-section h4,
+.challenge-section h4,
+.lesson-section h4,
+.shadow-section h4 {
   color: #fd7e14;
 }
 
-.risk-section {
+.risk-section,
+.challenge-section,
+.lesson-section,
+.shadow-section {
   background: rgba(253, 126, 20, 0.05);
   padding: 12px;
   border-radius: 8px;
@@ -1961,6 +2108,26 @@ export default {
   padding: 12px;
   border-radius: 8px;
   border-left: 4px solid #007bff;
+}
+
+/* 创新区域 - 紫色主题 */
+.innovation-section h4,
+.independence-section h4,
+.intuition-section h4,
+.dream-section h4,
+.transformation-section h4 {
+  color: #6f42c1;
+}
+
+.innovation-section,
+.independence-section,
+.intuition-section,
+.dream-section,
+.transformation-section {
+  background: rgba(111, 66, 193, 0.05);
+  padding: 12px;
+  border-radius: 8px;
+  border-left: 4px solid #6f42c1;
 }
 
 /* 触发点区域 - 红色主题 */
