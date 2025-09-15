@@ -140,12 +140,12 @@ export function convertToPosition(longitude) {
 }
 
 /**
- * 计算占星位置信息（集成爱星盘完全破解算法）- 带调试信息
- * 这个函数现在被导出，可以被其他模块使用
+ * 本地占星位置计算（作为降级方案保留）
+ * 集成爱星盘完全破解算法
  */
-export function calculateAstrologyPositions(userData) {
+function calculateLocalAstrologyPositions(userData) {
   try {
-    console.log('🔍 开始计算占星位置 - 调试信息:');
+    console.log('🔍 使用本地算法计算占星位置');
     console.log('输入数据:', userData);
     
     // 创建本地时间对象
@@ -203,13 +203,13 @@ export function calculateAstrologyPositions(userData) {
       mars: convertToPosition(marsLongitude)
     };
     
-    console.log('最终结果:', result);
-    console.log('🎯 占星位置计算完成');
+    console.log('本地计算结果:', result);
+    console.log('🎯 本地占星位置计算完成');
     
     return result;
 
   } catch (error) {
-    console.error('占星位置计算出错:', error);
+    console.error('本地占星位置计算出错:', error);
     return {
       ascendant: { sign: '双子座', degree: 4, minute: 11 },
       sun: { sign: '双鱼座', degree: 13, minute: 49 },
@@ -220,6 +220,52 @@ export function calculateAstrologyPositions(userData) {
       mars: { sign: '处女座', degree: 9, minute: 28 }
     };
   }
+}
+
+/**
+ * 计算占星位置信息（集成第三方API + 本地降级）
+ * 这个函数现在被导出，可以被其他模块使用
+ */
+export async function calculateAstrologyPositions(userData) {
+  const useExternalApi = process.env.VUE_APP_USE_EXTERNAL_ASTROLOGY_API === 'true';
+  const apiEnabled = process.env.VUE_APP_ASTROLOGY_API_ENABLED === 'true';
+  
+  console.log('🌟 开始计算占星位置');
+  console.log('配置信息:', { useExternalApi, apiEnabled });
+  
+  // 如果启用了外部API，则优先尝试API调用
+  if (useExternalApi && apiEnabled) {
+    try {
+      console.log('🚀 尝试使用第三方星盘API');
+      
+      // 动态导入API服务模块（避免在不需要时加载）
+      const { fetchAstrologyData } = await import('../services/astrologyApiService.js');
+      const { createCompatibleAstrologyData } = await import('./astrologyDataAdapter.js');
+      
+      // 调用API获取数据
+      const apiData = await fetchAstrologyData(userData);
+      
+      // 转换为应用兼容格式
+      const compatibleData = createCompatibleAstrologyData(apiData);
+      
+      console.log('✅ API调用成功，返回数据');
+      return compatibleData.astrologyPositions;
+      
+    } catch (error) {
+      console.warn('⚠️ API调用失败，降级到本地计算:', error.message);
+      
+      // API失败时记录错误但不抛出异常，继续使用本地计算
+      if (process.env.NODE_ENV === 'development') {
+        console.error('API调用详细错误:', error);
+      }
+    }
+  } else {
+    console.log('📍 配置为使用本地计算或API未启用');
+  }
+  
+  // 使用本地计算作为主要方案或降级方案
+  console.log('🏠 使用本地计算方案');
+  return calculateLocalAstrologyPositions(userData);
 }
 
 /**
@@ -326,21 +372,34 @@ export function analyzeFortune(eightCharResult, userData) {
 }
 
 /**
- * 完整命盘计算（集成爱星盘完全破解算法 + 详细占卜分析）
+ * 完整命盘计算（集成第三方API + 爱星盘完全破解算法 + 详细占卜分析）
  */
-export function calculateFullFortune(userData) {
+export async function calculateFullFortune(userData) {
   try {
-    const eightCharResult = calculateEightCharacters(userData);
-    const astrologyPositions = calculateAstrologyPositions(userData);
+    console.log('🎯 开始完整命盘计算');
+    
+    // 并行计算八字和占星位置（占星位置现在是异步的）
+    const [eightCharResult, astrologyPositions] = await Promise.all([
+      Promise.resolve(calculateEightCharacters(userData)),
+      calculateAstrologyPositions(userData)
+    ]);
+    
+    // 基于结果分析运势
     const fortuneResult = analyzeFortune(eightCharResult, userData);
 
-    return { 
+    const result = { 
       ...eightCharResult, 
       astrologyPositions, 
       fortune: fortuneResult
     };
+    
+    console.log('✅ 完整命盘计算完成');
+    return result;
+    
   } catch (error) {
-    console.error('完整命盘计算出错:', error);
+    console.error('❌ 完整命盘计算出错:', error);
+    
+    // 返回默认数据以防应用崩溃
     return {
       eightCharacters: {
         year: { heavenlyStem: '甲', earthlyBranch: '子' },
@@ -352,9 +411,21 @@ export function calculateFullFortune(userData) {
       astrologyPositions: {
         ascendant: { sign: '双子座', degree: 4, minute: 11 },
         sun: { sign: '双鱼座', degree: 13, minute: 49 },
-        moon: { sign: '水瓶座', degree: 18, minute: 56 }
+        moon: { sign: '水瓶座', degree: 18, minute: 56 },
+        midheaven: { sign: '摩羯座', degree: 22, minute: 35 },
+        mercury: { sign: '水瓶座', degree: 28, minute: 12 },
+        venus: { sign: '白羊座', degree: 15, minute: 43 },
+        mars: { sign: '处女座', degree: 9, minute: 28 }
       },
-      fortune: { overview: '大吉', career: '★★★☆☆', wealth: '★★★★☆', love: '★★★★★', health: '★★★☆☆' }
+      fortune: { 
+        overview: '大吉', 
+        career: '★★★☆☆', 
+        wealth: '★★★★☆', 
+        love: '★★★★★', 
+        health: '★★★☆☆' 
+      },
+      dataSource: 'fallback',
+      error: error.message
     };
   }
 }

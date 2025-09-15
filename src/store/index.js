@@ -49,7 +49,10 @@ const initialState = {
     theme: 'default',
     notifications: true,
     autoSave: true,
-    debugMode: process.env.NODE_ENV === 'development'
+    debugMode: process.env.NODE_ENV === 'development',
+    // 星盘API设置
+    useExternalAstrologyApi: process.env.VUE_APP_USE_EXTERNAL_ASTROLOGY_API === 'true',
+    astrologyApiEnabled: process.env.VUE_APP_ASTROLOGY_API_ENABLED === 'true'
   },
   // 应用状态
   loading: false,
@@ -150,7 +153,21 @@ export default createStore({
     },
     
     // 检查是否为调试模式
-    isDebugMode: state => state.settings.debugMode
+    isDebugMode: state => state.settings.debugMode,
+    
+    // 检查是否启用外部星盘API
+    isExternalAstrologyApiEnabled: state => {
+      return state.settings.useExternalAstrologyApi && state.settings.astrologyApiEnabled;
+    },
+    
+    // 获取API配置状态
+    getApiStatus: state => {
+      return {
+        useExternalApi: state.settings.useExternalAstrologyApi,
+        apiEnabled: state.settings.astrologyApiEnabled,
+        canUseApi: state.settings.useExternalAstrologyApi && state.settings.astrologyApiEnabled
+      };
+    }
   },
   
   mutations: {
@@ -327,8 +344,8 @@ export default createStore({
       commit('clearError');
       
       try {
-        // 使用完整的计算功能
-        const results = calculateFullFortune(userData);
+        // 使用完整的计算功能（现在是异步的）
+        const results = await calculateFullFortune(userData);
         
         // 保存计算结果
         commit('setCalculationResults', results);
@@ -336,6 +353,11 @@ export default createStore({
         // 记录成功操作
         if (state.settings.debugMode) {
           console.log('命盘计算成功:', results);
+          
+          // 如果是API数据源，记录额外信息
+          if (results.dataSource) {
+            console.log('数据来源:', results.dataSource);
+          }
         }
         
         return results;
@@ -551,6 +573,37 @@ export default createStore({
       // 如果开启自动保存，立即保存当前状态
       if (newAutoSave) {
         saveState(state);
+      }
+    },
+    
+    // 切换外部星盘API使用
+    toggleExternalAstrologyApi({ commit, state }) {
+      const newUseExternalApi = !state.settings.useExternalAstrologyApi;
+      commit('updateSettings', { useExternalAstrologyApi: newUseExternalApi });
+      
+      if (state.settings.debugMode) {
+        console.log('外部星盘API状态切换为:', newUseExternalApi ? '启用' : '禁用');
+      }
+    },
+    
+    // 检查API健康状态
+    async checkApiHealth({ state }) {
+      if (!state.settings.useExternalAstrologyApi || !state.settings.astrologyApiEnabled) {
+        return { isHealthy: false, reason: 'API未启用' };
+      }
+      
+      try {
+        const { checkApiHealth } = await import('../services/astrologyApiService.js');
+        const isHealthy = await checkApiHealth();
+        
+        if (state.settings.debugMode) {
+          console.log('API健康检查结果:', isHealthy ? '健康' : '不可用');
+        }
+        
+        return { isHealthy, reason: isHealthy ? 'API正常' : 'API不可用' };
+      } catch (error) {
+        console.error('API健康检查失败:', error);
+        return { isHealthy: false, reason: error.message };
       }
     },
     
