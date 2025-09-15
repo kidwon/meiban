@@ -12,16 +12,8 @@ import { getTranslation } from '../i18n/index.js';
  * @param {string} language - 语言代码
  * @returns {string} 本地化的标题
  */
-function generateLocalizedTitle(type, signName = null, language = 'ja', extraData = null) {
-  if (type === 'mercury-midheaven' && extraData) {
-    // Mercury-Midheaven 组合特殊处理
-    const template = getTranslation(`astrology.titleTemplates.mercury-midheaven`, language);
-    if (template && extraData.mercury && extraData.midheaven) {
-      const translatedMercury = getTranslation(`astrology.signNames.${extraData.mercury}`, language) || extraData.mercury;
-      const translatedMidheaven = getTranslation(`astrology.signNames.${extraData.midheaven}`, language) || extraData.midheaven;
-      return template.replace('{mercury}', translatedMercury).replace('{midheaven}', translatedMidheaven);
-    }
-  } else if (signName) {
+function generateLocalizedTitle(type, signName = null, language = 'ja') {
+  if (signName) {
     // 有星座名称时使用模板
     const template = getTranslation(`astrology.titleTemplates.${type}`, language);
     if (template) {
@@ -56,7 +48,6 @@ const SIGN_MAPPING = {
 /**
  * 行星名称映射（备用，可能在未来版本中使用）
  */
-// eslint-disable-next-line no-unused-vars
 const PLANET_MAPPING = {
   'sun': '太阳',
   'moon': '月亮',
@@ -68,6 +59,9 @@ const PLANET_MAPPING = {
   'saturn': '土星',
   'midheaven': '中天'
 };
+
+// 导出以供其他模块使用
+export { PLANET_MAPPING };
 
 /**
  * 将星座名称转换为标准英文名称
@@ -155,39 +149,27 @@ export function generateAscendantAnalysis(astrologyPositions, language = 'ja') {
 }
 
 /**
- * 生成水星 × 中天分析（思考与沟通）
+ * 生成水星分析（思考与沟通）
  */
-export function generateMercuryMidheavenAnalysis(astrologyPositions, language = 'ja') {
+export function generateMercuryAnalysis(astrologyPositions) {
   const mercury = astrologyPositions?.mercury;
-  const midheaven = astrologyPositions?.midheaven;
   
-  let title = generateLocalizedTitle('mercury-midheaven', null, language);
-  let description = '具有独特的思考和沟通风格。';
-  let risks = '在表达上可能存在一些障碍。';
-  let techniques = '培养清晰有效的沟通技巧。';
-
-  if (mercury?.sign && midheaven?.sign) {
-    const mercurySign = normalizeSignName(mercury.sign);
-    const midheavenSign = normalizeSignName(midheaven.sign);
-    
-    title = generateLocalizedTitle('mercury-midheaven', null, language, { mercury: mercury.sign, midheaven: midheaven.sign });
-    
-    const mercuryKey = `astrology.detailed.mercury.${mercurySign}`;
-    const midheavenKey = `astrology.detailed.midheaven.${midheavenSign}`;
-    
-    description = getTranslation(`${mercuryKey}.communication`, language) || 
-                 getTranslation(`${midheavenKey}.expression`, language) || 
-                 '思考深入，表达多元化。';
-    
-    risks = getTranslation(`${mercuryKey}.risks`, language) || '沟通中可能出现误解。';
-    techniques = getTranslation(`${mercuryKey}.techniques`, language) || '运用结构化的表达方式。';
+  if (!mercury?.sign) {
+    return {
+      title: '水星｜思考与沟通',
+      description: '具有独特的思考和沟通风格。',
+      risks: '在表达上可能存在一些障碍。',
+      techniques: '培养清晰有效的沟通技巧。'
+    };
   }
 
+  const signName = mercury.sign;
+  
   return {
-    title,
-    description,
-    risks,
-    techniques
+    title: `水星${signName}｜思考与沟通`,
+    description: `水星${signName}的思维特质，善于用${signName}的方式处理信息和表达想法。`,
+    risks: '沟通中可能出现误解或表达方式不够灵活。',
+    techniques: '运用结构化的表达方式，发挥星座特质优势。'
   };
 }
 
@@ -246,14 +228,163 @@ export function generateMarsActionAnalysis(astrologyPositions, language = 'ja') 
 }
 
 /**
+ * 生成木星分析（扩展与成长）
+ */
+export function generateJupiterAnalysis(astrologyPositions) {
+  const jupiter = astrologyPositions?.jupiter;
+  
+  if (!jupiter?.sign) {
+    return {
+      title: '木星｜扩展与成长',
+      strengths: '具有独特的成长潜力和扩展能力。',
+      opportunities: '在某些领域有突出的发展机会。',
+      guidance: '抓住成长机遇，发挥天赋潜能。'
+    };
+  }
+
+  const signName = jupiter.sign;
+  
+  return {
+    title: `木星${signName}｜扩展与成长`,
+    strengths: `木星${signName}的成长优势，能在${signName}相关领域获得扩展和发展。`,
+    opportunities: '具有良好的发展机遇，容易在学习、旅行或哲学思考方面获得成长。',
+    guidance: '善用天赋，持续成长，保持乐观积极的心态。'
+  };
+}
+
+/**
+ * 生成土星分析（约束与责任）
+ */
+export function generateSaturnAnalysis(astrologyPositions) {
+  const saturn = astrologyPositions?.saturn;
+  
+  if (!saturn?.sign) {
+    return {
+      title: '土星｜约束与责任',
+      challenges: '面临独特的人生课题和挑战。',
+      lessons: '需要学习承担责任和面对困难。',
+      growth: '通过克服挑战获得成长和智慧。'
+    };
+  }
+
+  const signName = saturn.sign;
+  
+  return {
+    title: `土星${signName}｜约束与责任`,
+    challenges: `土星${signName}的人生课题，需要在${signName}相关领域承担更多责任。`,
+    lessons: '需要学习的重要课题包括耐心、坚持和面对困难的勇气。',
+    growth: '通过努力和坚持获得成长，建立稳固的人生基础。'
+  };
+}
+
+/**
+ * 生成天王星分析（变革与创新）
+ */
+export function generateUranusAnalysis(astrologyPositions) {
+  const uranus = astrologyPositions?.uranus;
+  
+  if (!uranus?.sign) {
+    return {
+      title: '天王星｜变革与创新',
+      innovations: '具有独特的创新思维和变革能力。',
+      independence: '追求个性化和独立自主的生活方式。',
+      guidance: '善用创新天赋，引领时代潮流。'
+    };
+  }
+
+  const signName = uranus.sign;
+  
+  return {
+    title: `天王星${signName}｜变革与创新`,
+    innovations: `天王星${signName}的创新特质，能在${signName}相关领域带来突破性变革。`,
+    independence: '具有强烈的独立精神，不喜欢被传统束缚，追求自由和原创性。',
+    guidance: '发挥原创性和前瞻性思维，勇于打破常规，引领变革。'
+  };
+}
+
+/**
+ * 生成海王星分析（直觉与灵性）
+ */
+export function generateNeptuneAnalysis(astrologyPositions) {
+  const neptune = astrologyPositions?.neptune;
+  
+  if (!neptune?.sign) {
+    return {
+      title: '海王星｜直觉与灵性',
+      intuition: '具有敏锐的直觉和感知能力。',
+      dreams: '拥有丰富的想象力和艺术天赋。',
+      guidance: '相信内在智慧，保持心灵纯净。'
+    };
+  }
+
+  const signName = neptune.sign;
+  
+  return {
+    title: `海王星${signName}｜直觉与灵性`,
+    intuition: `海王星${signName}的直觉特质，能用${signName}的方式感知精神世界。`,
+    dreams: '具有深邃的精神世界，富有想象力和艺术创造力，容易受到启发。',
+    guidance: '平衡理想与现实，发挥创造力，相信内在智慧的指引。'
+  };
+}
+
+/**
+ * 生成冥王星分析（转化与重生）
+ */
+export function generatePlutoAnalysis(astrologyPositions) {
+  const pluto = astrologyPositions?.pluto;
+  
+  if (!pluto?.sign) {
+    return {
+      title: '冥王星｜转化与重生',
+      transformation: '具有深层的转化和重生能力。',
+      power: '拥有强大的内在力量和洞察力。',
+      guidance: '勇敢面对内心深处，实现真正蜕变。'
+    };
+  }
+
+  const signName = pluto.sign;
+  
+  return {
+    title: `冥王星${signName}｜转化与重生`,
+    transformation: `冥王星${signName}的转化特质，能在${signName}相关领域经历深层蜕变。`,
+    power: '具有深层的心理力量和洞察力，能够看透事物本质，引领变革。',
+    guidance: '勇敢面对内心深处的恐惧，拥抱变化，实现真正的成长和重生。'
+  };
+}
+
+/**
+ * 生成北交点分析（人生方向与灵魂使命）
+ */
+export function generateNorthNodeAnalysis(astrologyPositions, language = 'ja') {
+  const northNode = astrologyPositions?.trueNode;
+  
+  if (!northNode?.sign) {
+    return {
+      title: '北交点｜人生方向与灵魂使命',
+      purpose: '具有独特的人生使命和发展方向。',
+      growth: '需要在某些方面实现成长和突破。',
+      guidance: '朝着灵魂渴望的方向前进。'
+    };
+  }
+
+  const nodeSign = normalizeSignName(northNode.sign);
+  const signName = northNode.sign;
+  
+  const baseKey = `astrology.detailed.northNode.${nodeSign}`;
+  
+  return {
+    title: generateLocalizedTitle('northNode', signName, language),
+    purpose: getTranslation(`${baseKey}.purpose`, language) || `北交点${signName}的人生使命。`,
+    growth: getTranslation(`${baseKey}.growth`, language) || '需要发展的生命课题。',
+    guidance: getTranslation(`${baseKey}.guidance`, language) || '跟随内心指引，实现灵魂成长。'
+  };
+}
+
+/**
  * 生成中天事业分析
  */
 export function generateCareerAnalysis(astrologyPositions, language = 'ja') {
   const midheaven = astrologyPositions?.midheaven;
-  // eslint-disable-next-line no-unused-vars
-  const jupiter = astrologyPositions?.jupiter;
-  // eslint-disable-next-line no-unused-vars
-  const saturn = astrologyPositions?.saturn;
   
   let title = '事业走向';
   let direction = '具有独特的事业发展潜力。';
@@ -306,10 +437,46 @@ export function generateDetailedAstrologyAnalysis(astrologyPositions, language =
     ...generateAscendantAnalysis(astrologyPositions, language)
   });
   
-  // 水星 × 中天分析
+  // 水星分析
   analyses.push({
-    type: 'mercury-midheaven',
-    ...generateMercuryMidheavenAnalysis(astrologyPositions, language)
+    type: 'mercury',
+    ...generateMercuryAnalysis(astrologyPositions, language)
+  });
+  
+  // 木星分析
+  analyses.push({
+    type: 'jupiter',
+    ...generateJupiterAnalysis(astrologyPositions, language)
+  });
+  
+  // 土星分析
+  analyses.push({
+    type: 'saturn',
+    ...generateSaturnAnalysis(astrologyPositions, language)
+  });
+  
+  // 天王星分析
+  analyses.push({
+    type: 'uranus',
+    ...generateUranusAnalysis(astrologyPositions, language)
+  });
+  
+  // 海王星分析
+  analyses.push({
+    type: 'neptune',
+    ...generateNeptuneAnalysis(astrologyPositions, language)
+  });
+  
+  // 冥王星分析
+  analyses.push({
+    type: 'pluto',
+    ...generatePlutoAnalysis(astrologyPositions, language)
+  });
+  
+  // 北交点分析
+  analyses.push({
+    type: 'northNode',
+    ...generateNorthNodeAnalysis(astrologyPositions, language)
   });
   
   // 金星关系分析
