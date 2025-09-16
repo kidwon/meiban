@@ -161,7 +161,10 @@ export default {
       transformation: 'Transformation',
       shadow: 'Shadow',
       purpose: 'Purpose',
-      development: 'Development'
+      development: 'Development',
+      thinking: 'Thinking',
+      communication: 'Communication',
+      learning: 'Learning'
     },
     signNames: {
       '白羊座': 'Aries',

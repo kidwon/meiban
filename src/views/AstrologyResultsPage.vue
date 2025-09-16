@@ -298,6 +298,14 @@
                         <h4>{{ $t('astrology.analysisLabels.thinking') }}：</h4>
                         <p>{{ analysis.thinking }}</p>
                       </div>
+                      <div class="communication-section" v-if="analysis.communication">
+                        <h4>{{ $t('astrology.analysisLabels.communication') }}：</h4>
+                        <p>{{ analysis.communication }}</p>
+                      </div>
+                      <div class="learning-section" v-if="analysis.learning">
+                        <h4>{{ $t('astrology.analysisLabels.learning') }}：</h4>
+                        <p>{{ analysis.learning }}</p>
+                      </div>
                     </template>
 
                     <!-- 通用内容显示 -->
@@ -1992,7 +2000,10 @@ export default {
 .transformation-section,
 .shadow-section,
 .purpose-section,
-.development-section {
+.development-section,
+.thinking-section,
+.communication-section,
+.learning-section {
   margin-bottom: 16px;
 }
 
@@ -2024,7 +2035,10 @@ export default {
 .transformation-section:last-child,
 .shadow-section:last-child,
 .purpose-section:last-child,
-.development-section:last-child {
+.development-section:last-child,
+.thinking-section:last-child,
+.communication-section:last-child,
+.learning-section:last-child {
   margin-bottom: 0;
 }
 
@@ -2094,7 +2108,10 @@ export default {
 .practice-section h4,
 .strategy-section h4,
 .direction-section h4,
-.suggestion-section h4 {
+.suggestion-section h4,
+.thinking-section h4,
+.communication-section h4,
+.learning-section h4 {
   color: #007bff;
 }
 
@@ -2103,7 +2120,10 @@ export default {
 .practice-section,
 .strategy-section,
 .direction-section,
-.suggestion-section {
+.suggestion-section,
+.thinking-section,
+.communication-section,
+.learning-section {
   background: rgba(0, 123, 255, 0.05);
   padding: 12px;
   border-radius: 8px;

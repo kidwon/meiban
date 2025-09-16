@@ -151,25 +151,27 @@ export function generateAscendantAnalysis(astrologyPositions, language = 'ja') {
 /**
  * 生成水星分析（思考与沟通）
  */
-export function generateMercuryAnalysis(astrologyPositions) {
+export function generateMercuryAnalysis(astrologyPositions, language = 'zh') {
   const mercury = astrologyPositions?.mercury;
   
   if (!mercury?.sign) {
     return {
-      title: '水星｜思考与沟通',
-      description: '具有独特的思考和沟通风格。',
-      risks: '在表达上可能存在一些障碍。',
-      techniques: '培养清晰有效的沟通技巧。'
+      title: getTranslation('astrology.titleTemplates.mercury', language) || '水星｜思考与沟通',
+      description: getTranslation('astrology.detailed.mercury.default.description', language) || '具有独特的思考和沟通风格。',
+      risks: getTranslation('astrology.detailed.mercury.default.risks', language) || '在表达上可能存在一些障碍。',
+      techniques: getTranslation('astrology.detailed.mercury.default.techniques', language) || '培养清晰有效的沟通技巧。'
     };
   }
 
   const signName = mercury.sign;
+  const normalizedSign = normalizeSignName(signName);
+  const baseKey = `astrology.detailed.mercury.${normalizedSign}`;
   
   return {
-    title: `水星${signName}｜思考与沟通`,
-    description: `水星${signName}的思维特质，善于用${signName}的方式处理信息和表达想法。`,
-    risks: '沟通中可能出现误解或表达方式不够灵活。',
-    techniques: '运用结构化的表达方式，发挥星座特质优势。'
+    title: generateLocalizedTitle('mercury', signName, language),
+    thinking: getTranslation(`${baseKey}.thinking`, language) || `水星${signName}的思维特质独特。`,
+    communication: getTranslation(`${baseKey}.communication`, language) || `善于用${signName}的方式表达想法。`,
+    learning: getTranslation(`${baseKey}.learning`, language) || `具有特定的学习风格和信息处理方式。`
   };
 }
 
