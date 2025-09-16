@@ -196,8 +196,7 @@ export default {
       neptune: '海王星{sign}｜直觉与灵性',
       pluto: '冥王星{sign}｜转化与重生',
       northNode: '北交点{sign}｜人生方向与灵魂使命',
-      'mercury-midheaven': '水星{mercury} × MC{midheaven}｜思考与沟通',
-      career: '中天{sign}｜事业方向',
+      midheaven: '中天{sign}｜事业方向',
       fallback: {
         sun: '太阳星座｜核心人格',
         moon: '月亮星座｜情绪与依恋', 
@@ -211,8 +210,7 @@ export default {
         neptune: '海王星｜直觉与灵性',
         pluto: '冥王星｜转化与重生',
         northNode: '北交点｜人生方向与灵魂使命',
-        'mercury-midheaven': '思考与沟通',
-        career: '事业方向'
+        midheaven: '事业方向'
       }
     },
     detailed: {
@@ -1092,6 +1090,11 @@ export default {
       }
     },
     career: {
+      default: {
+        direction: '具有独特的事业发展潜力，需要结合具体的中天星座进行深入分析。',
+        advantages: '在职业道路上有天赋优势，具备成功的基础素质。',
+        suggestions: '发挥专业能力，建立个人声誉，制定长期职业规划。'
+      },
       strengths: {
         '白羊座': '您具有天生的领导才能和开拓精神，适合在需要创新和决策的环境中发挥。',
         '金牛座': '您擅长务实的工作，在需要稳定性和持续努力的领域表现优秀。',

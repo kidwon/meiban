@@ -193,8 +193,7 @@ export default {
       neptune: '海王星{sign}｜直感とスピリチュアリティ',
       pluto: '冥王星{sign}｜変容と再生',
       northNode: 'ノースノード{sign}｜人生の方向性と魂の使命',
-      'mercury-midheaven': '水星{mercury} × MC{midheaven}｜思考とコミュニケーション',
-      career: '中天{sign}｜事業方向',
+      midheaven: '中天{sign}｜事業方向',
       fallback: {
         sun: '太陽星座｜コア性格',
         moon: '月星座｜感情とアタッチメント', 
@@ -202,8 +201,7 @@ export default {
         venus: '金星｜関係と価値観',
         mars: '火星｜行動スタイル',
         mercury: '水星｜コミュニケーション',
-        'mercury-midheaven': '思考とコミュニケーション',
-        career: '事業方向'
+        midheaven: '事業方向'
       }
     },
     actions: {
@@ -284,6 +282,11 @@ export default {
       }
     },
     career: {
+      default: {
+        direction: 'ユニークなキャリア発展の潜在力を持っており、具体的な中天星座との組み合わせでより詳細な分析が可能です。',
+        advantages: 'キャリアパスにおいて天賦の優勢性を持ち、成功のための基礎的な資質を備えています。',
+        suggestions: '専門能力を発揮し、個人の評判を築き、長期的なキャリア計画を立てましょう。'
+      },
       strengths: {
         '牡羊座': 'あなたは天性のリーダーシップと開拓精神を持ち、革新と意思決定が必要な環境で力を発揮します。',
         '牡牛座': 'あなたは実務的な仕事が得意で、安定性と継続的努力が必要な分野で優秀な成果を上げます。',

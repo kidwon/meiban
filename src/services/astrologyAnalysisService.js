@@ -413,14 +413,15 @@ export function generateNorthNodeAnalysis(astrologyPositions, language = 'ja') {
 export function generateCareerAnalysis(astrologyPositions, language = 'ja') {
   const midheaven = astrologyPositions?.midheaven;
   
-  let title = '事业走向';
-  let direction = '具有独特的事业发展潜力。';
-  let advantages = '在职业道路上有天赋优势。';
-  let suggestions = '发挥专业能力，建立声誉。';
+  // 使用本地化的默认值而不是硬编码的中文
+  let title = getTranslation('astrology.titleTemplates.fallback.midheaven', language) || 'Career Direction';
+  let direction = getTranslation('astrology.career.default.direction', language) || '具有独特的事业发展潜力。';
+  let advantages = getTranslation('astrology.career.default.advantages', language) || '在职业道路上有天赋优势。';
+  let suggestions = getTranslation('astrology.career.default.suggestions', language) || '发挥专业能力，建立声誉。';
 
   if (midheaven?.sign) {
     const mcSign = normalizeSignName(midheaven.sign);
-    title = generateLocalizedTitle('career', midheaven.sign, language);
+    title = generateLocalizedTitle('midheaven', midheaven.sign, language);
     
     const baseKey = `astrology.detailed.midheaven.${mcSign}`;
     direction = getTranslation(`${baseKey}.career`, language) || `中天${midheaven.sign}的事业方向。`;

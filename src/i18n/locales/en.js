@@ -193,8 +193,7 @@ export default {
       neptune: 'Neptune {sign} | Intuition & Spirituality',
       pluto: 'Pluto {sign} | Transformation & Rebirth',
       northNode: 'North Node {sign} | Life Direction & Soul Mission',
-      'mercury-midheaven': 'Mercury {mercury} × MC {midheaven} | Thinking & Communication',
-      career: 'Midheaven {sign} | Career Direction',
+      midheaven: 'Midheaven {sign} | Career Direction',
       fallback: {
         sun: 'Sun Sign | Core Personality',
         moon: 'Moon Sign | Emotions & Attachment', 
@@ -202,8 +201,7 @@ export default {
         venus: 'Venus | Relationships & Values',
         mars: 'Mars | Action Style',
         mercury: 'Mercury | Communication',
-        'mercury-midheaven': 'Thinking & Communication',
-        career: 'Career Direction'
+        midheaven: 'Career Direction'
       }
     },
     detailed: {
@@ -708,6 +706,11 @@ export default {
       }
     },
     career: {
+      default: {
+        direction: 'You have unique career development potential that requires in-depth analysis combined with your specific Midheaven sign.',
+        advantages: 'You have natural advantages in your career path and possess the foundational qualities for success.',
+        suggestions: 'Leverage your professional abilities, build your personal reputation, and develop long-term career plans.'
+      },
       strengths: {
         'aries': 'You have natural leadership and pioneering spirit, suitable for environments requiring innovation and decision-making.',
         'taurus': 'You excel at practical work, performing excellently in fields requiring stability and continuous effort.',
