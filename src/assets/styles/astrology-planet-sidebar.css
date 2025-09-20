@@ -1,0 +1,133 @@
+/* 占星行星详情侧边栏样式 - src/assets/styles/astrology-planet-sidebar.css */
+
+/* =============================================================================
+   行星详情侧边栏
+   ============================================================================= */
+
+.planet-details-sidebar {
+  position: fixed;
+  top: 0;
+  right: -400px;
+  width: 380px;
+  height: 100vh;
+  background: #fff;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  transition: right 0.3s ease;
+  z-index: 9998;
+  overflow-y: auto;
+}
+
+.planet-details-sidebar.open {
+  right: 0;
+}
+
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid #e9ecef;
+  background: #d35400;
+  color: white;
+}
+
+.sidebar-header h3 {
+  margin: 0;
+  font-size: 1.3rem;
+}
+
+.close-btn {
+  background: none !important;
+  border: none !important;
+  color: white !important;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 5px !important;
+  border-radius: 50% !important;
+  width: 30px;
+  height: 30px;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+}
+
+.close-btn:hover {
+  background: rgba(255, 255, 255, 0.2) !important;
+}
+
+.sidebar-content {
+  padding: 20px;
+}
+
+.planet-position {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.position-info .position-sign {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #d35400;
+  margin-bottom: 8px;
+  font-family: 'Shippori Mincho', serif;
+}
+
+.position-info .position-degree {
+  font-size: 1.1rem;
+  color: #7f8c8d;
+  font-weight: 500;
+}
+
+.planet-description {
+  margin-bottom: 20px;
+}
+
+.planet-description p {
+  line-height: 1.6;
+  color: #495057;
+}
+
+.planet-keywords h4 {
+  color: #34495e;
+  margin-bottom: 15px;
+  font-size: 1rem;
+}
+
+/* 标签云样式 */
+.tag-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.tag {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.tag--primary {
+  background: rgba(211, 84, 0, 0.1);
+  color: #d35400;
+}
+
+.tag--success {
+  background: rgba(40, 167, 69, 0.1);
+  color: #28a745;
+}
+
+.tag--secondary {
+  background: rgba(108, 117, 125, 0.1);
+  color: #6c757d;
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  .planet-details-sidebar {
+    width: 100%;
+    right: -100%;
+  }
+}
