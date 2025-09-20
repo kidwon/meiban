@@ -140,6 +140,7 @@ export default {
     },
     analysisLabels: {
       advantages: '優勢',
+      career: 'キャリア',
       risks: 'リスク',
       actions: '対策',
       triggers: 'トリガー',
@@ -201,7 +202,7 @@ export default {
         venus: '金星｜関係と価値観',
         mars: '火星｜行動スタイル',
         mercury: '水星｜コミュニケーション',
-        midheaven: '事業方向'
+        midheaven: '中天｜事業方向'
       }
     },
     actions: {

@@ -143,6 +143,7 @@ export default {
     },
     analysisLabels: {
       advantages: '优势',
+      career: '事业',
       risks: '风险',
       actions: '做法',
       triggers: '触发点',
@@ -210,7 +211,7 @@ export default {
         neptune: '海王星｜直觉与灵性',
         pluto: '冥王星｜转化与重生',
         northNode: '北交点｜人生方向与灵魂使命',
-        midheaven: '事业方向'
+        midheaven: '中天｜事业方向'
       }
     },
     detailed: {

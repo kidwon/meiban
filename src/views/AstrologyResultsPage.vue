@@ -141,16 +141,20 @@
                       </div>
                     </template>
 
-                    <!-- 水星中天分析 -->
-                    <template v-else-if="analysis.type === 'mercury-midheaven'">
+                    <!-- 中天分析 -->
+                    <template v-else-if="analysis.type === 'midheaven'">
                       <p v-if="analysis.description">{{ analysis.description }}</p>
-                      <div class="risk-section" v-if="analysis.risks">
-                        <h4>{{ $t('astrology.analysisLabels.risks') }}：</h4>
-                        <p>{{ analysis.risks }}</p>
+                      <div class="career-section" v-if="analysis.career">
+                        <h4>{{ $t('astrology.analysisLabels.career') }}：</h4>
+                        <p>{{ analysis.career }}</p>
                       </div>
-                      <div class="technique-section" v-if="analysis.techniques">
-                        <h4>{{ $t('astrology.analysisLabels.techniques') }}：</h4>
-                        <p>{{ analysis.techniques }}</p>
+                      <div class="advantages-section" v-if="analysis.advantages">
+                        <h4>{{ $t('astrology.analysisLabels.advantages') }}：</h4>
+                        <p>{{ analysis.advantages }}</p>
+                      </div>
+                      <div class="suggestions-section" v-if="analysis.suggestions">
+                        <h4>{{ $t('astrology.analysisLabels.suggestions') }}：</h4>
+                        <p>{{ analysis.suggestions }}</p>
                       </div>
                     </template>
 

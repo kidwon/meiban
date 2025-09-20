@@ -140,6 +140,7 @@ export default {
     },
     analysisLabels: {
       advantages: 'Advantages',
+      career: 'Career',
       risks: 'Risks',
       actions: 'Actions',
       triggers: 'Triggers',
@@ -201,7 +202,7 @@ export default {
         venus: 'Venus | Relationships & Values',
         mars: 'Mars | Action Style',
         mercury: 'Mercury | Communication',
-        midheaven: 'Career Direction'
+        midheaven: 'Midheaven | Career Direction'
       }
     },
     detailed: {
