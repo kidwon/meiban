@@ -7,10 +7,10 @@ import { getCoordinatesFromLocation } from '../utils/cityCoordinates.js';
 
 // API配置
 const API_CONFIG = {
-  baseUrl: 'https://www.xingpan.vip/astrology/chart/natal',
-  // 默认API令牌，实际使用时应从环境变量获取
-  defaultToken: process.env.VUE_APP_ASTROLOGY_API_TOKEN || '989f888c4283e2cc2d8a5aa4af60932c',
-  // 默认API参数
+  // 使用 Cloudflare Worker 代理
+  baseUrl: 'https://xingpan-proxy.kidyuan.workers.dev',
+  // Worker 会在服务端注入 access_token，前端不需要携带
+  // API参数配置
   defaultParams: {
     h_sys: 'P', // 宫位系统
     planets: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 't'], // 行星列表
@@ -99,9 +99,8 @@ function buildApiParams(userData) {
   // 格式化出生时间
   const formattedDateTime = formatBirthDateTime(birthdate, birthHour, birthMinute);
   
-  // 构建请求参数
+  // 构建请求参数（不包含 access_token，由 Worker 在服务端注入）
   const params = {
-    access_token: API_CONFIG.defaultToken,
     longitude: coordinates.longitude.toString(),
     latitude: coordinates.latitude.toString(),
     tz: '8.00', // 中国时区 UTC+8
@@ -146,14 +145,15 @@ async function sendApiRequest(params) {
       formData.append(key, value);
     });
     
-    console.log('🚀 发送星盘API请求:', API_CONFIG.baseUrl);
+    console.log('🚀 发送星盘API请求 (通过Cloudflare Worker):', API_CONFIG.baseUrl);
     console.log('📋 请求参数:', params);
-    
+    console.log('📤 请求体 (form-data):', formData.toString());
+
     const response = await fetch(API_CONFIG.baseUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'User-Agent': 'MeibanApp/2.0'
+        'Origin': window.location.origin // 为 CORS 设置正确的 Origin
       },
       body: formData,
       signal: controller.signal
@@ -165,13 +165,22 @@ async function sendApiRequest(params) {
       throw new Error(`API请求失败: ${response.status} ${response.statusText}`);
     }
     
-    const data = await response.json();
-    
+    const responseText = await response.text();
+    console.log('📥 原始响应:', responseText);
+
+    let data;
+    try {
+      data = JSON.parse(responseText);
+    } catch (parseError) {
+      console.error('❌ JSON解析失败:', parseError);
+      throw new Error(`响应解析失败: ${responseText}`);
+    }
+
     console.log('✅ API响应成功');
     console.log('📦 响应数据:', data);
-    
+
     if (data.code !== 0) {
-      throw new Error(`API返回错误: ${data.msg || '未知错误'}`);
+      throw new Error(`API返回错误 (code: ${data.code}): ${data.msg || '未知错误'}`);
     }
     
     return data;
@@ -271,14 +280,12 @@ export async function checkApiHealth() {
 }
 
 /**
- * 设置API令牌
- * @param {string} token - 新的API令牌
+ * 设置API令牌 (已弃用，Worker 模式下由服务端管理)
+ * @param {string} token - API令牌 (Worker 模式下忽略)
+ * @deprecated Worker 模式下 token 由服务端管理，此方法已无效
  */
-export function setApiToken(token) {
-  if (token && typeof token === 'string') {
-    API_CONFIG.defaultToken = token;
-    console.log('🔑 API令牌已更新');
-  }
+export function setApiToken() {
+  console.warn('⚠️ Worker 模式下 API 令牌由服务端管理，setApiToken 方法已无效');
 }
 
 /**
@@ -290,7 +297,8 @@ export function getApiConfig() {
     baseUrl: API_CONFIG.baseUrl,
     timeout: API_CONFIG.timeout,
     maxRetries: API_CONFIG.maxRetries,
-    hasToken: !!API_CONFIG.defaultToken
+    proxyMode: 'Cloudflare Worker',
+    tokenManagement: 'Server-side'
   };
 }
 
