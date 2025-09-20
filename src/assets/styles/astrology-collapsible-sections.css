@@ -1,0 +1,224 @@
+/* 占星结果页折叠区域样式 - src/assets/styles/astrology-collapsible-sections.css */
+
+/* =============================================================================
+   我的命盘 - 折叠功能样式
+   ============================================================================= */
+
+/* 图表区域容器 */
+.my-chart-container {
+  background: linear-gradient(135deg, #f8f9ff 0%, #f0f2ff 100%);
+  border-radius: 20px;
+  padding: 2rem;
+  margin: 1rem 0;
+  box-shadow: 0 8px 32px rgba(99, 102, 241, 0.1);
+  border: 1px solid rgba(99, 102, 241, 0.15);
+}
+
+/* 图表部分容器 */
+.chart-section {
+  margin-bottom: 2rem;
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(99, 102, 241, 0.1);
+  transition: all 0.3s ease;
+}
+
+.chart-section:hover {
+  border-color: rgba(99, 102, 241, 0.25);
+  box-shadow: 0 4px 20px rgba(99, 102, 241, 0.1);
+}
+
+.chart-section:last-child {
+  margin-bottom: 0;
+}
+
+/* 区域标题头部 */
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.section-header:hover {
+  background: linear-gradient(135deg, #5b5ff9 0%, #9333ea 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
+.section-header-title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.section-icon {
+  font-size: 1.5rem;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+/* 折叠按钮 */
+.collapse-btn {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  padding: 0.5rem;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  font-size: 0.9rem;
+  backdrop-filter: blur(10px);
+}
+
+.collapse-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: scale(1.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.collapse-btn.collapsed {
+  transform: rotate(-90deg);
+}
+
+.collapse-btn.collapsed:hover {
+  transform: rotate(-90deg) scale(1.1);
+}
+
+.collapse-btn span {
+  transition: transform 0.3s ease;
+  font-weight: bold;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* 内容区域 */
+.section-content {
+  padding: 2rem;
+  background: white;
+  transition: all 0.3s ease;
+  border-top: 1px solid rgba(99, 102, 241, 0.1);
+  animation: slideDown 0.3s ease-out;
+}
+
+/* 子部分标题 */
+.subsection-title {
+  color: #374151;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+/* 图表子部分 */
+.chart-subsection {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #f8f9ff 0%, #f0f2ff 100%);
+  border-radius: 12px;
+  border: 1px solid rgba(99, 102, 241, 0.1);
+}
+
+.chart-subsection:last-child {
+  margin-bottom: 0;
+}
+
+/* 动画效果 */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .my-chart-container {
+    padding: 1rem;
+    margin: 0.5rem 0;
+    border-radius: 16px;
+  }
+
+  .section-header {
+    padding: 1rem 1.5rem;
+  }
+
+  .section-header-title {
+    font-size: 1.1rem;
+    gap: 0.5rem;
+  }
+
+  .section-icon {
+    font-size: 1.25rem;
+  }
+
+  .section-content {
+    padding: 1.5rem;
+  }
+
+  .chart-subsection {
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .subsection-title {
+    font-size: 1rem;
+  }
+
+  .collapse-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .my-chart-container {
+    padding: 0.75rem;
+  }
+
+  .section-header {
+    padding: 0.75rem 1rem;
+  }
+
+  .section-header-title {
+    font-size: 1rem;
+  }
+
+  .section-content {
+    padding: 1rem;
+  }
+
+  .chart-subsection {
+    padding: 0.75rem;
+  }
+}

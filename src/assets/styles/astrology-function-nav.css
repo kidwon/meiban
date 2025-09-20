@@ -1,0 +1,318 @@
+/* 占星结果页功能导航栏样式 - src/assets/styles/astrology-function-nav.css */
+
+/* =============================================================================
+   功能导航栏样式
+   ============================================================================= */
+
+/* 功能导航栏容器 */
+.function-nav {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 16px 0;
+  margin-bottom: 24px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+}
+
+.nav-container {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* 导航按钮样式 */
+.nav-button {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  padding: 16px 32px;
+  border-radius: 28px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  font-size: 16px;
+  min-width: 180px;
+  flex: 1;
+  max-width: 240px;
+  text-align: center;
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  position: relative;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.nav-button:hover {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.nav-button--active {
+  background: white !important;
+  color: #667eea !important;
+  border-color: white !important;
+  box-shadow: 0 4px 16px rgba(255, 255, 255, 0.3) !important;
+}
+
+.nav-button--active:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.4) !important;
+  background: white !important;
+  color: #667eea !important;
+}
+
+/* 导航图标和内容 */
+.nav-icon {
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+/* Badge位置的冥冥图标样式 */
+.nav-badge-image {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  object-fit: cover;
+  position: absolute;
+  top: -20px;
+  right: -35px;
+  background: transparent;
+  transition: all 0.3s ease;
+  z-index: 10;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
+}
+
+/* 悬停效果 */
+.nav-button:hover .nav-badge-image {
+  width: 80px;
+  height: 80px;
+  top: -24px;
+  right: -40px;
+  filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.4));
+  transform: rotate(5deg) scale(1.05);
+}
+
+/* 激活状态 */
+.nav-button--active .nav-badge-image {
+  filter: drop-shadow(0 3px 10px rgba(102, 126, 234, 0.4));
+}
+
+.nav-button--active:hover .nav-badge-image {
+  filter: drop-shadow(0 5px 15px rgba(102, 126, 234, 0.5));
+}
+
+.nav-content {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nav-title {
+  font-weight: 500;
+}
+
+.nav-status {
+  color: #28a745;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.nav-badge {
+  background: #ff6b6b;
+  color: white;
+  font-size: 10px;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 10px;
+  text-transform: uppercase;
+}
+
+/* 导航按钮增强状态 */
+.nav-button--visited {
+  position: relative;
+}
+
+.nav-button--visited:after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  background: #28a745;
+  border-radius: 50%;
+  opacity: 0.7;
+}
+
+.nav-button--transitioning {
+  transform: scale(0.95);
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.nav-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* 功能内容区域动画 */
+.function-content {
+  min-height: 400px;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* 功能标签切换动画 */
+.function-tab-content {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.content-transitioning {
+  pointer-events: none;
+}
+
+/* Vue transition 动画 */
+.tab-content-enter-active,
+.tab-content-leave-active {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tab-content-enter-from {
+  opacity: 0;
+  transform: translateX(30px);
+}
+
+.tab-content-leave-to {
+  opacity: 0;
+  transform: translateX(-30px);
+}
+
+.content-direction-forward.tab-content-enter-from {
+  transform: translateX(30px);
+}
+
+.content-direction-forward.tab-content-leave-to {
+  transform: translateX(-30px);
+}
+
+.content-direction-backward.tab-content-enter-from {
+  transform: translateX(-30px);
+}
+
+.content-direction-backward.tab-content-leave-to {
+  transform: translateX(30px);
+}
+
+/* 键盘导航提示 */
+.function-nav:after {
+  content: 'Ctrl + ← → 或 Ctrl + 1/2 快速切换';
+  position: absolute;
+  bottom: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.7rem;
+  color: #95a5a6;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.function-nav:hover:after {
+  opacity: 1;
+}
+
+/* 动画关键帧 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  .function-nav {
+    padding: 12px 8px;
+    margin: 0 -15px 20px -15px;
+    border-radius: 0;
+  }
+
+  .nav-container {
+    gap: 16px;
+    max-width: 100%;
+    padding: 0 8px;
+  }
+
+  /* 移动端隐藏键盘导航提示 */
+  .function-nav:after {
+    display: none;
+  }
+
+  .nav-button {
+    padding: 14px 24px;
+    font-size: 15px;
+    min-width: 160px;
+    max-width: none;
+    flex-direction: row;
+    gap: 4px;
+  }
+
+  .nav-icon {
+    font-size: 14px;
+  }
+
+  /* 移动端Badge图标适配 */
+  .nav-badge-image {
+    width: 60px;
+    height: 60px;
+    top: -15px;
+    right: -25px;
+  }
+
+  .nav-button:hover .nav-badge-image {
+    width: 66px;
+    height: 66px;
+    top: -18px;
+    right: -28px;
+    transform: rotate(3deg) scale(1.03);
+  }
+
+  .nav-content {
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .nav-title {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-container {
+    gap: 12px;
+    flex-direction: row;
+    padding: 0 12px;
+  }
+
+  .nav-button {
+    padding: 12px 16px;
+    font-size: 14px;
+    min-width: 120px;
+    flex: 1;
+    max-width: none;
+  }
+}

@@ -1,0 +1,496 @@
+/* 占星结果页UI组件样式 - src/assets/styles/astrology-ui-components.css */
+
+/* =============================================================================
+   AI专家内容样式
+   ============================================================================= */
+
+.ai-expert-content {
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 20px;
+  margin: 20px 0;
+}
+
+.ai-expert-loading {
+  text-align: center;
+  padding: 60px 40px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 16px;
+  color: white;
+}
+
+.ai-expert-loading .loading-icon {
+  font-size: 4rem;
+  margin-bottom: 20px;
+  opacity: 0.8;
+  animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+}
+
+.ai-expert-loading h3 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.ai-expert-loading p {
+  opacity: 0.9;
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+/* =============================================================================
+   功能预览卡片样式
+   ============================================================================= */
+
+.feature-preview {
+  text-align: center;
+  padding: 40px;
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  border-radius: 16px;
+  color: white;
+  margin: 20px 0;
+}
+
+/* 行运分析专属配色 - 蓝色系 */
+.transit-content .feature-preview {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
+}
+
+.transit-content .highlight-item {
+  background: rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.transit-content .highlight-item:hover {
+  background: rgba(255, 255, 255, 0.35);
+  transform: translateY(-2px);
+}
+
+.preview-icon {
+  font-size: 60px;
+  margin-bottom: 20px;
+}
+
+.feature-preview h3 {
+  font-size: 28px;
+  margin-bottom: 16px;
+  font-weight: 600;
+  font-family: 'Shippori Mincho', serif;
+}
+
+.feature-preview p {
+  font-size: 16px;
+  opacity: 0.9;
+  line-height: 1.6;
+  margin-bottom: 30px;
+}
+
+/* 功能亮点列表 */
+.feature-highlights {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 30px 0;
+  align-items: center;
+}
+
+.highlight-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 12px 20px;
+  border-radius: 25px;
+  backdrop-filter: blur(10px);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.highlight-icon {
+  font-size: 18px;
+}
+
+/* 功能按钮样式 */
+.btn--large {
+  padding: 15px 30px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 25px;
+  background: white;
+  color: #667eea;
+  border: none;
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+.btn--large:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.4);
+  background: #f8f9fa;
+}
+
+/* =============================================================================
+   运势网格样式
+   ============================================================================= */
+
+.fortune-overview {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.fortune-badge {
+  display: inline-block;
+  padding: 8px 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 25px;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.fortune-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.fortune-item {
+  text-align: center;
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  border: 1px solid #e9ecef;
+}
+
+.fortune-label {
+  font-size: 0.9rem;
+  color: #6c757d;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.fortune-stars {
+  font-size: 1.2rem;
+  color: #ffc107;
+}
+
+/* =============================================================================
+   用户引导样式
+   ============================================================================= */
+
+.user-guide-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(2px);
+  pointer-events: auto;
+}
+
+.guide-modal {
+  background: white;
+  border-radius: 16px;
+  max-width: 480px;
+  width: 90%;
+  max-height: 80vh;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: guideModalIn 0.3s ease-out;
+}
+
+@keyframes guideModalIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.guide-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 25px;
+  border-bottom: 1px solid #e9ecef;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.guide-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.guide-close-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease;
+}
+
+.guide-close-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.guide-content {
+  padding: 25px;
+}
+
+.guide-content p {
+  margin: 0;
+  line-height: 1.6;
+  color: #495057;
+  font-size: 0.95rem;
+}
+
+.guide-footer {
+  padding: 20px 25px;
+  border-top: 1px solid #e9ecef;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.guide-progress {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 0.85rem;
+  color: #6c757d;
+}
+
+.progress-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.progress-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #e9ecef;
+  transition: all 0.3s ease;
+}
+
+.progress-dot.active {
+  background: #667eea;
+}
+
+.progress-dot.completed {
+  background: #28a745;
+}
+
+.guide-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.guide-actions .btn {
+  padding: 8px 16px;
+  font-size: 0.85rem;
+}
+
+/* 高亮效果 */
+.guide-highlight {
+  position: relative;
+  z-index: 9999;
+  animation: guideHighlight 2s infinite;
+  border-radius: 8px;
+  box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.5) !important;
+}
+
+@keyframes guideHighlight {
+  0%, 100% {
+    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(102, 126, 234, 0.3);
+  }
+}
+
+/* =============================================================================
+   浮动提示样式
+   ============================================================================= */
+
+.floating-tooltip {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #28a745;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 25px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  z-index: 9998;
+  animation: tooltipSlideIn 0.3s ease-out;
+  box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+}
+
+@keyframes tooltipSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.tooltip-interaction {
+  background: #17a2b8;
+  box-shadow: 0 4px 15px rgba(23, 162, 184, 0.3);
+}
+
+.tooltip-success {
+  background: #28a745;
+  box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+}
+
+.tooltip-info {
+  background: #007bff;
+  box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+}
+
+/* =============================================================================
+   微交互动画
+   ============================================================================= */
+
+.micro-pulse {
+  animation: microPulse 0.6s ease-out;
+}
+
+@keyframes microPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.micro-bounce {
+  animation: microBounce 0.6s ease-out;
+}
+
+@keyframes microBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+.micro-shake {
+  animation: microShake 0.6s ease-out;
+}
+
+@keyframes microShake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-3px); }
+  75% { transform: translateX(3px); }
+}
+
+/* =============================================================================
+   移动端适配
+   ============================================================================= */
+
+@media (max-width: 768px) {
+  .feature-preview {
+    margin: 20px -15px;
+    border-radius: 0;
+    padding: 30px 20px;
+  }
+
+  .feature-preview h3 {
+    font-size: 24px;
+  }
+
+  .preview-icon {
+    font-size: 50px;
+    margin-bottom: 15px;
+  }
+
+  .feature-highlights {
+    gap: 8px;
+  }
+
+  .highlight-item {
+    padding: 10px 16px;
+    font-size: 13px;
+  }
+
+  .highlight-icon {
+    font-size: 16px;
+  }
+
+  .fortune-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .user-guide-overlay {
+    padding: 20px;
+  }
+
+  .guide-modal {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    border-radius: 12px;
+  }
+
+  .guide-header {
+    padding: 15px 20px;
+  }
+
+  .guide-content {
+    padding: 20px;
+  }
+
+  .guide-footer {
+    padding: 15px 20px;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .guide-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .floating-tooltip {
+    top: 10px;
+    right: 10px;
+    left: 10px;
+    text-align: center;
+  }
+}

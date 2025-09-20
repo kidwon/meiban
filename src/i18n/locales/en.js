@@ -140,6 +140,7 @@ export default {
     },
     analysisLabels: {
       advantages: 'Advantages',
+      career: 'Career',
       risks: 'Risks',
       actions: 'Actions',
       triggers: 'Triggers',
@@ -148,7 +149,23 @@ export default {
       approach: 'Approach',
       strengths: 'Strengths',
       direction: 'Direction',
-      suggestions: 'Suggestions'
+      suggestions: 'Suggestions',
+      opportunities: 'Opportunities',
+      guidance: 'Guidance',
+      challenges: 'Challenges',
+      lessons: 'Lessons',
+      growth: 'Growth',
+      innovations: 'Innovations',
+      independence: 'Independence',
+      intuition: 'Intuition',
+      dreams: 'Dreams',
+      transformation: 'Transformation',
+      shadow: 'Shadow',
+      purpose: 'Purpose',
+      development: 'Development',
+      thinking: 'Thinking',
+      communication: 'Communication',
+      learning: 'Learning'
     },
     signNames: {
       '白羊座': 'Aries',
@@ -171,8 +188,13 @@ export default {
       venus: 'Venus {sign} | Relationships & Values',
       mars: 'Mars {sign} | Action Style',
       mercury: 'Mercury {sign} | Communication',
-      'mercury-midheaven': 'Mercury {mercury} × MC {midheaven} | Thinking & Communication',
-      career: 'Midheaven {sign} | Career Direction',
+      jupiter: 'Jupiter {sign} | Expansion & Growth',
+      saturn: 'Saturn {sign} | Limitations & Responsibility',
+      uranus: 'Uranus {sign} | Innovation & Change',
+      neptune: 'Neptune {sign} | Intuition & Spirituality',
+      pluto: 'Pluto {sign} | Transformation & Rebirth',
+      northNode: 'North Node {sign} | Life Direction & Soul Mission',
+      midheaven: 'Midheaven {sign} | Career Direction',
       fallback: {
         sun: 'Sun Sign | Core Personality',
         moon: 'Moon Sign | Emotions & Attachment', 
@@ -180,8 +202,7 @@ export default {
         venus: 'Venus | Relationships & Values',
         mars: 'Mars | Action Style',
         mercury: 'Mercury | Communication',
-        'mercury-midheaven': 'Thinking & Communication',
-        career: 'Career Direction'
+        midheaven: 'Midheaven | Career Direction'
       }
     },
     detailed: {
@@ -686,6 +707,11 @@ export default {
       }
     },
     career: {
+      default: {
+        direction: 'You have unique career development potential that requires in-depth analysis combined with your specific Midheaven sign.',
+        advantages: 'You have natural advantages in your career path and possess the foundational qualities for success.',
+        suggestions: 'Leverage your professional abilities, build your personal reputation, and develop long-term career plans.'
+      },
       strengths: {
         'aries': 'You have natural leadership and pioneering spirit, suitable for environments requiring innovation and decision-making.',
         'taurus': 'You excel at practical work, performing excellently in fields requiring stability and continuous effort.',
@@ -757,6 +783,378 @@ export default {
         'capricorn': ['Taurus', 'Virgo', 'Scorpio', 'Pisces'],
         'aquarius': ['Gemini', 'Libra', 'Aries', 'Sagittarius'],
         'pisces': ['Cancer', 'Scorpio', 'Taurus', 'Capricorn']
+      },
+      jupiter: {
+        aries: {
+          strengths: 'Strong pioneering spirit and leadership abilities, capable of rapid expansion in new fields.',
+          opportunities: 'Good development opportunities in entrepreneurship, sports, military and other fields requiring pioneering spirit.',
+          guidance: 'Demonstrate courage and leadership while also learning patience and strategic thinking.'
+        },
+        taurus: {
+          strengths: 'Natural talent in material and wealth accumulation, able to steadily build financial foundation.',
+          opportunities: 'Good development prospects in finance, arts, beauty, agriculture and other fields.',
+          guidance: 'Use practical wisdom while maintaining an open mind toward new opportunities.'
+        },
+        gemini: {
+          strengths: 'High learning ability and excellent communication skills, capable of simultaneous development in multiple fields.',
+          opportunities: 'Advantages in education, media, technology, writing and other communication-focused fields.',
+          guidance: 'Utilize versatility while also deepening specialization in certain areas.'
+        },
+        cancer: {
+          strengths: 'Natural talent in family and emotional fields, able to care for and protect others.',
+          opportunities: 'Development potential in education, healthcare, food service, real estate and other caring industries.',
+          guidance: 'Use empathy and intuition to help and inspire others.'
+        },
+        leo: {
+          strengths: 'Excellent creativity and leadership, able to inspire and guide people.',
+          opportunities: 'Can excel in arts, entertainment, education, politics and other fields.',
+          guidance: 'Maintain confidence and generosity while not forgetting humility to guide others.'
+        },
+        virgo: {
+          strengths: 'Excellent attention to detail and practical skills, skilled at building efficient systems.',
+          opportunities: 'Advantages in healthcare, research, service industry, quality management and other fields.',
+          guidance: 'Maintain moderate perfectionism while focusing on continuous improvement.'
+        },
+        libra: {
+          strengths: 'Excellent balance and diplomatic abilities, skilled at building harmonious relationships.',
+          opportunities: 'Development opportunities in law, diplomacy, arts, counseling and other fields.',
+          guidance: 'Use fairness and aesthetic sense to become a bridge between people.'
+        },
+        scorpio: {
+          strengths: 'Deep insight and transformative power, able to discover and utilize hidden values.',
+          opportunities: 'Can demonstrate special talents in psychology, research, finance, therapy and other fields.',
+          guidance: 'Use deep understanding constructively to promote growth for self and others.'
+        },
+        sagittarius: {
+          strengths: 'Broad vision and optimism, able to excel in international and philosophical fields.',
+          opportunities: 'Development prospects in higher education, publishing, travel, international trade and other fields.',
+          guidance: 'Maintain great vision while also establishing concrete execution plans.'
+        },
+        capricorn: {
+          strengths: 'Organizational skills and sense of responsibility, able to achieve steady success through long-term planning.',
+          opportunities: 'Can expect stable development in management, government agencies, architecture, finance and other fields.',
+          guidance: 'Maintain sense of responsibility while also incorporating innovation and flexibility.'
+        },
+        aquarius: {
+          strengths: 'Innovative thinking and humanitarian spirit, able to excel in social reform fields.',
+          opportunities: 'Opportunities in technology, social movements, scientific research, humanitarian aid and other fields.',
+          guidance: 'Balance ideals with reality while cherishing warm human relationships.'
+        },
+        pisces: {
+          strengths: 'Rich imagination and empathy, able to excel in artistic and spiritual fields.',
+          opportunities: 'Development opportunities in arts, music, therapy, spiritual and other fields.',
+          guidance: 'Express creativity in realistic forms while maintaining appropriate boundaries.'
+        }
+      },
+      saturn: {
+        aries: {
+          challenges: 'Need to control impulsiveness and develop patience and persistence.',
+          lessons: 'Important to learn responsibility and consideration for others in leadership.',
+          growth: 'Balance self-assertion with cooperation to become a mature leader.'
+        },
+        taurus: {
+          challenges: 'Need flexibility to overcome resistance to change and accept new values.',
+          lessons: 'Challenge is to learn balance between material stability and spiritual growth.',
+          growth: 'Maintain stability while also cultivating adaptability and innovation.'
+        },
+        gemini: {
+          challenges: 'Need to focus scattered attention and build deep expertise.',
+          lessons: 'Important to learn responsibility and consistency in communication.',
+          growth: 'Systematically organize diverse interests to become an authority in specialized fields.'
+        },
+        cancer: {
+          challenges: 'Need to overcome excessive emotional dependence and build healthy boundaries.',
+          lessons: 'Challenge is to learn balance between protective instincts and personal growth.',
+          growth: 'Achieve emotional maturity to become a stable foundation provider.'
+        },
+        leo: {
+          challenges: 'Need to balance pride with humility and not seek excessive recognition from others.',
+          lessons: 'Important to learn the difference between true leadership and desire for attention.',
+          growth: 'Build inner confidence to become a true leader who inspires others.'
+        },
+        virgo: {
+          challenges: 'Need to moderate perfectionist tendencies and maintain a broader perspective.',
+          lessons: 'Challenge is to learn balance between critical thinking and constructive feedback.',
+          growth: 'Maintain practicality and efficiency while also nurturing creativity.'
+        },
+        libra: {
+          challenges: 'Need to overcome indecisiveness and develop decision-making power based on firm values.',
+          lessons: 'Important to learn balance between desire for harmony and expressing personal opinions.',
+          growth: 'Build a balanced personality that maintains diplomatic skills while being able to assert oneself.'
+        },
+        scorpio: {
+          challenges: 'Need to moderate extreme tendencies and build open, constructive relationships.',
+          lessons: 'Challenge is to learn balance between desire for control and trust relationships.',
+          growth: 'Use deep insight constructively to also promote others\' growth.'
+        },
+        sagittarius: {
+          challenges: 'Need to overcome irresponsible tendencies and develop serious attitude toward commitments and responsibilities.',
+          lessons: 'Important to learn balance between longing for freedom and social responsibility.',
+          growth: 'Maintain high ideals while also developing practical execution abilities.'
+        },
+        capricorn: {
+          challenges: 'Need to moderate excessive strictness and express humanity and warmth.',
+          lessons: 'Challenge is to learn balance between desire for success and human relationships.',
+          growth: 'Build authoritative position while becoming a humble and caring leader.'
+        },
+        aquarius: {
+          challenges: 'Need practical approaches to bridge the gap between idealism and reality.',
+          lessons: 'Important to learn balance between individualism and responsibility to groups.',
+          growth: 'Maintain innovative thinking while also cultivating steady execution abilities.'
+        },
+        pisces: {
+          challenges: 'Need to overcome escapist tendencies and develop practical skills and boundaries.',
+          lessons: 'Challenge is to learn balance between compassion and self-protection.',
+          growth: 'Express creativity and spirituality in realistic forms to contribute to others\' healing.'
+        }
+      },
+      uranus: {
+        aries: {
+          innovations: 'Pave the way with new leadership styles and innovative approaches.',
+          independence: 'Have courage to challenge traditional authority and walk your own path.',
+          guidance: 'Use innovation constructively to bring positive change to society.'
+        },
+        taurus: {
+          innovations: 'Bring new perspectives to traditional values and create practical innovations.',
+          independence: 'Maintain material stability while exploring new concepts of abundance.',
+          guidance: 'Overcome resistance to change and find balance between stability and innovation.'
+        },
+        gemini: {
+          innovations: 'Develop new methods of communication and information processing.',
+          independence: 'Break existing thought patterns and generate original ideas.',
+          guidance: 'Integrate diverse perspectives to create innovative information transmission methods.'
+        },
+        cancer: {
+          innovations: 'Create new forms of family and emotional expression, redefine traditional roles.',
+          independence: 'Break free from emotional dependence and build new support systems.',
+          guidance: 'Respect traditional values while building modern relationship models.'
+        },
+        leo: {
+          innovations: 'Develop new forms of creative expression and create unique artistic styles.',
+          independence: 'Break free from existing attention-seeking methods and express true individuality.',
+          guidance: 'Use creative talents for social change and inspire others.'
+        },
+        virgo: {
+          innovations: 'Develop new systems and processes for efficiency and quality improvement.',
+          independence: 'Break free from perfectionism and adopt more flexible and innovative approaches.',
+          guidance: 'Maintain practicality while exploring innovative improvement methods.'
+        },
+        libra: {
+          innovations: 'Create new models for relationship building and social harmony.',
+          independence: 'Break free from excessive dependence on others and develop independent judgment.',
+          guidance: 'Use balance to propose fair and innovative social systems.'
+        },
+        scorpio: {
+          innovations: 'Develop innovative understanding of depth psychology and transformation processes.',
+          independence: 'Break free from secretiveness and learn transparent relationship building.',
+          guidance: 'Use deep insight for social transformation and bring healing.'
+        },
+        sagittarius: {
+          innovations: 'Develop new approaches to philosophy and higher education.',
+          independence: 'Break free from existing belief systems and pursue independent truth seeking.',
+          guidance: 'Use broad vision to promote cross-cultural understanding and innovative education.'
+        },
+        capricorn: {
+          innovations: 'Promote innovative reforms in authority structures and organizational management.',
+          independence: 'Break free from existing hierarchical systems and create new leadership models.',
+          guidance: 'Maintain responsibility while achieving more democratic and innovative organizational management.'
+        },
+        aquarius: {
+          innovations: 'Develop revolutionary approaches to social systems and humanitarianism.',
+          independence: 'Break free from group pressure and balance true individuality with social contribution.',
+          guidance: 'Use humanitarian spirit to build a more just and innovative society.'
+        },
+        pisces: {
+          innovations: 'Create new forms of spirituality and artistic expression.',
+          independence: 'Break free from escapism and express spiritual insights in practical forms.',
+          guidance: 'Use imagination and intuition for social transformation and bring healing.'
+        }
+      },
+      neptune: {
+        aries: {
+          intuition: 'Have ability to integrate intuitive impulses for action with spiritual energy.',
+          dreams: 'Pursue realization of ideal leadership and spiritual courage.',
+          guidance: 'Follow intuition while also making realistic action plans.'
+        },
+        taurus: {
+          intuition: 'Have practical wisdom to integrate material and spiritual worlds.',
+          dreams: 'Aim to create beautiful, harmonious, and spiritually rich living environments.',
+          guidance: 'Express aesthetic sense and spirituality in realistic forms.'
+        },
+        gemini: {
+          intuition: 'Have ability to intuitively understand information and knowledge, transforming them into deep wisdom.',
+          dreams: 'Feel mission to convey spiritual truth through words and thoughts.',
+          guidance: 'Use communication abilities for spiritual growth.'
+        },
+        cancer: {
+          intuition: 'Have ability to gain deep spiritual insights through emotions and memories.',
+          dreams: 'Pursue creation of loving, protective, and spiritually safe spaces.',
+          guidance: 'Trust emotional intuition and contribute to others\' healing.'
+        },
+        leo: {
+          intuition: 'Have talent to express spiritual truth through creative expression.',
+          dreams: 'Aim to enlighten and inspire people through art and creativity.',
+          guidance: 'Use creative talents for spiritual growth and social contribution.'
+        },
+        virgo: {
+          intuition: 'Have ability to realize spiritual values through practical service.',
+          dreams: 'Pursue creation of perfect, harmonious, and spiritually pure environments.',
+          guidance: 'Use attention to detail for spiritual completion.'
+        },
+        libra: {
+          intuition: 'Have sensitivity to achieve spiritual balance through beauty and harmony.',
+          dreams: 'Aim to realize fair, beautiful, and spiritually harmonious society.',
+          guidance: 'Use balance to achieve spiritual harmony.'
+        },
+        scorpio: {
+          intuition: 'Have power to intuitively understand depth psychology and hidden truths.',
+          dreams: 'Pursue spiritual awakening through transformation and rebirth.',
+          guidance: 'Use deep insight for spiritual transformation.'
+        },
+        sagittarius: {
+          intuition: 'Have ability to intuitively grasp philosophical truth and spiritual wisdom.',
+          dreams: 'Aim to realize pursuit of universal truth and spiritual freedom.',
+          guidance: 'Use broad vision for spiritual growth and truth seeking.'
+        },
+        capricorn: {
+          intuition: 'Have practical wisdom to integrate responsibility and authority with spiritual values.',
+          dreams: 'Pursue realization of ideals that balance spiritual authority with social responsibility.',
+          guidance: 'Use leadership for spiritual improvement and social contribution.'
+        },
+        aquarius: {
+          intuition: 'Have ability to intuitively guide humanitarianism and innovative transformation.',
+          dreams: 'Aim to realize better future and spiritual progress for humanity.',
+          guidance: 'Use innovative thinking for humanity\'s spiritual improvement.'
+        },
+        pisces: {
+          intuition: 'Have deep intuitive power that embodies unconditional love and universal compassion.',
+          dreams: 'Pursue realization of unity with all existence and spiritual liberation.',
+          guidance: 'Use empathy and imagination for others\' healing and spiritual growth.'
+        }
+      },
+      pluto: {
+        aries: {
+          transformation: 'Experience fundamental transformation of personal identity and action patterns.',
+          shadow: 'Suppressed anger and impulsiveness surface, needing to learn constructive expression methods.',
+          guidance: 'Use destructive energy for creative transformation.'
+        },
+        taurus: {
+          transformation: 'Experience fundamental reconstruction of values and sense of material security.',
+          shadow: 'Attachment to material things and resistance to change become challenges, needing to learn letting go.',
+          guidance: 'Use desire for stability as foundation for spiritual growth.'
+        },
+        gemini: {
+          transformation: 'Experience deep transformation of thought patterns and communication methods.',
+          shadow: 'Need to learn difference between superficial knowledge and true wisdom, seeking deep understanding.',
+          guidance: 'Direct intellectual curiosity toward truth seeking and spiritual growth.'
+        },
+        cancer: {
+          transformation: 'Experience fundamental healing of emotional patterns and family relationships.',
+          shadow: 'Face tendencies of excessive dependence and emotional manipulation, needing to learn healthy boundaries.',
+          guidance: 'Use emotional depth for others\' healing and self-growth.'
+        },
+        leo: {
+          transformation: 'Gain deep understanding of true purpose of self-expression and creativity.',
+          shadow: 'Need to learn difference between ego and true self, integrating humility with inner authority.',
+          guidance: 'Use creative talents for self-growth and inspiring others.'
+        },
+        virgo: {
+          transformation: 'Experience fundamental review of perfectionism and critical thinking.',
+          shadow: 'Need to overcome excessive self-criticism and criticism of others, focusing on constructive improvement.',
+          guidance: 'Use analytical abilities for self-improvement and supporting others.'
+        },
+        libra: {
+          transformation: 'Experience deepening understanding of relationship patterns and harmony.',
+          shadow: 'Need to overcome conflict avoidance and excessive dependence on others, learning true balance.',
+          guidance: 'Use balance for inner harmony and building fair relationships.'
+        },
+        scorpio: {
+          transformation: 'Deeply experience processes of psychological death and rebirth.',
+          shadow: 'Face destructive impulses and desire for control, needing to learn constructive transformative power.',
+          guidance: 'Use transformative power for self-regeneration and others\' awakening.'
+        },
+        sagittarius: {
+          transformation: 'Experience fundamental reconsideration of belief systems and life philosophy.',
+          shadow: 'Need to overcome dogmatic thinking and escapist tendencies, seeking true wisdom.',
+          guidance: 'Use spirit of inquiry for truth discovery and spiritual growth.'
+        },
+        capricorn: {
+          transformation: 'Gain deep understanding of authority structures and social roles.',
+          shadow: 'Need to integrate extremes of power desire and responsibility avoidance, learning true leadership.',
+          guidance: 'Use leadership for social transformation and spiritual improvement.'
+        },
+        aquarius: {
+          transformation: 'Learn deeply about true integration of individuality and group nature.',
+          shadow: 'Need to overcome extremes of isolation tendencies and blind conformity to groups, learning true independence.',
+          guidance: 'Use innovative thinking for human progress and spiritual improvement.'
+        },
+        pisces: {
+          transformation: 'Deeply experience integration of personal and cosmic consciousness.',
+          shadow: 'Need to overcome escapism and excessive sacrificial spirit, learning healthy boundaries.',
+          guidance: 'Use empathy and imagination for others\' healing and spiritual awakening.'
+        }
+      },
+      northNode: {
+        aries: {
+          purpose: 'Develop independence and leadership, learn self-assertion and personal courage.',
+          development: 'Break free from excessive dependence on others and cultivate power to forge your own path.',
+          guidance: 'Act with confidence and become a leader who inspires others.'
+        },
+        taurus: {
+          purpose: 'Develop stability and practicality, build firm values and material foundation.',
+          development: 'Move away from busyness and confusion, learn steady and sustainable approaches.',
+          guidance: 'Exercise patience and create stable environments filled with beauty and harmony.'
+        },
+        gemini: {
+          purpose: 'Develop learning and communication abilities, learn knowledge sharing and transmission.',
+          development: 'Break free from dogmatic thinking and develop diverse perspectives and objective analysis.',
+          guidance: 'Learn with curiosity and share knowledge with others.'
+        },
+        cancer: {
+          purpose: 'Develop emotional depth and nurturing abilities, learn contribution to family and community.',
+          development: 'Move away from excessive ambition and emphasize emotional connections and intuitive wisdom.',
+          guidance: 'Use empathy to develop abilities to care for and support others.'
+        },
+        leo: {
+          purpose: 'Develop creativity and self-expression, learn personal radiance and warmth.',
+          development: 'Break free from excessive conformity to groups and express uniqueness and personal charm.',
+          guidance: 'Demonstrate creative talents and develop abilities to inspire and entertain others.'
+        },
+        virgo: {
+          purpose: 'Develop practical skills and service spirit, learn attention to detail and improvement.',
+          development: 'Move away from idealism and develop realistic, concrete approaches.',
+          guidance: 'Use practical wisdom to contribute to improving others\' quality of life.'
+        },
+        libra: {
+          purpose: 'Develop cooperation and balance, learn harmonious relationship building.',
+          development: 'Move away from excessive independence and value partnerships and cooperation.',
+          guidance: 'Use diplomatic abilities to build fair and beautiful relationships.'
+        },
+        scorpio: {
+          purpose: 'Develop deep insight and transformative abilities, learn psychological depth and concentration.',
+          development: 'Move away from superficial pleasures and pursue deep truth and meaningful change.',
+          guidance: 'Use transformative power to promote deep growth for self and others.'
+        },
+        sagittarius: {
+          purpose: 'Develop wisdom and philosophical understanding, learn high vision and truth seeking.',
+          development: 'Move away from attachment to details and emphasize great vision and universal truth.',
+          guidance: 'Use spirit of inquiry to share wisdom and hope with others.'
+        },
+        capricorn: {
+          purpose: 'Develop responsibility and leadership, learn practical achievements and authority.',
+          development: 'Break free from emotional dependence and develop independence and social responsibility.',
+          guidance: 'Demonstrate leadership and build long-term value and stability.'
+        },
+        aquarius: {
+          purpose: 'Develop innovation and humanitarianism, learn group contribution and futuristic vision.',
+          development: 'Move away from personal honor and emphasize social responsibility and collective interests.',
+          guidance: 'Use innovative thinking to contribute to creating a better future.'
+        },
+        pisces: {
+          purpose: 'Develop empathy and spirituality, learn unconditional love and service.',
+          development: 'Move away from excessive critical thinking and develop intuitive wisdom and acceptance.',
+          guidance: 'Use empathy to support others\' healing and spiritual growth.'
+        }
       }
     },
     fortune: {
