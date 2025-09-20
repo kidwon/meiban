@@ -320,7 +320,7 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
   // 滚动行为
-  scrollBehavior(to, from, savedPosition) {
+  scrollBehavior(to, _from, savedPosition) {
     if (savedPosition) {
       return savedPosition
     } else {
@@ -330,7 +330,7 @@ const router = createRouter({
 })
 
 // 处理GitHub Pages的SPA重定向
-router.beforeEach((to, from, next) => {
+router.beforeEach((to, _from, next) => {
   // 检查是否是从404页面重定向过来的
   const redirectPath = sessionStorage.getItem('spa_redirect');
   if (redirectPath && to.path === '/' && to.query.spa) {
@@ -345,8 +345,8 @@ router.beforeEach((to, from, next) => {
 });
 
 // 增强的路由守卫
-router.beforeEach(async (to, from, next) => {
-  console.log('路由守卫检查:', to.name, to.meta);
+router.beforeEach(async (to, _from, next) => {
+  // Route guard check removed for production
   
   // 设置页面标题
   if (to.meta.title) {
@@ -365,16 +365,16 @@ router.beforeEach(async (to, from, next) => {
       
       if (sharedData && validateShareData(sharedData)) {
         // 将分享数据保存到store
-        console.log('从分享链接恢复数据:', sharedData);
+        // Restored data from shared link
         store.commit('setUserData', sharedData.userData);
         store.commit('setCalculationResults', sharedData.calculationResults);
         store.commit('setAnalysisType', sharedData.analysisType);
         
-        console.log('分享数据恢复成功，允许访问');
+        // Shared data restored successfully
         next();
         return;
       } else {
-        console.log('分享数据无效，重定向到首页');
+        // Invalid shared data, redirecting to home
         // 静默重定向，不显示alert
         next({ name: 'home' });
         return;
@@ -392,8 +392,7 @@ router.beforeEach(async (to, from, next) => {
     const userData = store.getters.getUserData;
     const calculationResults = store.getters.getCalculationResults;
     
-    console.log('路由守卫检查用户数据:', userData);
-    console.log('路由守卫检查计算结果:', calculationResults);
+    // User data and calculation results validation
     
     // 验证用户数据完整性
     const hasValidUserData = userData && 
@@ -408,17 +407,17 @@ router.beforeEach(async (to, from, next) => {
                              userData.birthplace.trim() !== '' &&
                              userData.gender;
     
-    console.log('用户数据验证结果:', hasValidUserData);
+    // User data validation completed
     
     if (!hasValidUserData) {
-      console.log('用户数据不完整，尝试恢复或重定向');
+      // Incomplete user data, attempting recovery or redirect
       
       // 检查是否是从GitHub Pages重定向过来的（说明可能是有效链接）
       const fromSPA = to.query.spa || sessionStorage.getItem('spa_redirect');
       
       if (fromSPA) {
         // 如果是SPA重定向，显示友好提示并跳转到首页
-        console.log('检测到SPA重定向，但数据已失效');
+        // SPA redirect detected but data expired
         // 可以在这里显示一个提示，告诉用户链接可能已过期
         next({ name: 'home', query: { expired: '1' } });
       } else {
@@ -430,13 +429,13 @@ router.beforeEach(async (to, from, next) => {
     
     // 对于结果页面，还需要检查是否有计算结果
     if ((to.name === 'bazi-results' || to.name === 'astrology-results') && !calculationResults) {
-      console.log('没有计算结果');
+      // No calculation results available
       
       // 同样检查是否是从外部链接进入
       const fromSPA = to.query.spa || sessionStorage.getItem('spa_redirect');
       
       if (fromSPA) {
-        console.log('外部链接访问但无计算结果，可能链接已过期');
+        // External link access but no calculation results, link may be expired
         next({ name: 'home', query: { expired: '1' } });
       } else {
         // 应用内导航，静默重定向
@@ -445,7 +444,7 @@ router.beforeEach(async (to, from, next) => {
       return;
     }
     
-    console.log('用户数据验证通过，允许访问');
+    // User data validation passed, access granted
     next();
   } else {
     next();
@@ -467,8 +466,8 @@ router.onError((error) => {
 });
 
 // 添加路由元信息用于调试
-router.afterEach((to, from) => {
-  console.log(`路由跳转: ${from.name} -> ${to.name}`);
+router.afterEach((to) => {
+  // Route transition logging removed for production
   
   // 发送页面浏览统计（如果需要）
   if (typeof window !== 'undefined' && window.gtag) {
