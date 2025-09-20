@@ -189,6 +189,49 @@
 }
 
 /* =============================================================================
+   操作按钮容器样式
+   ============================================================================= */
+
+/* 操作按钮容器 */
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin: 30px 0;
+  padding: 20px;
+  flex-wrap: wrap;
+}
+
+/* 分享容器 */
+.share-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+/* 分享按钮 */
+.share-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
+
+.share-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.share-icon {
+  font-size: 1.1rem;
+}
+
+.share-text {
+  font-weight: 500;
+}
+
+/* =============================================================================
    用户引导样式
    ============================================================================= */
 
@@ -492,5 +535,28 @@
     right: 10px;
     left: 10px;
     text-align: center;
+  }
+
+  /* 操作按钮移动端样式 */
+  .actions {
+    flex-direction: column;
+    gap: 12px;
+    margin: 20px 0;
+    padding: 16px;
+  }
+
+  .actions .btn {
+    width: 100%;
+    max-width: 280px;
+  }
+
+  .share-container {
+    width: 100%;
+    max-width: 280px;
+  }
+
+  .share-btn {
+    width: 100%;
+    justify-content: center;
   }
 }
