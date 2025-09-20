@@ -7,7 +7,7 @@ import { getCoordinatesFromLocation } from '../utils/cityCoordinates.js';
 
 // API配置
 const API_CONFIG = {
-  baseUrl: 'http://www.xingpan.vip/astrology/chart/natal',
+  baseUrl: 'https://www.xingpan.vip/astrology/chart/natal',
   // 默认API令牌，实际使用时应从环境变量获取
   defaultToken: process.env.VUE_APP_ASTROLOGY_API_TOKEN || '989f888c4283e2cc2d8a5aa4af60932c',
   // 默认API参数
