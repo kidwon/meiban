@@ -16,7 +16,7 @@ const PLANET_CODE_MAP = {
   '8': 'neptune',    // 海王星
   '9': 'pluto',      // 冥王星
   't': 'trueNode',   // 北交点
-  '10': 'ascendant'  // 上升点
+  '10': 'ascendant' // 上升点
 };
 
 // 星座中英文对照表
@@ -63,9 +63,9 @@ function extractPlanetPositions(apiData) {
   }
   
   // 遍历API返回的行星数据
-  apiData.planet.forEach(planetData => {
+  apiData.planet.forEach((planetData) => {
     const planetKey = PLANET_CODE_MAP[planetData.code_name];
-    
+
     if (planetKey && planetData.sign) {
       positions[planetKey] = {
         sign: convertZodiacName(planetData.sign.sign_english),
@@ -84,15 +84,38 @@ function extractPlanetPositions(apiData) {
       };
     }
   });
-  
+
+  // 从宫位数据中提取中天信息（第10宫宫头就是中天）
+  if (apiData.house && Array.isArray(apiData.house)) {
+    // 查找第10宫（事业宫），第10宫的宫头就是中天
+    const house10 = apiData.house.find(house => house.house_id === 10);
+
+    if (house10 && house10.sign) {
+      positions.midheaven = {
+        sign: convertZodiacName(house10.sign.sign_english),
+        degree: house10.sign.deg || 0,
+        minute: house10.sign.min || 0,
+        second: house10.sign.sec || 0,
+        longitude: house10.longitude || 0,
+        // 保留原始数据
+        _raw: {
+          house_id: house10.house_id,
+          house_life: house10.house_life,
+          sign_english: house10.sign.sign_english,
+          sign_chinese: house10.sign.sign_chinese
+        }
+      };
+    }
+  }
+
   // 检查是否包含必要的三要素
   const essentials = ['sun', 'moon', 'ascendant'];
   const missing = essentials.filter(key => !positions[key]);
-  
+
   if (missing.length > 0) {
     console.warn('缺少重要行星数据:', missing);
   }
-  
+
   return positions;
 }
 

@@ -67,7 +67,21 @@ export { PLANET_MAPPING };
  * 将星座名称转换为标准英文名称
  */
 function normalizeSignName(sign) {
-  return SIGN_MAPPING[sign] || sign.toLowerCase();
+  if (!sign) {
+    console.warn('⚠️ normalizeSignName: 输入星座名称为空');
+    return '';
+  }
+
+  const normalized = SIGN_MAPPING[sign];
+  if (!normalized) {
+    console.warn('⚠️ normalizeSignName: 未找到星座映射', {
+      输入: sign,
+      可用映射: Object.keys(SIGN_MAPPING)
+    });
+    return sign.toLowerCase();
+  }
+
+  return normalized;
 }
 
 /**
@@ -412,7 +426,8 @@ export function generateNorthNodeAnalysis(astrologyPositions, language = 'ja') {
  */
 export function generateCareerAnalysis(astrologyPositions, language = 'ja') {
   const midheaven = astrologyPositions?.midheaven;
-  
+
+
   // 使用本地化的默认值而不是硬编码的中文
   let title = getTranslation('astrology.titleTemplates.fallback.midheaven', language) || 'Career Direction111';
   let direction = getTranslation('astrology.career.default.direction', language) || '具有独特的事业发展潜力。';
@@ -420,22 +435,54 @@ export function generateCareerAnalysis(astrologyPositions, language = 'ja') {
   let suggestions = getTranslation('astrology.career.default.suggestions', language) || '发挥专业能力，建立声誉。';
 
   if (midheaven?.sign) {
-    const mcSign = normalizeSignName(midheaven.sign);
-    title = generateLocalizedTitle('midheaven', midheaven.sign, language);
-    
-    const baseKey = `astrology.detailed.midheaven.${mcSign}`;
-    direction = getTranslation(`${baseKey}.career`, language) || `中天${midheaven.sign}的事业方向。`;
-    advantages = getTranslation(`${baseKey}.advantages`, language) || '职业优势明显。';
-    suggestions = getTranslation(`${baseKey}.suggestions`, language) || '制定长期职业规划。';
+
+    try {
+      const mcSign = normalizeSignName(midheaven.sign);
+
+      // 验证映射结果
+      if (!mcSign || mcSign === '') {
+        throw new Error(`星座名称映射失败: ${midheaven.sign}`);
+      }
+
+      title = generateLocalizedTitle('midheaven', midheaven.sign, language);
+
+      const baseKey = `astrology.detailed.midheaven.${mcSign}`;
+
+      const careerTranslation = getTranslation(`${baseKey}.career`, language);
+      const advantagesTranslation = getTranslation(`${baseKey}.advantages`, language);
+      const suggestionsTranslation = getTranslation(`${baseKey}.suggestions`, language);
+
+
+
+
+      direction = careerTranslation || `中天${midheaven.sign}的事业方向。`;
+      advantages = advantagesTranslation || '职业优势明显。';
+      suggestions = suggestionsTranslation || '制定长期职业规划。';
+
+
+    } catch (error) {
+      // 保持默认值不变
+    }
+  } else {
+
+    // 提供更详细的调试信息
+    if (midheaven) {
+      console.log('🔍 中天对象存在但缺少sign属性:', Object.keys(midheaven));
+    } else {
+      console.log('🔍 完整缺少中天数据');
+    }
   }
 
-  return {
+  const result = {
     title,
     direction,
     advantages,
     suggestions
   };
+
+  return result;
 }
+
 
 /**
  * 生成完整的占星详细分析
