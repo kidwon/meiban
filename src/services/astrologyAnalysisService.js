@@ -260,17 +260,17 @@ export function generateJupiterAnalysis(astrologyPositions, language = 'ja') {
   });
   
   return {
-    title: generateLocalizedTitle('jupiter', signName, 'zh'),
-    strengths: getTranslation(`${baseKey}.strengths`, 'zh') || `木星${signName}具有独特的扩展能力和成长潜力。`,
-    opportunities: getTranslation(`${baseKey}.opportunities`, 'zh') || '在学习、旅行和智慧拓展方面有良好机遇。',
-    guidance: getTranslation(`${baseKey}.guidance`, 'zh') || '保持乐观心态，善用天赋，持续成长。'
+    title: generateLocalizedTitle('jupiter', signName, language),
+    strengths: getTranslation(`${baseKey}.strengths`, language) || `木星${signName}具有独特的扩展能力和成长潜力。`,
+    opportunities: getTranslation(`${baseKey}.opportunities`, language) || '在学习、旅行和智慧拓展方面有良好机遇。',
+    guidance: getTranslation(`${baseKey}.guidance`, language) || '保持乐观心态，善用天赋，持续成长。'
   };
 }
 
 /**
  * 生成土星分析（约束与责任）
  */
-export function generateSaturnAnalysis(astrologyPositions) {
+export function generateSaturnAnalysis(astrologyPositions, language = 'ja') {
   const saturn = astrologyPositions?.saturn;
   
   if (!saturn?.sign) {
@@ -288,17 +288,17 @@ export function generateSaturnAnalysis(astrologyPositions) {
   const baseKey = `astrology.detailed.saturn.${saturnSign}`;
   
   return {
-    title: generateLocalizedTitle('saturn', signName, 'zh'),
-    challenges: getTranslation(`${baseKey}.challenges`, 'zh') || `土星${signName}需要面对的人生课题和挑战。`,
-    lessons: getTranslation(`${baseKey}.lessons`, 'zh') || '需要学习耐心、坚持和面对困难的勇气。',
-    growth: getTranslation(`${baseKey}.growth`, 'zh') || '通过努力和坚持获得成长，建立稳固基础。'
+    title: generateLocalizedTitle('saturn', signName, language),
+    challenges: getTranslation(`${baseKey}.challenges`, language) || `土星${signName}需要面对的人生课题和挑战。`,
+    lessons: getTranslation(`${baseKey}.lessons`, language) || '需要学习耐心、坚持和面对困难的勇气。',
+    growth: getTranslation(`${baseKey}.growth`, language) || '通过努力和坚持获得成长，建立稳固基础。'
   };
 }
 
 /**
  * 生成天王星分析（变革与创新）
  */
-export function generateUranusAnalysis(astrologyPositions) {
+export function generateUranusAnalysis(astrologyPositions, language = 'ja') {
   const uranus = astrologyPositions?.uranus;
   
   if (!uranus?.sign) {
@@ -316,17 +316,17 @@ export function generateUranusAnalysis(astrologyPositions) {
   const baseKey = `astrology.detailed.uranus.${uranusSign}`;
   
   return {
-    title: generateLocalizedTitle('uranus', signName, 'zh'),
-    innovations: getTranslation(`${baseKey}.innovations`, 'zh') || `天王星${signName}具有独特的创新思维和变革能力。`,
-    independence: getTranslation(`${baseKey}.independence`, 'zh') || '追求独立自主，不喜欢被传统束缚。',
-    guidance: getTranslation(`${baseKey}.guidance`, 'zh') || '发挥原创性思维，勇于引领变革。'
+    title: generateLocalizedTitle('uranus', signName, language),
+    innovations: getTranslation(`${baseKey}.innovations`, language) || `天王星${signName}具有独特的创新思维和变革能力。`,
+    independence: getTranslation(`${baseKey}.independence`, language) || '追求独立自主，不喜欢被传统束缚。',
+    guidance: getTranslation(`${baseKey}.guidance`, language) || '发挥原创性思维，勇于引领变革。'
   };
 }
 
 /**
  * 生成海王星分析（直觉与灵性）
  */
-export function generateNeptuneAnalysis(astrologyPositions) {
+export function generateNeptuneAnalysis(astrologyPositions, language = 'ja') {
   const neptune = astrologyPositions?.neptune;
   
   if (!neptune?.sign) {
@@ -344,10 +344,10 @@ export function generateNeptuneAnalysis(astrologyPositions) {
   const baseKey = `astrology.detailed.neptune.${neptuneSign}`;
   
   return {
-    title: generateLocalizedTitle('neptune', signName, 'zh'),
-    intuition: getTranslation(`${baseKey}.intuition`, 'zh') || `海王星${signName}具有敏锐的直觉和精神感知能力。`,
-    dreams: getTranslation(`${baseKey}.dreams`, 'zh') || '拥有丰富想象力和艺术创造力。',
-    guidance: getTranslation(`${baseKey}.guidance`, 'zh') || '平衡理想与现实，相信内在智慧。'
+    title: generateLocalizedTitle('neptune', signName, language),
+    intuition: getTranslation(`${baseKey}.intuition`, language) || `海王星${signName}具有敏锐的直觉和精神感知能力。`,
+    dreams: getTranslation(`${baseKey}.dreams`, language) || '拥有丰富想象力和艺术创造力。',
+    guidance: getTranslation(`${baseKey}.guidance`, language) || '平衡理想与现实，相信内在智慧。'
   };
 }
 
