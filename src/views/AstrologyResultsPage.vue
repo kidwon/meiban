@@ -1214,5 +1214,41 @@ export default {
    页面特定样式覆盖（如有需要）
    ============================================================================= */
 
-/* 页面特定的样式调整（如需要的话可以在这里添加） */
+/* 操作按钮容器 - 确保在scoped样式中正确应用 */
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin: 30px 0;
+  padding: 20px;
+  flex-wrap: wrap;
+}
+
+/* 分享容器和按钮 */
+.actions .share-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.actions .btn {
+  margin: 0; /* 确保没有额外margin覆盖gap */
+}
+
+/* 移动端响应式 */
+@media (max-width: 768px) {
+  .actions {
+    flex-direction: column;
+    gap: 12px;
+    margin: 20px 0;
+    padding: 16px;
+  }
+
+  .actions .btn,
+  .actions .share-container {
+    width: 100%;
+    max-width: 280px;
+  }
+}
 </style>
