@@ -515,36 +515,6 @@ export default {
   isolation: isolate;
 }
 
-/* 强制隐藏表单容器内的所有 AdSense 广告 */
-.form-container ins.adsbygoogle,
-.form-container .adsbygoogle,
-.no-adsense ins.adsbygoogle,
-.no-adsense .adsbygoogle {
-  display: none !important;
-  visibility: hidden !important;
-  height: 0 !important;
-  max-height: 0 !important;
-  overflow: hidden !important;
-}
-
-/* 隐藏 header 和 footer 之间的所有自动广告 */
-.header ~ .google-auto-placed,
-.form-container ~ .google-auto-placed {
-  display: none !important;
-  visibility: hidden !important;
-  height: 0 !important;
-  max-height: 0 !important;
-  overflow: hidden !important;
-}
-
-/* 只允许 footer 之后的广告显示 */
-.footer ~ .google-auto-placed {
-  display: block !important;
-  visibility: visible !important;
-  height: auto !important;
-  max-height: none !important;
-}
-
 /* 表单样式 */
 .birth-form {
   display: flex;
@@ -843,6 +813,6 @@ input:focus, select:focus {
   .start-btn-content .start-btn-description {
     font-size: 0.8rem;
   }
-  
+
 }
 </style>
