@@ -15,7 +15,7 @@
       <p class="subtitle">{{ $t('app.subtitle') }}</p>
     </header>
     
-    <div class="form-container">
+    <div class="form-container" data-google-ad-client-skip="true">
       <form class="birth-form">
         <!-- 姓名 - 选填 -->
         <div class="form-group">
@@ -394,6 +394,8 @@ export default {
   padding: 20px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
   margin-bottom: 20px;
+  /* 阻止 AdSense 自动广告插入 */
+  isolation: isolate;
 }
 
 /* 表单样式 */
