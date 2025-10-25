@@ -39,6 +39,15 @@
     <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8250499267865326"
      crossorigin="anonymous"></script>
+    <script>
+      // 配置 AdSense 排除表单区域
+      window.addEventListener('load', function() {
+        // 阻止 AdSense 在表单容器内插入广告
+        if (window.adsbygoogle && window.adsbygoogle.loaded) {
+          (adsbygoogle = window.adsbygoogle || []).pauseAdRequests = 0;
+        }
+      });
+    </script>
   </head>
   <body>
     <noscript>
