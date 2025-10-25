@@ -15,7 +15,7 @@
       <p class="subtitle">{{ $t('app.subtitle') }}</p>
     </header>
     
-    <div class="form-container" data-google-ad-client-skip="true">
+    <div class="form-container no-adsense">
       <form class="birth-form">
         <!-- 姓名 - 选填 -->
         <div class="form-group">
@@ -228,13 +228,72 @@ export default {
       this.$forceUpdate() // 触发isMobile计算属性更新
     }
     window.addEventListener('resize', this.handleResize)
+
+    // 移除表单容器内的 AdSense 广告
+    this.removeAdsFromForm()
+    // 使用 MutationObserver 监控 DOM 变化，持续移除广告
+    this.setupAdBlocker()
   },
   
   beforeUnmount() {
     window.removeEventListener('resize', this.handleResize)
+    // 清理 MutationObserver
+    if (this.adBlockerObserver) {
+      this.adBlockerObserver.disconnect()
+    }
   },
   
   methods: {
+    removeAdsFromForm() {
+      // 移除表单容器内所有 AdSense 相关元素
+      this.$nextTick(() => {
+        const formContainer = this.$el.querySelector('.form-container')
+        if (formContainer) {
+          // 移除 AdSense 广告单元
+          const adsElements = formContainer.querySelectorAll('ins.adsbygoogle, .adsbygoogle, iframe[id*="google_ads"]')
+          adsElements.forEach(ad => {
+            ad.remove()
+          })
+        }
+      })
+    },
+
+    setupAdBlocker() {
+      // 设置 MutationObserver 监控 DOM 变化
+      this.$nextTick(() => {
+        const formContainer = this.$el.querySelector('.form-container')
+        if (formContainer && window.MutationObserver) {
+          this.adBlockerObserver = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+              mutation.addedNodes.forEach((node) => {
+                // 检查是否是广告元素
+                if (node.nodeType === 1) { // Element node
+                  if (node.classList && (
+                    node.classList.contains('adsbygoogle') ||
+                    node.tagName === 'INS' && node.classList.contains('adsbygoogle') ||
+                    (node.tagName === 'IFRAME' && node.id && node.id.includes('google_ads'))
+                  )) {
+                    node.remove()
+                  }
+                  // 检查子元素中是否有广告
+                  const childAds = node.querySelectorAll && node.querySelectorAll('ins.adsbygoogle, .adsbygoogle, iframe[id*="google_ads"]')
+                  if (childAds && childAds.length > 0) {
+                    childAds.forEach(ad => ad.remove())
+                  }
+                }
+              })
+            })
+          })
+
+          // 开始观察
+          this.adBlockerObserver.observe(formContainer, {
+            childList: true,
+            subtree: true
+          })
+        }
+      })
+    },
+
     onLanguageChanged(language) {
       console.log('Language changed to:', language)
       // 可以在这里执行语言切换后的其他逻辑
@@ -396,6 +455,18 @@ export default {
   margin-bottom: 20px;
   /* 阻止 AdSense 自动广告插入 */
   isolation: isolate;
+}
+
+/* 强制隐藏表单容器内的所有 AdSense 广告 */
+.form-container ins.adsbygoogle,
+.form-container .adsbygoogle,
+.no-adsense ins.adsbygoogle,
+.no-adsense .adsbygoogle {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  max-height: 0 !important;
+  overflow: hidden !important;
 }
 
 /* 表单样式 */
