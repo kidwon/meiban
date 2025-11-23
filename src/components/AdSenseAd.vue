@@ -5,7 +5,7 @@
          :data-ad-client="adClient"
          :data-ad-slot="adSlot"
          :data-ad-format="adFormat"
-         :data-full-width-responsive="fullWidthResponsive"></ins>
+         :data-full-width-responsive="isMobile ? 'false' : fullWidthResponsive"></ins>
   </div>
 </template>
 
@@ -56,7 +56,8 @@ export default {
   data() {
     return {
       adClient: process.env.VUE_APP_ADSENSE_CLIENT || 'ca-pub-8250499267865326',
-      showAd: false
+      showAd: false,
+      isMobile: false
     }
   },
   computed: {
@@ -74,6 +75,9 @@ export default {
     }
   },
   mounted() {
+    this.checkMobile()
+    window.addEventListener('resize', this.checkMobile)
+
     // 检查是否应该显示广告
     this.checkAdDisplay()
     
@@ -81,7 +85,14 @@ export default {
       this.loadAd()
     }
   },
+  beforeUnmount() {
+    window.removeEventListener('resize', this.checkMobile)
+  },
   methods: {
+    checkMobile() {
+      this.isMobile = window.innerWidth <= 768
+    },
+
     checkAdDisplay() {
       // 强制隐藏广告
       if (this.forceHide) {
@@ -246,6 +257,7 @@ export default {
 .adsense-container {
   margin: 20px 0;
   text-align: center;
+  overflow: hidden;
 }
 
 .adsense-container.banner {
@@ -271,6 +283,12 @@ export default {
   
   .adsense-container.banner {
     max-width: 320px;
+    max-height: 100px; /* 限制横幅广告高度 */
+  }
+
+  .adsense-container.rectangle {
+    max-width: 300px;
+    max-height: 280px; /* 限制矩形广告高度 */
   }
 }
 </style>
