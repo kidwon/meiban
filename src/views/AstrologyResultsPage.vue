@@ -491,15 +491,6 @@
       <span>{{ $t(`astrology.tooltips.${showTooltip}`) }}</span>
     </div>
 
-    <!-- 广告位 - 只在有完整计算结果且内容充实时显示 -->
-    <AdSenseAd 
-      v-if="hasCompleteAstrologyContent"
-      :ad-slot="$options.AD_SLOTS.RECTANGLE"
-      container-class="rectangle"
-      :require-content="true"
-      :force-hide="false"
-    />
-
     <footer class="footer">
       <p>{{ $t('footer.copyright') }}</p>
     </footer>
@@ -510,7 +501,6 @@
 import { mapGetters } from 'vuex'
 import LanguageSwitcher from '../components/LanguageSwitcher.vue'
 import ShareButton from '../components/ShareButton.vue'
-import AdSenseAd from '../components/AdSenseAd.vue'
 import AiChatInterface from '../components/AiChat/AiChatInterface.vue'
 import BaziDisplay from '../components/BaziDisplay.vue'
 import i18nMixin from '../mixins/i18n.js'
@@ -527,16 +517,9 @@ export default {
   name: 'AstrologyResultsPage',
   mixins: [i18nMixin],
   
-  AD_SLOTS: {
-    BANNER: process.env.VUE_APP_AD_SLOT_BANNER || '1234567890',
-    RECTANGLE: process.env.VUE_APP_AD_SLOT_RECTANGLE || '0987654321',
-    RESPONSIVE: process.env.VUE_APP_AD_SLOT_RESPONSIVE || '5678901234'
-  },
-  
   components: {
     LanguageSwitcher,
     ShareButton,
-    AdSenseAd,
     AiChatInterface,
     BaziDisplay,
     ChartViewSelector
@@ -634,20 +617,6 @@ export default {
     
     isMobile() {
       return window.innerWidth <= 768
-    },
-
-    // 检查是否有完整的占星内容可以显示广告
-    hasCompleteAstrologyContent() {
-      return this.calculationResults && 
-             this.calculationResults.astrology &&
-             this.calculationResults.astrology.planets &&
-             this.calculationResults.astrology.houses &&
-             this.calculationResults.astrology.aspects &&
-             this.userData &&
-             this.userData.birthdate &&
-             this.userData.birthplace &&
-             Object.keys(this.calculationResults.astrology.planets).length > 5 &&
-             Object.keys(this.calculationResults.astrology.houses).length > 5;
     },
 
     // 动态生成的详细分析内容

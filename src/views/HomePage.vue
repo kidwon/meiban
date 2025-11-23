@@ -229,128 +229,18 @@ export default {
     }
     window.addEventListener('resize', this.handleResize)
 
-    // 移除表单容器内的 AdSense 广告
-    this.removeAdsFromForm()
-    // 使用 MutationObserver 监控 DOM 变化，持续移除广告
-    this.setupAdBlocker()
+    // 监听窗口大小变化，用于响应式设计
+    this.handleResize = () => {
+      this.$forceUpdate() // 触发isMobile计算属性更新
+    }
+    window.addEventListener('resize', this.handleResize)
   },
   
   beforeUnmount() {
     window.removeEventListener('resize', this.handleResize)
-    // 清理 MutationObserver
-    if (this.adBlockerObserver) {
-      this.adBlockerObserver.disconnect()
-    }
   },
   
   methods: {
-    removeAdsFromForm() {
-      // 移除表单区域及周围所有 AdSense 相关元素
-      this.$nextTick(() => {
-        // 移除整个容器中 header 到 footer 之间的广告
-        const container = this.$el
-        if (container) {
-          // 获取所有自动放置的广告
-          const autoPlacedAds = container.querySelectorAll('.google-auto-placed')
-          const header = container.querySelector('.header')
-          const footer = container.querySelector('.footer')
-
-          autoPlacedAds.forEach(ad => {
-            // 检查广告是否在 header 和 footer 之间
-            if (header && footer) {
-              const adPosition = ad.compareDocumentPosition(header)
-              const footerPosition = footer.compareDocumentPosition(ad)
-
-              // 如果广告在 header 之后且在 footer 之前,则移除
-              if ((adPosition & Node.DOCUMENT_POSITION_PRECEDING) &&
-                  (footerPosition & Node.DOCUMENT_POSITION_FOLLOWING)) {
-                ad.remove()
-              }
-            }
-          })
-
-          // 额外移除表单容器内的任何广告元素
-          const formContainer = container.querySelector('.form-container')
-          if (formContainer) {
-            const formAds = formContainer.querySelectorAll('ins.adsbygoogle, .adsbygoogle, iframe[id*="google_ads"], .google-auto-placed')
-            formAds.forEach(ad => ad.remove())
-          }
-        }
-      })
-    },
-
-    setupAdBlocker() {
-      // 设置 MutationObserver 监控 DOM 变化
-      this.$nextTick(() => {
-        const container = this.$el
-        if (container && window.MutationObserver) {
-          const header = container.querySelector('.header')
-          const footer = container.querySelector('.footer')
-
-          this.adBlockerObserver = new MutationObserver((mutations) => {
-            mutations.forEach((mutation) => {
-              mutation.addedNodes.forEach((node) => {
-                // 检查是否是广告元素
-                if (node.nodeType === 1) { // Element node
-                  // 检查是否是 google-auto-placed 广告
-                  if (node.classList && node.classList.contains('google-auto-placed')) {
-                    // 检查广告是否在 header 和 footer 之间
-                    if (header && footer) {
-                      const adPosition = node.compareDocumentPosition(header)
-                      const footerPosition = footer.compareDocumentPosition(node)
-
-                      // 如果在 header 之后且 footer 之前,移除
-                      if ((adPosition & Node.DOCUMENT_POSITION_PRECEDING) &&
-                          (footerPosition & Node.DOCUMENT_POSITION_FOLLOWING)) {
-                        node.remove()
-                        return
-                      }
-                    }
-                  }
-
-                  // 检查是否是其他广告元素
-                  if (node.classList && (
-                    node.classList.contains('adsbygoogle') ||
-                    node.tagName === 'INS' && node.classList.contains('adsbygoogle') ||
-                    (node.tagName === 'IFRAME' && node.id && node.id.includes('google_ads'))
-                  )) {
-                    // 检查是否在禁止区域
-                    const parentContainer = node.closest('.form-container')
-                    if (parentContainer) {
-                      node.remove()
-                      return
-                    }
-                  }
-
-                  // 检查子元素中是否有广告
-                  const childAds = node.querySelectorAll && node.querySelectorAll('.google-auto-placed, ins.adsbygoogle, .adsbygoogle, iframe[id*="google_ads"]')
-                  if (childAds && childAds.length > 0) {
-                    childAds.forEach(ad => {
-                      // 检查每个子广告是否在禁止区域
-                      if (header && footer) {
-                        const adPosition = ad.compareDocumentPosition(header)
-                        const footerPosition = footer.compareDocumentPosition(ad)
-
-                        if ((adPosition & Node.DOCUMENT_POSITION_PRECEDING) &&
-                            (footerPosition & Node.DOCUMENT_POSITION_FOLLOWING)) {
-                          ad.remove()
-                        }
-                      }
-                    })
-                  }
-                }
-              })
-            })
-          })
-
-          // 开始观察整个容器
-          this.adBlockerObserver.observe(container, {
-            childList: true,
-            subtree: true
-          })
-        }
-      })
-    },
 
     onLanguageChanged(language) {
       console.log('Language changed to:', language)
