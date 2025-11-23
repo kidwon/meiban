@@ -35,58 +35,6 @@
       }
     }
     </script>
-
-    <!-- Global AdSense blocking styles - Must be before AdSense script -->
-    <style>
-      /* 强制隐藏表单容器内的所有 AdSense 广告 */
-      .form-container ins.adsbygoogle,
-      .form-container .adsbygoogle,
-      .form-container .google-auto-placed,
-      .no-adsense ins.adsbygoogle,
-      .no-adsense .adsbygoogle,
-      .no-adsense .google-auto-placed {
-        display: none !important;
-        visibility: hidden !important;
-        height: 0 !important;
-        max-height: 0 !important;
-        overflow: hidden !important;
-        opacity: 0 !important;
-        position: absolute !important;
-        left: -9999px !important;
-        pointer-events: none !important;
-      }
-
-      /* 隐藏 header 和 footer 之间的所有自动广告 */
-      .header ~ .google-auto-placed,
-      .form-container ~ .google-auto-placed,
-      .meiban-container > .google-auto-placed:not(.footer ~ .google-auto-placed) {
-        display: none !important;
-        visibility: hidden !important;
-        height: 0 !important;
-        max-height: 0 !important;
-        overflow: hidden !important;
-        opacity: 0 !important;
-        position: absolute !important;
-        left: -9999px !important;
-        pointer-events: none !important;
-      }
-
-      /* 只允许 footer 之后的广告显示 */
-      .footer ~ .google-auto-placed {
-        display: block !important;
-        visibility: visible !important;
-        height: auto !important;
-        max-height: none !important;
-        opacity: 1 !important;
-        position: relative !important;
-        left: auto !important;
-        pointer-events: auto !important;
-      }
-    </style>
-
-    <!-- Google AdSense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8250499267865326"
-     crossorigin="anonymous"></script>
   </head>
   <body>
     <noscript>
